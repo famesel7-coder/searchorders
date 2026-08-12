@@ -1,0 +1,139 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from typing import Any
+
+from .models import CaseMatch, Classification, Lead, LeadScore
+
+
+def _clamp(value: int, maximum: int) -> int:
+    return max(0, min(value, maximum))
+
+
+def _freshness_points(lead: Lead, maximum: int, now: datetime) -> int:
+    if lead.published_at is None:
+        return maximum // 2
+    published = lead.published_at
+    if published.tzinfo is None:
+        published = published.replace(tzinfo=timezone.utc)
+    hours = max(0.0, (now - published.astimezone(timezone.utc)).total_seconds() / 3600)
+    if hours <= 24:
+        return maximum
+    if hours <= 48:
+        return round(maximum * 0.8)
+    if hours <= 72:
+        return round(maximum * 0.6)
+    if hours <= 168:
+        return round(maximum * 0.3)
+    return 0
+
+
+def score_lead(
+    lead: Lead,
+    classification: Classification,
+    matched_case: CaseMatch | None,
+    profile: dict[str, Any],
+    *,
+    now: datetime | None = None,
+) -> LeadScore:
+    weights = profile.get("scoring", {})
+    thresholds = weights.get("thresholds", {})
+    hot_threshold = int(thresholds.get("hot", 75))
+    review_threshold = int(thresholds.get("review", 55))
+
+    if classification.hard_reject:
+        return LeadScore(
+            total=0,
+            bucket="rejected",
+            breakdown={key: 0 for key in (
+                "service_fit",
+                "commercial_fit",
+                "project_probability",
+                "case_match",
+                "client_quality",
+                "freshness_urgency",
+                "contactability",
+            )},
+            reasons=["Hard reject: штатный формат или постоянная занятость"],
+        )
+
+    priority = set(profile.get("services", {}).get("priority", []))
+    secondary = set(profile.get("services", {}).get("secondary", []))
+    priority_hits = priority & set(classification.service_tags)
+    secondary_hits = secondary & set(classification.service_tags)
+
+    service_max = int(weights.get("service_fit", 30))
+    if priority_hits:
+        service_fit = service_max if len(priority_hits) >= 2 else round(service_max * 0.85)
+    elif secondary_hits:
+        service_fit = round(service_max * 0.5)
+    else:
+        service_fit = 0
+
+    commercial_max = int(weights.get("commercial_fit", 20))
+    commercial = 3 if lead.company_name else 0
+    if lead.salary_from or lead.salary_to:
+        commercial += 5 if (lead.accept_temporary or classification.project_signals) else 1
+    if {"luxury", "real-estate", "automotive", "fintech", "aviation"} & set(
+        classification.industry_tags
+    ):
+        commercial += 5
+    if len(lead.description) >= 500:
+        commercial += 3
+    commercial_fit = _clamp(commercial, commercial_max)
+
+    project_max = int(weights.get("project_probability", 15))
+    project_probability = min(len(classification.project_signals) * 4, project_max)
+    if lead.accept_temporary:
+        project_probability = min(project_max, project_probability + 5)
+    if classification.decision == "eligible":
+        project_probability = max(project_probability, round(project_max * 0.8))
+
+    case_max = int(weights.get("case_match", 10))
+    case_points = 0 if matched_case is None else min(case_max, round(3 + matched_case.score))
+
+    client_max = int(weights.get("client_quality", 10))
+    client_quality = 4 if lead.company_name else 0
+    if len(lead.description) >= 300:
+        client_quality += 2
+    if classification.industry_tags:
+        client_quality += 2
+    client_quality = _clamp(client_quality, client_max)
+
+    freshness_max = int(weights.get("freshness_urgency", 10))
+    freshness = _freshness_points(lead, freshness_max, now or datetime.now(timezone.utc))
+
+    contact_max = int(weights.get("contactability", 5))
+    contactability = 0
+    if lead.url:
+        contactability += 3
+    if lead.has_direct_contact:
+        contactability += 2
+    contactability = _clamp(contactability, contact_max)
+
+    breakdown = {
+        "service_fit": service_fit,
+        "commercial_fit": commercial_fit,
+        "project_probability": project_probability,
+        "case_match": case_points,
+        "client_quality": client_quality,
+        "freshness_urgency": freshness,
+        "contactability": contactability,
+    }
+    total = sum(breakdown.values())
+
+    if total >= hot_threshold and classification.decision == "eligible":
+        bucket = "hot"
+    elif total >= review_threshold:
+        bucket = "review"
+    else:
+        bucket = "archive"
+
+    reasons = list(classification.reasons)
+    if priority_hits:
+        reasons.append(f"Сильное совпадение услуг: {', '.join(sorted(priority_hits))}")
+    if matched_case:
+        reasons.append(f"Подобран кейс: {matched_case.name}")
+
+    return LeadScore(total=total, bucket=bucket, breakdown=breakdown, reasons=reasons)
+
