@@ -15,4 +15,5 @@ services:
     volumes:
       - ./data:/app/data:ro
       - ./output:/app/output
-    restart: "no"
+      - ./state:/app/state
+    restart: unless-stopped

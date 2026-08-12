@@ -1,0 +1,15 @@
+version: 1
+updated_at: 2026-08-12
+sources:
+  - id: workspace-tenders
+    type: workspace
+    enabled: true
+    region: Russia
+    priority: primary
+    listing_urls:
+      - https://workspace.ru/tenders/
+      - https://workspace.ru/tenders/web-development/
+      - https://workspace.ru/tenders/identity/
+    max_details: 30
+    request_delay_seconds: 0.5
+

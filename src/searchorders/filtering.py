@@ -168,9 +168,9 @@ def classify_lead(lead: Lead, profile: dict[str, Any]) -> Classification:
     full_employment = employment_value in {"full", "полная занятость"}
     full_schedule = schedule_value in {"fullDay".casefold(), "полный день"}
     if full_employment:
-        employment_signals.append("hh:full-employment")
+        employment_signals.append("metadata:full-employment")
     if full_schedule:
-        employment_signals.append("hh:full-day")
+        employment_signals.append("metadata:full-day")
 
     service_tags = _tag_text(text, SERVICE_KEYWORDS)
     industry_tags = _tag_text(text, INDUSTRY_KEYWORDS)
@@ -209,4 +209,3 @@ def classify_lead(lead: Lead, profile: dict[str, Any]) -> Classification:
         industry_tags=industry_tags,
         risk_tags=risk_tags,
     )
-

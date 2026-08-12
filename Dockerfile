@@ -12,7 +12,7 @@ COPY src ./src
 RUN pip install .
 
 COPY data ./data
-RUN mkdir -p /app/output
+RUN mkdir -p /app/output /app/state
 
 ENTRYPOINT ["search-orders"]
-CMD ["--help"]
+CMD ["bot"]

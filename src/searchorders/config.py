@@ -39,3 +39,17 @@ def load_cases(path: str | Path) -> list[dict[str, Any]]:
         raise ConfigurationError("Case catalog must contain a 'cases' list")
     return [case for case in cases if isinstance(case, dict)]
 
+
+def load_sources(path: str | Path) -> list[dict[str, Any]]:
+    data = load_yaml(path)
+    sources = data.get("sources")
+    if not isinstance(sources, list):
+        raise ConfigurationError("Source catalog must contain a 'sources' list")
+    enabled: list[dict[str, Any]] = []
+    for source in sources:
+        if not isinstance(source, dict) or not source.get("enabled", False):
+            continue
+        if not source.get("id") or not source.get("type"):
+            raise ConfigurationError("Every enabled source needs 'id' and 'type'")
+        enabled.append(source)
+    return enabled

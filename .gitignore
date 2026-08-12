@@ -6,4 +6,5 @@ __pycache__/
 .env
 output/*
 !output/.gitkeep
-
+state/*
+!state/.gitkeep
