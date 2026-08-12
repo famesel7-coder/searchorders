@@ -1,0 +1,106 @@
+version: 1
+verified_at: 2026-08-12
+source: https://imon.agency/ru/portfolio
+cases:
+  - id: vk-streammur
+    name: "VK — СтримМур"
+    url: "https://imon.agency/ru/portfolio/vk-streammur/"
+    industries: [charity, media, events]
+    services: [brand-platform, ux-ui, web-design, development, digital-platform]
+    best_for: [interactive-special-project, campaign-platform, charity, media]
+    public_metrics:
+      views: "5.5M+"
+      donations_rub: "700000+"
+    evidence_level: high
+
+  - id: askona-life-group
+    name: "Askona Life Group"
+    url: "https://imon.agency/ru/portfolio/askona-life-group/"
+    industries: [corporate, holding, lifestyle]
+    services: [brand-platform, ux-ui, web-design, development, corporate-platform]
+    best_for: [corporate-website, holding-portal, brand-ecosystem]
+    evidence_level: medium
+
+  - id: orla-dorchester
+    name: "ORLA, Dorchester Collection Dubai"
+    url: "https://imon.agency/ru/portfolio/orla"
+    industries: [premium-real-estate, hospitality, luxury]
+    services: [brand-platform, brand-analytics, ux-ui, web-design, development]
+    best_for: [premium-website, real-estate, interactive-catalog, luxury]
+    evidence_level: high
+
+  - id: serenity-aviation
+    name: "Serenity Aviation"
+    url: "https://imon.agency/ru/portfolio/serenity"
+    industries: [private-aviation, b2b, luxury]
+    services: [brand-platform, brand-analytics, identity, graphic-design, presentation-design]
+    best_for: [brand-identity, premium-b2b, aviation, presentation]
+    evidence_level: high
+
+  - id: pik-kinoteatrium
+    name: "ПИК — Кинотеатриум"
+    url: "https://imon.agency/ru/portfolio/pik-kinoteatrium/"
+    industries: [real-estate, events, entertainment]
+    services: [brand-platform, ux-ui, web-design, development, event-platform]
+    best_for: [event-website, branded-campaign, interactive-platform]
+    public_metrics:
+      screenings: 26
+      locations: 7
+      visitors: "6000+"
+    evidence_level: high
+
+  - id: rocket-group
+    name: "Rocket Group Platform"
+    url: "https://imon.agency/ru/portfolio/rocket/"
+    industries: [clean-energy, proptech, sustainability]
+    services: [brand-platform, brand-analytics, ux-ui, web-design, development, 3d, animation]
+    best_for: [technology-brand, sustainability, interactive-product-site, proptech]
+    evidence_level: high
+
+  - id: tochka-checkup
+    name: "Check-Up Точка Банк"
+    url: null
+    industries: [banking, fintech]
+    services: [interactive-quiz, ux-ui, digital-product]
+    best_for: [fintech, quiz, lead-generation-tool]
+    evidence_level: portfolio-listing
+
+  - id: gm8-gac
+    name: "GM8 Luxury Van Promotion"
+    url: "https://imon.agency/ru/portfolio/gm8"
+    industries: [automotive, luxury]
+    services: [digital-campaign, promotion, design]
+    best_for: [automotive, product-launch, campaign]
+    evidence_level: portfolio-listing
+
+  - id: haval-dealer-conference
+    name: "Haval Dealer Conference"
+    url: "https://imon.agency/ru/portfolio/haval-dealer-conference/"
+    industries: [automotive, events, b2b]
+    services: [event-branding, presentation-design, graphic-design]
+    best_for: [conference, event-branding, corporate-presentation]
+    evidence_level: portfolio-listing
+
+  - id: br-group
+    name: "BR Group Agency"
+    url: null
+    industries: [crypto, agency]
+    services: [identity, brand-design]
+    best_for: [crypto-branding, identity]
+    evidence_level: portfolio-listing
+
+  - id: prp-agency
+    name: "PRP Advertising Agency"
+    url: null
+    industries: [advertising, agency]
+    services: [identity, brand-design]
+    best_for: [agency-rebrand, white-label-proof, identity]
+    evidence_level: portfolio-listing
+
+  - id: vrt-world
+    name: "VRT World Community"
+    url: null
+    industries: [vr, technology, community]
+    services: [brand-platform, digital-platform]
+    best_for: [technology-brand, vr, community-platform]
+    evidence_level: portfolio-listing
