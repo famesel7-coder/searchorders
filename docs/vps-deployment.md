@@ -39,6 +39,21 @@ sudo git checkout agent/initial-system-profile
 
 После слияния draft PR развёртывать нужно будет ветку `main`.
 
+## Развёртывание одной кнопкой через GitHub Actions
+
+В репозитории есть ручной workflow `Deploy to VPS`. Он не запускается по расписанию или при обычном push.
+
+В `Settings → Secrets and variables → Actions` нужно один раз добавить:
+
+- `VPS_HOST` — IP-адрес сервера;
+- `VPS_SSH_PRIVATE_KEY` — приватная часть отдельного deploy-ключа;
+- `VPS_PORT` — необязательно, по умолчанию `2222`;
+- `VPS_USER` — необязательно, по умолчанию `root`.
+
+Публичная часть того же ключа должна быть отдельной строкой в `/root/.ssh/authorized_keys` на VPS. Приватный ключ нельзя добавлять в Git, `.env`, issue, pull request или workflow-файл.
+
+Запуск: `Actions → Deploy to VPS → Run workflow`. Workflow подключается к VPS, при необходимости устанавливает Docker из официального репозитория Docker, обновляет `/opt/searchorders`, собирает образ и выполняет диагностический поиск. Бот запускается только если на сервере уже заполнен `TELEGRAM_BOT_TOKEN` в `/opt/searchorders/.env`.
+
 ## Создание Telegram-бота
 
 1. Создать бота через официальный `@BotFather`.
@@ -105,4 +120,3 @@ sudo git pull --ff-only
 sudo docker compose build
 sudo docker compose up -d --force-recreate
 ```
-

@@ -1,0 +1,140 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: searchorders-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy and smoke-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_PORT: ${{ secrets.VPS_PORT }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+      VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Validate deployment secrets
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          : "${VPS_HOST:?Add VPS_HOST to repository Actions secrets}"
+          : "${VPS_SSH_PRIVATE_KEY:?Add VPS_SSH_PRIVATE_KEY to repository Actions secrets}"
+
+      - name: Prepare SSH connection
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > "$HOME/.ssh/searchorders_deploy"
+          chmod 600 "$HOME/.ssh/searchorders_deploy"
+
+          deploy_port="${VPS_PORT:-2222}"
+          ssh-keyscan -p "$deploy_port" -H "$VPS_HOST" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Install, deploy, and verify
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          deploy_port="${VPS_PORT:-2222}"
+          deploy_user="${VPS_USER:-root}"
+
+          ssh \
+            -i "$HOME/.ssh/searchorders_deploy" \
+            -p "$deploy_port" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            "$deploy_user@$VPS_HOST" \
+            'bash -s' <<'REMOTE'
+          set -Eeuo pipefail
+
+          export DEBIAN_FRONTEND=noninteractive
+          deploy_dir=/opt/searchorders
+          deploy_branch=agent/initial-system-profile
+          repository=https://github.com/famesel7-coder/searchorders.git
+
+          if ! command -v git >/dev/null 2>&1; then
+            apt-get update
+            apt-get install -y git ca-certificates curl
+          fi
+
+          if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
+            apt-get update
+            apt-get install -y ca-certificates curl
+            install -m 0755 -d /etc/apt/keyrings
+
+            . /etc/os-release
+            case "$ID" in
+              ubuntu|debian) ;;
+              *) echo "Unsupported distribution: $ID" >&2; exit 1 ;;
+            esac
+
+            curl -fsSL "https://download.docker.com/linux/$ID/gpg" \
+              -o /etc/apt/keyrings/docker.asc
+            chmod a+r /etc/apt/keyrings/docker.asc
+
+            architecture="$(dpkg --print-architecture)"
+            signed_by=/etc/apt/keyrings/docker.asc
+            echo "deb [arch=$architecture signed-by=$signed_by] https://download.docker.com/linux/$ID $VERSION_CODENAME stable" \
+              > /etc/apt/sources.list.d/docker.list
+
+            apt-get update
+            apt-get install -y \
+              docker-ce \
+              docker-ce-cli \
+              containerd.io \
+              docker-buildx-plugin \
+              docker-compose-plugin
+          fi
+
+          if [ -d "$deploy_dir/.git" ]; then
+            cd "$deploy_dir"
+            git fetch origin "$deploy_branch"
+            if git show-ref --verify --quiet "refs/heads/$deploy_branch"; then
+              git checkout "$deploy_branch"
+            else
+              git checkout -b "$deploy_branch" "origin/$deploy_branch"
+            fi
+            git merge --ff-only "origin/$deploy_branch"
+          elif [ -e "$deploy_dir" ]; then
+            echo "$deploy_dir exists but is not a Git repository" >&2
+            exit 1
+          else
+            git clone --branch "$deploy_branch" --single-branch "$repository" "$deploy_dir"
+            cd "$deploy_dir"
+          fi
+
+          install -d -m 755 output state
+          if [ ! -f .env ]; then
+            install -m 600 .env.example .env
+          else
+            chmod 600 .env
+          fi
+
+          docker compose build
+          docker compose run --rm --no-deps search-orders scan \
+            --max-results 3 \
+            --state /tmp/searchorders-deploy-smoke.db \
+            --output /app/output/deploy-smoke.json
+
+          if grep -Eq '^TELEGRAM_BOT_TOKEN=.+$' .env; then
+            docker compose up -d --remove-orphans
+            docker compose ps
+          else
+            echo 'Code and image deployed; Telegram bot was not started because TELEGRAM_BOT_TOKEN is empty.'
+          fi
+          REMOTE
+
+      - name: Remove local key material
+        if: always()
+        shell: bash
+        run: rm -f "$HOME/.ssh/searchorders_deploy"
