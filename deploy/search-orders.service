@@ -1,0 +1,13 @@
+[Unit]
+Description=I'MON daily project lead search
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=SEARCH_ORDERS_DIR=/opt/searchorders
+WorkingDirectory=/opt/searchorders
+ExecStart=/opt/searchorders/deploy/run-daily.sh
+TimeoutStartSec=20min
+

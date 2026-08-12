@@ -55,6 +55,8 @@ search-orders hh --hours 72 --max-results 100 --area 1 --area 2
 
 Результат сохраняется в `output/leads.json`. Подробности: [docs/mvp-usage.md](docs/mvp-usage.md).
 
+Для ежедневного запуска на небольшом Ubuntu VPS подготовлены Docker Compose и systemd timer: [docs/vps-deployment.md](docs/vps-deployment.md).
+
 ## Безопасность отправки
 
 На текущем этапе система только готовит черновики. Автоматическая отправка откликов отключена и будет добавлена после калибровки на 30–50 вручную проверенных лидах.

@@ -1,0 +1,14 @@
+services:
+  search-orders:
+    build:
+      context: .
+    image: imon-search-orders:local
+    init: true
+    environment:
+      TZ: Europe/Moscow
+      HH_USER_AGENT: "${HH_USER_AGENT:-SearchOrders/0.1 (https://imon.agency/)}"
+    volumes:
+      - ./data:/app/data:ro
+      - ./output:/app/output
+    restart: "no"
+
