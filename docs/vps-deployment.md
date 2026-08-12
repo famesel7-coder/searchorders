@@ -52,7 +52,9 @@ sudo git checkout agent/initial-system-profile
 
 Публичная часть того же ключа должна быть отдельной строкой в `/root/.ssh/authorized_keys` на VPS. Приватный ключ нельзя добавлять в Git, `.env`, issue, pull request или workflow-файл.
 
-Запуск: `Actions → Deploy to VPS → Run workflow`. Workflow подключается к VPS, при необходимости устанавливает Docker из официального репозитория Docker, обновляет `/opt/searchorders`, собирает образ и выполняет диагностический поиск. Бот запускается только если на сервере уже заполнен `TELEGRAM_BOT_TOKEN` в `/opt/searchorders/.env`.
+После слияния PR запуск выполняется через `Actions → Deploy to VPS → Run workflow`. Во время первичного развёртывания из draft PR workflow запускается только при изменении служебного файла `.github/deploy-trigger`; изменения остальных файлов не приводят к автоматическому деплою.
+
+Workflow подключается к VPS, при необходимости устанавливает Docker из официального репозитория Docker, обновляет `/opt/searchorders`, собирает образ и выполняет диагностический поиск. Бот запускается только если на сервере уже заполнен `TELEGRAM_BOT_TOKEN` в `/opt/searchorders/.env`.
 
 ## Создание Telegram-бота
 

@@ -1,0 +1,3 @@
+# Updating this file triggers the draft-PR deployment workflow.
+# Once the workflow lives on main, use the Actions "Run workflow" button instead.
+bootstrap-vps: 2026-08-12
