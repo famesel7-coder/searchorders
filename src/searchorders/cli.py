@@ -8,20 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .collectors.hh import HHCollector, HHCollectorError
 from .config import ConfigurationError, load_cases, load_search_profile
-from .filtering import classify_lead
 from .models import Lead
 from .pipeline import evaluate_leads
-
-
-DEFAULT_QUERIES = [
-    "проектная работа дизайн сайта",
-    "разовая задача брендинг",
-    "проект UX UI",
-    "лендинг Tilda Webflow Framer",
-    "дизайн презентации проект",
-]
 
 
 def _parse_datetime(value: Any) -> datetime | None:
@@ -96,48 +85,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    hh = subparsers.add_parser("hh", help="Collect recent HH.ru vacancies and evaluate them")
-    _common_paths(hh)
-    hh.add_argument("--hours", type=int, default=72)
-    hh.add_argument("--max-results", type=int, default=100)
-    hh.add_argument("--area", action="append", default=None, help="HH.ru area ID; repeatable")
-    hh.add_argument("--query", action="append", default=None, help="Search query; repeatable")
-    hh.add_argument("--skip-details", action="store_true")
-
     evaluate = subparsers.add_parser("evaluate", help="Evaluate leads from a local JSON file")
     _common_paths(evaluate)
     evaluate.add_argument("input", type=Path)
     return parser
-
-
-def run_hh(args: argparse.Namespace, profile: dict[str, Any], cases: list[dict[str, Any]]) -> int:
-    collector = HHCollector()
-    summaries = collector.collect(
-        args.query or DEFAULT_QUERIES,
-        hours=max(1, args.hours),
-        areas=args.area or ["1", "2"],
-        max_results=max(1, args.max_results),
-    )
-
-    leads: list[Lead] = []
-    for summary in summaries:
-        preliminary = classify_lead(summary, profile)
-        should_enrich = (
-            not args.skip_details
-            and not preliminary.hard_reject
-            and bool(preliminary.service_tags)
-        )
-        if should_enrich:
-            try:
-                summary = collector.enrich(summary)
-            except HHCollectorError as exc:
-                print(f"Warning: could not enrich HH vacancy {summary.external_id}: {exc}", file=sys.stderr)
-        leads.append(summary)
-
-    evaluations = evaluate_leads(leads, profile, cases)
-    _write_results(args.output, evaluations)
-    print(f"Saved {len(evaluations)} evaluated leads to {args.output}")
-    return 0
 
 
 def run_evaluate(
@@ -158,11 +109,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         profile = load_search_profile(args.profile)
         cases = load_cases(args.cases)
-        if args.command == "hh":
-            return run_hh(args, profile, cases)
         if args.command == "evaluate":
             return run_evaluate(args, profile, cases)
-    except (ConfigurationError, HHCollectorError, OSError, ValueError) as exc:
+    except (ConfigurationError, OSError, ValueError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
     parser.error(f"Unknown command: {args.command}")
@@ -171,4 +120,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

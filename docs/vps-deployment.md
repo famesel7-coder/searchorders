@@ -8,28 +8,22 @@
 - 1 vCPU;
 - 2 ГБ RAM;
 - 20 ГБ SSD/NVMe;
-- дата-центр в России для первого контура HH.ru;
 - публичный IPv4 и SSH-доступ.
 
-Этого достаточно для текущего Python-процесса. Система запускается один раз в день и не требует постоянно работающего web-сервера.
+Регион VPS больше не привязан к HH.ru. Его нужно выбрать после smoke-тестов первых проектных источников; московское время задаётся внутри приложения независимо от региона сервера.
 
-## Что будет происходить
+## Модель запуска
 
-Systemd запускает одноразовый Docker-контейнер ежедневно в 09:00 по московскому времени. Добавлена случайная задержка до пяти минут, чтобы запросы не начинались всегда в одну секунду.
+Ежедневное расписание отключено. VPS будет держать кнопочный интерфейс и коннекторы в готовности, а полный поиск начнётся после команды пользователя.
 
-Результаты сохраняются в `/opt/searchorders/output`:
-
-- `leads-YYYY-MM-DDTHH-MM.json` — результат отдельного запуска;
-- `latest.json` — ссылка на последний успешный результат.
-
-Пропущенный из-за перезагрузки запуск выполняется после включения сервера.
+Пока кнопочный интерфейс не подключён, Docker-образ используется для проверки ядра и будущих коннекторов. Автоматическая отправка предложений выключена.
 
 ## Подготовка сервера
 
 1. Создать VPS с Ubuntu 24.04 LTS.
-2. Подключиться к нему по SSH.
+2. Подключиться по SSH.
 3. Установить Docker Engine и Docker Compose plugin по официальной инструкции Docker для Ubuntu.
-4. Клонировать репозиторий в фиксированный каталог:
+4. Клонировать репозиторий:
 
 ```bash
 sudo git clone https://github.com/famesel7-coder/searchorders.git /opt/searchorders
@@ -37,7 +31,7 @@ cd /opt/searchorders
 sudo git checkout agent/initial-system-profile
 ```
 
-После слияния draft PR отдельная команда `checkout` не понадобится: развёртывать нужно будет ветку `main`.
+После слияния draft PR развёртывать нужно будет ветку `main`.
 
 ## Конфигурация и сборка
 
@@ -47,57 +41,27 @@ sudo cp .env.example .env
 sudo docker compose build
 ```
 
-В `.env` рекомендуется заменить `HH_USER_AGENT` на строку с рабочим адресом для связи. Секреты не нужно коммитить: `.env` исключён из Git.
+Секреты будущего Telegram-интерфейса и ИИ хранятся только в `/opt/searchorders/.env`; файл исключён из Git.
 
-## Ручная проверка
-
-```bash
-cd /opt/searchorders
-sudo ./deploy/run-daily.sh
-ls -la output
-```
-
-Первый запуск является проверкой доступности HH.ru с IP выбранного VPS. Если источник вернёт HTTP 403, нужно сменить регион/IP сервера или использовать другой разрешённый источник; обход защиты сайта в систему не закладывается.
-
-## Включение расписания
+## Проверка ядра в контейнере
 
 ```bash
 cd /opt/searchorders
-sudo ./deploy/install-systemd.sh
+sudo docker compose run --rm \
+  -v "$(pwd)/tests:/app/tests:ro" \
+  search-orders evaluate tests/fixtures/sample_leads.json \
+  --output /app/output/sample-results.json
 ```
 
-Проверка:
+Результат появится в `/opt/searchorders/output/sample-results.json`.
 
-```bash
-systemctl status search-orders.timer
-systemctl list-timers search-orders.timer
-journalctl -u search-orders.service -n 100 --no-pager
-```
-
-Ручной запуск через systemd:
-
-```bash
-sudo systemctl start search-orders.service
-```
-
-## Изменение времени
-
-Изменить `OnCalendar` в `deploy/search-orders.timer`, затем повторно установить units:
-
-```bash
-sudo ./deploy/install-systemd.sh
-```
-
-Часовой пояс указывается непосредственно в расписании, поэтому сервер может оставаться в UTC.
-
-## Обновление приложения
+## Обновление
 
 ```bash
 cd /opt/searchorders
 sudo git pull --ff-only
 sudo docker compose build
-sudo systemctl start search-orders.service
 ```
 
-Перед обновлением нужно убедиться, что рабочая ветка соответствует актуальному PR или `main`.
+Постоянный `docker compose up -d` будет включён после добавления кнопочного Telegram-интерфейса.
 

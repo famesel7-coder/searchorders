@@ -88,7 +88,9 @@ lead_segments:
   published_demand:
     enabled: true
     priority: primary
-    initial_sources: [hh-ru, telegram, third-source-tbd]
+    initial_sources: [telegram, project-marketplaces-ru, project-marketplaces-global]
+    excluded_sources: [hh-ru]
+    trigger_mode: on-demand
     preferred_regions: [Russia, USA, Europe]
     region_policy: soft-priority
   agency_outbound:

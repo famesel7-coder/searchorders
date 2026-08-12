@@ -15,5 +15,4 @@ COPY data ./data
 RUN mkdir -p /app/output
 
 ENTRYPOINT ["search-orders"]
-CMD ["hh", "--hours", "30", "--max-results", "150", "--area", "113", "--output", "/app/output/latest.json"]
-
+CMD ["--help"]
