@@ -89,6 +89,8 @@ lead_segments:
     enabled: true
     priority: primary
     initial_sources: [hh-ru, telegram, third-source-tbd]
+    preferred_regions: [Russia, USA, Europe]
+    region_policy: soft-priority
   agency_outbound:
     enabled: true
     priority: experiment
@@ -119,14 +121,7 @@ proposal:
     - website_link
     - simple_cta
 
-open_questions:
-  - sender_name_and_role
-  - minimum_project_budget
-  - desired_budget_range
-  - preferred_geographies
-  - source_priority
-  - telegram_channel_list
-  - daily_report_channel_and_time
-  - current_team_capacity
-  - excluded_industries
-  - whether_to_include_preliminary_price
+operations:
+  timezone: Europe/Moscow
+  configuration_policy: start-with-known-data
+  optional_business_settings_do_not_block_search: true
