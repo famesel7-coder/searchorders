@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 from .models import Lead, utc_now
@@ -29,25 +30,27 @@ class SeenLeadStore:
         return connection
 
     def _initialize(self) -> None:
-        with self._connect() as connection:
-            connection.execute(
-                """
-                CREATE TABLE IF NOT EXISTS seen_leads (
-                    dedup_key TEXT PRIMARY KEY,
-                    source TEXT NOT NULL,
-                    external_id TEXT,
-                    source_url TEXT,
-                    first_seen_at TEXT NOT NULL
+        with closing(self._connect()) as connection:
+            with connection:
+                connection.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS seen_leads (
+                        dedup_key TEXT PRIMARY KEY,
+                        source TEXT NOT NULL,
+                        external_id TEXT,
+                        source_url TEXT,
+                        first_seen_at TEXT NOT NULL
+                    )
+                    """
                 )
-                """
-            )
 
     def contains(self, lead: Lead) -> bool:
-        with self._connect() as connection:
-            row = connection.execute(
-                "SELECT 1 FROM seen_leads WHERE dedup_key = ?",
-                (lead_key(lead),),
-            ).fetchone()
+        with closing(self._connect()) as connection:
+            with connection:
+                row = connection.execute(
+                    "SELECT 1 FROM seen_leads WHERE dedup_key = ?",
+                    (lead_key(lead),),
+                ).fetchone()
         return row is not None
 
     def only_new(self, leads: list[Lead]) -> list[Lead]:
@@ -61,13 +64,13 @@ class SeenLeadStore:
         ]
         if not values:
             return
-        with self._connect() as connection:
-            connection.executemany(
-                """
-                INSERT OR IGNORE INTO seen_leads
-                    (dedup_key, source, external_id, source_url, first_seen_at)
-                VALUES (?, ?, ?, ?, ?)
-                """,
-                values,
-            )
-
+        with closing(self._connect()) as connection:
+            with connection:
+                connection.executemany(
+                    """
+                    INSERT OR IGNORE INTO seen_leads
+                        (dedup_key, source, external_id, source_url, first_seen_at)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    values,
+                )

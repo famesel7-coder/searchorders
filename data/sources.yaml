@@ -1,15 +1,136 @@
 version: 1
-updated_at: 2026-08-12
+updated_at: 2026-08-13
 sources:
   - id: workspace-tenders
     type: workspace
-    enabled: true
+    enabled: false
     region: Russia
-    priority: primary
+    priority: fallback
     listing_urls:
       - https://workspace.ru/tenders/
       - https://workspace.ru/tenders/web-development/
       - https://workspace.ru/tenders/identity/
     max_details: 30
     request_delay_seconds: 0.5
-
+  - id: freelance-public-tasks
+    type: freelance_task
+    enabled: true
+    region: Russia
+    priority: primary
+    listing_urls:
+      - https://freelance.ru/task
+    allowed_categories:
+      - Веб-разработка и IT
+      - Дизайн и Брендинг
+    max_details: 30
+    request_delay_seconds: 0.5
+  - id: public-web-feeds
+    type: rss_feed
+    enabled: false
+    region: Global
+    priority: expansion
+    listing_urls:
+      - https://example.com/feed.xml
+    include_patterns:
+      - ux/ui
+      - редизайн сайта
+      - corporate website
+      - branding
+      - webflow
+      - framer
+    exclude_patterns:
+      - full-time
+      - штат
+      - seo specialist
+    area: Internet
+    employment: Публичная RSS/Atom лента
+    max_details: 30
+  - id: telegram-public-orders
+    type: telegram_public
+    enabled: true
+    region: Russia
+    priority: expansion
+    listing_urls:
+      - "@designer_work"
+    include_patterns:
+      - детали проекта
+      - project details
+      - графический дизайнер
+      - motion designer
+      - motion graphics
+      - 2d animator
+      - моушн-дизайнер
+      - 3d-специалист
+      - web designer
+      - ux/ui
+      - брендинг
+      - редизайн
+    exclude_patterns:
+      - full-time
+      - в штат
+      - 5/2
+      - офис
+      - курс
+      - подписаться
+      - реклама
+      - читать на
+      - статья
+    max_details: 30
+    request_delay_seconds: 0.5
+  - id: telegram-auth-orders
+    type: telegram_client
+    enabled: false
+    region: Russia
+    priority: primary
+    listing_urls:
+      - "@designer_work"
+    include_patterns:
+      - детали проекта
+      - project details
+      - графический дизайнер
+      - motion designer
+      - motion graphics
+      - 2d animator
+      - моушн-дизайнер
+      - 3d-специалист
+      - web designer
+      - ux/ui
+      - брендинг
+      - редизайн
+    exclude_patterns:
+      - full-time
+      - в штат
+      - 5/2
+      - офис
+      - курс
+      - подписаться
+      - реклама
+      - читать на
+      - статья
+    history_limit: 50
+    max_details: 30
+    api_id_env: TELEGRAM_API_ID
+    api_hash_env: TELEGRAM_API_HASH
+    session_env: TELEGRAM_SESSION
+  - id: vk-public-orders
+    type: vk_wall
+    enabled: false
+    region: Russia
+    priority: expansion
+    listing_urls:
+      - https://vk.com/public_name
+    include_patterns:
+      - ux/ui
+      - разработка сайта
+      - брендинг
+      - дизайн сайта
+      - tilda
+      - webflow
+    exclude_patterns:
+      - full-time
+      - в штат
+      - полный рабочий день
+      - офис
+    access_token_env: VK_ACCESS_TOKEN
+    api_version: "5.199"
+    max_details: 30
