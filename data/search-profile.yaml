@@ -1,77 +1,21 @@
-version: 1
-updated_at: 2026-08-12
+version: 2
+updated_at: 2026-08-17
 agency:
   name: "I’MON Digital Agency"
   website: "https://imon.agency/"
   portfolio: "https://imon.agency/ru/portfolio"
   positioning: "B2B full-cycle digital agency"
-  team_size_public: 12
-  years_public: 10
-  projects_public: "250+"
-
 services:
-  priority:
-    - brand-platform
-    - brand-identity
-    - ux-ui
-    - corporate-website
-    - product-website
-    - promo-website
-    - digital-platform
-    - no-code-development
-    - frontend-development
-    - presentation-design
-  secondary:
-    - research
-    - product-audit
-    - brand-analytics
-    - content-production
-    - digital-campaign
-  excluded:
-    - complex-backend
-    - native-mobile-development-without-ux-ui
-    - pure-seo
-    - pure-media-buying
-    - pure-smm
-    - staff-augmentation
-    - full-time-employment
-
+  priority: [brand-platform, brand-identity, ux-ui, corporate-website, product-website, promo-website, digital-platform, no-code-development, frontend-development, presentation-design]
+  secondary: [research, product-audit, brand-analytics, content-production, digital-campaign]
+  excluded: [complex-backend, native-mobile-development-without-ux-ui, pure-seo, pure-media-buying, pure-smm, staff-augmentation, full-time-employment]
 technologies:
   preferred: [Tilda, Webflow, Framer]
-  constraints:
-    - "No complex backend systems"
-    - "Technical feasibility review before promising custom functionality"
-
+  constraints: ["No complex backend systems", "Technical feasibility review before promising custom functionality"]
 lead_filters:
-  hard_reject_signals:
-    - "full-time"
-    - "5/2"
-    - "employment contract"
-    - "probation period"
-    - "monthly salary"
-    - "mandatory office"
-    - "permanent employee"
-    - "штат"
-    - "полная занятость"
-    - "испытательный срок"
-    - "оклад"
-    - "соцпакет"
-  positive_project_signals:
-    - "project"
-    - "contract"
-    - "freelance"
-    - "one-off"
-    - "brief"
-    - "deliverables"
-    - "deadline"
-    - "project budget"
-    - "проектная работа"
-    - "подряд"
-    - "разовая задача"
-    - "бриф"
-    - "срок"
-    - "бюджет проекта"
-
+  hard_reject_signals: [full-time, employment contract, probation period, monthly salary, mandatory office, permanent employee, штат, полная занятость, испытательный срок, оклад, соцпакет]
+  positive_project_signals: [project, contract, freelance, one-off, brief, deliverables, deadline, project budget, проектная работа, подряд, разовая задача, бриф, бюджет проекта, на проект, проектно]
+  demand_signals: [ищем подрядчика, ищем исполнителя, ищем дизайнера, ищу дизайнера, нужен дизайнер, нужна команда, ищем агентство, нужен подрядчик, требуется дизайнер, есть задача, есть проект]
 scoring:
   service_fit: 30
   commercial_fit: 20
@@ -80,50 +24,26 @@ scoring:
   client_quality: 10
   freshness_urgency: 10
   contactability: 5
-  thresholds:
-    hot: 75
-    review: 55
-
+  thresholds: {hot: 75, review: 55}
 lead_segments:
   published_demand:
     enabled: true
     priority: primary
-    initial_sources: [telegram, project-marketplaces-ru, project-marketplaces-global]
-    excluded_sources: [hh-ru]
+    source_policy: social-community-only
+    initial_sources: [telegram, vk, community-feeds]
+    excluded_sources: [marketplaces, job-boards]
     trigger_mode: on-demand
     preferred_regions: [Russia, USA, Europe]
     region_policy: soft-priority
-  agency_outbound:
-    enabled: true
-    priority: experiment
-    tools: [Apollo, Hunter, Snov]
-    target:
-      types: [branding-agency, creative-agency, digital-agency, marketing-agency]
-      employees_min: 10
-      employees_max: 80
-      regions: [USA, UK, Germany, Netherlands, Canada, Australia]
-      preference: "No strong in-house development team"
-
 proposal:
   site_url: "https://imon.agency/"
   case_catalog: "data/cases.yaml"
   approval_required: true
   languages: [ru, en]
   external_label: "B2B digital agency or compact senior team"
-  forbidden_claims:
-    - "small studio"
-    - "we do everything"
-    - "any functionality"
-    - "unverified metrics"
-  required_elements:
-    - task_specific_opening
-    - understanding_of_context
-    - one_realistic_approach
-    - one_relevant_case
-    - website_link
-    - simple_cta
-
+  forbidden_claims: ["small studio", "we do everything", "any functionality", "unverified metrics"]
 operations:
   timezone: Europe/Moscow
-  configuration_policy: start-with-known-data
-  optional_business_settings_do_not_block_search: true
+  persistent_catalog: true
+  semantic_dedupe: true
+  source_health_tracking: true

@@ -3,12 +3,9 @@ name: Deploy to VPS
 on:
   workflow_dispatch:
   pull_request:
-    branches:
-      - main
-    types:
-      - synchronize
-    paths:
-      - .github/deploy-trigger
+    branches: [main]
+    types: [synchronize]
+    paths: [.github/deploy-trigger]
 
 permissions:
   contents: read
@@ -19,23 +16,35 @@ concurrency:
 
 jobs:
   deploy:
-    name: Deploy and smoke-test
+    name: Test, deploy and smoke-test
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       VPS_HOST: 176.98.177.253
       VPS_PORT: ${{ secrets.VPS_PORT }}
       VPS_USER: lifeup
       VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/initial-system-profile
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run tests
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install .
+          PYTHONPATH=src python -m unittest discover -s tests -v
+          PYTHONPATH=src python -m compileall -q src tests
       - name: Validate deployment secrets
         shell: bash
         run: |
           set -Eeuo pipefail
-          : "${VPS_HOST:?Add VPS_HOST to repository Actions secrets}"
+          : "${VPS_HOST:?VPS_HOST is required}"
           : "${VPS_SSH_PRIVATE_KEY:?Add VPS_SSH_PRIVATE_KEY to repository Actions secrets}"
-
       - name: Prepare SSH connection
         shell: bash
         run: |
@@ -43,112 +52,51 @@ jobs:
           install -d -m 700 "$HOME/.ssh"
           printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > "$HOME/.ssh/searchorders_deploy"
           chmod 600 "$HOME/.ssh/searchorders_deploy"
-
           deploy_port="${VPS_PORT:-22}"
           ssh-keyscan -p "$deploy_port" -H "$VPS_HOST" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
-
       - name: Install, deploy, and verify
         shell: bash
         run: |
           set -Eeuo pipefail
           deploy_port="${VPS_PORT:-22}"
           deploy_user="${VPS_USER:-lifeup}"
-
-          ssh \
-            -i "$HOME/.ssh/searchorders_deploy" \
-            -p "$deploy_port" \
-            -o BatchMode=yes \
-            -o IdentitiesOnly=yes \
-            "$deploy_user@$VPS_HOST" \
-            'bash -s' <<'REMOTE'
+          ssh -i "$HOME/.ssh/searchorders_deploy" -p "$deploy_port" -o BatchMode=yes -o IdentitiesOnly=yes "$deploy_user@$VPS_HOST" 'bash -s' <<'REMOTE'
           set -Eeuo pipefail
-
           export DEBIAN_FRONTEND=noninteractive
           deploy_dir=/opt/searchorders
           deploy_branch=agent/initial-system-profile
           repository=https://github.com/famesel7-coder/searchorders.git
           deploy_owner="$(id -un)"
           deploy_group="$(id -gn)"
-
-          if ! command -v git >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y git ca-certificates curl
-          fi
-
+          if ! command -v git >/dev/null 2>&1; then sudo apt-get update; sudo apt-get install -y git ca-certificates curl; fi
           if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y ca-certificates curl
-            sudo install -m 0755 -d /etc/apt/keyrings
-
-            . /etc/os-release
-            case "$ID" in
-              ubuntu|debian) ;;
-              *) echo "Unsupported distribution: $ID" >&2; exit 1 ;;
-            esac
-
-            curl -fsSL "https://download.docker.com/linux/$ID/gpg" \
-              | sudo tee /etc/apt/keyrings/docker.asc >/dev/null
-            sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-            architecture="$(dpkg --print-architecture)"
-            signed_by=/etc/apt/keyrings/docker.asc
-            echo "deb [arch=$architecture signed-by=$signed_by] https://download.docker.com/linux/$ID $VERSION_CODENAME stable" \
-              | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-
-            sudo apt-get update
-            sudo apt-get install -y \
-              docker-ce \
-              docker-ce-cli \
-              containerd.io \
-              docker-buildx-plugin \
-              docker-compose-plugin
+            sudo apt-get update; sudo apt-get install -y ca-certificates curl; sudo install -m 0755 -d /etc/apt/keyrings
+            . /etc/os-release; case "$ID" in ubuntu|debian) ;; *) echo "Unsupported distribution: $ID" >&2; exit 1 ;; esac
+            curl -fsSL "https://download.docker.com/linux/$ID/gpg" | sudo tee /etc/apt/keyrings/docker.asc >/dev/null; sudo chmod a+r /etc/apt/keyrings/docker.asc
+            architecture="$(dpkg --print-architecture)"; echo "deb [arch=$architecture signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/$ID $VERSION_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+            sudo apt-get update; sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
           fi
-
           if [ -d "$deploy_dir/.git" ]; then
-            sudo chown -R "$deploy_owner:$deploy_group" "$deploy_dir"
-            cd "$deploy_dir"
-            git fetch origin "$deploy_branch"
-            if git show-ref --verify --quiet "refs/heads/$deploy_branch"; then
-              git checkout "$deploy_branch"
-            else
-              git checkout -b "$deploy_branch" "origin/$deploy_branch"
-            fi
-            git merge --ff-only "origin/$deploy_branch"
-          elif [ -e "$deploy_dir" ]; then
-            echo "$deploy_dir exists but is not a Git repository" >&2
-            exit 1
-          else
-            sudo install -d -m 755 -o "$deploy_owner" -g "$deploy_group" "$deploy_dir"
-            git clone --branch "$deploy_branch" --single-branch "$repository" "$deploy_dir"
-            cd "$deploy_dir"
-          fi
-
+            sudo chown -R "$deploy_owner:$deploy_group" "$deploy_dir"; cd "$deploy_dir"; git fetch origin "$deploy_branch"; git checkout "$deploy_branch" 2>/dev/null || git checkout -b "$deploy_branch" "origin/$deploy_branch"; git reset --hard "origin/$deploy_branch"
+          elif [ -e "$deploy_dir" ]; then echo "$deploy_dir exists but is not a Git repository" >&2; exit 1
+          else sudo install -d -m 755 -o "$deploy_owner" -g "$deploy_group" "$deploy_dir"; git clone --branch "$deploy_branch" --single-branch "$repository" "$deploy_dir"; cd "$deploy_dir"; fi
           install -d -m 755 output state
-          if [ ! -f .env ]; then
-            install -m 600 .env.example .env
-          else
-            chmod 600 .env
+          if [ ! -f .env ]; then install -m 600 .env.example .env; else chmod 600 .env; fi
+          if ! grep -Eq '^WEB_AUTH_TOKEN=.+$' .env; then
+            token="$(head -c 32 /dev/urandom | base64 | tr -d '\n=/+' | cut -c1-32)"
+            if grep -q '^WEB_AUTH_TOKEN=' .env; then sed -i "s/^WEB_AUTH_TOKEN=.*/WEB_AUTH_TOKEN=$token/" .env; else printf '\nWEB_AUTH_TOKEN=%s\n' "$token" >> .env; fi
+            chmod 600 .env; echo 'Generated WEB_AUTH_TOKEN in /opt/searchorders/.env because none was configured.'
           fi
-
           docker compose build
-          docker compose run --rm --no-deps search-orders scan \
-            --max-results 3 \
-            --state /tmp/searchorders-deploy-smoke.db \
-            --output /app/output/deploy-smoke.json
+          docker compose run --rm --no-deps search-orders scan --max-results 3 --state /tmp/searchorders-deploy-smoke.db --output /app/output/deploy-smoke.json
           sudo chown -R "$deploy_owner:$deploy_group" output state
-
           docker compose up -d --remove-orphans search-orders
-          if grep -Eq '^TELEGRAM_BOT_TOKEN=.+$' .env; then
-            docker compose up -d --remove-orphans search-orders search-orders-bot
-          else
-            docker compose stop search-orders-bot >/dev/null 2>&1 || true
-            docker compose rm -f search-orders-bot >/dev/null 2>&1 || true
-            echo 'Code and website deployed; Telegram bot was not started because TELEGRAM_BOT_TOKEN is empty.'
-          fi
+          if grep -Eq '^TELEGRAM_BOT_TOKEN=.+$' .env; then docker compose up -d --remove-orphans search-orders search-orders-bot; else docker compose stop search-orders-bot >/dev/null 2>&1 || true; docker compose rm -f search-orders-bot >/dev/null 2>&1 || true; fi
+          sleep 2
+          curl -fsS http://127.0.0.1:8080/healthz
           docker compose ps
           REMOTE
-
       - name: Remove local key material
         if: always()
         shell: bash

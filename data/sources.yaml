@@ -1,136 +1,75 @@
-version: 1
-updated_at: 2026-08-13
+version: 2
+updated_at: 2026-08-17
+policy:
+  mode: social-community-only
+  forbidden_source_types: [workspace, freelance_task, marketplace, project_marketplace]
 sources:
-  - id: workspace-tenders
-    type: workspace
-    enabled: false
-    region: Russia
-    priority: fallback
-    listing_urls:
-      - https://workspace.ru/tenders/
-      - https://workspace.ru/tenders/web-development/
-      - https://workspace.ru/tenders/identity/
-    max_details: 30
-    request_delay_seconds: 0.5
-  - id: freelance-public-tasks
-    type: freelance_task
+  - id: telegram-designer-work
+    name: Designer Work
+    type: telegram_public
     enabled: true
     region: Russia
     priority: primary
-    listing_urls:
-      - https://freelance.ru/task
-    allowed_categories:
-      - Веб-разработка и IT
-      - Дизайн и Брендинг
-    max_details: 30
-    request_delay_seconds: 0.5
-  - id: public-web-feeds
-    type: rss_feed
-    enabled: false
-    region: Global
-    priority: expansion
-    listing_urls:
-      - https://example.com/feed.xml
-    include_patterns:
-      - ux/ui
-      - редизайн сайта
-      - corporate website
-      - branding
-      - webflow
-      - framer
-    exclude_patterns:
-      - full-time
-      - штат
-      - seo specialist
-    area: Internet
-    employment: Публичная RSS/Atom лента
-    max_details: 30
-  - id: telegram-public-orders
+    listing_urls: ["@designer_work"]
+    exclude_patterns: [курс, реклама, подписаться]
+    max_details: 50
+    request_delay_seconds: 0.3
+
+  - id: telegram-zakaz-design
+    name: "ЗАКАЗЫ НА ДИЗАЙН | ДИЗАЙНЕРЫ | ВАКАНСИИ"
+    type: telegram_public
+    enabled: true
+    region: Russia
+    priority: primary
+    listing_urls: ["@zakaz_design"]
+    exclude_patterns: [курс, реклама, черный список, чёрный список]
+    max_details: 50
+    request_delay_seconds: 0.3
+
+  - id: telegram-uiux-jobs-resumes
+    name: "UI/UX Jobs — канал вакансий и резюме дизайнеров"
     type: telegram_public
     enabled: true
     region: Russia
     priority: expansion
-    listing_urls:
-      - "@designer_work"
-    include_patterns:
-      - детали проекта
-      - project details
-      - графический дизайнер
-      - motion designer
-      - motion graphics
-      - 2d animator
-      - моушн-дизайнер
-      - 3d-специалист
-      - web designer
-      - ux/ui
-      - брендинг
-      - редизайн
-    exclude_patterns:
-      - full-time
-      - в штат
-      - 5/2
-      - офис
-      - курс
-      - подписаться
-      - реклама
-      - читать на
-      - статья
-    max_details: 30
-    request_delay_seconds: 0.5
-  - id: telegram-auth-orders
+    listing_urls: ["@uiux_jobs_resumes"]
+    exclude_patterns: [реклама]
+    max_details: 50
+    request_delay_seconds: 0.3
+
+  - id: telegram-designwork-vacansii
+    name: "ВАКАНСИИ ДЛЯ ДИЗАЙНЕРА | РАБОТА"
+    type: telegram_public
+    enabled: true
+    region: Russia
+    priority: expansion
+    listing_urls: ["@designwork_vacansii"]
+    exclude_patterns: [реклама]
+    max_details: 50
+    request_delay_seconds: 0.3
+
+  - id: telegram-auth-selected
+    name: "Selected authenticated Telegram chats"
     type: telegram_client
     enabled: false
     region: Russia
     priority: primary
-    listing_urls:
-      - "@designer_work"
-    include_patterns:
-      - детали проекта
-      - project details
-      - графический дизайнер
-      - motion designer
-      - motion graphics
-      - 2d animator
-      - моушн-дизайнер
-      - 3d-специалист
-      - web designer
-      - ux/ui
-      - брендинг
-      - редизайн
-    exclude_patterns:
-      - full-time
-      - в штат
-      - 5/2
-      - офис
-      - курс
-      - подписаться
-      - реклама
-      - читать на
-      - статья
-    history_limit: 50
-    max_details: 30
+    listing_urls: ["@designer_work"]
+    history_limit: 200
+    max_details: 100
     api_id_env: TELEGRAM_API_ID
     api_hash_env: TELEGRAM_API_HASH
     session_env: TELEGRAM_SESSION
-  - id: vk-public-orders
+
+  # VK collector is ready, but a fake public_name source is never enabled.
+  # Replace this URL with verified communities before enabling the source.
+  - id: vk-selected-communities
+    name: "Verified VK communities"
     type: vk_wall
     enabled: false
     region: Russia
     priority: expansion
-    listing_urls:
-      - https://vk.com/public_name
-    include_patterns:
-      - ux/ui
-      - разработка сайта
-      - брендинг
-      - дизайн сайта
-      - tilda
-      - webflow
-    exclude_patterns:
-      - full-time
-      - в штат
-      - полный рабочий день
-      - офис
+    listing_urls: ["https://vk.com/replace_with_verified_public_group"]
     access_token_env: VK_ACCESS_TOKEN
     api_version: "5.199"
-    max_details: 30
+    max_details: 50

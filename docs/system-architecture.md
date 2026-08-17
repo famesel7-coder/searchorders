@@ -1,122 +1,38 @@
-# Архитектура Search Orders
+# Search Orders v2 — system architecture
 
-Статус: базовая версия  
-Обновлено: 2026-08-12
+## Product boundary
 
-## Цель
+Search Orders tracks published demand in social/community sources. Marketplaces and job boards are out of scope and rejected at configuration load time.
 
-По команде пользователя превращать самые свежие публикации в короткую очередь релевантных проектных лидов для I’MON Digital Agency с исследованием компании, подобранным кейсом и готовым персонализированным предложением.
+```text
+Source Registry
+  ├─ Telegram Public
+  ├─ Telegram MTProto
+  ├─ VK public walls
+  └─ community RSS/Atom
+        ↓
+Raw Posts → contact/budget extraction → cross-source dedupe
+        ↓
+Intent: project_demand / employment / self_promo / demand / ambiguous
+        ↓
+Service + industry tags → scoring → case match → proposal
+        ↓
+Persistent Lead Catalog
+```
 
-## Контур системы
+## Invariants
 
-1. Пользователь нажимает защищённую кнопку «Запустить поиск».
-2. Контроллер немедленно запускает коннекторы разрешённых проектных источников.
-3. Нормализатор приводит данные к единой схеме и удаляет дубли.
-4. Жёсткий фильтр исключает штатные вакансии и заведомо неподходящие задачи.
-5. ИИ-классификатор определяет тип проекта, услуги, бюджетные и риск-сигналы.
-6. Для прошедших лидов выполняется исследование компании и задачи.
-7. Скоринг оценивает коммерческую и портфельную релевантность.
-8. Матчер выбирает наиболее близкий кейс I’MON.
-9. Генератор создаёт индивидуальный отклик под канал коммуникации.
-10. Горячие лиды сразу возвращаются пользователю.
-11. На этапе MVP человек подтверждает отправку.
-12. CRM сохраняет результат, ответ заказчика и причину победы или отказа.
+- collectors transport facts and never mark Telegram/VK as project work merely because of platform;
+- `source_name` is channel/community metadata and is not `company_name`;
+- collection limits are per source; output limit is applied after ingestion;
+- posts are persisted before evaluation;
+- one canonical lead may link to many reposts;
+- source failures are isolated and tracked.
 
-## Предлагаемый стек
+## SQLite
 
-- n8n или лёгкий Python-контроллер: кнопочный запуск, маршрутизация и интеграции.
-- Python: коннекторы, нормализация, фильтры и бизнес-логика.
-- SQLite на MVP; PostgreSQL или Supabase после появления нескольких пользователей.
-- ИИ-модель: классификация, исследование, case matching и тексты.
-- Telegram: кнопка запуска, немедленная выдача и подтверждение.
-- Apollo, Hunter или Snov: только обогащение контактов и отдельный outbound-контур.
+`scan_runs` stores lifecycle/counts; `sources` stores health; `posts` stores immutable source identity; `leads` stores canonical evaluation/CRM status; `lead_posts` links reposts; `lead_status_history` audits status changes.
 
-## Контуры поиска
+## Runtime
 
-### A. Опубликованный спрос — основной MVP
-
-Первый источник — публичные тендеры Workspace. Далее подключаются проектные Telegram-каналы и специализированные площадки США/Европы. HH.ru исключён. Ищем уже сформулированную потребность и отвечаем на конкретный проект.
-
-### B. Outbound по компаниям — отдельный эксперимент
-
-Apollo используется для поиска branding, creative, digital и marketing agencies или прямых клиентов. Этот поток не смешивается с опубликованными заказами: у него другие сигналы, сообщения и метрики.
-
-## Единая карточка лида
-
-- source, source_url, external_id
-- discovered_at, published_at
-- title, raw_text, normalized_brief
-- company_name, company_domain, company_profile
-- location, language
-- budget_min, budget_max, currency
-- project_type, service_tags, technology_tags
-- employment_signals, project_signals
-- contact_name, contact_role, contact_channel
-- hard_filter_result, rejection_reason
-- score_total, score_breakdown, score_explanation
-- matched_case_id, matched_case_reason
-- proposal_short, proposal_email
-- status, owner, next_action_at
-- dedup_hash
-- feedback_result, feedback_reason
-
-## Жёсткое исключение
-
-Исключать независимо от балла:
-
-- постоянное трудоустройство;
-- график 5/2 или full-time;
-- месячная зарплата вместо бюджета проекта;
-- обязательный офис или гибрид;
-- испытательный срок, соцпакет, оформление в штат;
-- поиск постоянного сотрудника без конкретного результата проекта;
-- сложный backend, нативная разработка или долгосрочная staff augmentation без подходящего дизайн-объёма.
-
-Сомнительные публикации помещать в ручную очередь, а не удалять.
-
-## Скоринг 0–100
-
-| Критерий | Вес |
-|---|---:|
-| Соответствие сильным услугам I’MON | 30 |
-| Коммерческая привлекательность | 20 |
-| Вероятность реального проектного заказа | 15 |
-| Наличие сильного релевантного кейса | 10 |
-| Качество и адекватность заказчика | 10 |
-| Свежесть и срочность | 10 |
-| Возможность связаться | 5 |
-
-Пороговые значения:
-
-- 75–100: горячий лид, готовить предложение;
-- 55–74: дополнительная проверка;
-- ниже 55: архив;
-- hard reject: исключение без скоринга.
-
-Пока минимальный бюджет не задан, отсутствие бюджета не должно автоматически исключать сильный лид.
-
-## Правила генерации предложения
-
-1. Начинать с конкретной задачи заказчика.
-2. Показывать понимание контекста без пересказа всего брифа.
-3. Предлагать один реалистичный подход.
-4. Использовать один наиболее релевантный кейс.
-5. Добавлять ссылку на сайт I’MON.
-6. Завершать простым следующим действием.
-7. Не придумывать результаты, клиентов, сроки и технологии.
-8. Не называть I’MON «маленькой студией» во внешних сообщениях; корректное позиционирование — B2B digital-агентство полного цикла или компактная senior-команда.
-9. Отдельно формировать короткий отклик, email и англоязычную версию.
-
-## Этапы запуска
-
-### MVP
-
-Telegram + специализированные проектные площадки. Запуск по кнопке, полная автоматизация до черновика и ручное подтверждение отправки.
-
-### Калибровка
-
-Проверить 30–50 лидов, причины отклонения, качество case matching и ответы заказчиков.
-
-### Управляемая автоматизация
-
-При необходимости добавить фоновый мониторинг с немедленными уведомлениями. Автоматическую отправку разрешать только после отдельной калибровки и в пределах правил площадок.
+`POST /scan` starts a background scan thread so the HTTP request does not block on every source. Public binding requires `WEB_AUTH_TOKEN`. SQLite remains suitable for the single-node MVP; migrate the same entities to Postgres/queue when multiple workers are needed.

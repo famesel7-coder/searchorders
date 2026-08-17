@@ -1,124 +1,29 @@
-# Развёртывание Telegram-бота на VPS
+# VPS deployment
 
-Обновлено: 2026-08-12
+Обновлено: 2026-08-17.
 
-## Рекомендуемая конфигурация
+На VPS работает web-каталог и, при наличии токена, Telegram-бот. Сканирование читает только social/community sources; биржи и job boards запрещены.
 
-- Ubuntu 24.04 LTS;
-- 1 vCPU;
-- 2 ГБ RAM;
-- 20 ГБ SSD/NVMe;
-- публичный IPv4 и SSH-доступ.
+Создайте `/opt/searchorders/.env` из `.env.example`. Для публичного web нужен `WEB_AUTH_TOKEN`; текущий deploy workflow генерирует его автоматически, если поле пустое. Имя пользователя Basic Auth может быть любым, пароль — значение токена.
 
-Московское время задаётся внутри контейнера независимо от региона сервера. Поиск запускается только по кнопке; cron и ежедневный timer отсутствуют.
-
-## Что работает на сервере
-
-Постоянно запущен один небольшой Telegram-бот. После нажатия «Запустить поиск» он:
-
-1. проверяет публичные тендеры Workspace;
-2. удаляет уже показанные заказы через SQLite;
-3. фильтрует штатные и неподходящие задачи;
-4. оценивает релевантность;
-5. подбирает кейс I’MON;
-6. возвращает карточки и черновики предложений в разрешённый Telegram-чат.
-
-Бот не отправляет сообщения заказчикам и не подаёт заявки на площадке.
-
-## Подготовка сервера
-
-1. Подключиться к Ubuntu по SSH или открыть консоль провайдера.
-2. Установить Git, Docker Engine и Docker Compose plugin.
-3. Клонировать рабочую ветку:
+Опционально: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`; `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`; `VK_ACCESS_TOKEN`.
 
 ```bash
 sudo git clone https://github.com/famesel7-coder/searchorders.git /opt/searchorders
 cd /opt/searchorders
 sudo git checkout agent/initial-system-profile
-```
-
-После слияния draft PR развёртывать нужно будет ветку `main`.
-
-## Развёртывание одной кнопкой через GitHub Actions
-
-В репозитории есть ручной workflow `Deploy to VPS`. Он не запускается по расписанию или при обычном push.
-
-В `Settings → Secrets and variables → Actions` нужно один раз добавить:
-
-- `VPS_HOST` — IP-адрес сервера;
-- `VPS_SSH_PRIVATE_KEY` — приватная часть отдельного deploy-ключа;
-- `VPS_PORT` — необязательно, по умолчанию `2222`;
-- `VPS_USER` — необязательно, по умолчанию `root`.
-
-Публичная часть того же ключа должна быть отдельной строкой в `/root/.ssh/authorized_keys` на VPS. Приватный ключ нельзя добавлять в Git, `.env`, issue, pull request или workflow-файл.
-
-После слияния PR запуск выполняется через `Actions → Deploy to VPS → Run workflow`. Во время первичного развёртывания из draft PR workflow запускается только при изменении служебного файла `.github/deploy-trigger`; изменения остальных файлов не приводят к автоматическому деплою.
-
-Workflow подключается к VPS, при необходимости устанавливает Docker из официального репозитория Docker, обновляет `/opt/searchorders`, собирает образ и выполняет диагностический поиск. Бот запускается только если на сервере уже заполнен `TELEGRAM_BOT_TOKEN` в `/opt/searchorders/.env`.
-
-## Создание Telegram-бота
-
-1. Создать бота через официальный `@BotFather`.
-2. Скопировать `.env.example`:
-
-```bash
-cd /opt/searchorders
 sudo cp .env.example .env
-sudo nano .env
+sudo docker compose up -d --build search-orders
 ```
 
-3. Вставить токен только в `TELEGRAM_BOT_TOKEN`. `TELEGRAM_CHAT_ID` сначала оставить пустым.
-4. Собрать и запустить контейнер:
+Проверка:
 
 ```bash
-sudo docker compose build
-sudo docker compose up -d
-sudo docker compose logs --tail=100 search-orders
-```
-
-5. Написать созданному боту `/start`. Он вернёт текущий `TELEGRAM_CHAT_ID`, но не позволит запускать поиск.
-6. Добавить полученный ID в `/opt/searchorders/.env` и перезапустить:
-
-```bash
-sudo docker compose up -d --force-recreate
-```
-
-После этого бот отвечает только настроенному чату. Токен и `.env` нельзя добавлять в Git или пересылать в чат поддержки.
-
-## Проверка
-
-```bash
-cd /opt/searchorders
+curl -fsS http://127.0.0.1:8080/healthz
 sudo docker compose ps
 sudo docker compose logs --tail=100 search-orders
+sudo docker compose run --rm search-orders scan --max-results 30
+sudo docker compose run --rm search-orders sources-status
 ```
 
-В Telegram отправить `/start` и нажать «Запустить поиск». Первый live-запуск одновременно проверяет доступность публичных страниц Workspace с IP VPS.
-
-Если источник запрещён в `robots.txt` или возвращает ошибку доступа, система покажет предупреждение и не пытается обходить ограничение.
-
-## Ручной диагностический запуск
-
-Чтобы не записывать тестовые данные в основную базу повторов:
-
-```bash
-sudo docker compose run --rm search-orders scan \
-  --max-results 5 \
-  --state /tmp/smoke.db \
-  --output /app/output/smoke.json
-```
-
-## Хранилище
-
-- `/opt/searchorders/state/searchorders.db` — уже показанные заказы;
-- `/opt/searchorders/output/leads.json` — последняя JSON-выгрузка команды `scan`;
-- Docker volume mapping сохраняет оба каталога между перезапусками контейнера.
-
-## Обновление
-
-```bash
-cd /opt/searchorders
-sudo git pull --ff-only
-sudo docker compose build
-sudo docker compose up -d --force-recreate
-```
+Основная БД — `/opt/searchorders/state/searchorders.db`. JSON в `output/` — только совместимая выгрузка последнего запуска. Если провайдер блокирует MTProto, используйте `telegram_public` или отдельный MTProto-worker на другом хосте.

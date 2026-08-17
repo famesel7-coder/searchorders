@@ -16,6 +16,9 @@ class Lead:
     title: str
     description: str = ""
     url: str | None = None
+    source_id: str | None = None
+    source_name: str | None = None
+    author_name: str | None = None
     company_name: str | None = None
     company_url: str | None = None
     published_at: datetime | None = None
@@ -26,20 +29,25 @@ class Lead:
     accept_temporary: bool = False
     salary_from: int | None = None
     salary_to: int | None = None
+    budget_from: int | None = None
+    budget_to: int | None = None
     currency: str | None = None
     has_direct_contact: bool = False
+    contacts: list[str] = field(default_factory=list)
     raw: dict[str, Any] = field(default_factory=dict, repr=False)
 
     @property
     def searchable_text(self) -> str:
-        values = (
-            self.title,
-            self.description,
-            self.company_name or "",
-            self.employment or "",
-            self.schedule or "",
-        )
+        values = (self.title, self.description, self.company_name or "", self.author_name or "", self.employment or "", self.schedule or "")
         return "\n".join(values).casefold().replace("ё", "е")
+
+    @property
+    def effective_budget_from(self) -> int | None:
+        return self.budget_from if self.budget_from is not None else self.salary_from
+
+    @property
+    def effective_budget_to(self) -> int | None:
+        return self.budget_to if self.budget_to is not None else self.salary_to
 
     def to_dict(self, include_raw: bool = False) -> dict[str, Any]:
         payload = asdict(self)
@@ -55,9 +63,12 @@ class Lead:
 class Classification:
     hard_reject: bool
     decision: str
+    intent: str = "ambiguous"
+    confidence: float = 0.0
     reasons: list[str] = field(default_factory=list)
     employment_signals: list[str] = field(default_factory=list)
     project_signals: list[str] = field(default_factory=list)
+    demand_signals: list[str] = field(default_factory=list)
     service_tags: list[str] = field(default_factory=list)
     industry_tags: list[str] = field(default_factory=list)
     risk_tags: list[str] = field(default_factory=list)
@@ -96,13 +107,7 @@ class LeadEvaluation:
     score: LeadScore
     matched_case: CaseMatch | None = None
     proposal_draft: str | None = None
+    catalog_id: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return {
-            "lead": self.lead.to_dict(),
-            "classification": self.classification.to_dict(),
-            "score": self.score.to_dict(),
-            "matched_case": self.matched_case.to_dict() if self.matched_case else None,
-            "proposal_draft": self.proposal_draft,
-        }
-
+        return {"catalog_id": self.catalog_id, "lead": self.lead.to_dict(), "classification": self.classification.to_dict(), "score": self.score.to_dict(), "matched_case": self.matched_case.to_dict() if self.matched_case else None, "proposal_draft": self.proposal_draft}

@@ -1,69 +1,62 @@
 # Search Orders
 
-Система автоматического поиска проектных заказов для I’MON Digital Agency.
+Search Orders — внутренний каталог проектного спроса для I’MON Digital Agency. Система читает публичные Telegram-каналы, выбранные Telegram-чаты через MTProto, VK-сообщества и community/RSS-ленты, нормализует публикации, удаляет репосты, отделяет проектный спрос от вакансий и резюме, оценивает релевантность и сохраняет всё в постоянный каталог.
 
-## Цель
+## Жёсткая граница продукта
 
-По команде находить самые свежие проектные запросы на брендинг, UX/UI, сайты, digital-продукты, презентации и разработку; исключать штатные вакансии; оценивать релевантность; исследовать задачу и компанию; подбирать подходящий кейс и готовить персонализированный отклик.
+Биржи, тендерные площадки и job boards не являются источниками Search Orders. Типы `workspace`, `freelance_task`, `marketplace` и `project_marketplace` запрещены валидатором конфигурации.
 
-## Принцип работы
+## Pipeline
 
-1. Пользователь нажимает кнопку «Запустить поиск».
-2. Система собирает новые публикации из разрешённых источников.
-3. Нормализация и удаление дублей.
-4. Жёсткое исключение штатных вакансий.
-5. Исследование задачи и компании.
-6. Скоринг релевантности.
-7. Подбор кейса I’MON.
-8. Создание индивидуального предложения.
-9. Результат возвращается сразу; отправка остаётся ручной.
-10. Система сохраняет результат и обратную связь.
+1. Каждый источник сканируется независимо со своим лимитом — первый источник больше не может «съесть» общий лимит.
+2. Все сообщения сохраняются как raw posts в SQLite.
+3. Из текста извлекаются контакты и бюджет.
+4. Репосты группируются по fingerprint, similarity и совпадающим контактам.
+5. Классификатор различает `project_demand`, `employment`, `self_promo`, `demand`, `ambiguous`.
+6. Затем применяются service match, scoring и case matching.
+7. Canonical lead сохраняется в каталоге и связывается со всеми исходными публикациями.
+8. Повторный scan не теряет данные и не создаёт тот же lead заново.
 
-## Репозиторий как база знаний
-
-- `docs/` — архитектура и рабочие процессы.
-- `knowledge/` — профиль агентства, услуги, ограничения и позиционирование.
-- `data/` — структурированные настройки поиска и каталог кейсов.
-- `decisions/` — принятые архитектурные и коммерческие решения.
-
-Все новые факты должны фиксироваться здесь с источником и датой проверки. Неподтверждённые предположения помечаются отдельно.
-
-## Текущий статус
-
-Реализован первый работающий срез MVP:
-
-- публичный коннектор актуальных тендеров Workspace;
-- ручная команда `scan` для немедленного поиска;
-- защищённая Telegram-кнопка «Запустить поиск»;
-- SQLite-дедупликация между запусками;
-- нормализация публикации в единую карточку лида;
-- определение проектных и штатных сигналов;
-- жёсткое исключение постоянной занятости;
-- определение услуг и отрасли;
-- скоринг 0–100;
-- подбор релевантного кейса I’MON;
-- создание черновика персонального отклика;
-- отправка горячих и требующих проверки лидов в Telegram;
-- JSON-выгрузка для диагностики и будущей CRM.
-
-Источник HH.ru удалён как нерелевантный. Автоматическая отправка откликов заказчикам отключена.
-
-## Быстрый запуск
+## Быстрый старт
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-
-python -m unittest discover -s tests -v
-search-orders evaluate tests/fixtures/sample_leads.json
-search-orders scan --max-results 10
+cp .env.example .env
+# Для публичного web обязательно задайте WEB_AUTH_TOKEN.
+docker compose up -d --build search-orders
 ```
 
-Результат сохраняется в `output/leads.json`. Подробности: [docs/mvp-usage.md](docs/mvp-usage.md).
+Открыть каталог: `http://<host>:8080/`. При включённом `WEB_AUTH_TOKEN` браузер запросит Basic Auth: имя пользователя любое, пароль — значение токена.
 
-Для запуска Telegram-бота на небольшом Ubuntu VPS подготовлены Dockerfile и Docker Compose: [docs/vps-deployment.md](docs/vps-deployment.md). Расписание отключено: основной режим — запрос по кнопке.
+```bash
+docker compose run --rm search-orders scan --max-results 30
+docker compose run --rm search-orders catalog --limit 200
+docker compose run --rm search-orders sources-status
+```
 
-## Безопасность отправки
+## Источники
 
-На текущем этапе система только готовит черновики. Автоматическая отправка откликов отключена и будет добавлена после калибровки на 30–50 вручную проверенных лидах.
+`data/sources.yaml` содержит seed registry без бирж. Public Telegram работает без Telegram API credentials. `telegram_client` требует `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`. `vk_wall` требует `VK_ACCESS_TOKEN` и включается после добавления проверенных публичных VK-групп.
+
+## Хранилище
+
+`state/searchorders.db` — БД приложения: `scan_runs`, `sources`, `posts`, `leads`, `lead_posts`, `lead_status_history`. Статусы каталога: `new`, `interesting`, `review`, `rejected`, `contacted`, `replied`, `meeting`, `won`, `lost`, `ignored`.
+
+## Web API
+
+- `GET /catalog.json` — persistent catalog;
+- `GET /results.json` — совместимый alias;
+- `GET /sources.json` — health источников;
+- `GET /status.json` — состояние scan;
+- `POST /scan` — запускает scan в background thread и возвращает HTTP 202;
+- `GET /healthz` — healthcheck без авторизации.
+
+## Telegram на VPS
+
+Если MTProto недоступен у провайдера, `telegram_client` можно оставить выключенным и использовать `telegram_public` с IPv4 fallback. Для полного MTProto-покрытия worker лучше запускать на хосте, где Telegram DC доступны.
+
+## Тесты
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python -m compileall -q src tests
+```
