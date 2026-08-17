@@ -22,17 +22,22 @@ class CatalogStore:
         self.path = Path(path); self.path.parent.mkdir(parents=True, exist_ok=True); self._initialize()
     def _connect(self) -> sqlite3.Connection:
         db=sqlite3.connect(self.path); db.row_factory=sqlite3.Row; db.execute("PRAGMA journal_mode=WAL"); db.execute("PRAGMA foreign_keys=ON"); return db
+    @staticmethod
+    def _ensure_column(db:sqlite3.Connection,table:str,column:str,declaration:str)->None:
+        cols={row[1] for row in db.execute(f"PRAGMA table_info({table})").fetchall()}
+        if column not in cols:db.execute(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
     def _initialize(self) -> None:
         with closing(self._connect()) as db, db:
             db.executescript("""
             CREATE TABLE IF NOT EXISTS scan_runs(id INTEGER PRIMARY KEY AUTOINCREMENT,started_at TEXT NOT NULL,finished_at TEXT,status TEXT NOT NULL DEFAULT 'running',collected_count INTEGER NOT NULL DEFAULT 0,new_post_count INTEGER NOT NULL DEFAULT 0,new_lead_count INTEGER NOT NULL DEFAULT 0,warning_count INTEGER NOT NULL DEFAULT 0,warnings_json TEXT NOT NULL DEFAULT '[]');
             CREATE TABLE IF NOT EXISTS sources(source_id TEXT PRIMARY KEY,source_type TEXT NOT NULL,source_name TEXT,source_url TEXT,priority TEXT,enabled INTEGER NOT NULL DEFAULT 1,last_scan_at TEXT,last_success_at TEXT,last_error TEXT,posts_seen INTEGER NOT NULL DEFAULT 0,leads_found INTEGER NOT NULL DEFAULT 0);
             CREATE TABLE IF NOT EXISTS posts(id INTEGER PRIMARY KEY AUTOINCREMENT,source_id TEXT NOT NULL,platform TEXT NOT NULL,external_id TEXT NOT NULL,source_name TEXT,title TEXT NOT NULL,description TEXT NOT NULL,url TEXT,author_name TEXT,published_at TEXT,discovered_at TEXT NOT NULL,content_hash TEXT NOT NULL,raw_json TEXT NOT NULL DEFAULT '{}',first_run_id INTEGER,last_run_id INTEGER,UNIQUE(source_id,external_id),FOREIGN KEY(source_id) REFERENCES sources(source_id) ON DELETE CASCADE);
-            CREATE TABLE IF NOT EXISTS leads(id INTEGER PRIMARY KEY AUTOINCREMENT,canonical_hash TEXT NOT NULL,title TEXT NOT NULL,description TEXT NOT NULL,company_name TEXT,company_url TEXT,budget_from INTEGER,budget_to INTEGER,currency TEXT,contacts_json TEXT NOT NULL DEFAULT '[]',status TEXT NOT NULL DEFAULT 'new',bucket TEXT,score INTEGER,classification_json TEXT NOT NULL DEFAULT '{}',evaluation_json TEXT NOT NULL DEFAULT '{}',first_seen_at TEXT NOT NULL,last_seen_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS leads(id INTEGER PRIMARY KEY AUTOINCREMENT,canonical_hash TEXT NOT NULL,title TEXT NOT NULL,description TEXT NOT NULL,company_name TEXT,company_url TEXT,budget_from INTEGER,budget_to INTEGER,currency TEXT,deadline_text TEXT,contacts_json TEXT NOT NULL DEFAULT '[]',status TEXT NOT NULL DEFAULT 'new',bucket TEXT,score INTEGER,classification_json TEXT NOT NULL DEFAULT '{}',evaluation_json TEXT NOT NULL DEFAULT '{}',first_seen_at TEXT NOT NULL,last_seen_at TEXT NOT NULL);
             CREATE INDEX IF NOT EXISTS idx_leads_last_seen ON leads(last_seen_at DESC); CREATE INDEX IF NOT EXISTS idx_leads_bucket ON leads(bucket);
             CREATE TABLE IF NOT EXISTS lead_posts(lead_id INTEGER NOT NULL,post_id INTEGER NOT NULL,PRIMARY KEY(lead_id,post_id),FOREIGN KEY(lead_id) REFERENCES leads(id) ON DELETE CASCADE,FOREIGN KEY(post_id) REFERENCES posts(id) ON DELETE CASCADE);
             CREATE TABLE IF NOT EXISTS lead_status_history(id INTEGER PRIMARY KEY AUTOINCREMENT,lead_id INTEGER NOT NULL,status TEXT NOT NULL,changed_at TEXT NOT NULL,FOREIGN KEY(lead_id) REFERENCES leads(id) ON DELETE CASCADE);
             """)
+            self._ensure_column(db,"leads","deadline_text","TEXT")
     def begin_run(self)->int:
         with closing(self._connect()) as db, db:return int(db.execute("INSERT INTO scan_runs(started_at) VALUES (?)",(_now(),)).lastrowid)
     def finish_run(self,run_id:int,*,status:str,collected_count:int,new_post_count:int,new_lead_count:int,warnings:list[str])->None:
@@ -63,24 +68,29 @@ class CatalogStore:
         with closing(self._connect()) as db, db:
             lead_id=self._find_similar_lead(db,lead); created=lead_id is None
             if created:
-                cur=db.execute("INSERT INTO leads(canonical_hash,title,description,company_name,company_url,budget_from,budget_to,currency,contacts_json,status,bucket,score,classification_json,evaluation_json,first_seen_at,last_seen_at) VALUES(?,?,?,?,?,?,?,?,?,'new',?,?,?,?,?,?)",(content_fingerprint(lead),lead.title,lead.description,lead.company_name,lead.company_url,lead.effective_budget_from,lead.effective_budget_to,lead.currency,json.dumps(lead.contacts,ensure_ascii=False),evaluation.score.bucket,evaluation.score.total,json.dumps(evaluation.classification.to_dict(),ensure_ascii=False),json.dumps(evaluation.to_dict(),ensure_ascii=False,default=str),now,now)); lead_id=int(cur.lastrowid); db.execute("INSERT INTO lead_status_history(lead_id,status,changed_at) VALUES(?,'new',?)",(lead_id,now))
-            else:db.execute("UPDATE leads SET last_seen_at=?,bucket=?,score=?,classification_json=?,evaluation_json=? WHERE id=?",(now,evaluation.score.bucket,evaluation.score.total,json.dumps(evaluation.classification.to_dict(),ensure_ascii=False),json.dumps(evaluation.to_dict(),ensure_ascii=False,default=str),lead_id))
+                cur=db.execute("INSERT INTO leads(canonical_hash,title,description,company_name,company_url,budget_from,budget_to,currency,deadline_text,contacts_json,status,bucket,score,classification_json,evaluation_json,first_seen_at,last_seen_at) VALUES(?,?,?,?,?,?,?,?,?,?,'new',?,?,?,?,?,?)",(content_fingerprint(lead),lead.title,lead.description,lead.company_name,lead.company_url,lead.effective_budget_from,lead.effective_budget_to,lead.currency,lead.deadline_text,json.dumps(lead.contacts,ensure_ascii=False),evaluation.score.bucket,evaluation.score.total,json.dumps(evaluation.classification.to_dict(),ensure_ascii=False),json.dumps(evaluation.to_dict(),ensure_ascii=False,default=str),now,now)); lead_id=int(cur.lastrowid); db.execute("INSERT INTO lead_status_history(lead_id,status,changed_at) VALUES(?,'new',?)",(lead_id,now))
+            else:db.execute("UPDATE leads SET last_seen_at=?,company_name=COALESCE(company_name,?),budget_from=COALESCE(budget_from,?),budget_to=COALESCE(budget_to,?),currency=COALESCE(currency,?),deadline_text=COALESCE(deadline_text,?),bucket=?,score=?,classification_json=?,evaluation_json=? WHERE id=?",(now,lead.company_name,lead.effective_budget_from,lead.effective_budget_to,lead.currency,lead.deadline_text,evaluation.score.bucket,evaluation.score.total,json.dumps(evaluation.classification.to_dict(),ensure_ascii=False),json.dumps(evaluation.to_dict(),ensure_ascii=False,default=str),lead_id))
             for pid in post_ids:db.execute("INSERT OR IGNORE INTO lead_posts(lead_id,post_id) VALUES(?,?)",(lead_id,pid))
             return int(lead_id),created
     def set_status(self,lead_id:int,status:str)->None:
         allowed={"new","interesting","review","rejected","contacted","replied","meeting","won","lost","ignored"}
         if status not in allowed:raise ValueError(f"Unsupported lead status: {status}")
         now=_now()
-        with closing(self._connect()) as db, db:db.execute("UPDATE leads SET status=? WHERE id=?",(status,lead_id)); db.execute("INSERT INTO lead_status_history(lead_id,status,changed_at) VALUES(?,?,?)",(lead_id,status,now))
+        with closing(self._connect()) as db, db:
+            exists=db.execute("SELECT 1 FROM leads WHERE id=?",(lead_id,)).fetchone()
+            if not exists:raise ValueError(f"Lead {lead_id} not found")
+            db.execute("UPDATE leads SET status=? WHERE id=?",(status,lead_id)); db.execute("INSERT INTO lead_status_history(lead_id,status,changed_at) VALUES(?,?,?)",(lead_id,status,now))
     def catalog_payload(self,*,limit:int=200)->dict[str,Any]:
         with closing(self._connect()) as db:
-            rows=db.execute("SELECT l.*,COUNT(lp.post_id) AS source_count FROM leads l LEFT JOIN lead_posts lp ON lp.lead_id=l.id GROUP BY l.id ORDER BY CASE l.bucket WHEN 'hot' THEN 0 WHEN 'review' THEN 1 WHEN 'archive' THEN 2 ELSE 3 END,l.score DESC,l.last_seen_at DESC LIMIT ?",(max(1,limit),)).fetchall(); items=[]; counts={"hot":0,"review":0,"archive":0,"rejected":0}
+            rows=db.execute("SELECT l.*,COUNT(lp.post_id) AS source_count FROM leads l LEFT JOIN lead_posts lp ON lp.lead_id=l.id GROUP BY l.id ORDER BY CASE l.bucket WHEN 'hot' THEN 0 WHEN 'review' THEN 1 WHEN 'archive' THEN 2 ELSE 3 END,l.score DESC,l.last_seen_at DESC LIMIT ?",(max(1,limit),)).fetchall(); items=[]
+            counts={row["bucket"]:int(row["n"]) for row in db.execute("SELECT bucket,COUNT(*) n FROM leads GROUP BY bucket").fetchall() if row["bucket"]}
             for row in rows:
-                if row["bucket"] in counts:counts[row["bucket"]]+=1
-                ev=json.loads(row["evaluation_json"] or "{}"); ev["catalog_id"]=int(row["id"]); ev["catalog_status"]=row["status"]; ev["source_count"]=int(row["source_count"] or 0); items.append(ev)
-            total=int(db.execute("SELECT COUNT(*) FROM leads").fetchone()[0]); return {"generated_at":_now(),"summary":{"total":total,**counts},"items":items}
+                ev=json.loads(row["evaluation_json"] or "{}"); ev["catalog_id"]=int(row["id"]); ev["catalog_status"]=row["status"]; ev["source_count"]=int(row["source_count"] or 0); ev.setdefault("lead",{})["deadline_text"]=row["deadline_text"]; items.append(ev)
+            total=int(db.execute("SELECT COUNT(*) FROM leads").fetchone()[0]); return {"generated_at":_now(),"summary":{"total":total,"hot":counts.get("hot",0),"review":counts.get("review",0),"archive":counts.get("archive",0),"rejected":counts.get("rejected",0)},"items":items}
     def source_stats(self)->list[dict[str,Any]]:
         with closing(self._connect()) as db:return [dict(row) for row in db.execute("SELECT * FROM sources ORDER BY priority,source_id").fetchall()]
+    def feedback_stats(self)->dict[str,int]:
+        with closing(self._connect()) as db:return {row["status"]:int(row["n"]) for row in db.execute("SELECT status,COUNT(*) n FROM leads GROUP BY status").fetchall()}
     def latest_run(self)->dict[str,Any]|None:
         with closing(self._connect()) as db:
             row=db.execute("SELECT * FROM scan_runs ORDER BY id DESC LIMIT 1").fetchone(); return dict(row) if row else None

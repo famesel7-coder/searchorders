@@ -32,6 +32,7 @@ class Lead:
     budget_from: int | None = None
     budget_to: int | None = None
     currency: str | None = None
+    deadline_text: str | None = None
     has_direct_contact: bool = False
     contacts: list[str] = field(default_factory=list)
     raw: dict[str, Any] = field(default_factory=dict, repr=False)

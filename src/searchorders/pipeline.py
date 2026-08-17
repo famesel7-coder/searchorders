@@ -7,9 +7,14 @@ from .matching import match_case
 from .models import Lead, LeadEvaluation
 from .proposal import create_proposal_draft
 from .scoring import score_lead
+from .semantic import refine_with_semantics
 
 def evaluate_lead(lead:Lead,profile:dict[str,Any],cases:list[dict[str,Any]],*,now:datetime|None=None)->LeadEvaluation:
-    classification=classify_lead(lead,profile); matched_case=None if classification.hard_reject else match_case(lead,classification,cases); score=score_lead(lead,classification,matched_case,profile,now=now); proposal=None
+    classification=classify_lead(lead,profile)
+    lead,classification=refine_with_semantics(lead,classification)
+    matched_case=None if classification.hard_reject else match_case(lead,classification,cases)
+    score=score_lead(lead,classification,matched_case,profile,now=now)
+    proposal=None
     if score.bucket in {"hot","review"}:proposal=create_proposal_draft(lead,classification,matched_case,site_url=str(profile.get("proposal",{}).get("site_url","https://imon.agency/")))
     return LeadEvaluation(lead=lead,classification=classification,score=score,matched_case=matched_case,proposal_draft=proposal)
 def evaluate_leads(leads:Iterable[Lead],profile:dict[str,Any],cases:list[dict[str,Any]],*,now:datetime|None=None)->list[LeadEvaluation]:

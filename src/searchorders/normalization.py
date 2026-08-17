@@ -12,6 +12,9 @@ WS_RE = re.compile(r"\s+")
 CONTACT_RE = re.compile(r"(?:https?://t\.me/[A-Za-z0-9_+\-/]+|@[A-Za-z0-9_]{4,}|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|(?:\+?\d[\d\s()\-]{8,}\d))", re.IGNORECASE)
 BUDGET_RANGE_RE = re.compile(r"(?:бюджет|оплата|стоимость|budget)?\s*[:—-]?\s*(?P<low>\d[\d\s.,]{1,10})\s*(?:-|–|—|до)\s*(?P<high>\d[\d\s.,]{1,10})\s*(?P<mult>тыс(?:яч)?|k|млн|m)?\s*(?P<cur>₽|руб(?:лей|ля|\.)?|р\.|usd|\$|eur|€)?", re.IGNORECASE)
 BUDGET_SINGLE_RE = re.compile(r"(?:бюджет|оплата|стоимость|budget)\s*[:—-]?\s*(?:от\s*)?(?P<value>\d[\d\s.,]{1,10})\s*(?P<mult>тыс(?:яч)?|k|млн|m)?\s*(?P<cur>₽|руб(?:лей|ля|\.)?|р\.|usd|\$|eur|€)?", re.IGNORECASE)
+DEADLINE_RE = re.compile(r"(?:срок|дедлайн|deadline)\s*[:—-]\s*(?P<value>[^\n.;]{2,80})", re.IGNORECASE)
+DEADLINE_UNTIL_RE = re.compile(r"\b(?:до|к)\s+(?P<value>(?:\d{1,2}[./-]\d{1,2}(?:[./-]\d{2,4})?)|(?:конц[ау]\s+(?:недели|месяца))|(?:следующей\s+недели))", re.IGNORECASE)
+COMPANY_RE = re.compile(r"(?:^|\n)\s*(?:компания|заказчик|клиент|бренд)\s*[:—-]\s*(?P<value>[^\n,;]{2,100})", re.IGNORECASE)
 
 
 def normalize_text(value: str) -> str:
@@ -62,6 +65,20 @@ def extract_contacts(text: str) -> list[str]:
     return values[:10]
 
 
+def extract_deadline(text: str) -> str | None:
+    match = DEADLINE_RE.search(text) or DEADLINE_UNTIL_RE.search(text)
+    if not match: return None
+    return " ".join(match.group("value").strip(" .,:;—-").split())[:120] or None
+
+
+def extract_company_name(text: str) -> str | None:
+    match = COMPANY_RE.search(text)
+    if not match: return None
+    value = " ".join(match.group("value").strip(" .,:;—-").split())
+    if len(value) < 2 or len(value) > 100: return None
+    return value
+
+
 def content_fingerprint(lead: Lead) -> str:
     text = normalize_text(f"{lead.title}\n{lead.description}")
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -72,10 +89,11 @@ def contact_set(lead: Lead) -> set[str]:
 
 
 def enrich_lead(lead: Lead) -> Lead:
+    full_text = f"{lead.title}\n{lead.description}"
     contacts = lead.contacts or extract_contacts(lead.description)
-    low, high, currency = extract_budget(f"{lead.title}\n{lead.description}")
+    low, high, currency = extract_budget(full_text)
     raw = dict(lead.raw); raw.setdefault("content_fingerprint", content_fingerprint(lead))
-    return replace(lead, contacts=contacts, has_direct_contact=lead.has_direct_contact or bool(contacts), budget_from=lead.budget_from if lead.budget_from is not None else low, budget_to=lead.budget_to if lead.budget_to is not None else high, currency=lead.currency or currency, raw=raw)
+    return replace(lead, contacts=contacts, has_direct_contact=lead.has_direct_contact or bool(contacts), budget_from=lead.budget_from if lead.budget_from is not None else low, budget_to=lead.budget_to if lead.budget_to is not None else high, currency=lead.currency or currency, deadline_text=lead.deadline_text or extract_deadline(full_text), company_name=lead.company_name or extract_company_name(full_text), raw=raw)
 
 
 def compact_source_refs(leads: Iterable[Lead]) -> list[dict[str, str | None]]:

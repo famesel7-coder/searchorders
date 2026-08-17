@@ -11,13 +11,15 @@ Source Registry
   ├─ VK public walls
   └─ community RSS/Atom
         ↓
-Raw Posts → contact/budget extraction → cross-source dedupe
+Raw Posts → contact/budget/deadline/company extraction → cross-source dedupe
         ↓
-Intent: project_demand / employment / self_promo / demand / ambiguous
+Rule intent classifier → optional semantic Structured Output refinement
+        ↓
+project_demand / employment / self_promo / demand / ambiguous
         ↓
 Service + industry tags → scoring → case match → proposal
         ↓
-Persistent Lead Catalog
+Persistent Lead Catalog → feedback/status history
 ```
 
 ## Invariants
@@ -27,11 +29,13 @@ Persistent Lead Catalog
 - collection limits are per source; output limit is applied after ingestion;
 - posts are persisted before evaluation;
 - one canonical lead may link to many reposts;
-- source failures are isolated and tracked.
+- source failures are isolated and tracked;
+- semantic enrichment is optional/fail-open and never blocks ingestion;
+- human feedback is stored independently from model score.
 
 ## SQLite
 
-`scan_runs` stores lifecycle/counts; `sources` stores health; `posts` stores immutable source identity; `leads` stores canonical evaluation/CRM status; `lead_posts` links reposts; `lead_status_history` audits status changes.
+`scan_runs` stores lifecycle/counts; `sources` stores health; `posts` stores immutable source identity; `leads` stores canonical evaluation/CRM status; `lead_posts` links reposts; `lead_status_history` audits feedback changes. Schema initialization performs additive migrations for new catalog fields.
 
 ## Runtime
 
