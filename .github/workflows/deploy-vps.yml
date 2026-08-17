@@ -39,13 +39,20 @@ jobs:
           python -m pip install .
           PYTHONPATH=src python -m unittest discover -s tests -v
           PYTHONPATH=src python -m compileall -q src tests
-      - name: Validate deployment secrets
+      - name: Check deploy credentials
+        id: deploy_gate
         shell: bash
         run: |
           set -Eeuo pipefail
-          : "${VPS_HOST:?VPS_HOST is required}"
-          : "${VPS_SSH_PRIVATE_KEY:?Add VPS_SSH_PRIVATE_KEY to repository Actions secrets}"
+          if [ -n "${VPS_SSH_PRIVATE_KEY:-}" ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+            echo 'VPS deploy is enabled.'
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo '::notice::Tests passed, but VPS deploy was skipped because VPS_SSH_PRIVATE_KEY is not configured in Actions secrets.'
+          fi
       - name: Prepare SSH connection
+        if: steps.deploy_gate.outputs.enabled == 'true'
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -56,6 +63,7 @@ jobs:
           ssh-keyscan -p "$deploy_port" -H "$VPS_HOST" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
       - name: Install, deploy, and verify
+        if: steps.deploy_gate.outputs.enabled == 'true'
         shell: bash
         run: |
           set -Eeuo pipefail
