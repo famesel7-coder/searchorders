@@ -1,0 +1,38 @@
+x-search-orders-base: &search-orders-base
+  build:
+    context: .
+  image: imon-search-orders:local
+  init: true
+  environment:
+    TZ: Europe/Moscow
+    OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+    OPENAI_CLASSIFIER_ENABLED: "${OPENAI_CLASSIFIER_ENABLED:-0}"
+    OPENAI_CLASSIFIER_MODEL: "${OPENAI_CLASSIFIER_MODEL:-}"
+    TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN:-}"
+    TELEGRAM_CHAT_ID: "${TELEGRAM_CHAT_ID:-}"
+    TELEGRAM_API_ID: "${TELEGRAM_API_ID:-}"
+    TELEGRAM_API_HASH: "${TELEGRAM_API_HASH:-}"
+    TELEGRAM_SESSION: "${TELEGRAM_SESSION:-}"
+    VK_ACCESS_TOKEN: "${VK_ACCESS_TOKEN:-}"
+    WEB_AUTH_TOKEN: "${WEB_AUTH_TOKEN:-}"
+  volumes:
+    - ./data:/app/data:ro
+    - ./output:/app/output
+    - ./state:/app/state
+  restart: unless-stopped
+
+services:
+  search-orders:
+    <<: *search-orders-base
+    command: ["web", "--host", "0.0.0.0", "--port", "8080", "--title", "I’MON Search Orders"]
+    ports:
+      - "${WEB_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  search-orders-bot:
+    <<: *search-orders-base
+    command: ["bot"]

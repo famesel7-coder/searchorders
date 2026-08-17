@@ -1,0 +1,49 @@
+version: 2
+updated_at: 2026-08-17
+agency:
+  name: "I’MON Digital Agency"
+  website: "https://imon.agency/"
+  portfolio: "https://imon.agency/ru/portfolio"
+  positioning: "B2B full-cycle digital agency"
+services:
+  priority: [brand-platform, brand-identity, ux-ui, corporate-website, product-website, promo-website, digital-platform, no-code-development, frontend-development, presentation-design]
+  secondary: [research, product-audit, brand-analytics, content-production, digital-campaign]
+  excluded: [complex-backend, native-mobile-development-without-ux-ui, pure-seo, pure-media-buying, pure-smm, staff-augmentation, full-time-employment]
+technologies:
+  preferred: [Tilda, Webflow, Framer]
+  constraints: ["No complex backend systems", "Technical feasibility review before promising custom functionality"]
+lead_filters:
+  hard_reject_signals: [full-time, employment contract, probation period, monthly salary, mandatory office, permanent employee, штат, полная занятость, испытательный срок, оклад, соцпакет]
+  positive_project_signals: [project, contract, freelance, one-off, brief, deliverables, deadline, project budget, проектная работа, подряд, разовая задача, бриф, бюджет проекта, на проект, проектно]
+  demand_signals: [ищем подрядчика, ищем исполнителя, ищем дизайнера, ищу дизайнера, нужен дизайнер, нужна команда, ищем агентство, нужен подрядчик, требуется дизайнер, есть задача, есть проект]
+scoring:
+  service_fit: 30
+  commercial_fit: 20
+  project_probability: 15
+  case_match: 10
+  client_quality: 10
+  freshness_urgency: 10
+  contactability: 5
+  thresholds: {hot: 75, review: 55}
+lead_segments:
+  published_demand:
+    enabled: true
+    priority: primary
+    source_policy: social-community-only
+    initial_sources: [telegram, vk, community-feeds]
+    excluded_sources: [marketplaces, job-boards]
+    trigger_mode: on-demand
+    preferred_regions: [Russia, USA, Europe]
+    region_policy: soft-priority
+proposal:
+  site_url: "https://imon.agency/"
+  case_catalog: "data/cases.yaml"
+  approval_required: true
+  languages: [ru, en]
+  external_label: "B2B digital agency or compact senior team"
+  forbidden_claims: ["small studio", "we do everything", "any functionality", "unverified metrics"]
+operations:
+  timezone: Europe/Moscow
+  persistent_catalog: true
+  semantic_dedupe: true
+  source_health_tracking: true

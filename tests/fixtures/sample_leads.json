@@ -1,0 +1,47 @@
+[
+  {
+    "source": "fixture",
+    "external_id": "project-001",
+    "title": "Разработка премиального сайта жилого комплекса",
+    "description": "Ищем агентство на проектную работу. Нужны аналитика бренда, UX/UI, дизайн корпоративного сайта и разработка. Есть бриф, готовое ТЗ, фиксированный бюджет и дедлайн. Проект элитной недвижимости.",
+    "url": "https://example.com/project-001",
+    "company_name": "Example Development",
+    "published_at": "2026-08-12T07:00:00+00:00",
+    "area": "Москва",
+    "accept_temporary": true,
+    "salary_from": 500000,
+    "currency": "RUR",
+    "has_direct_contact": true
+  },
+  {
+    "source": "fixture",
+    "external_id": "job-001",
+    "title": "UX/UI дизайнер в штат",
+    "description": "Ищем дизайнера в команду на полный рабочий день. Оформление по ТК, испытательный срок, оклад и социальный пакет.",
+    "url": "https://example.com/job-001",
+    "company_name": "Example Employer",
+    "published_at": "2026-08-12T06:00:00+00:00",
+    "employment": "Полная занятость",
+    "schedule": "Полный день"
+  },
+  {
+    "source": "fixture",
+    "external_id": "backend-001",
+    "title": "Backend-разработчик Python",
+    "description": "Постоянная занятость. Django, FastAPI, микросервисы и ERP.",
+    "url": "https://example.com/backend-001",
+    "published_at": "2026-08-12T05:00:00+00:00",
+    "employment": "Полная занятость"
+  },
+  {
+    "source": "fixture",
+    "external_id": "project-002",
+    "title": "Дизайн презентации для автомобильной конференции",
+    "description": "Разовая задача на проект: разработать дизайн презентации и визуальный стиль мероприятия для автомобильного бренда. Бриф и материалы готовы, срок — две недели.",
+    "url": "https://example.com/project-002",
+    "company_name": "Example Auto",
+    "published_at": "2026-08-11T12:00:00+00:00",
+    "accept_temporary": true
+  }
+]
+
