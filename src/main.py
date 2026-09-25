@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from scoring import score_lead
-from sources import fetch_sam, fetch_ted
+from sources import fetch_sam, fetch_ted, fetch_uk
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "config" / "search_config.json"
@@ -43,10 +43,14 @@ def collect(config: dict[str, Any]) -> tuple[list[dict[str, Any]], list[str]]:
     leads: list[dict[str, Any]] = []
     warnings: list[str] = []
 
-    try:
-        leads.extend(fetch_ted(config))
-    except Exception as exc:  # one source should not kill the whole run
-        warnings.append(f"TED failed: {exc}")
+    for name, fetcher in (
+        ("TED", fetch_ted),
+        ("UK Find a Tender", fetch_uk),
+    ):
+        try:
+            leads.extend(fetcher(config))
+        except Exception as exc:  # one source should not kill the whole run
+            warnings.append(f"{name} failed: {exc}")
 
     if config.get("sam", {}).get("enabled", True) and not os.getenv("SAM_API_KEY"):
         warnings.append("SAM.gov skipped: SAM_API_KEY is not set")
