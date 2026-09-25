@@ -39,7 +39,6 @@ def _parse_date(value: str | None) -> date | None:
 
 
 def _contains_phrase(text: str, phrase: str) -> bool:
-    # Word boundaries stop short terms from matching inside unrelated words.
     pattern = r"(?<!\w)" + re.escape(phrase.lower()) + r"(?!\w)"
     return re.search(pattern, text.lower()) is not None
 
@@ -92,7 +91,6 @@ def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         score += 25
         reasons.append(f"relevant CPV: {', '.join(cpv_matches)} (+25)")
 
-    # Money, freshness and geography must never make an unrelated tender look good.
     if not services and not cpv_matches:
         return {
             **lead,
@@ -163,7 +161,7 @@ def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         reasons.append("direct source URL (+5)")
 
     source = str(lead.get("source") or "")
-    if source in {"TED", "SAM.gov"}:
+    if source in {"TED", "SAM.gov", "UK Find a Tender"}:
         score += 5
         reasons.append("official procurement source (+5)")
 
