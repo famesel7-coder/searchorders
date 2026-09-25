@@ -1,0 +1,37 @@
+{
+  "lookback_days": 14,
+  "minimum_score": 55,
+  "target_markets": ["USA", "GBR", "DEU", "NLD", "CHE"],
+  "ted_buyer_countries": ["DEU", "NLD"],
+  "keywords": [
+    "branding",
+    "brand identity",
+    "graphic design",
+    "creative services",
+    "presentation",
+    "pitch deck",
+    "website",
+    "web design",
+    "ux",
+    "ui",
+    "digital design",
+    "marketing materials",
+    "communication design"
+  ],
+  "ted_cpv_codes": [
+    "79822500",
+    "72413000",
+    "79340000",
+    "79415200"
+  ],
+  "sam": {
+    "enabled": true,
+    "max_pages": 3,
+    "page_size": 1000
+  },
+  "ted": {
+    "enabled": true,
+    "limit": 250,
+    "scope": "ACTIVE"
+  }
+}
