@@ -69,19 +69,23 @@ def fetch_ted(config: dict[str, Any]) -> list[dict[str, Any]]:
             "classification-cpv",
             "estimated-value-proc",
             "estimated-value-cur-proc",
-            "deadline",
-            "links",
+            "deadline-receipt-tender-date-lot",
         ],
         "limit": int(config.get("ted", {}).get("limit", 250)),
         "scope": config.get("ted", {}).get("scope", "ACTIVE"),
-        "checkQuerySyntax": True,
+        # true only validates syntax and intentionally returns no notices.
+        "checkQuerySyntax": False,
         "paginationMode": "PAGE_NUMBER",
         "page": 1,
+        "onlyLatestVersions": True,
     }
 
     response = requests.post(TED_URL, json=payload, timeout=45)
     response.raise_for_status()
     data = response.json()
+
+    if data.get("timedOut"):
+        raise RuntimeError("TED search timed out")
 
     leads: list[dict[str, Any]] = []
     for notice in data.get("notices", []):
@@ -96,7 +100,7 @@ def fetch_ted(config: dict[str, Any]) -> list[dict[str, Any]]:
                 "company": _first_text(notice.get("buyer-name")),
                 "country": _first_text(notice.get("buyer-country")),
                 "published_at": str(_scalar(notice.get("publication-date")) or "")[:10],
-                "deadline": str(_scalar(notice.get("deadline")) or "")[:10],
+                "deadline": str(_scalar(notice.get("deadline-receipt-tender-date-lot")) or "")[:10],
                 "value": _scalar(notice.get("estimated-value-proc")),
                 "currency": _scalar(notice.get("estimated-value-cur-proc")),
                 "cpv": notice.get("classification-cpv") or [],
@@ -150,6 +154,8 @@ def fetch_sam(config: dict[str, Any]) -> list[dict[str, Any]]:
             notice_id = str(row.get("noticeId") or "").strip()
             if not notice_id:
                 continue
+
+            award = row.get("award") if isinstance(row.get("award"), dict) else {}
             leads.append(
                 {
                     "id": f"sam:{notice_id}",
@@ -159,10 +165,12 @@ def fetch_sam(config: dict[str, Any]) -> list[dict[str, Any]]:
                     "country": "USA",
                     "published_at": str(row.get("postedDate") or "")[:10],
                     "deadline": str(row.get("responseDeadLine") or "")[:10],
-                    "value": None,
+                    "value": award.get("amount"),
                     "currency": "USD",
                     "cpv": [],
                     "url": str(row.get("uiLink") or "").strip(),
+                    "description_url": str(row.get("description") or "").strip(),
+                    "point_of_contact": row.get("pointOfContact") or [],
                     "raw": row,
                 }
             )
