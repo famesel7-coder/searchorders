@@ -28,9 +28,13 @@
   "ted_cpv_codes": [
     "79822500",
     "72413000",
-    "79340000",
-    "79415200"
+    "79340000"
   ],
+  "uk_find_a_tender": {
+    "enabled": true,
+    "max_pages": 3,
+    "page_size": 100
+  },
   "sam": {
     "enabled": true,
     "max_pages": 3,
