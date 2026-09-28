@@ -64,5 +64,48 @@
     "79340000",
     "79415200",
     "79933000"
-  ]
+  ],
+  "signal_feeds": [
+    {
+      "name": "TechCrunch Venture",
+      "url": "https://techcrunch.com/category/venture/feed/"
+    },
+    {
+      "name": "EU-Startups",
+      "url": "https://www.eu-startups.com/feed/"
+    },
+    {
+      "name": "Silicon Canals",
+      "url": "https://siliconcanals.com/feed/"
+    }
+  ],
+  "signal_keywords": {
+    "funding": [
+      "raises",
+      "raised",
+      "secures",
+      "secured",
+      "funding",
+      "series a",
+      "series b",
+      "seed round",
+      "investment round",
+      "fundraise"
+    ],
+    "rebrand": [
+      "rebrand",
+      "rebranding",
+      "new brand identity",
+      "new visual identity",
+      "brand refresh"
+    ],
+    "expansion": [
+      "expands to",
+      "expansion into",
+      "enters the us",
+      "enters the uk",
+      "enters europe",
+      "launches in"
+    ]
+  }
 }
