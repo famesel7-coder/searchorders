@@ -80,23 +80,34 @@ def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
 
     services = detect_services(lead)
     configured_cpvs = {str(code) for code in config.get("ted_cpv_codes", [])}
+    strict_cpvs = {
+        str(code)
+        for code in config.get("ted_strict_cpv_codes", config.get("ted_cpv_codes", []))
+    }
+    broad_cpvs = {str(code) for code in config.get("ted_broad_cpv_codes", [])}
     lead_cpvs = {str(code) for code in _flatten_strings(lead.get("cpv"))}
     cpv_matches = sorted(configured_cpvs.intersection(lead_cpvs))
+    strict_cpv_matches = sorted(strict_cpvs.intersection(lead_cpvs))
+    broad_cpv_matches = sorted(broad_cpvs.intersection(lead_cpvs))
 
     if services:
         service_points = min(35, 25 + 5 * (len(services) - 1))
         score += service_points
         reasons.append(f"text service match: {', '.join(services)} (+{service_points})")
-    if cpv_matches:
+    if strict_cpv_matches:
         score += 25
-        reasons.append(f"relevant CPV: {', '.join(cpv_matches)} (+25)")
+        reasons.append(f"strong design/web CPV: {', '.join(strict_cpv_matches)} (+25)")
+    elif broad_cpv_matches and services:
+        score += 8
+        reasons.append(f"broad marketing CPV backed by text match: {', '.join(broad_cpv_matches)} (+8)")
 
-    if not services and not cpv_matches:
+    if not services and not strict_cpv_matches:
+        reason = "broad marketing CPV without verified I’MON service match" if broad_cpv_matches else "no verified service or strong CPV relevance"
         return {
             **lead,
             "services": [],
             "score": 0,
-            "score_reasons": ["no verified service or CPV relevance"],
+            "score_reasons": [reason],
         }
 
     country = str(lead.get("country") or "").upper()
