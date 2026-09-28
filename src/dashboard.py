@@ -70,6 +70,29 @@ const signals = __SIGNALS_JSON__;
 let currentTab = 'leads';
 let currentFilter = 'all';
 const storageKey = 'searchordersStatus.v1';
+const countryRu = {DEU:'Германия', NLD:'Нидерланды', GBR:'Великобритания', USA:'США', CHE:'Швейцария'};
+const serviceRu = {branding:'Брендинг', presentations:'Презентации', web:'Веб', ux_ui:'UX/UI', creative:'Графический дизайн'};
+const signalRu = {funding:'Финансирование', rebrand:'Ребрендинг', expansion:'Расширение'};
+
+function reasonRu(value) {
+  const s = String(value || '');
+  if (s.startsWith('text service match:')) return 'совпадение по услугам' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('primary graphic/web CPV:')) return 'основной CPV — графический/веб-дизайн' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('additional design/web CPV backed by text match:')) return 'дополнительный CPV дизайна подтверждён текстом' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('broad CPV backed by text match:')) return 'широкий CPV подтверждён текстом' + s.slice(s.lastIndexOf(' ('));
+  if (s === 'target market (+10)') return 'целевой рынок (+10)';
+  if (s === 'published within 3 days (+15)') return 'опубликовано за последние 3 дня (+15)';
+  if (s === 'published within 7 days (+10)') return 'опубликовано за последние 7 дней (+10)';
+  if (s === 'recent lead (+5)') return 'свежий лид (+5)';
+  if (s === 'declared value >= 50k (+15)') return 'заявленный бюджет от 50 тыс. (+15)';
+  if (s === 'declared value >= 10k (+10)') return 'заявленный бюджет от 10 тыс. (+10)';
+  if (s === 'declared value >= 3k (+5)') return 'заявленный бюджет от 3 тыс. (+5)';
+  if (s === 'at least 14 days to respond (+10)') return 'до дедлайна минимум 14 дней (+10)';
+  if (s === 'at least 5 days to respond (+5)') return 'до дедлайна минимум 5 дней (+5)';
+  if (s === 'direct source URL (+5)') return 'есть прямая ссылка на источник (+5)';
+  if (s === 'official procurement source (+5)') return 'официальный источник закупки (+5)';
+  return s;
+}
 
 function loadStatuses() {
   try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (_) { return {}; }
@@ -116,20 +139,22 @@ function render() {
     const isSignal = Boolean(item.signal_type);
     const company = isSignal ? (item.company_guess || 'Компания требует уточнения') : (item.company || 'Заказчик не указан');
     const detailParts = [];
-    if (item.country) detailParts.push(item.country);
+    if (item.country) detailParts.push(countryRu[item.country] || item.country);
     if (item.published_at) detailParts.push('Опубликовано: ' + item.published_at);
     if (item.deadline) detailParts.push('Дедлайн: ' + item.deadline);
     const budget = money(item.value, item.currency);
     if (budget) detailParts.push('Бюджет: ' + budget);
-    if (isSignal && item.signal_type) detailParts.push('Сигнал: ' + item.signal_type);
-    const serviceBadges = (item.services || []).map(s => '<span class="badge">' + esc(s) + '</span>').join('');
-    const description = isSignal ? (item.summary || '') : (item.score_reasons || []).join(' · ');
+    if (isSignal && item.signal_type) detailParts.push('Сигнал: ' + (signalRu[item.signal_type] || item.signal_type));
+    const serviceBadges = (item.services || []).map(s => '<span class="badge">' + esc(serviceRu[s] || s) + '</span>').join('');
+    const description = isSignal
+      ? (item.summary_ru || item.summary || '')
+      : (item.description_ru || item.description || (item.score_reasons || []).map(reasonRu).join(' · '));
     return `
       <article class="card" data-status="${esc(status)}">
         <div class="topline">
           <div>
             <div class="meta">${esc(item.source || '')}</div>
-            <div class="title">${esc(item.title || '')}</div>
+            <div class="title">${esc(item.title_ru || item.title || '')}</div>
             <div class="company">${esc(company)}</div>
           </div>
           <div class="score">${esc(item.score || 0)}</div>
