@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,20 +23,33 @@ def load_config(path: Path) -> dict[str, Any]:
         return json.load(handle)
 
 
+def _fingerprint_text(value: Any) -> str:
+    text = str(value or "").casefold()
+    return re.sub(r"[^a-z0-9\u00c0-\u024f\u0400-\u04ff]+", " ", text).strip()
+
+
 def dedupe(leads: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    seen: set[str] = set()
+    seen_ids: set[str] = set()
+    seen_projects: set[str] = set()
     result: list[dict[str, Any]] = []
+
     for lead in leads:
         lead_id = str(lead.get("id") or "").strip()
-        fallback = "|".join(
-            str(lead.get(key) or "").strip().lower()
-            for key in ("source", "title", "company", "published_at")
-        )
-        key = lead_id or fallback
-        if not key or key in seen:
+        title = _fingerprint_text(lead.get("title"))
+        company = _fingerprint_text(lead.get("company"))
+        project_key = f"{company}|{title}" if company and title else ""
+
+        if lead_id and lead_id in seen_ids:
             continue
-        seen.add(key)
+        if project_key and project_key in seen_projects:
+            continue
+
+        if lead_id:
+            seen_ids.add(lead_id)
+        if project_key:
+            seen_projects.add(project_key)
         result.append(lead)
+
     return result
 
 
@@ -97,7 +111,7 @@ def save_outputs(leads: list[dict[str, Any]], output_dir: Path, warnings: list[s
     csv_path = output_dir / "leads_latest.csv"
     columns = [
         "score", "source", "title", "company", "country", "published_at",
-        "deadline", "value", "currency", "services", "url", "score_reasons",
+        "deadline", "value", "currency", "primary_cpv", "services", "url", "score_reasons",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=columns)
