@@ -82,6 +82,13 @@ const channelRu = {direct_outbound:'Прямой outbound', agency_partners:'А�
 
 function reasonRu(value) {
   const s = String(value || '');
+  if (s.startsWith('international/global remote explicitly allowed')) return 'международные кандидаты / global remote разрешены' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('remote work supported')) return 'удалённая работа поддерживается' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('agency/white-label collaboration explicitly supported')) return 'агентства / white-label партнёры разрешены' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('country/local-only restriction')) return 'ограничение по стране / только локальные кандидаты' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('local candidates preferred')) return 'предпочтение локальным кандидатам' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('onsite/studio presence requested')) return 'требуется присутствие onsite / в студии' + s.slice(s.lastIndexOf(' ('));
+  if (s.startsWith('role is oriented to an individual contractor')) return 'роль ориентирована на отдельного исполнителя' + s.slice(s.lastIndexOf(' ('));
   if (s.startsWith('text service match:')) return 'совпадение по услугам' + s.slice(s.lastIndexOf(' ('));
   if (s.startsWith('primary graphic/web CPV:')) return 'основной CPV — графический/веб-дизайн' + s.slice(s.lastIndexOf(' ('));
   if (s.startsWith('additional design/web CPV backed by text match:')) return 'дополнительный CPV дизайна подтверждён текстом' + s.slice(s.lastIndexOf(' ('));
@@ -155,7 +162,13 @@ function render() {
     const serviceBadges = (item.services || []).map(s => '<span class="badge">' + esc(serviceRu[s] || s) + '</span>').join('');
     const evidence = (item.evidence || []).map(x => '• ' + esc(x)).join('<br>');
     const counter = (item.counter_evidence || []).map(x => '• ' + esc(x)).join('<br>');
+    const fitReasons = (item.fit_reasons || []).map(x => '• ' + esc(reasonRu(x))).join('<br>');
+    const fitScore = item.fit_score ?? item.score ?? item.confidence ?? 0;
+    const fitBase = item.base_confidence ?? item.confidence ?? item.score ?? 0;
+    const fitAdjustment = item.fit_adjustment ?? 0;
+    const fitClass = fitAdjustment < 0 ? 'risk' : 'good';
     const ia5 = item.conclusion ? `
+      <div class="section ${fitClass}"><b>Fit для I’MON</b>${esc(fitBase)} → <strong>${esc(fitScore)}</strong> (${fitAdjustment >= 0 ? '+' : ''}${esc(fitAdjustment)})<br>${fitReasons || 'Географические/форматные ограничения не выявлены'}</div>
       <div class="section"><b>Почему может быть клиент</b>${esc(item.hypothesis || '')}</div>
       <div class="section good"><b>Что подтверждено</b>${evidence || 'Пока нет подтверждений'}</div>
       <div class="section risk"><b>Что вызывает сомнение</b>${counter || 'Явных контраргументов пока нет'}</div>
@@ -172,7 +185,7 @@ function render() {
             <div class="title">${esc(item.title_ru || item.title || '')}</div>
             <div class="company">${esc(company)}</div>
           </div>
-          <div class="score">${item.conclusion ? esc(conclusionRu[item.conclusion] || item.conclusion) + '<br>' + esc(item.confidence || 0) + '%' : esc(item.score || 0)}</div>
+          <div class="score">${item.conclusion ? esc(conclusionRu[item.conclusion] || item.conclusion) + '<br>FIT ' + esc(fitScore) : esc(item.score || 0)}</div>
         </div>
         <div class="meta">${esc(detailParts.join(' · '))}</div>
         <div>${serviceBadges}</div>
