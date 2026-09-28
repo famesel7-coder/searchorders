@@ -82,6 +82,140 @@ def _flatten_strings(value: Any) -> list[str]:
     return [str(value)]
 
 
+COLLABORATION_SIGNAL_PHRASES = {
+    "international_open": (
+        "open to international", "international candidates", "international applicants",
+        "worldwide remote", "remote worldwide", "work from anywhere", "anywhere in the world",
+        "global, remote", "global remote", "открыты к международным кандидатам",
+        "международным кандидатам", "из любой страны", "по всему миру",
+    ),
+    "remote": ("remote", "удалённ", "удален"),
+    "agency_friendly": (
+        "agencies welcome", "agency partners welcome", "external design partner",
+        "external agency", "design studio partner", "white-label partner", "subcontract partner",
+    ),
+    "local_only": (
+        "canada only", "us only", "u.s. only", "uk only", "united kingdom only",
+        "must be based in", "must reside in", "must live in", "only candidates based in",
+        "local candidates only", "только кандидаты из", "требуется проживание в",
+    ),
+    "local_preferred": (
+        "local preferred", "local candidates preferred", "preference to candidates",
+        "preference for candidates", "prefer candidates based", "предпочтение кандидатам",
+        "предпочтение отдают", "желательно из", "предпочтительно",
+    ),
+    "onsite": (
+        "onsite", "on-site", "hybrid", "in-office", "office presence", "studio presence",
+        "required presence", "присутствие в", "работа в офисе", "гибрид",
+    ),
+    "individual_only": (
+        "individual freelancer", "individual contractor", "single freelancer", "one designer",
+        "hands-on designer", "embedded individual designer", "индивидуального исполнителя",
+        "отдельного фрилансера", "отдельного дизайнера", "одного hands-on дизайнера",
+        "одного арт-директора",
+    ),
+}
+
+
+def _objective_fit_text(lead: dict[str, Any]) -> str:
+    fields = (
+        "title", "title_ru", "description", "country", "source", "evidence",
+        "counter_evidence", "location_scope", "contractor_model", "work_arrangement",
+    )
+    return " ".join(_flatten_strings({key: lead.get(key) for key in fields})).casefold()
+
+
+def _has_fit_signal(text: str, group: str) -> bool:
+    return any(phrase.casefold() in text for phrase in COLLABORATION_SIGNAL_PHRASES[group])
+
+
+def collaboration_adjustment(
+    lead: dict[str, Any],
+    config: dict[str, Any],
+) -> tuple[int, list[str]]:
+    """Score how realistically I’MON can engage as an international remote studio."""
+    weights = {
+        "international_open_bonus": 25,
+        "remote_bonus": 5,
+        "agency_friendly_bonus": 12,
+        "local_only_penalty": 45,
+        "local_preferred_penalty": 25,
+        "onsite_penalty": 20,
+        "individual_only_penalty": 15,
+    }
+    weights.update(config.get("collaboration_fit", {}))
+    text = _objective_fit_text(lead)
+    adjustment = 0
+    reasons: list[str] = []
+
+    if _has_fit_signal(text, "international_open"):
+        points = int(weights["international_open_bonus"])
+        adjustment += points
+        reasons.append(f"international/global remote explicitly allowed (+{points})")
+
+    if _has_fit_signal(text, "remote"):
+        points = int(weights["remote_bonus"])
+        adjustment += points
+        reasons.append(f"remote work supported (+{points})")
+
+    if _has_fit_signal(text, "agency_friendly"):
+        points = int(weights["agency_friendly_bonus"])
+        adjustment += points
+        reasons.append(f"agency/white-label collaboration explicitly supported (+{points})")
+
+    if _has_fit_signal(text, "local_only"):
+        points = int(weights["local_only_penalty"])
+        adjustment -= points
+        reasons.append(f"country/local-only restriction (-{points})")
+    elif _has_fit_signal(text, "local_preferred"):
+        points = int(weights["local_preferred_penalty"])
+        adjustment -= points
+        reasons.append(f"local candidates preferred (-{points})")
+
+    if _has_fit_signal(text, "onsite"):
+        points = int(weights["onsite_penalty"])
+        adjustment -= points
+        reasons.append(f"onsite/studio presence requested (-{points})")
+
+    if _has_fit_signal(text, "individual_only"):
+        points = int(weights["individual_only_penalty"])
+        adjustment -= points
+        reasons.append(f"role is oriented to an individual contractor (-{points})")
+
+    return adjustment, reasons
+
+
+def score_curated_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+    """Adjust analyst confidence by practical international/contractor accessibility."""
+    try:
+        base_confidence = int(float(lead.get("confidence", 50)))
+    except (TypeError, ValueError):
+        base_confidence = 50
+
+    fit_adjustment, fit_reasons = collaboration_adjustment(lead, config)
+    fit_score = max(0, min(100, base_confidence + fit_adjustment))
+
+    fit_conclusion = "strong" if fit_score >= 75 else "verify_more" if fit_score >= 50 else "reject"
+    original_conclusion = str(lead.get("conclusion") or "verify_more")
+    levels = {"reject": 0, "verify_more": 1, "strong": 2}
+    if original_conclusion not in levels:
+        final_conclusion = fit_conclusion
+    elif levels[fit_conclusion] < levels[original_conclusion]:
+        final_conclusion = fit_conclusion
+    else:
+        final_conclusion = original_conclusion
+
+    return {
+        **lead,
+        "base_confidence": base_confidence,
+        "fit_adjustment": fit_adjustment,
+        "fit_score": fit_score,
+        "score": fit_score,
+        "fit_reasons": fit_reasons,
+        "conclusion": final_conclusion,
+    }
+
+
 def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     """Return a transparent 0-100 score with relevance as a hard gate."""
     score = 0
@@ -194,10 +328,17 @@ def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         score += 5
         reasons.append("official procurement source (+5)")
 
+    fit_adjustment, fit_reasons = collaboration_adjustment(lead, config)
+    score += fit_adjustment
+    reasons.extend(fit_reasons)
+
     score = max(0, min(100, score))
     return {
         **lead,
         "services": services,
         "score": score,
+        "fit_score": score,
+        "fit_adjustment": fit_adjustment,
+        "fit_reasons": fit_reasons,
         "score_reasons": reasons,
     }
