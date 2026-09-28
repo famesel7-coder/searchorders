@@ -148,5 +148,14 @@
     "investor_day": true,
     "new_market": true,
     "new_sales_hiring": true
+  },
+  "collaboration_fit": {
+    "international_open_bonus": 25,
+    "remote_bonus": 5,
+    "agency_friendly_bonus": 12,
+    "local_only_penalty": 45,
+    "local_preferred_penalty": 25,
+    "onsite_penalty": 20,
+    "individual_only_penalty": 15
   }
 }
