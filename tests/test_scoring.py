@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from scoring import score_lead  # noqa: E402
+from scoring import collaboration_adjustment, score_curated_lead, score_lead  # noqa: E402
 
 
 CONFIG = {
@@ -126,6 +126,75 @@ class ScoringTests(unittest.TestCase):
         )
         self.assertGreater(result["score"], 0)
         self.assertIn("creative", result["services"])
+
+
+    def test_international_remote_is_boosted(self):
+        adjustment, reasons = collaboration_adjustment(
+            {
+                "title": "Freelance designer",
+                "evidence": ["Remote. We are open to international candidates."],
+            },
+            CONFIG,
+        )
+        self.assertGreater(adjustment, 0)
+        self.assertTrue(any("international/global" in reason for reason in reasons))
+
+    def test_local_preference_and_individual_role_are_penalized(self):
+        adjustment, reasons = collaboration_adjustment(
+            {
+                "title": "Freelance designer",
+                "evidence": ["Remote contract role."],
+                "counter_evidence": [
+                    "Есть предпочтение кандидатам из Alberta или British Columbia.",
+                    "Вакансия ориентирована на отдельного фрилансера.",
+                ],
+            },
+            CONFIG,
+        )
+        self.assertLess(adjustment, 0)
+        self.assertTrue(any("local candidates preferred" in reason for reason in reasons))
+        self.assertTrue(any("individual contractor" in reason for reason in reasons))
+
+    def test_country_only_rule_overrides_remote_bonus(self):
+        adjustment, _ = collaboration_adjustment(
+            {
+                "description": "Fully remote. Applicants must be based in the United States.",
+            },
+            CONFIG,
+        )
+        self.assertLess(adjustment, 0)
+
+    def test_curated_lead_is_downgraded_when_access_is_poor(self):
+        result = score_curated_lead(
+            {
+                "confidence": 91,
+                "conclusion": "strong",
+                "title_ru": "Проектная поддержка по дизайну",
+                "evidence": ["Freelance / Contract, Project-Based, Remote."],
+                "counter_evidence": [
+                    "Есть предпочтение кандидатам из Alberta или British Columbia.",
+                    "Формулировка вакансии ориентирована скорее на отдельного фрилансера.",
+                ],
+            },
+            CONFIG,
+        )
+        self.assertLess(result["fit_score"], 75)
+        self.assertEqual(result["conclusion"], "verify_more")
+        self.assertEqual(result["base_confidence"], 91)
+
+    def test_curated_international_role_keeps_strong_status(self):
+        result = score_curated_lead(
+            {
+                "confidence": 90,
+                "conclusion": "strong",
+                "title_ru": "Freelance art direction",
+                "evidence": ["Remote. Открыты к международным кандидатам."],
+                "counter_evidence": ["Может требоваться личная вовлечённость одного арт-директора."],
+            },
+            CONFIG,
+        )
+        self.assertGreaterEqual(result["fit_score"], 75)
+        self.assertEqual(result["conclusion"], "strong")
 
 
 if __name__ == "__main__":
