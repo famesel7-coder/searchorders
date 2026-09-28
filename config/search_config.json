@@ -42,17 +42,17 @@
     "79340000"
   ],
   "uk_find_a_tender": {
-    "enabled": true,
+    "enabled": false,
     "max_pages": 3,
     "page_size": 100
   },
   "sam": {
-    "enabled": true,
+    "enabled": false,
     "max_pages": 3,
     "page_size": 1000
   },
   "ted": {
-    "enabled": true,
+    "enabled": false,
     "limit": 250,
     "scope": "ACTIVE"
   },
@@ -114,5 +114,39 @@
     "provider": "mymemory",
     "request_delay_seconds": 0.25,
     "max_chars_per_field": 900
+  },
+  "strategy": {
+    "tenders_enabled": false,
+    "primary_channels": [
+      {
+        "id": "direct_outbound",
+        "name": "Прямой outbound",
+        "priority": 1,
+        "description": "Компании в США и Европе с текущими buying signals и вероятной потребностью в презентациях, брендинге, отчётах, pitch decks и sales materials."
+      },
+      {
+        "id": "agency_partners",
+        "name": "Агентства и консалтинг как партнёры",
+        "priority": 2,
+        "description": "Дизайн-, digital-, branding-, consulting- и research-компании, которым можно отдавать I’MON как white-label/subcontract design partner."
+      },
+      {
+        "id": "events_launches",
+        "name": "Компании перед конференциями, выставками и запусками",
+        "priority": 3,
+        "description": "Компании с близким публичным дедлайном: конференция, выставка, product launch, investor day, demo day или market expansion."
+      }
+    ]
+  },
+  "outbound_signals": {
+    "funding": true,
+    "rebrand": true,
+    "expansion": true,
+    "product_launch": true,
+    "conference": true,
+    "exhibition": true,
+    "investor_day": true,
+    "new_market": true,
+    "new_sales_hiring": true
   }
 }
