@@ -109,6 +109,10 @@ def fetch_ted(config: dict[str, Any]) -> list[dict[str, Any]]:
         pub_no = str(_scalar(notice.get("publication-number")) or "").strip()
         if not pub_no:
             continue
+        cpv_raw = notice.get("classification-cpv") or []
+        cpv_values = cpv_raw if isinstance(cpv_raw, list) else [cpv_raw]
+        cpv_values = [str(value).strip() for value in cpv_values if str(value).strip()]
+
         leads.append(
             {
                 "id": f"ted:{pub_no}",
@@ -121,7 +125,8 @@ def fetch_ted(config: dict[str, Any]) -> list[dict[str, Any]]:
                 "deadline": str(_scalar(notice.get("deadline-receipt-tender-date-lot")) or "")[:10],
                 "value": _scalar(notice.get("estimated-value-proc")),
                 "currency": _scalar(notice.get("estimated-value-cur-proc")),
-                "cpv": notice.get("classification-cpv") or [],
+                "primary_cpv": cpv_values[0] if cpv_values else "",
+                "cpv": cpv_values,
                 "url": f"https://ted.europa.eu/en/notice/-/detail/{pub_no}",
                 "raw": notice,
             }
@@ -177,8 +182,9 @@ def fetch_uk(config: dict[str, Any]) -> list[dict[str, Any]]:
 
             cpv_codes: list[str] = []
             classification = tender.get("classification") if isinstance(tender.get("classification"), dict) else {}
-            if classification.get("id"):
-                cpv_codes.append(str(classification["id"]))
+            primary_cpv = str(classification.get("id") or "").strip()
+            if primary_cpv:
+                cpv_codes.append(primary_cpv)
             for item in tender.get("items", []) if isinstance(tender.get("items"), list) else []:
                 if not isinstance(item, dict):
                     continue
@@ -201,6 +207,7 @@ def fetch_uk(config: dict[str, Any]) -> list[dict[str, Any]]:
                     "deadline": str(tender_period.get("endDate") or "")[:10],
                     "value": value.get("amount"),
                     "currency": value.get("currency") or "GBP",
+                    "primary_cpv": primary_cpv,
                     "cpv": sorted(set(cpv_codes)),
                     "url": f"https://www.find-tender.service.gov.uk/Notice/{release_id}",
                     "raw": release,
