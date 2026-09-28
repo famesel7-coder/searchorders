@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from dashboard import build_dashboard
 from scoring import score_lead
 from signals import fetch_commercial_signals
 from sources import fetch_sam, fetch_ted, fetch_uk
@@ -214,6 +215,13 @@ def main() -> int:
     print_signal_summary(signals, signal_warnings, args.top)
     print(f"\nSaved: {signal_json_path}")
     print(f"Saved: {signal_csv_path}")
+
+    dashboard_path = build_dashboard(
+        [public_lead(lead) for lead in leads],
+        signals,
+        args.output_dir / "dashboard.html",
+    )
+    print(f"Saved: {dashboard_path}")
     return 0
 
 
