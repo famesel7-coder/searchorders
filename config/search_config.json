@@ -107,5 +107,12 @@
       "enters europe",
       "launches in"
     ]
+  },
+  "translation": {
+    "enabled": true,
+    "target": "ru",
+    "provider": "mymemory",
+    "request_delay_seconds": 0.25,
+    "max_chars_per_field": 900
   }
 }
