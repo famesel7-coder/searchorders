@@ -38,7 +38,11 @@ button, .link { border:0; border-radius:12px; padding:10px 14px; font-weight:650
 .card[data-status="work"] { border-color:#55d187; }
 .card[data-status="skip"] { opacity:.48; }
 .topline { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
-.score { min-width:52px; text-align:center; font-size:18px; font-weight:800; background:#222935; border-radius:12px; padding:8px; }
+.score { min-width:74px; text-align:center; font-size:13px; font-weight:800; background:#222935; border-radius:12px; padding:8px; line-height:1.25; }
+.section { margin-top:12px; padding-top:10px; border-top:1px solid #242b35; }
+.section b { color:#f4f7fb; display:block; margin-bottom:5px; }
+.good { color:#8ce6ad; }
+.risk { color:#ffb4a8; }
 .meta { color:#9ca7b7; font-size:13px; margin:7px 0; }
 .title { font-size:19px; font-weight:750; line-height:1.3; }
 .company { font-size:15px; color:#d9e0e9; margin-top:5px; }
@@ -54,10 +58,10 @@ button, .link { border:0; border-radius:12px; padding:10px 14px; font-weight:650
 <body>
 <main>
   <h1>I’MON Search Orders</h1>
-  <div class="sub">Зарубежные тендеры и компании с buying signals. Решения «В работу / Пропустить» сохраняются локально в браузере.</div>
+  <div class="sub">Зарубежные лиды без тендеров: прямой спрос, агентства-партнёры и компании с buying signals. Метод: гипотеза → проверка → критика → вывод.</div>
   <div class="controls">
-    <button id="tab-leads" class="tab active" onclick="showTab('leads')">Открытые заказы <span id="count-leads"></span></button>
-    <button id="tab-signals" class="tab" onclick="showTab('signals')">Компании-сигналы <span id="count-signals"></span></button>
+    <button id="tab-leads" class="tab active" onclick="showTab('leads')">Проверенные лиды <span id="count-leads"></span></button>
+    <button id="tab-signals" class="tab" onclick="showTab('signals')">Новые сигналы <span id="count-signals"></span></button>
     <button class="tab" onclick="showOnly('all')">Все</button>
     <button class="tab" onclick="showOnly('work')">В работе</button>
     <button class="tab" onclick="showOnly('new')">Новые</button>
@@ -73,6 +77,8 @@ const storageKey = 'searchordersStatus.v1';
 const countryRu = {DEU:'Германия', NLD:'Нидерланды', GBR:'Великобритания', USA:'США', CHE:'Швейцария'};
 const serviceRu = {branding:'Брендинг', presentations:'Презентации', web:'Веб', ux_ui:'UX/UI', creative:'Графический дизайн'};
 const signalRu = {funding:'Финансирование', rebrand:'Ребрендинг', expansion:'Расширение'};
+const conclusionRu = {strong:'СИЛЬНЫЙ', verify_more:'ПРОВЕРИТЬ', reject:'ОТКЛОНИТЬ'};
+const channelRu = {direct_outbound:'Прямой outbound', agency_partners:'Агентство / партнёр', events_launches:'Событие / запуск'};
 
 function reasonRu(value) {
   const s = String(value || '');
@@ -136,19 +142,28 @@ function render() {
   }
   grid.innerHTML = filtered.map(item => {
     const status = statuses[item.id] || 'new';
-    const isSignal = Boolean(item.signal_type);
-    const company = isSignal ? (item.company_guess || 'Компания требует уточнения') : (item.company || 'Заказчик не указан');
+    const isSignal = Boolean(item.signal_type) && !item.conclusion;
+    const company = isSignal ? (item.company_guess || 'Компания требует уточнения') : (item.company || 'Компания не указана');
     const detailParts = [];
     if (item.country) detailParts.push(countryRu[item.country] || item.country);
-    if (item.published_at) detailParts.push('Опубликовано: ' + item.published_at);
+    if (item.channel) detailParts.push(channelRu[item.channel] || item.channel);
+    if (item.published_at) detailParts.push('Сигнал/публикация: ' + item.published_at);
     if (item.deadline) detailParts.push('Дедлайн: ' + item.deadline);
     const budget = money(item.value, item.currency);
-    if (budget) detailParts.push('Бюджет: ' + budget);
+    if (budget) detailParts.push('Бюджет/ставка: ' + budget);
     if (isSignal && item.signal_type) detailParts.push('Сигнал: ' + (signalRu[item.signal_type] || item.signal_type));
     const serviceBadges = (item.services || []).map(s => '<span class="badge">' + esc(serviceRu[s] || s) + '</span>').join('');
-    const description = isSignal
-      ? (item.summary_ru || item.summary || '')
-      : (item.description_ru || item.description || (item.score_reasons || []).map(reasonRu).join(' · '));
+    const evidence = (item.evidence || []).map(x => '• ' + esc(x)).join('<br>');
+    const counter = (item.counter_evidence || []).map(x => '• ' + esc(x)).join('<br>');
+    const ia5 = item.conclusion ? `
+      <div class="section"><b>Почему может быть клиент</b>${esc(item.hypothesis || '')}</div>
+      <div class="section good"><b>Что подтверждено</b>${evidence || 'Пока нет подтверждений'}</div>
+      <div class="section risk"><b>Что вызывает сомнение</b>${counter || 'Явных контраргументов пока нет'}</div>
+      <div class="section"><b>Что предлагаем</b>${esc(item.proposed_service || '')}</div>
+      <div class="section"><b>Кому писать</b>${esc(item.decision_maker_role || 'Нужно определить')}</div>
+      <div class="section"><b>Как заходить</b>${esc(item.outreach_angle || '')}</div>
+    ` : '';
+    const description = isSignal ? (item.summary_ru || item.summary || '') : '';
     return `
       <article class="card" data-status="${esc(status)}">
         <div class="topline">
@@ -157,11 +172,12 @@ function render() {
             <div class="title">${esc(item.title_ru || item.title || '')}</div>
             <div class="company">${esc(company)}</div>
           </div>
-          <div class="score">${esc(item.score || 0)}</div>
+          <div class="score">${item.conclusion ? esc(conclusionRu[item.conclusion] || item.conclusion) + '<br>' + esc(item.confidence || 0) + '%' : esc(item.score || 0)}</div>
         </div>
         <div class="meta">${esc(detailParts.join(' · '))}</div>
         <div>${serviceBadges}</div>
         <div class="details">${esc(description)}</div>
+        ${ia5}
         <div class="actions">
           <button class="work" onclick="setStatus('${esc(item.id)}','work')">В работу</button>
           <button class="skip" onclick="setStatus('${esc(item.id)}','skip')">Пропустить</button>
