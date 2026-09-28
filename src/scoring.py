@@ -8,7 +8,10 @@ from typing import Any
 SERVICE_GROUPS = {
     "branding": ("branding", "brand identity", "rebrand", "visual identity", "brand strategy"),
     "presentations": ("presentation design", "pitch deck", "sales deck", "investor deck", "powerpoint design"),
-    "web": ("website design", "web design", "web development", "digital platform", "landing page"),
+    "web": (
+        "website design", "web design", "web development", "digital platform", "landing page",
+        "webdesign", "website relaunch", "internet relaunch",
+    ),
     "ux_ui": (
         "ux design",
         "ui design",
@@ -22,6 +25,12 @@ SERVICE_GROUPS = {
         "marketing materials",
         "communication design",
         "visual communication",
+        "grafische vormgeving",
+        "vormgevingsdiensten",
+        "grafisch ontwerp",
+        "grafikdesign",
+        "grafische gestaltung",
+        "design-dienstleistungen",
     ),
 }
 
@@ -86,23 +95,32 @@ def score_lead(lead: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     }
     broad_cpvs = {str(code) for code in config.get("ted_broad_cpv_codes", [])}
     lead_cpvs = {str(code) for code in _flatten_strings(lead.get("cpv"))}
+    primary_cpv = str(lead.get("primary_cpv") or "").strip()
     cpv_matches = sorted(configured_cpvs.intersection(lead_cpvs))
     strict_cpv_matches = sorted(strict_cpvs.intersection(lead_cpvs))
     broad_cpv_matches = sorted(broad_cpvs.intersection(lead_cpvs))
+    primary_strict_match = primary_cpv if primary_cpv in strict_cpvs else ""
 
     if services:
         service_points = min(35, 25 + 5 * (len(services) - 1))
         score += service_points
         reasons.append(f"text service match: {', '.join(services)} (+{service_points})")
-    if strict_cpv_matches:
-        score += 25
-        reasons.append(f"strong design/web CPV: {', '.join(strict_cpv_matches)} (+25)")
+    if primary_strict_match:
+        score += 30
+        reasons.append(f"primary graphic/web CPV: {primary_strict_match} (+30)")
+    elif strict_cpv_matches and services:
+        score += 12
+        reasons.append(f"additional design/web CPV backed by text match: {', '.join(strict_cpv_matches)} (+12)")
     elif broad_cpv_matches and services:
         score += 8
-        reasons.append(f"broad marketing CPV backed by text match: {', '.join(broad_cpv_matches)} (+8)")
+        reasons.append(f"broad CPV backed by text match: {', '.join(broad_cpv_matches)} (+8)")
 
-    if not services and not strict_cpv_matches:
-        reason = "broad marketing CPV without verified I’MON service match" if broad_cpv_matches else "no verified service or strong CPV relevance"
+    if not services and not primary_strict_match:
+        reason = (
+            "design/marketing CPV appears only as secondary context without verified I’MON service match"
+            if strict_cpv_matches or broad_cpv_matches
+            else "no verified service or primary graphic/web CPV relevance"
+        )
         return {
             **lead,
             "services": [],
