@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from scoring import score_lead
+from signals import fetch_commercial_signals
 from sources import fetch_sam, fetch_ted, fetch_uk
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -130,6 +131,51 @@ def save_outputs(leads: list[dict[str, Any]], output_dir: Path, warnings: list[s
     return json_path, csv_path
 
 
+def save_signal_outputs(
+    signals: list[dict[str, Any]],
+    output_dir: Path,
+    warnings: list[str],
+) -> tuple[Path, Path]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    generated_at = datetime.now(timezone.utc).isoformat()
+
+    json_path = output_dir / "signals_latest.json"
+    payload = {
+        "generated_at": generated_at,
+        "count": len(signals),
+        "warnings": warnings,
+        "signals": signals,
+    }
+    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    csv_path = output_dir / "signals_latest.csv"
+    columns = [
+        "score", "signal_type", "source", "company_guess", "title",
+        "published_at", "publisher_domain", "url", "status",
+    ]
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer.writeheader()
+        for signal in signals:
+            writer.writerow({key: signal.get(key, "") for key in columns})
+
+    return json_path, csv_path
+
+
+def print_signal_summary(signals: list[dict[str, Any]], warnings: list[str], limit: int) -> None:
+    print(f"Commercial signals: {len(signals)}")
+    for warning in warnings:
+        print(f"WARNING: {warning}", file=sys.stderr)
+
+    for index, signal in enumerate(signals[:limit], start=1):
+        company = signal.get("company_guess") or "(company needs enrichment)"
+        print(
+            f"{index:>2}. [{signal.get('score', 0):>3}] {signal.get('signal_type')} | "
+            f"{company} | {signal.get('title') or '(no title)'}\n"
+            f"    {signal.get('url') or ''}"
+        )
+
+
 def print_summary(leads: list[dict[str, Any]], warnings: list[str], limit: int) -> None:
     print(f"Strong leads: {len(leads)}")
     for warning in warnings:
@@ -154,12 +200,20 @@ def main() -> int:
     args = parser.parse_args()
 
     config = load_config(args.config)
+
     raw_leads, warnings = collect(config)
     leads = rank(raw_leads, config)
     json_path, csv_path = save_outputs(leads, args.output_dir, warnings)
     print_summary(leads, warnings, args.top)
     print(f"\nSaved: {json_path}")
     print(f"Saved: {csv_path}")
+
+    signals, signal_warnings = fetch_commercial_signals(config)
+    signal_json_path, signal_csv_path = save_signal_outputs(signals, args.output_dir, signal_warnings)
+    print()
+    print_signal_summary(signals, signal_warnings, args.top)
+    print(f"\nSaved: {signal_json_path}")
+    print(f"Saved: {signal_csv_path}")
     return 0
 
 
