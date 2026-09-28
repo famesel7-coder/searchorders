@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-import html
 import json
 from pathlib import Path
 from typing import Any
 
 
 def _js_data(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False).replace("</", "<\/")
+    return json.dumps(value, ensure_ascii=False).replace("</script>", r"<\/script>")
 
 
 def build_dashboard(
@@ -17,42 +16,39 @@ def build_dashboard(
 ) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    leads_json = _js_data(leads)
-    signals_json = _js_data(signals)
-
-    page = f"""<!doctype html>
+    page = """<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>I’MON — Search Orders</title>
 <style>
-:root {{ color-scheme: dark; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-* {{ box-sizing: border-box; }}
-body {{ margin: 0; background: #0b0d10; color: #f5f7fa; }}
-main {{ max-width: 1280px; margin: 0 auto; padding: 34px 24px 80px; }}
-h1 {{ font-size: 34px; margin: 0 0 8px; }}
-.sub {{ color: #9ca7b7; margin-bottom: 26px; }}
-.controls {{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }}
-button, .link {{ border:0; border-radius:12px; padding:10px 14px; font-weight:650; cursor:pointer; text-decoration:none; }}
-.tab {{ background:#1b2028; color:#dce3ec; }}
-.tab.active {{ background:#f5f7fa; color:#11151a; }}
-.grid {{ display:grid; gap:14px; }}
-.card {{ background:#14181e; border:1px solid #242b35; border-radius:18px; padding:18px; }}
-.card[data-status="work"] {{ border-color:#55d187; }}
-.card[data-status="skip"] {{ opacity:.48; }}
-.topline {{ display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }}
-.score {{ min-width:52px; text-align:center; font-size:18px; font-weight:800; background:#222935; border-radius:12px; padding:8px; }}
-.meta {{ color:#9ca7b7; font-size:13px; margin:7px 0; }}
-.title {{ font-size:19px; font-weight:750; line-height:1.3; }}
-.company {{ font-size:15px; color:#d9e0e9; margin-top:5px; }}
-.details {{ color:#b7c0cc; margin:12px 0; line-height:1.45; font-size:14px; }}
-.actions {{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }}
-.work {{ background:#55d187; color:#07130c; }}
-.skip {{ background:#2b313b; color:#d6dce5; }}
-.link {{ background:#2684ff; color:white; display:inline-block; }}
-.badge {{ display:inline-block; padding:4px 8px; border-radius:999px; background:#232a34; margin-right:6px; }}
-.empty {{ padding:26px; color:#9ca7b7; border:1px dashed #343c47; border-radius:16px; }}
+:root { color-scheme: dark; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #0b0d10; color: #f5f7fa; }
+main { max-width: 1280px; margin: 0 auto; padding: 34px 24px 80px; }
+h1 { font-size: 34px; margin: 0 0 8px; }
+.sub { color: #9ca7b7; margin-bottom: 26px; }
+.controls { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+button, .link { border:0; border-radius:12px; padding:10px 14px; font-weight:650; cursor:pointer; text-decoration:none; }
+.tab { background:#1b2028; color:#dce3ec; }
+.tab.active { background:#f5f7fa; color:#11151a; }
+.grid { display:grid; gap:14px; }
+.card { background:#14181e; border:1px solid #242b35; border-radius:18px; padding:18px; }
+.card[data-status="work"] { border-color:#55d187; }
+.card[data-status="skip"] { opacity:.48; }
+.topline { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
+.score { min-width:52px; text-align:center; font-size:18px; font-weight:800; background:#222935; border-radius:12px; padding:8px; }
+.meta { color:#9ca7b7; font-size:13px; margin:7px 0; }
+.title { font-size:19px; font-weight:750; line-height:1.3; }
+.company { font-size:15px; color:#d9e0e9; margin-top:5px; }
+.details { color:#b7c0cc; margin:12px 0; line-height:1.45; font-size:14px; }
+.actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.work { background:#55d187; color:#07130c; }
+.skip { background:#2b313b; color:#d6dce5; }
+.link { background:#2684ff; color:white; display:inline-block; }
+.badge { display:inline-block; padding:4px 8px; border-radius:999px; background:#232a34; margin-right:6px; }
+.empty { padding:26px; color:#9ca7b7; border:1px dashed #343c47; border-radius:16px; }
 </style>
 </head>
 <body>
@@ -69,53 +65,53 @@ button, .link {{ border:0; border-radius:12px; padding:10px 14px; font-weight:65
   <div id="grid" class="grid"></div>
 </main>
 <script>
-const leads = {leads_json};
-const signals = {signals_json};
+const leads = __LEADS_JSON__;
+const signals = __SIGNALS_JSON__;
 let currentTab = 'leads';
 let currentFilter = 'all';
 const storageKey = 'searchordersStatus.v1';
 
-function loadStatuses() {{
-  try {{ return JSON.parse(localStorage.getItem(storageKey) || '{{}}'); }} catch (_) {{ return {{}}; }}
-}}
-function saveStatuses(value) {{ localStorage.setItem(storageKey, JSON.stringify(value)); }}
-function setStatus(id, status) {{
+function loadStatuses() {
+  try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (_) { return {}; }
+}
+function saveStatuses(value) { localStorage.setItem(storageKey, JSON.stringify(value)); }
+function setStatus(id, status) {
   const s = loadStatuses();
   if (status === 'new') delete s[id]; else s[id] = status;
   saveStatuses(s);
   render();
-}}
-function money(v, c) {{
+}
+function money(v, c) {
   if (v === null || v === undefined || v === '') return '';
   const n = Number(v);
   if (Number.isNaN(n)) return String(v) + ' ' + (c || '');
-  return new Intl.NumberFormat('ru-RU', {{maximumFractionDigits:0}}).format(n) + ' ' + (c || '');
-}}
-function esc(s) {{
-  return String(s ?? '').replace(/[&<>"']/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[ch]));
-}}
-function showTab(tab) {{
+  return new Intl.NumberFormat('ru-RU', {maximumFractionDigits:0}).format(n) + ' ' + (c || '');
+}
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function showTab(tab) {
   currentTab = tab;
   document.getElementById('tab-leads').classList.toggle('active', tab === 'leads');
   document.getElementById('tab-signals').classList.toggle('active', tab === 'signals');
   render();
-}}
-function showOnly(filter) {{ currentFilter = filter; render(); }}
-function render() {{
+}
+function showOnly(filter) { currentFilter = filter; render(); }
+function render() {
   const statuses = loadStatuses();
   const data = currentTab === 'leads' ? leads : signals;
-  const filtered = data.filter(item => {{
+  const filtered = data.filter(item => {
     const status = statuses[item.id] || 'new';
     return currentFilter === 'all' || status === currentFilter;
-  }});
+  });
   document.getElementById('count-leads').textContent = '(' + leads.length + ')';
   document.getElementById('count-signals').textContent = '(' + signals.length + ')';
   const grid = document.getElementById('grid');
-  if (!filtered.length) {{
+  if (!filtered.length) {
     grid.innerHTML = '<div class="empty">Здесь пока ничего нет.</div>';
     return;
-  }}
-  grid.innerHTML = filtered.map(item => {{
+  }
+  grid.innerHTML = filtered.map(item => {
     const status = statuses[item.id] || 'new';
     const isSignal = Boolean(item.signal_type);
     const company = isSignal ? (item.company_guess || 'Компания требует уточнения') : (item.company || 'Заказчик не указан');
@@ -148,12 +144,14 @@ function render() {{
           <a class="link" href="${esc(item.url || '#')}" target="_blank" rel="noopener">Источник</a>
         </div>
       </article>`;
-  }}).join('');
-}}
+  }).join('');
+}
 render();
 </script>
 </body>
 </html>"""
 
+    page = page.replace("__LEADS_JSON__", _js_data(leads))
+    page = page.replace("__SIGNALS_JSON__", _js_data(signals))
     output_path.write_text(page, encoding="utf-8")
     return output_path
