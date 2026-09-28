@@ -10,3 +10,4 @@ data/leads_latest.csv
 data/signals_latest.json
 data/signals_latest.csv
 data/dashboard.html
+data/translation_cache.json
