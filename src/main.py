@@ -19,11 +19,21 @@ from translator import translate_leads, translate_signals
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "config" / "search_config.json"
 DEFAULT_OUTPUT_DIR = ROOT / "data"
+DEFAULT_CURATED_LEADS = ROOT / "data" / "curated_leads.json"
 
 
 def load_config(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def load_curated_leads(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+    leads = payload.get("leads", []) if isinstance(payload, dict) else []
+    return leads if isinstance(leads, list) else []
 
 
 def _fingerprint_text(value: Any) -> str:
@@ -179,7 +189,7 @@ def print_signal_summary(signals: list[dict[str, Any]], warnings: list[str], lim
 
 
 def print_summary(leads: list[dict[str, Any]], warnings: list[str], limit: int) -> None:
-    print(f"Strong leads: {len(leads)}")
+    print(f"Curated leads: {len(leads)}")
     for warning in warnings:
         print(f"WARNING: {warning}", file=sys.stderr)
 
@@ -187,9 +197,11 @@ def print_summary(leads: list[dict[str, Any]], warnings: list[str], limit: int) 
         value = lead.get("value")
         currency = lead.get("currency") or ""
         value_text = f" | {value} {currency}" if value not in (None, "") else ""
+        confidence = lead.get("confidence", lead.get("score", 0))
+        conclusion = lead.get("conclusion", "")
         print(
-            f"{index:>2}. [{lead['score']:>3}] {lead.get('source')} | "
-            f"{lead.get('title') or '(no title)'} | {lead.get('company') or '(unknown buyer)'}"
+            f"{index:>2}. [{confidence:>3}] {conclusion} | {lead.get('company') or '(unknown company)'} | "
+            f"{lead.get('title_ru') or lead.get('title') or '(no title)'}"
             f"{value_text}\n    {lead.get('url') or ''}"
         )
 
@@ -203,13 +215,18 @@ def main() -> int:
 
     config = load_config(args.config)
 
-    raw_leads, warnings = collect(config)
-    leads = rank(raw_leads, config)
-    leads = translate_leads(
-        leads,
-        config,
-        args.output_dir / "translation_cache.json",
-    )
+    if config.get("strategy", {}).get("tenders_enabled", False):
+        raw_leads, warnings = collect(config)
+        leads = rank(raw_leads, config)
+        leads = translate_leads(
+            leads,
+            config,
+            args.output_dir / "translation_cache.json",
+        )
+    else:
+        warnings = []
+        leads = load_curated_leads(DEFAULT_CURATED_LEADS)
+
     json_path, csv_path = save_outputs(leads, args.output_dir, warnings)
     print_summary(leads, warnings, args.top)
     print(f"\nSaved: {json_path}")
