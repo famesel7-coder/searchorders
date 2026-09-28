@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from dashboard import build_dashboard
-from scoring import score_lead
+from scoring import score_curated_lead, score_lead
 from signals import fetch_commercial_signals
 from sources import fetch_sam, fetch_ted, fetch_uk
 from translator import translate_leads, translate_signals
@@ -123,8 +123,9 @@ def save_outputs(leads: list[dict[str, Any]], output_dir: Path, warnings: list[s
 
     csv_path = output_dir / "leads_latest.csv"
     columns = [
-        "score", "source", "title_ru", "title", "company", "country", "published_at",
-        "deadline", "value", "currency", "primary_cpv", "services", "url", "score_reasons",
+        "score", "base_confidence", "fit_adjustment", "source", "title_ru", "title",
+        "company", "country", "published_at", "deadline", "value", "currency",
+        "primary_cpv", "services", "url", "fit_reasons", "score_reasons",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=columns)
@@ -197,10 +198,10 @@ def print_summary(leads: list[dict[str, Any]], warnings: list[str], limit: int) 
         value = lead.get("value")
         currency = lead.get("currency") or ""
         value_text = f" | {value} {currency}" if value not in (None, "") else ""
-        confidence = lead.get("confidence", lead.get("score", 0))
+        fit_score = lead.get("fit_score", lead.get("score", lead.get("confidence", 0)))
         conclusion = lead.get("conclusion", "")
         print(
-            f"{index:>2}. [{confidence:>3}] {conclusion} | {lead.get('company') or '(unknown company)'} | "
+            f"{index:>2}. [{fit_score:>3}] {conclusion} | {lead.get('company') or '(unknown company)'} | "
             f"{lead.get('title_ru') or lead.get('title') or '(no title)'}"
             f"{value_text}\n    {lead.get('url') or ''}"
         )
@@ -225,7 +226,17 @@ def main() -> int:
         )
     else:
         warnings = []
-        leads = load_curated_leads(DEFAULT_CURATED_LEADS)
+        leads = [score_curated_lead(lead, config) for lead in load_curated_leads(DEFAULT_CURATED_LEADS)]
+        conclusion_priority = {"strong": 2, "verify_more": 1, "reject": 0}
+        leads = sorted(
+            leads,
+            key=lambda lead: (
+                conclusion_priority.get(str(lead.get("conclusion") or ""), 0),
+                int(lead.get("fit_score", 0)),
+                str(lead.get("published_at") or ""),
+            ),
+            reverse=True,
+        )
 
     json_path, csv_path = save_outputs(leads, args.output_dir, warnings)
     print_summary(leads, warnings, args.top)
