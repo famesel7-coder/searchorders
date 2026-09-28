@@ -14,6 +14,7 @@ from dashboard import build_dashboard
 from scoring import score_lead
 from signals import fetch_commercial_signals
 from sources import fetch_sam, fetch_ted, fetch_uk
+from translator import translate_leads, translate_signals
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "config" / "search_config.json"
@@ -112,7 +113,7 @@ def save_outputs(leads: list[dict[str, Any]], output_dir: Path, warnings: list[s
 
     csv_path = output_dir / "leads_latest.csv"
     columns = [
-        "score", "source", "title", "company", "country", "published_at",
+        "score", "source", "title_ru", "title", "company", "country", "published_at",
         "deadline", "value", "currency", "primary_cpv", "services", "url", "score_reasons",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
@@ -151,7 +152,7 @@ def save_signal_outputs(
 
     csv_path = output_dir / "signals_latest.csv"
     columns = [
-        "score", "signal_type", "source", "company_guess", "title",
+        "score", "signal_type", "source", "company_guess", "title_ru", "title",
         "published_at", "publisher_domain", "url", "status",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
@@ -204,12 +205,22 @@ def main() -> int:
 
     raw_leads, warnings = collect(config)
     leads = rank(raw_leads, config)
+    leads = translate_leads(
+        leads,
+        config,
+        args.output_dir / "translation_cache.json",
+    )
     json_path, csv_path = save_outputs(leads, args.output_dir, warnings)
     print_summary(leads, warnings, args.top)
     print(f"\nSaved: {json_path}")
     print(f"Saved: {csv_path}")
 
     signals, signal_warnings = fetch_commercial_signals(config)
+    signals = translate_signals(
+        signals,
+        config,
+        args.output_dir / "translation_cache.json",
+    )
     signal_json_path, signal_csv_path = save_signal_outputs(signals, args.output_dir, signal_warnings)
     print()
     print_signal_summary(signals, signal_warnings, args.top)
