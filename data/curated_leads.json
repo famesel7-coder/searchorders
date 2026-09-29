@@ -1,273 +1,285 @@
 {
-  "checked_at": "2026-09-28",
-  "methodology": "IA-5: hypothesis -> verify -> challenge -> conclude",
+  "checked_at": "2026-09-29",
+  "methodology": "Explicit demand gate",
   "tenders_included": false,
   "leads": [
     {
-      "id": "m3m-freelance-design-2026-09",
-      "channel": "agency_partners",
-      "demand_type": "open_project_demand",
+      "id": "m3m-marketing",
       "company": "M3M Marketing",
       "country": "Canada",
-      "title_ru": "Проектная поддержка по графическому дизайну и брендингу",
+      "channel": "explicit_demand",
+      "title_ru": "Внешний freelance/contract Graphic Designer на project-by-project основе для клиентских и внутренних проектов.",
+      "explicit_need": "Внешний freelance/contract Graphic Designer на project-by-project основе для клиентских и внутренних проектов.",
+      "deliverables": [
+        "brand identity",
+        "brand guides",
+        "campaign creative",
+        "reports/PDFs",
+        "PowerPoint/presentation design",
+        "event materials",
+        "Canva templates",
+        "simple motion"
+      ],
+      "proposed_service": "brand identity, brand guides, campaign creative, reports/PDFs, PowerPoint/presentation design, event materials, Canva templates, simple motion",
+      "evidence": [
+        "Official company posting dated 2026-09-17; no closing date stated.",
+        "Freelance / Contract, project-based, remote"
+      ],
+      "counter_evidence": [
+        "Preference for Alberta/BC; company says elsewhere in Canada may be considered.",
+        "No guaranteed hours or minimum project volume."
+      ],
+      "confidence": 92,
+      "conclusion": "strong",
+      "outreach_angle": "Application via email listed on M3M posting; include portfolio, rates, location and availability.",
       "source": "M3M Marketing",
-      "published_at": "2026-09-17",
-      "deadline": "",
-      "services": [
-        "branding",
-        "creative"
-      ],
-      "hypothesis": "M3M растёт и прямо сейчас собирает сеть внешних дизайнеров для клиентских и внутренних проектов; I’MON можно предложить как overflow/white-label партнёра.",
-      "evidence": [
-        "На сайте компании указано Freelance / Contract, Project-Based, Remote.",
-        "В задачи входят brand identity, brand guides, campaign creative, digital и print assets.",
-        "Компания прямо пишет, что строит сеть фрилансеров, которых будет подключать к проектам по мере потребности."
-      ],
-      "counter_evidence": [
-        "Есть предпочтение кандидатам из Alberta или British Columbia.",
-        "Формулировка вакансии ориентирована скорее на отдельного фрилансера, чем на агентство.",
-        "Нет гарантированного объёма часов или проектов."
-      ],
-      "proposed_service": "White-label брендинг, графический дизайн, презентации и marketing materials под клиентские проекты M3M.",
-      "decision_maker_role": "Founder / Creative Lead / Marketing Lead",
-      "confidence": 91,
-      "conclusion": "strong",
-      "outreach_angle": "Не откликаться как обычный соискатель, а предложить I’MON как внешний production/design pod для перегрузок и сложных клиентских задач.",
-      "url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/"
+      "url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
+      "published_at": "2026-09"
     },
     {
-      "id": "billy-tannery-freelance-designer-2026-09",
-      "channel": "direct_outbound",
-      "demand_type": "open_project_demand",
-      "company": "Billy Tannery",
-      "country": "United Kingdom",
-      "title_ru": "Постоянная freelance-поддержка бренда и дизайна",
-      "source": "If You Could Jobs",
-      "published_at": "2026-09-24",
-      "deadline": "2026-10-11",
-      "services": [
-        "branding",
-        "creative",
-        "web"
-      ],
-      "hypothesis": "Billy Tannery ищет внешнего дизайнера на постоянной основе и допускает будущий ретейнер; I’MON может зайти как компактная внешняя дизайн-команда.",
-      "evidence": [
-        "Роль freelance и ongoing, удалённая.",
-        "В задачи входят graphic design, illustration, motion, social, print, packaging и ecommerce.",
-        "В объявлении прямо указана возможность ongoing retainer.",
-        "Дедлайн подачи — 11 октября 2026."
-      ],
-      "counter_evidence": [
-        "Иногда требуется присутствие в Hammersmith studio.",
-        "Компания может предпочитать одного hands-on дизайнера вместо агентства.",
-        "Часть задач — packaging/motion, что выходит за основной фокус презентаций."
-      ],
-      "proposed_service": "Бренд-система, digital/ecommerce visual support, кампании и презентационные материалы.",
-      "decision_maker_role": "Founder / Head of Brand",
-      "confidence": 93,
-      "conclusion": "strong",
-      "outreach_angle": "Показать не «агентство полного цикла», а выделенную senior-команду, которая может владеть визуальным output бренда и подключаться по ретейнеру.",
-      "url": "https://www.ifyoucouldjobs.com/jobs/1007365995"
-    },
-    {
-      "id": "ols-freelance-social-designer-2026-09",
-      "channel": "agency_partners",
-      "demand_type": "open_project_demand",
-      "company": "The Online Studio (OLS)",
-      "country": "United Kingdom",
-      "title_ru": "Rolling freelance brief для дизайнера на проекты глобальных брендов",
-      "source": "If You Could Jobs",
-      "published_at": "2026-09-10",
-      "deadline": "2026-10-09",
-      "value": 350,
-      "currency": "GBP/day",
-      "services": [
-        "creative"
-      ],
-      "hypothesis": "OLS регулярно подключает внешних дизайнеров и прямо строит пул исполнителей; это потенциальный партнёрский канал для overflow-production.",
-      "evidence": [
-        "Freelance, remote, £350/day.",
-        "Это rolling freelance brief, а не одноразовая вакансия.",
-        "Студия пишет, что собирает группу дизайнеров, к которым хочет возвращаться регулярно.",
-        "OLS работает с глобальными брендами, включая Pinterest, Workday, Calm и WHOOP."
-      ],
-      "counter_evidence": [
-        "Текущий brief узкий: social ads, collage, static и motion.",
-        "Нужны сильные motion/After Effects навыки.",
-        "Презентации и web не являются центром этой конкретной потребности."
-      ],
-      "proposed_service": "White-label campaign production и digital creative; при контакте проверить потребность в презентациях и broader design support.",
-      "decision_maker_role": "Creative Lead / Studio Director / Resourcing",
-      "confidence": 84,
-      "conclusion": "strong",
-      "outreach_angle": "Предлагать не отдельного специалиста, а гибкий overflow-ресурс с возможностью масштабироваться под несколько брендов.",
-      "url": "https://www.ifyoucouldjobs.com/jobs/1159160001"
-    },
-    {
-      "id": "sullivan-freelance-art-director-2026-09",
-      "channel": "direct_outbound",
-      "demand_type": "open_project_demand",
-      "company": "SULLIVAN",
-      "country": "United States",
-      "title_ru": "Freelance арт-дирекшн и editorial design на постоянной основе",
-      "source": "If You Could Jobs",
-      "published_at": "2026-09-01",
-      "deadline": "2026-09-30",
-      "value_min": 30,
-      "value_max": 50,
-      "currency": "USD/hour",
-      "services": [
-        "branding",
-        "creative"
-      ],
-      "hypothesis": "Бренд ищет ongoing remote freelance design support и открыт к международным исполнителям; возможен прямой заход I’MON как внешний визуальный партнёр.",
-      "evidence": [
-        "Freelance / ongoing / remote.",
-        "В объявлении прямо сказано, что открыты к международным кандидатам.",
-        "Оплата $30–50/час.",
-        "Фокус на visual language, editorial layout, typography и campaign rollouts.",
-        "Есть оплачиваемый test project."
-      ],
-      "counter_evidence": [
-        "Потребность сфокусирована на Instagram/social art direction, а не на презентациях.",
-        "Бренд может ожидать личную вовлечённость одного арт-директора.",
-        "Дедлайн близкий — 30 сентября."
-      ],
-      "proposed_service": "Editorial/brand design support и campaign rollouts; при контакте проверить broader needs по brand assets и presentations.",
-      "decision_maker_role": "Co-Founder & CEO / Head of Marketing & Brand",
-      "confidence": 90,
-      "conclusion": "strong",
-      "outreach_angle": "Короткий персональный заход с релевантной editorial/brand работой и предложением paid pilot через выделенного senior designer.",
-      "url": "https://www.ifyoucouldjobs.com/jobs/3973734109"
-    },
-    {
-      "id": "airfoil-forward-deployed-brand-designer-2026-09",
-      "channel": "agency_partners",
-      "demand_type": "open_contract_demand",
-      "company": "Airfoil",
-      "country": "Global",
-      "title_ru": "Remote freelance/part-time brand designer для AI-клиентов",
-      "source": "Airfoil",
-      "published_at": "2026-09-14",
-      "deadline": "2026-10-13",
-      "services": [
-        "branding",
-        "ux_ui",
-        "creative"
-      ],
-      "hypothesis": "Airfoil обслуживает AI-стартапы и ищет удалённый senior brand capacity; I’MON может быть интересен как дополнительный production/brand ресурс.",
-      "evidence": [
-        "Официальная careers-страница Airfoil показывает открытый Forward Deployed Brand Designer — Global, Remote.",
-        "Роль может начинаться как part-time contractor.",
-        "Работа включает brand identity systems, visual language и связь marketing/product.",
-        "Airfoil — команда 40+ creatives, работающая с frontier AI founders."
-      ],
-      "counter_evidence": [
-        "Модель работы подразумевает embedded individual designer, а не внешнее агентство.",
-        "Нужно работать глубоко внутри 1–2 клиентских команд.",
-        "Это скорее ресурсная потребность, чем отдельный проект."
-      ],
-      "proposed_service": "Embedded senior brand/design capacity или white-label pod для AI-клиентов.",
-      "decision_maker_role": "Founder / Creative Director / Talent & Resourcing",
-      "confidence": 78,
-      "conclusion": "verify_more",
-      "outreach_angle": "Проверить, готовы ли они работать не только с individual contractors, но и с внешним senior pod.",
-      "url": "https://www.airfoil.studio/careers"
-    },
-    {
-      "id": "purohit-freelance-presentation-2026-09",
-      "channel": "agency_partners",
-      "demand_type": "open_contract_demand",
+      "id": "purohit-navigation",
       "company": "Purohit Navigation",
       "country": "United States",
-      "title_ru": "Freelance PowerPoint / presentation design для healthcare agency",
-      "source": "DiversityJobs + Purohit Navigation",
-      "published_at": "2026-09-01",
-      "deadline": "",
-      "services": [
-        "presentations",
-        "branding",
-        "creative"
+      "channel": "explicit_demand",
+      "title_ru": "Freelance PowerPoint Presentation Designer для planned и short-notice presentation requests.",
+      "explicit_need": "Freelance PowerPoint Presentation Designer для planned и short-notice presentation requests.",
+      "deliverables": [
+        "pitches",
+        "strategic planning presentations",
+        "capabilities decks",
+        "proposals",
+        "editable PowerPoint",
+        "template systems"
       ],
-      "hypothesis": "Healthcare agency нуждается во внешнем presentation design и одновременно имеет сильную презентационно-креативную нагрузку по клиентским проектам.",
+      "proposed_service": "pitches, strategic planning presentations, capabilities decks, proposals, editable PowerPoint, template systems",
       "evidence": [
-        "Актуальный сторонний listing описывает remote freelance presentation designer для pitches, strategic planning presentations, capabilities и proposals.",
-        "На официальном сайте Purohit подтверждается full-service creative/branding работа в pharma/healthcare.",
-        "Официальные материалы компании отдельно упоминают PowerPoint, infographics и client-facing presentations как часть design workflow."
+        "Posted 2026-09-01; current listings still active and one source shows expiry 2026-10-04.",
+        "Remote freelance"
       ],
       "counter_evidence": [
-        "Текущую freelance-вакансию не удалось подтвердить на официальной careers-странице.",
-        "Healthcare/pharma требует отраслевой аккуратности и может иметь compliance-ограничения.",
-        "Возможно, компания ищет индивидуального исполнителя в США."
+        "Healthcare/pharma experience preferred.",
+        "Execution-focused role; client communication stays with PNAV."
       ],
-      "proposed_service": "White-label presentation production, pitch/proposal decks, data visualization и branded sales materials.",
-      "decision_maker_role": "Creative Director / Studio Lead / Operations",
-      "confidence": 72,
-      "conclusion": "verify_more",
-      "outreach_angle": "Сначала подтвердить, что contractor need ещё открыт, затем заходить узко через презентации и proposal support.",
-      "url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago"
+      "confidence": 92,
+      "conclusion": "strong",
+      "outreach_angle": "Apply through the current Purohit job listing.",
+      "source": "Purohit Navigation",
+      "url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago",
+      "published_at": "2026-09"
     },
     {
-      "id": "storylane-saasiest-2026-10",
-      "channel": "events_launches",
-      "demand_type": "timed_outbound_signal",
-      "company": "Storylane",
-      "country": "Europe / SaaS",
-      "title_ru": "CMO выступает на SaaSiest Amsterdam 7 октября",
-      "source": "SaaSiest Amsterdam",
-      "published_at": "2026-09-28",
-      "deadline": "2026-10-07",
-      "services": [
-        "presentations",
-        "creative"
+      "id": "billy-tannery",
+      "company": "Billy Tannery",
+      "country": "United Kingdom",
+      "channel": "explicit_demand",
+      "title_ru": "Ongoing freelance multidisciplinary designer to own brand output across channels.",
+      "explicit_need": "Ongoing freelance multidisciplinary designer to own brand output across channels.",
+      "deliverables": [
+        "graphic design",
+        "illustration",
+        "motion",
+        "social",
+        "print",
+        "packaging",
+        "ecommerce"
       ],
-      "hypothesis": "Близкое выступление CMO создаёт естественный дедлайн для keynote/deck/event assets, но публичного заказа нет.",
+      "proposed_service": "graphic design, illustration, motion, social, print, packaging, ecommerce",
       "evidence": [
-        "Madhav Bhandari, CMO Storylane, подтверждён как speaker SaaSiest Amsterdam 7 октября 2026.",
-        "До события меньше двух недель.",
-        "Формат включает talks и executive sessions."
+        "Posted 2026-09-24; application ends 2026-10-01.",
+        "Freelance, remote, potential ongoing retainer"
       ],
       "counter_evidence": [
-        "Нет подтверждения, что презентация или event assets ещё не готовы.",
-        "Материалы могли быть сделаны внутренней командой или организатором.",
-        "Это outbound-сигнал, а не опубликованный заказ."
+        "Occasional Hammersmith studio presence is a plus.",
+        "They want someone who personally understands and can run the brand."
       ],
-      "proposed_service": "Keynote/deck polish, visual storytelling и event presentation support.",
-      "decision_maker_role": "CMO / Marketing team",
-      "confidence": 54,
-      "conclusion": "verify_more",
-      "outreach_angle": "Только короткий timing-based outreach: предложить срочный polish/backup support перед выступлением, без предположения, что у них точно есть проблема.",
-      "url": "https://www.saasiestamsterdam.com/speakers/"
+      "confidence": 92,
+      "conclusion": "strong",
+      "outreach_angle": "Email founder Jack at jack@billytannery.co.uk with work and why the role fits.",
+      "source": "Billy Tannery",
+      "url": "https://www.ifyoucouldjobs.com/jobs/1007365995",
+      "published_at": "2026-09"
     },
     {
-      "id": "mixmode-funding-2026-09-24",
-      "channel": "direct_outbound",
-      "demand_type": "buying_signal",
-      "company": "MixMode",
+      "id": "b-a-s-media",
+      "company": "B A S Media",
       "country": "United States",
-      "title_ru": "Свежий Series B на $45 млн — потенциальный GTM/brand/sales-materials signal",
-      "source": "Atom startup funding tracker",
-      "published_at": "2026-09-24",
-      "services": [
-        "presentations",
-        "branding",
-        "web"
+      "channel": "explicit_demand",
+      "title_ru": "Freelance Graphic Designer for ongoing project-by-project agency work.",
+      "explicit_need": "Freelance Graphic Designer for ongoing project-by-project agency work.",
+      "deliverables": [
+        "brand identity systems",
+        "brochures",
+        "presentation decks",
+        "event collateral",
+        "website graphics",
+        "infographics",
+        "campaign creative"
       ],
-      "hypothesis": "После Series B компания может усиливать GTM, enterprise sales и бренд-коммуникации, что создаёт потенциальную потребность в sales decks, website/brand assets и presentations.",
+      "proposed_service": "brand identity systems, brochures, presentation decks, event collateral, website graphics, infographics, campaign creative",
       "evidence": [
-        "MixMode указан в свежем funding tracker с раундом $45M Series B от 24 сентября 2026."
+        "Current Behance listing remains accessible; posting describes ongoing project work.",
+        "Freelance, ongoing project work, remote"
       ],
       "counter_evidence": [
-        "Funding сам по себе не доказывает наличие дизайн-заказа.",
-        "Нет подтверждённого rebrand, website relaunch или запроса на внешнее агентство.",
-        "Нужно отдельно проверить рост marketing/sales команды и текущий visual maturity."
+        "US agency context; source is a job platform rather than the agency's own careers page.",
+        "Work is broader than presentations."
       ],
-      "proposed_service": "Enterprise sales deck, brand/GTM materials, website polish.",
-      "decision_maker_role": "CMO / VP Marketing / Head of Brand",
-      "confidence": 46,
+      "confidence": 92,
+      "conclusion": "strong",
+      "outreach_angle": "Apply through current Behance listing.",
+      "source": "B A S Media",
+      "url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
+      "published_at": "2026-09"
+    },
+    {
+      "id": "mousa-art-initiative-mai",
+      "company": "Mousa Art Initiative (MAI)",
+      "country": "Remote / USA-Europe-Middle East preferred",
+      "channel": "explicit_demand",
+      "title_ru": "Freelance Graphic Designer to build and maintain visual identity and presentation/outreach materials.",
+      "explicit_need": "Freelance Graphic Designer to build and maintain visual identity and presentation/outreach materials.",
+      "deliverables": [
+        "social/digital materials",
+        "art portfolios",
+        "presentation materials",
+        "logo/visual identity",
+        "website assets",
+        "sponsor and philanthropy presentations"
+      ],
+      "proposed_service": "social/digital materials, art portfolios, presentation materials, logo/visual identity, website assets, sponsor and philanthropy presentations",
+      "evidence": [
+        "Posted 2026-09-08; page remains current and asks for immediate availability.",
+        "Freelance / remote, immediate start"
+      ],
+      "counter_evidence": [
+        "Arts/culture context.",
+        "Compensation not published."
+      ],
+      "confidence": 92,
+      "conclusion": "strong",
+      "outreach_angle": "Ruba Hamdan — hamdanruba@gmail.com",
+      "source": "Mousa Art Initiative (MAI)",
+      "url": "https://www.behance.net/joblist/fulltime/362639/Freelance-Graphic-Designer-Remote",
+      "published_at": "2026-09"
+    },
+    {
+      "id": "global-dance-open",
+      "company": "Global Dance Open",
+      "country": "Remote",
+      "channel": "explicit_demand",
+      "title_ru": "Long-term freelance graphic designer/creative partner for international competitions, events and marketing campaigns.",
+      "explicit_need": "Long-term freelance graphic designer/creative partner for international competitions, events and marketing campaigns.",
+      "deliverables": [
+        "event graphics",
+        "posters/flyers",
+        "registration campaigns",
+        "sponsor/partner graphics",
+        "website/email graphics",
+        "print-ready assets"
+      ],
+      "proposed_service": "event graphics, posters/flyers, registration campaigns, sponsor/partner graphics, website/email graphics, print-ready assets",
+      "evidence": [
+        "Posted 2026-09-15; listing states ongoing freelance basis.",
+        "Contract, flexible / ongoing freelance, remote"
+      ],
+      "counter_evidence": [
+        "Heavy event/social production focus rather than presentations.",
+        "Workload varies with competition calendar."
+      ],
+      "confidence": 80,
       "conclusion": "verify_more",
-      "outreach_angle": "Не писать сразу. Сначала проверить hiring, site changes, launch plans и decision maker.",
-      "url": "https://www.atom.com/startup-funding?country=US&q=ai&window=all"
+      "outreach_angle": "Hiring contact Annika Thomas via current Behance listing.",
+      "source": "Global Dance Open",
+      "url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
+      "published_at": "2026-09"
+    },
+    {
+      "id": "the-online-studio-ols",
+      "company": "The Online Studio (OLS)",
+      "country": "United Kingdom",
+      "channel": "explicit_demand",
+      "title_ru": "Freelance Social Designer for static and motion social ads for global brands.",
+      "explicit_need": "Freelance Social Designer for static and motion social ads for global brands.",
+      "deliverables": [
+        "social ads",
+        "static/motion creative",
+        "campaign rollout"
+      ],
+      "proposed_service": "social ads, static/motion creative, campaign rollout",
+      "evidence": [
+        "Posted 2026-09-10; application ends 2026-10-09; £350/day.",
+        "Freelance, remote, rolling roster"
+      ],
+      "counter_evidence": [
+        "Motion/social is the center of the brief.",
+        "Less aligned with I’MON's presentation-heavy offer."
+      ],
+      "confidence": 68,
+      "conclusion": "verify_more",
+      "outreach_angle": "Apply through If You Could Jobs.",
+      "source": "The Online Studio (OLS)",
+      "url": "https://www.ifyoucouldjobs.com/jobs/1159160001",
+      "published_at": "2026-09"
+    },
+    {
+      "id": "airfoil",
+      "company": "Airfoil",
+      "country": "Remote / Seoul-Toronto-Vancouver-London-Kuala Lumpur",
+      "channel": "explicit_demand",
+      "title_ru": "Forward Deployed Brand Designer embedded with 1–2 frontier-tech/AI clients.",
+      "explicit_need": "Forward Deployed Brand Designer embedded with 1–2 frontier-tech/AI clients.",
+      "deliverables": [
+        "brand identity systems",
+        "visual language",
+        "brand expression",
+        "marketing/product brand work"
+      ],
+      "proposed_service": "brand identity systems, visual language, brand expression, marketing/product brand work",
+      "evidence": [
+        "Posted 2026-09-14; application ends 2026-10-13.",
+        "Freelance / part-time / full-time / fixed-term options"
+      ],
+      "counter_evidence": [
+        "Embedded individual-designer model rather than agency subcontract.",
+        "Requires close day-to-day client integration."
+      ],
+      "confidence": 68,
+      "conclusion": "verify_more",
+      "outreach_angle": "Apply through Airfoil / If You Could Jobs.",
+      "source": "Airfoil",
+      "url": "https://www.ifyoucouldjobs.com/jobs/2298973206",
+      "published_at": "2026-09"
+    },
+    {
+      "id": "sullivan",
+      "company": "SULLIVAN",
+      "country": "United States / international remote",
+      "channel": "explicit_demand",
+      "title_ru": "Freelance Social Art Director / Editorial Designer to shape Instagram visual direction and campaign rollouts.",
+      "explicit_need": "Freelance Social Art Director / Editorial Designer to shape Instagram visual direction and campaign rollouts.",
+      "deliverables": [
+        "Instagram grid and Stories",
+        "editorial layout",
+        "image sequencing",
+        "campaign rollouts",
+        "typographic treatments",
+        "content strategy"
+      ],
+      "proposed_service": "Instagram grid and Stories, editorial layout, image sequencing, campaign rollouts, typographic treatments, content strategy",
+      "evidence": [
+        "Posted 2026-09-01; application ends 2026-09-30.",
+        "Freelance / ongoing / remote, international applicants accepted"
+      ],
+      "counter_evidence": [
+        "Very urgent closing date.",
+        "Social/editorial rather than presentations/web."
+      ],
+      "confidence": 68,
+      "conclusion": "verify_more",
+      "outreach_angle": "Eva (Co-Founder & CEO) eva@sullivan.clothing and Rachel (Head of Marketing & Brand) rachel@sullivan.clothing",
+      "source": "SULLIVAN",
+      "url": "https://www.ifyoucouldjobs.com/jobs/3973734109",
+      "published_at": "2026-09"
     }
   ]
 }
