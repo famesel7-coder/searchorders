@@ -1,0 +1,212 @@
+{
+  "checked_at": "2026-09-29",
+  "rule": "Only current explicit demand. No tenders, no funding/rebrand/event-only hypotheses, no generic monitoring signals.",
+  "leads": [
+    {
+      "company": "M3M Marketing",
+      "country": "Canada",
+      "priority": 1,
+      "explicit_need": "Внешний freelance/contract Graphic Designer на project-by-project основе для клиентских и внутренних проектов.",
+      "deliverables": [
+        "brand identity",
+        "brand guides",
+        "campaign creative",
+        "reports/PDFs",
+        "PowerPoint/presentation design",
+        "event materials",
+        "Canva templates",
+        "simple motion"
+      ],
+      "engagement": "Freelance / Contract, project-based, remote",
+      "current_status": "Official company posting dated 2026-09-17; no closing date stated.",
+      "fit": "strong",
+      "caveats": [
+        "Preference for Alberta/BC; company says elsewhere in Canada may be considered.",
+        "No guaranteed hours or minimum project volume."
+      ],
+      "contact": "Application via email listed on M3M posting; include portfolio, rates, location and availability.",
+      "source_url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/"
+    },
+    {
+      "company": "Purohit Navigation",
+      "country": "United States",
+      "priority": 2,
+      "explicit_need": "Freelance PowerPoint Presentation Designer для planned и short-notice presentation requests.",
+      "deliverables": [
+        "pitches",
+        "strategic planning presentations",
+        "capabilities decks",
+        "proposals",
+        "editable PowerPoint",
+        "template systems"
+      ],
+      "engagement": "Remote freelance",
+      "current_status": "Posted 2026-09-01; current listings still active and one source shows expiry 2026-10-04.",
+      "fit": "strong",
+      "caveats": [
+        "Healthcare/pharma experience preferred.",
+        "Execution-focused role; client communication stays with PNAV."
+      ],
+      "contact": "Apply through the current Purohit job listing.",
+      "source_url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago"
+    },
+    {
+      "company": "Billy Tannery",
+      "country": "United Kingdom",
+      "priority": 3,
+      "explicit_need": "Ongoing freelance multidisciplinary designer to own brand output across channels.",
+      "deliverables": [
+        "graphic design",
+        "illustration",
+        "motion",
+        "social",
+        "print",
+        "packaging",
+        "ecommerce"
+      ],
+      "engagement": "Freelance, remote, potential ongoing retainer",
+      "current_status": "Posted 2026-09-24; application ends 2026-10-01.",
+      "fit": "strong",
+      "caveats": [
+        "Occasional Hammersmith studio presence is a plus.",
+        "They want someone who personally understands and can run the brand."
+      ],
+      "contact": "Email founder Jack at jack@billytannery.co.uk with work and why the role fits.",
+      "source_url": "https://www.ifyoucouldjobs.com/jobs/1007365995"
+    },
+    {
+      "company": "B A S Media",
+      "country": "United States",
+      "priority": 4,
+      "explicit_need": "Freelance Graphic Designer for ongoing project-by-project agency work.",
+      "deliverables": [
+        "brand identity systems",
+        "brochures",
+        "presentation decks",
+        "event collateral",
+        "website graphics",
+        "infographics",
+        "campaign creative"
+      ],
+      "engagement": "Freelance, ongoing project work, remote",
+      "current_status": "Current Behance listing remains accessible; posting describes ongoing project work.",
+      "fit": "strong",
+      "caveats": [
+        "US agency context; source is a job platform rather than the agency's own careers page.",
+        "Work is broader than presentations."
+      ],
+      "contact": "Apply through current Behance listing.",
+      "source_url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer"
+    },
+    {
+      "company": "Mousa Art Initiative (MAI)",
+      "country": "Remote / USA-Europe-Middle East preferred",
+      "priority": 5,
+      "explicit_need": "Freelance Graphic Designer to build and maintain visual identity and presentation/outreach materials.",
+      "deliverables": [
+        "social/digital materials",
+        "art portfolios",
+        "presentation materials",
+        "logo/visual identity",
+        "website assets",
+        "sponsor and philanthropy presentations"
+      ],
+      "engagement": "Freelance / remote, immediate start",
+      "current_status": "Posted 2026-09-08; page remains current and asks for immediate availability.",
+      "fit": "strong",
+      "caveats": [
+        "Arts/culture context.",
+        "Compensation not published."
+      ],
+      "contact": "Ruba Hamdan — hamdanruba@gmail.com",
+      "source_url": "https://www.behance.net/joblist/fulltime/362639/Freelance-Graphic-Designer-Remote"
+    },
+    {
+      "company": "Global Dance Open",
+      "country": "Remote",
+      "priority": 6,
+      "explicit_need": "Long-term freelance graphic designer/creative partner for international competitions, events and marketing campaigns.",
+      "deliverables": [
+        "event graphics",
+        "posters/flyers",
+        "registration campaigns",
+        "sponsor/partner graphics",
+        "website/email graphics",
+        "print-ready assets"
+      ],
+      "engagement": "Contract, flexible / ongoing freelance, remote",
+      "current_status": "Posted 2026-09-15; listing states ongoing freelance basis.",
+      "fit": "good",
+      "caveats": [
+        "Heavy event/social production focus rather than presentations.",
+        "Workload varies with competition calendar."
+      ],
+      "contact": "Hiring contact Annika Thomas via current Behance listing.",
+      "source_url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer"
+    },
+    {
+      "company": "The Online Studio (OLS)",
+      "country": "United Kingdom",
+      "priority": 7,
+      "explicit_need": "Freelance Social Designer for static and motion social ads for global brands.",
+      "deliverables": [
+        "social ads",
+        "static/motion creative",
+        "campaign rollout"
+      ],
+      "engagement": "Freelance, remote, rolling roster",
+      "current_status": "Posted 2026-09-10; application ends 2026-10-09; £350/day.",
+      "fit": "partial",
+      "caveats": [
+        "Motion/social is the center of the brief.",
+        "Less aligned with I’MON's presentation-heavy offer."
+      ],
+      "contact": "Apply through If You Could Jobs.",
+      "source_url": "https://www.ifyoucouldjobs.com/jobs/1159160001"
+    },
+    {
+      "company": "Airfoil",
+      "country": "Remote / Seoul-Toronto-Vancouver-London-Kuala Lumpur",
+      "priority": 8,
+      "explicit_need": "Forward Deployed Brand Designer embedded with 1–2 frontier-tech/AI clients.",
+      "deliverables": [
+        "brand identity systems",
+        "visual language",
+        "brand expression",
+        "marketing/product brand work"
+      ],
+      "engagement": "Freelance / part-time / full-time / fixed-term options",
+      "current_status": "Posted 2026-09-14; application ends 2026-10-13.",
+      "fit": "partial",
+      "caveats": [
+        "Embedded individual-designer model rather than agency subcontract.",
+        "Requires close day-to-day client integration."
+      ],
+      "contact": "Apply through Airfoil / If You Could Jobs.",
+      "source_url": "https://www.ifyoucouldjobs.com/jobs/2298973206"
+    },
+    {
+      "company": "SULLIVAN",
+      "country": "United States / international remote",
+      "priority": 9,
+      "explicit_need": "Freelance Social Art Director / Editorial Designer to shape Instagram visual direction and campaign rollouts.",
+      "deliverables": [
+        "Instagram grid and Stories",
+        "editorial layout",
+        "image sequencing",
+        "campaign rollouts",
+        "typographic treatments",
+        "content strategy"
+      ],
+      "engagement": "Freelance / ongoing / remote, international applicants accepted",
+      "current_status": "Posted 2026-09-01; application ends 2026-09-30.",
+      "fit": "partial",
+      "caveats": [
+        "Very urgent closing date.",
+        "Social/editorial rather than presentations/web."
+      ],
+      "contact": "Eva (Co-Founder & CEO) eva@sullivan.clothing and Rachel (Head of Marketing & Brand) rachel@sullivan.clothing",
+      "source_url": "https://www.ifyoucouldjobs.com/jobs/3973734109"
+    }
+  ]
+}
