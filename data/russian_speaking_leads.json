@@ -1,0 +1,143 @@
+{
+  "checked_at": "2026-09-29",
+  "scope": "Русскоязычные лиды за рубежом, без тендеров",
+  "methodology": "IA-5: hypothesis -> verify -> challenge -> conclude",
+  "language_evidence": "Компании/основатели подтверждены как русскоязычные через Dubai Rating / World Arabia либо русскоязычные публичные материалы.",
+  "first_contact_order": [
+    "Flowwow / Udora",
+    "Futura Digital",
+    "7MARCH Agency",
+    "3S Money",
+    "Poison Drop",
+    "XPANCEO"
+  ],
+  "leads": [
+    {
+      "company": "Flowwow / Udora",
+      "geography": "Dubai / GCC",
+      "channel": "direct_outbound",
+      "russian_speaking_evidence": "Вячеслав Богдан, сооснователь Flowwow, включён Dubai Rating в список русскоязычных предпринимателей Дубая.",
+      "signal": "В 2026 Flowwow привлёк $10M, перезапустился под брендом Udora и заявил масштабирование в GCC с запуском в Саудовской Аравии в Q3 2026.",
+      "hypothesis": "Ребрендинг + международный запуск создают спрос на launch decks, partner/sales materials, market-entry presentations и локализованный visual system.",
+      "evidence": [
+        "Свежий rebrand и раунд $10M.",
+        "Запланирован запуск в Саудовской Аравии.",
+        "Компания публично открыта к партнёрствам.",
+        "Есть отдельная функция Head of Global Expansion."
+      ],
+      "counter_evidence": [
+        "У компании уже есть собственная design-команда.",
+        "Основная потребность может быть в локальном маркетинге, а не во внешнем presentation/design подрядчике."
+      ],
+      "first_contact": "Вячеслав Богдан, co-founder; второй контакт — Head of Global Expansion Ekaterina Gorbacheva.",
+      "contact_route": "LinkedIn; общий partnership/press route: press@flowwow.com",
+      "proposed_service": "GCC launch deck, partner deck, sales materials, brand rollout, presentation support.",
+      "conclusion": "strong"
+    },
+    {
+      "company": "Futura Digital",
+      "geography": "UAE / Cyprus / global",
+      "channel": "agency_partners",
+      "russian_speaking_evidence": "Александра и Геннадий Курдюмовы включены Dubai Rating в список русскоязычных предпринимателей Дубая.",
+      "signal": "Международный consulting-бизнес для Tech/GameDev/FinTech; 400+ проектов, 100+ стран; Геннадий отвечает за international market entry и partnership development.",
+      "hypothesis": "Консалтингу регулярно нужны client-facing decks, reports, proposals, research visuals и white-label production.",
+      "evidence": [
+        "Международная клиентская работа и широкий набор advisory-сервисов.",
+        "Геннадий Курдюмов отвечает за развитие партнёрских сетей.",
+        "Компания работает с investment rounds, strategy и market-entry задачами."
+      ],
+      "counter_evidence": [
+        "Нет публичного подтверждения текущего запроса на дизайн.",
+        "Часть материалов может производиться внутренней командой."
+      ],
+      "first_contact": "Геннадий Курдюмов, co-founder — из-за прямой ответственности за партнёрства.",
+      "contact_route": "LinkedIn или форма «Обсудить задачу» на futura.inc",
+      "proposed_service": "White-label presentations, reports, proposal decks, visual storytelling for consulting projects.",
+      "conclusion": "strong"
+    },
+    {
+      "company": "7MARCH Agency",
+      "geography": "Dubai, UAE",
+      "channel": "agency_partners",
+      "russian_speaking_evidence": "Евгения Красноярцева / 7MARCH фигурирует в списке русскоязычных предпринимателей Dubai Rating; агентство работает между UAE и CIS.",
+      "signal": "Активное агентство с кейсами Yas Island, Visit Dubai, Visit Sharjah, Marriott и event/campaign production.",
+      "hypothesis": "Может быть подходящим партнёром для overflow/white-label design, особенно по презентациям, reports и campaign materials.",
+      "evidence": [
+        "Сильная пересекающаяся клиентская база UAE/CIS.",
+        "Публично показаны крупные tourism/hospitality/event кейсы.",
+        "Есть открытый business contact."
+      ],
+      "counter_evidence": [
+        "Часть услуг пересекается с I’MON — возможна конкуренция.",
+        "Нужен заход именно как production partner, а не как агентство-конкурент."
+      ],
+      "first_contact": "Евгения Красноярцева, CEO & Founder.",
+      "contact_route": "LinkedIn; business email: hello@7march.agency",
+      "proposed_service": "White-label decks, campaign design, reports, event presentations.",
+      "conclusion": "strong"
+    },
+    {
+      "company": "3S Money",
+      "geography": "UK / UAE / Europe",
+      "channel": "direct_outbound",
+      "russian_speaking_evidence": "Иван Жизневский включён Dubai Rating в список русскоязычных предпринимателей.",
+      "signal": "Иван публично отмечал UAE как самый быстрорастущий рынок 3S Money; компания также заявляет расширение партнёрской сети и активно участвует в fintech events.",
+      "hypothesis": "Рост UAE и партнёрской сети создаёт регулярный спрос на partner decks, event decks, sales enablement и market-entry materials.",
+      "evidence": [
+        "UAE назван fastest-growing market.",
+        "Компания расширяет partner network.",
+        "Высокая event-активность в fintech."
+      ],
+      "counter_evidence": [
+        "Крупная fintech-компания, вероятно, имеет внутреннюю marketing/design функцию.",
+        "Фаундер может быть слишком высокоуровневым первым контактом."
+      ],
+      "first_contact": "Иван Жизневский для короткого интро; затем попросить направить к Marketing / Partnerships.",
+      "contact_route": "LinkedIn.",
+      "proposed_service": "Partner decks, event presentations, reports, sales materials for UAE/GCC.",
+      "conclusion": "verify_more"
+    },
+    {
+      "company": "Poison Drop",
+      "geography": "Dubai, UAE",
+      "channel": "direct_outbound",
+      "russian_speaking_evidence": "Андрей Мигунов / Poison Drop включён Dubai Rating в список русскоязычных предпринимателей; у Stanislava Malysheva в LinkedIn указан Russian как родной язык.",
+      "signal": "В 2026 бренд продолжает активные Dubai activations; запущен Poisoned Hearts, идут collaborations/events, а бизнес публично говорит о быстром росте и глобальных амбициях.",
+      "hypothesis": "Новые бренды, коллаборации и event-маркетинг создают спрос на launch presentations, brand books, partner decks и campaign visuals.",
+      "evidence": [
+        "Свежий запуск Poisoned Hearts.",
+        "Регулярные retail/event collaborations в Dubai Hills Mall.",
+        "Отдельная международная marketing/partnership функция."
+      ],
+      "counter_evidence": [
+        "Сильный внутренний marketing/design контур.",
+        "Более вероятна потребность в campaign production, чем в классических презентациях."
+      ],
+      "first_contact": "Stanislava Malysheva — international marketing / strategy, communications, events & partnerships.",
+      "contact_route": "LinkedIn.",
+      "proposed_service": "Launch decks, partner/collab decks, brand presentation, campaign visual systems.",
+      "conclusion": "strong"
+    },
+    {
+      "company": "XPANCEO",
+      "geography": "Dubai, UAE",
+      "channel": "events_launches",
+      "russian_speaking_evidence": "Роман Аксельрод и Валентин Волков включены Dubai Rating в список русскоязычных предпринимателей.",
+      "signal": "Deep-tech unicorn с $1.35B valuation, активной event-программой 2026 и communication-led marketing; компания нанимала designers/SMM и регулярно демонстрирует продукт на международных конференциях.",
+      "hypothesis": "Постоянные conference/demo/investor narratives создают спрос на high-end decks, visual storytelling и event materials.",
+      "evidence": [
+        "Активные выступления Roman Axelrod на крупных событиях.",
+        "Director Marketing Communications — Daria Danilina.",
+        "В 2026 компания искала graphic designer / senior SMM для marketing communications."
+      ],
+      "counter_evidence": [
+        "У XPANCEO уже развитая внутренняя коммуникационная и дизайнерская команда.",
+        "Прямой внешний подряд менее вероятен, чем точечный overflow."
+      ],
+      "first_contact": "Дарья Данилина, Director Marketing Communications; если нужен founder-level intro — Роман Аксельрод.",
+      "contact_route": "LinkedIn.",
+      "proposed_service": "Conference/keynote decks, investor storytelling, visual systems for demos and events.",
+      "conclusion": "verify_more"
+    }
+  ]
+}
