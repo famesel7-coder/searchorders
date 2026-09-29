@@ -1,143 +1,132 @@
 {
   "checked_at": "2026-09-29",
-  "scope": "Русскоязычные лиды за рубежом, без тендеров",
+  "scope": "Русскоязычные компании/фаундеры за рубежом — только конкретная подтвержденная потребность",
   "methodology": "IA-5: hypothesis -> verify -> challenge -> conclude",
-  "language_evidence": "Компании/основатели подтверждены как русскоязычные через Dubai Rating / World Arabia либо русскоязычные публичные материалы.",
-  "first_contact_order": [
-    "Flowwow / Udora",
-    "Futura Digital",
-    "7MARCH Agency",
-    "3S Money",
-    "Poison Drop",
-    "XPANCEO"
-  ],
+  "explicit_demand_rule": {
+    "main_list_requires": [
+      "есть свежий первоисточник, где компания сама описывает конкретную задачу/роль/объем работ",
+      "потребность относится к услугам I’MON",
+      "допускается freelance / contract / project / agency / vendor формат либо это прямо можно проверить",
+      "есть понятный способ отклика или decision maker"
+    ],
+    "excluded_from_orders": [
+      "funding/rebrand/event сами по себе",
+      "предположение о возможной потребности",
+      "обычная штатная вакансия без признаков внешнего подрядчика",
+      "устаревшие вакансии и закрытые объявления"
+    ]
+  },
   "leads": [
     {
-      "company": "Flowwow / Udora",
-      "geography": "Dubai / GCC",
-      "channel": "direct_outbound",
-      "russian_speaking_evidence": "Вячеслав Богдан, сооснователь Flowwow, включён Dubai Rating в список русскоязычных предпринимателей Дубая.",
-      "signal": "В 2026 Flowwow привлёк $10M, перезапустился под брендом Udora и заявил масштабирование в GCC с запуском в Саудовской Аравии в Q3 2026.",
-      "hypothesis": "Ребрендинг + международный запуск создают спрос на launch decks, partner/sales materials, market-entry presentations и локализованный visual system.",
+      "company": "Udora / Flowwow",
+      "geography": "UAE / Europe / UK / global",
+      "explicit_need": "Marketing Designer: создавать social media content, banners и promos для 6+ рынков.",
+      "source_date_status": "Публичный hiring-пост был опубликован около 5 месяцев назад; Product Communications Designer уже помечен как filled.",
+      "engagement_type": "full_time_internal_role",
+      "fit_for_imon": "partial",
       "evidence": [
-        "Свежий rebrand и раунд $10M.",
-        "Запланирован запуск в Саудовской Аравии.",
-        "Компания публично открыта к партнёрствам.",
-        "Есть отдельная функция Head of Global Expansion."
+        "Компания сама описала конкретную потребность в Marketing Designer.",
+        "Задача напрямую относится к campaign/digital design."
       ],
       "counter_evidence": [
-        "У компании уже есть собственная design-команда.",
-        "Основная потребность может быть в локальном маркетинге, а не во внешнем presentation/design подрядчике."
+        "Это штатная full-time позиция, а не заказ агентству.",
+        "Пост не свежий; актуальность Marketing Designer нужно перепроверить.",
+        "Product Communications Designer уже закрыт."
       ],
-      "first_contact": "Вячеслав Богдан, co-founder; второй контакт — Head of Global Expansion Ekaterina Gorbacheva.",
-      "contact_route": "LinkedIn; общий partnership/press route: press@flowwow.com",
-      "proposed_service": "GCC launch deck, partner deck, sales materials, brand rollout, presentation support.",
-      "conclusion": "strong"
-    },
-    {
-      "company": "Futura Digital",
-      "geography": "UAE / Cyprus / global",
-      "channel": "agency_partners",
-      "russian_speaking_evidence": "Александра и Геннадий Курдюмовы включены Dubai Rating в список русскоязычных предпринимателей Дубая.",
-      "signal": "Международный consulting-бизнес для Tech/GameDev/FinTech; 400+ проектов, 100+ стран; Геннадий отвечает за international market entry и partnership development.",
-      "hypothesis": "Консалтингу регулярно нужны client-facing decks, reports, proposals, research visuals и white-label production.",
-      "evidence": [
-        "Международная клиентская работа и широкий набор advisory-сервисов.",
-        "Геннадий Курдюмов отвечает за развитие партнёрских сетей.",
-        "Компания работает с investment rounds, strategy и market-entry задачами."
-      ],
-      "counter_evidence": [
-        "Нет публичного подтверждения текущего запроса на дизайн.",
-        "Часть материалов может производиться внутренней командой."
-      ],
-      "first_contact": "Геннадий Курдюмов, co-founder — из-за прямой ответственности за партнёрства.",
-      "contact_route": "LinkedIn или форма «Обсудить задачу» на futura.inc",
-      "proposed_service": "White-label presentations, reports, proposal decks, visual storytelling for consulting projects.",
-      "conclusion": "strong"
-    },
-    {
-      "company": "7MARCH Agency",
-      "geography": "Dubai, UAE",
-      "channel": "agency_partners",
-      "russian_speaking_evidence": "Евгения Красноярцева / 7MARCH фигурирует в списке русскоязычных предпринимателей Dubai Rating; агентство работает между UAE и CIS.",
-      "signal": "Активное агентство с кейсами Yas Island, Visit Dubai, Visit Sharjah, Marriott и event/campaign production.",
-      "hypothesis": "Может быть подходящим партнёром для overflow/white-label design, особенно по презентациям, reports и campaign materials.",
-      "evidence": [
-        "Сильная пересекающаяся клиентская база UAE/CIS.",
-        "Публично показаны крупные tourism/hospitality/event кейсы.",
-        "Есть открытый business contact."
-      ],
-      "counter_evidence": [
-        "Часть услуг пересекается с I’MON — возможна конкуренция.",
-        "Нужен заход именно как production partner, а не как агентство-конкурент."
-      ],
-      "first_contact": "Евгения Красноярцева, CEO & Founder.",
-      "contact_route": "LinkedIn; business email: hello@7march.agency",
-      "proposed_service": "White-label decks, campaign design, reports, event presentations.",
-      "conclusion": "strong"
-    },
-    {
-      "company": "3S Money",
-      "geography": "UK / UAE / Europe",
-      "channel": "direct_outbound",
-      "russian_speaking_evidence": "Иван Жизневский включён Dubai Rating в список русскоязычных предпринимателей.",
-      "signal": "Иван публично отмечал UAE как самый быстрорастущий рынок 3S Money; компания также заявляет расширение партнёрской сети и активно участвует в fintech events.",
-      "hypothesis": "Рост UAE и партнёрской сети создаёт регулярный спрос на partner decks, event decks, sales enablement и market-entry materials.",
-      "evidence": [
-        "UAE назван fastest-growing market.",
-        "Компания расширяет partner network.",
-        "Высокая event-активность в fintech."
-      ],
-      "counter_evidence": [
-        "Крупная fintech-компания, вероятно, имеет внутреннюю marketing/design функцию.",
-        "Фаундер может быть слишком высокоуровневым первым контактом."
-      ],
-      "first_contact": "Иван Жизневский для короткого интро; затем попросить направить к Marketing / Partnerships.",
-      "contact_route": "LinkedIn.",
-      "proposed_service": "Partner decks, event presentations, reports, sales materials for UAE/GCC.",
-      "conclusion": "verify_more"
-    },
-    {
-      "company": "Poison Drop",
-      "geography": "Dubai, UAE",
-      "channel": "direct_outbound",
-      "russian_speaking_evidence": "Андрей Мигунов / Poison Drop включён Dubai Rating в список русскоязычных предпринимателей; у Stanislava Malysheva в LinkedIn указан Russian как родной язык.",
-      "signal": "В 2026 бренд продолжает активные Dubai activations; запущен Poisoned Hearts, идут collaborations/events, а бизнес публично говорит о быстром росте и глобальных амбициях.",
-      "hypothesis": "Новые бренды, коллаборации и event-маркетинг создают спрос на launch presentations, brand books, partner decks и campaign visuals.",
-      "evidence": [
-        "Свежий запуск Poisoned Hearts.",
-        "Регулярные retail/event collaborations в Dubai Hills Mall.",
-        "Отдельная международная marketing/partnership функция."
-      ],
-      "counter_evidence": [
-        "Сильный внутренний marketing/design контур.",
-        "Более вероятна потребность в campaign production, чем в классических презентациях."
-      ],
-      "first_contact": "Stanislava Malysheva — international marketing / strategy, communications, events & partnerships.",
-      "contact_route": "LinkedIn.",
-      "proposed_service": "Launch decks, partner/collab decks, brand presentation, campaign visual systems.",
-      "conclusion": "strong"
+      "conclusion": "reject_as_order",
+      "next_action": "Не показывать как заказ. Можно оставить в мониторинге до появления freelance/contract/agency brief.",
+      "source_url": "https://www.linkedin.com/posts/flowwow_were-hiring-for-our-design-team-flowwow-activity-7445850443659759617-4l6Z"
     },
     {
       "company": "XPANCEO",
       "geography": "Dubai, UAE",
-      "channel": "events_launches",
-      "russian_speaking_evidence": "Роман Аксельрод и Валентин Волков включены Dubai Rating в список русскоязычных предпринимателей.",
-      "signal": "Deep-tech unicorn с $1.35B valuation, активной event-программой 2026 и communication-led marketing; компания нанимала designers/SMM и регулярно демонстрирует продукт на международных конференциях.",
-      "hypothesis": "Постоянные conference/demo/investor narratives создают спрос на high-end decks, visual storytelling и event materials.",
+      "explicit_need": "Junior Copywriter для communications: соцсети, press releases, print/marketing materials, conference leaflets, brochures, flyers, one-pagers; перевод и адаптация RU/EN.",
+      "source_date_status": "Текущая вакансия доступна на публичной Notion-странице XPANCEO.",
+      "engagement_type": "internal_role",
+      "fit_for_imon": "low",
       "evidence": [
-        "Активные выступления Roman Axelrod на крупных событиях.",
-        "Director Marketing Communications — Daria Danilina.",
-        "В 2026 компания искала graphic designer / senior SMM для marketing communications."
+        "Потребность конкретная и свежая.",
+        "Есть задачи по conference/marketing materials."
       ],
       "counter_evidence": [
-        "У XPANCEO уже развитая внутренняя коммуникационная и дизайнерская команда.",
-        "Прямой внешний подряд менее вероятен, чем точечный overflow."
+        "Ищут копирайтера, а не дизайнера/агентство.",
+        "Нет подтверждения внешнего design brief."
       ],
-      "first_contact": "Дарья Данилина, Director Marketing Communications; если нужен founder-level intro — Роман Аксельрод.",
-      "contact_route": "LinkedIn.",
-      "proposed_service": "Conference/keynote decks, investor storytelling, visual systems for demos and events.",
-      "conclusion": "verify_more"
+      "conclusion": "reject_as_order",
+      "next_action": "Не считать заказом I’MON. Мониторить careers на freelance/contract design или presentation роли.",
+      "source_url": "https://app.notion.com/xpanceo/junior-copywriter-2f06f2871a4b806f906fe30e5b9adca9"
+    },
+    {
+      "company": "7MARCH Agency",
+      "geography": "Dubai, UAE",
+      "explicit_need": null,
+      "source_date_status": "На публичном сайте есть услуги, кейсы и контакт, но свежего открытого запроса на внешнего дизайнера/презентации/подрядчика не найдено.",
+      "engagement_type": null,
+      "fit_for_imon": "unknown",
+      "evidence": [
+        "Агентство активно работает с UAE/CIS клиентами."
+      ],
+      "counter_evidence": [
+        "Нет конкретного открытого brief.",
+        "Нет подтверждения, что им сейчас нужен внешний design partner."
+      ],
+      "conclusion": "monitor_only",
+      "next_action": "Не писать как по готовой потребности. Искать freelance/vendor/overflow запрос или пост о загрузке команды.",
+      "source_url": "https://7march.agency/"
+    },
+    {
+      "company": "Poison Drop",
+      "geography": "Dubai, UAE / Russia",
+      "explicit_need": null,
+      "source_date_status": "Карьера активна, но свежего открытого запроса на внешнего дизайнера/презентации не найдено.",
+      "engagement_type": null,
+      "fit_for_imon": "unknown",
+      "evidence": [
+        "У компании есть отдельные marketing, design, photo/video функции."
+      ],
+      "counter_evidence": [
+        "Наличие внутреннего design отдела снижает вероятность внешнего запроса.",
+        "Найденные UAE marketing вакансии не являются свежим внешним design brief."
+      ],
+      "conclusion": "monitor_only",
+      "next_action": "Убрать из списка заказов; мониторить проектные/фриланс запросы и конкретные campaign briefs.",
+      "source_url": "https://poisondrop.ru/career/"
+    },
+    {
+      "company": "3S Money",
+      "geography": "UK / UAE / Europe",
+      "explicit_need": null,
+      "source_date_status": "Найден старый пост о найме Visual Designer примерно трехлетней давности; свежей внешней design-потребности не подтверждено.",
+      "engagement_type": null,
+      "fit_for_imon": "unknown",
+      "evidence": [
+        "Исторически компания нанимала Visual Designer."
+      ],
+      "counter_evidence": [
+        "Источник устарел.",
+        "Нет свежего freelance/contract/project brief."
+      ],
+      "conclusion": "monitor_only",
+      "next_action": "Не показывать как текущий заказ; искать только новые внешние briefs.",
+      "source_url": "https://www.linkedin.com/company/3s-money/"
+    },
+    {
+      "company": "Futura Digital",
+      "geography": "UAE / Cyprus / global",
+      "explicit_need": null,
+      "source_date_status": "Публичного свежего запроса на внешний design/presentation подряд не найдено.",
+      "engagement_type": null,
+      "fit_for_imon": "unknown",
+      "evidence": [
+        "Консалтинг потенциально может использовать презентационные и report-design услуги."
+      ],
+      "counter_evidence": [
+        "Это лишь логичная гипотеза, а не подтвержденная потребность."
+      ],
+      "conclusion": "monitor_only",
+      "next_action": "Не писать как по заказу; ждать конкретного partner/vendor/freelance сигнала.",
+      "source_url": "https://www.futura.inc/"
     }
-  ]
+  ],
+  "conclusion": "По строгому правилу explicit demand ни один из прежних шести русскоязычных лидов сейчас не подтвержден как чистый внешний заказ для I’MON. Flowwow и XPANCEO имеют конкретные внутренние вакансии, остальные — только гипотезы. Они должны быть вынесены из списка заказов в мониторинг."
 }
