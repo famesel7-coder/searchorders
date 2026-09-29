@@ -34,7 +34,17 @@
       "outreach_angle": "Application via email listed on M3M posting; include portfolio, rates, location and availability.",
       "source": "M3M Marketing",
       "url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Mariah Braun",
+          "role": "Owner / agency lead",
+          "email": "hello@m3mmarketing.ca"
+        }
+      ],
+      "contact_instruction": "Письмо с портфолио, ставкой, локацией и доступностью. В вакансии указан отдельный application email, но на публичной странице он защищён; рабочий публичный адрес компании — hello@m3mmarketing.ca.",
+      "apply_url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
+      "decision_maker_role": "Mariah Braun — Owner / agency lead"
     },
     {
       "id": "purohit-navigation",
@@ -65,7 +75,17 @@
       "outreach_angle": "Apply through the current Purohit job listing.",
       "source": "Purohit Navigation",
       "url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Samantha Glasgow",
+          "role": "Creative Director",
+          "url": "https://www.linkedin.com/in/samantha-glasgow-134133165"
+        }
+      ],
+      "contact_instruction": "Основной официальный путь — отклик на freelance Presentation Designer. Для прямого контакта — Samantha Glasgow, Creative Director.",
+      "apply_url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago",
+      "decision_maker_role": "Samantha Glasgow — Creative Director"
     },
     {
       "id": "billy-tannery",
@@ -97,7 +117,17 @@
       "outreach_angle": "Email founder Jack at jack@billytannery.co.uk with work and why the role fits.",
       "source": "Billy Tannery",
       "url": "https://www.ifyoucouldjobs.com/jobs/1007365995",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Jack",
+          "role": "Founder",
+          "email": "jack@billytannery.co.uk"
+        }
+      ],
+      "contact_instruction": "Писать лично основателю: коротко о себе, ссылка на работы и почему подходите именно Billy Tannery.",
+      "apply_url": "mailto:jack@billytannery.co.uk",
+      "decision_maker_role": "Jack — Founder"
     },
     {
       "id": "b-a-s-media",
@@ -129,7 +159,16 @@
       "outreach_angle": "Apply through current Behance listing.",
       "source": "B A S Media",
       "url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Ameerah Saine",
+          "role": "Hiring Contact"
+        }
+      ],
+      "contact_instruction": "Ameerah Saine указана как Hiring Contact. Отклик через текущую вакансию Behance.",
+      "apply_url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
+      "decision_maker_role": "Ameerah Saine — Hiring Contact"
     },
     {
       "id": "mousa-art-initiative-mai",
@@ -160,7 +199,17 @@
       "outreach_angle": "Ruba Hamdan — hamdanruba@gmail.com",
       "source": "Mousa Art Initiative (MAI)",
       "url": "https://www.behance.net/joblist/fulltime/362639/Freelance-Graphic-Designer-Remote",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Ruba Hamdan",
+          "role": "Hiring Contact",
+          "email": "hamdanruba@gmail.com"
+        }
+      ],
+      "contact_instruction": "Отправить CV, короткое интро, портфолио и доступность к старту.",
+      "apply_url": "mailto:hamdanruba@gmail.com",
+      "decision_maker_role": "Ruba Hamdan — Hiring Contact"
     },
     {
       "id": "global-dance-open",
@@ -191,7 +240,16 @@
       "outreach_angle": "Hiring contact Annika Thomas via current Behance listing.",
       "source": "Global Dance Open",
       "url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Annika Thomas",
+          "role": "Hiring Contact"
+        }
+      ],
+      "contact_instruction": "Annika Thomas указана как Hiring Contact. Отклик через Behance.",
+      "apply_url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
+      "decision_maker_role": "Annika Thomas — Hiring Contact"
     },
     {
       "id": "the-online-studio-ols",
@@ -219,7 +277,17 @@
       "outreach_angle": "Apply through If You Could Jobs.",
       "source": "The Online Studio (OLS)",
       "url": "https://www.ifyoucouldjobs.com/jobs/1159160001",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "OLS Recruitment Team",
+          "role": "Recruitment",
+          "email": "jobs@ols.design"
+        }
+      ],
+      "contact_instruction": "Отправить портфолио и доступность на jobs@ols.design, тема письма: Freelance Social Designer.",
+      "apply_url": "mailto:jobs@ols.design",
+      "decision_maker_role": "OLS Recruitment Team — Recruitment"
     },
     {
       "id": "airfoil",
@@ -248,7 +316,17 @@
       "outreach_angle": "Apply through Airfoil / If You Could Jobs.",
       "source": "Airfoil",
       "url": "https://www.ifyoucouldjobs.com/jobs/2298973206",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Airfoil team",
+          "role": "Careers / Creative team",
+          "email": "hello@airfoil.studio"
+        }
+      ],
+      "contact_instruction": "Лучше откликнуться через careers; hello@airfoil.studio — публичный адрес для дизайнеров, если роль/формат нужно уточнить.",
+      "apply_url": "https://www.airfoil.studio/careers",
+      "decision_maker_role": "Airfoil team — Careers / Creative team"
     },
     {
       "id": "sullivan",
@@ -279,7 +357,22 @@
       "outreach_angle": "Eva (Co-Founder & CEO) eva@sullivan.clothing and Rachel (Head of Marketing & Brand) rachel@sullivan.clothing",
       "source": "SULLIVAN",
       "url": "https://www.ifyoucouldjobs.com/jobs/3973734109",
-      "published_at": "2026-09"
+      "published_at": "2026-09",
+      "contact_people": [
+        {
+          "name": "Eva",
+          "role": "Co-Founder & CEO",
+          "email": "eva@sullivan.clothing"
+        },
+        {
+          "name": "Rachel",
+          "role": "Head of Marketing & Brand",
+          "email": "rachel@sullivan.clothing"
+        }
+      ],
+      "contact_instruction": "Писать обоим одним письмом: портфолио, локация/часовой пояс, доступность и ставка.",
+      "apply_url": "mailto:eva@sullivan.clothing?cc=rachel@sullivan.clothing",
+      "decision_maker_role": "Eva — Co-Founder & CEO; Rachel — Head of Marketing & Brand"
     }
   ]
 }
