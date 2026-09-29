@@ -31,7 +31,7 @@
       ],
       "confidence": 92,
       "conclusion": "strong",
-      "outreach_angle": "Application via email listed on M3M posting; include portfolio, rates, location and availability.",
+      "outreach_angle": "Письмо с портфолио, ставкой, локацией и доступностью. В вакансии указан отдельный application email, но на публичной странице он защищён; рабочий публичный адрес компании — hello@m3mmarketing.ca.",
       "source": "M3M Marketing",
       "url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
       "published_at": "2026-09",
@@ -44,7 +44,7 @@
       ],
       "contact_instruction": "Письмо с портфолио, ставкой, локацией и доступностью. В вакансии указан отдельный application email, но на публичной странице он защищён; рабочий публичный адрес компании — hello@m3mmarketing.ca.",
       "apply_url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
-      "decision_maker_role": "Mariah Braun — Owner / agency lead"
+      "decision_maker_role": "Mariah Braun (Owner / agency lead) — hello@m3mmarketing.ca"
     },
     {
       "id": "purohit-navigation",
@@ -72,7 +72,7 @@
       ],
       "confidence": 92,
       "conclusion": "strong",
-      "outreach_angle": "Apply through the current Purohit job listing.",
+      "outreach_angle": "Основной официальный путь — отклик на freelance Presentation Designer. Для прямого контакта — Samantha Glasgow, Creative Director.",
       "source": "Purohit Navigation",
       "url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago",
       "published_at": "2026-09",
@@ -85,7 +85,7 @@
       ],
       "contact_instruction": "Основной официальный путь — отклик на freelance Presentation Designer. Для прямого контакта — Samantha Glasgow, Creative Director.",
       "apply_url": "https://diversityjobs.com/career/18157150/Freelance-Presentation-Designer-Power-Point-Illinois-Chicago",
-      "decision_maker_role": "Samantha Glasgow — Creative Director"
+      "decision_maker_role": "Samantha Glasgow (Creative Director) — https://www.linkedin.com/in/samantha-glasgow-134133165"
     },
     {
       "id": "billy-tannery",
@@ -114,7 +114,7 @@
       ],
       "confidence": 92,
       "conclusion": "strong",
-      "outreach_angle": "Email founder Jack at jack@billytannery.co.uk with work and why the role fits.",
+      "outreach_angle": "Писать лично основателю: коротко о себе, ссылка на работы и почему подходите именно Billy Tannery.",
       "source": "Billy Tannery",
       "url": "https://www.ifyoucouldjobs.com/jobs/1007365995",
       "published_at": "2026-09",
@@ -127,7 +127,7 @@
       ],
       "contact_instruction": "Писать лично основателю: коротко о себе, ссылка на работы и почему подходите именно Billy Tannery.",
       "apply_url": "mailto:jack@billytannery.co.uk",
-      "decision_maker_role": "Jack — Founder"
+      "decision_maker_role": "Jack (Founder) — jack@billytannery.co.uk"
     },
     {
       "id": "b-a-s-media",
@@ -156,7 +156,7 @@
       ],
       "confidence": 92,
       "conclusion": "strong",
-      "outreach_angle": "Apply through current Behance listing.",
+      "outreach_angle": "Ameerah Saine указана как Hiring Contact. Отклик через текущую вакансию Behance.",
       "source": "B A S Media",
       "url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
       "published_at": "2026-09",
@@ -168,7 +168,7 @@
       ],
       "contact_instruction": "Ameerah Saine указана как Hiring Contact. Отклик через текущую вакансию Behance.",
       "apply_url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
-      "decision_maker_role": "Ameerah Saine — Hiring Contact"
+      "decision_maker_role": "Ameerah Saine (Hiring Contact)"
     },
     {
       "id": "mousa-art-initiative-mai",
@@ -196,7 +196,7 @@
       ],
       "confidence": 92,
       "conclusion": "strong",
-      "outreach_angle": "Ruba Hamdan — hamdanruba@gmail.com",
+      "outreach_angle": "Отправить CV, короткое интро, портфолио и доступность к старту.",
       "source": "Mousa Art Initiative (MAI)",
       "url": "https://www.behance.net/joblist/fulltime/362639/Freelance-Graphic-Designer-Remote",
       "published_at": "2026-09",
@@ -209,7 +209,7 @@
       ],
       "contact_instruction": "Отправить CV, короткое интро, портфолио и доступность к старту.",
       "apply_url": "mailto:hamdanruba@gmail.com",
-      "decision_maker_role": "Ruba Hamdan — Hiring Contact"
+      "decision_maker_role": "Ruba Hamdan (Hiring Contact) — hamdanruba@gmail.com"
     },
     {
       "id": "global-dance-open",
@@ -237,7 +237,7 @@
       ],
       "confidence": 80,
       "conclusion": "verify_more",
-      "outreach_angle": "Hiring contact Annika Thomas via current Behance listing.",
+      "outreach_angle": "Annika Thomas указана как Hiring Contact. Отклик через Behance.",
       "source": "Global Dance Open",
       "url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
       "published_at": "2026-09",
@@ -249,7 +249,7 @@
       ],
       "contact_instruction": "Annika Thomas указана как Hiring Contact. Отклик через Behance.",
       "apply_url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
-      "decision_maker_role": "Annika Thomas — Hiring Contact"
+      "decision_maker_role": "Annika Thomas (Hiring Contact)"
     },
     {
       "id": "the-online-studio-ols",
@@ -274,7 +274,7 @@
       ],
       "confidence": 68,
       "conclusion": "verify_more",
-      "outreach_angle": "Apply through If You Could Jobs.",
+      "outreach_angle": "Отправить портфолио и доступность на jobs@ols.design, тема письма: Freelance Social Designer.",
       "source": "The Online Studio (OLS)",
       "url": "https://www.ifyoucouldjobs.com/jobs/1159160001",
       "published_at": "2026-09",
@@ -287,7 +287,7 @@
       ],
       "contact_instruction": "Отправить портфолио и доступность на jobs@ols.design, тема письма: Freelance Social Designer.",
       "apply_url": "mailto:jobs@ols.design",
-      "decision_maker_role": "OLS Recruitment Team — Recruitment"
+      "decision_maker_role": "OLS Recruitment Team (Recruitment) — jobs@ols.design"
     },
     {
       "id": "airfoil",
@@ -313,7 +313,7 @@
       ],
       "confidence": 68,
       "conclusion": "verify_more",
-      "outreach_angle": "Apply through Airfoil / If You Could Jobs.",
+      "outreach_angle": "Лучше откликнуться через careers; hello@airfoil.studio — публичный адрес для дизайнеров, если роль/формат нужно уточнить.",
       "source": "Airfoil",
       "url": "https://www.ifyoucouldjobs.com/jobs/2298973206",
       "published_at": "2026-09",
@@ -326,7 +326,7 @@
       ],
       "contact_instruction": "Лучше откликнуться через careers; hello@airfoil.studio — публичный адрес для дизайнеров, если роль/формат нужно уточнить.",
       "apply_url": "https://www.airfoil.studio/careers",
-      "decision_maker_role": "Airfoil team — Careers / Creative team"
+      "decision_maker_role": "Airfoil team (Careers / Creative team) — hello@airfoil.studio"
     },
     {
       "id": "sullivan",
@@ -354,7 +354,7 @@
       ],
       "confidence": 68,
       "conclusion": "verify_more",
-      "outreach_angle": "Eva (Co-Founder & CEO) eva@sullivan.clothing and Rachel (Head of Marketing & Brand) rachel@sullivan.clothing",
+      "outreach_angle": "Писать обоим одним письмом: портфолио, локация/часовой пояс, доступность и ставка.",
       "source": "SULLIVAN",
       "url": "https://www.ifyoucouldjobs.com/jobs/3973734109",
       "published_at": "2026-09",
@@ -372,7 +372,7 @@
       ],
       "contact_instruction": "Писать обоим одним письмом: портфолио, локация/часовой пояс, доступность и ставка.",
       "apply_url": "mailto:eva@sullivan.clothing?cc=rachel@sullivan.clothing",
-      "decision_maker_role": "Eva — Co-Founder & CEO; Rachel — Head of Marketing & Brand"
+      "decision_maker_role": "Eva (Co-Founder & CEO) — eva@sullivan.clothing | Rachel (Head of Marketing & Brand) — rachel@sullivan.clothing"
     }
   ]
 }
