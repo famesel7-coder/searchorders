@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-09-30",
+  "rule": "Telegram lead is active only after direct contact existence + freshness + company identity + contact-to-company link + explicit external demand checks.",
+  "active_verified": [],
+  "quarantine": [
+    {
+      "company": "NoStress Design",
+      "contact": "@VasilevaKriss",
+      "contact_exists": true,
+      "contact_identity": "Кристина",
+      "company_verified": true,
+      "explicit_need_verified": true,
+      "freshness_verified": false,
+      "finding": "Прямой Telegram-контакт существует; компания реальна; исходный запрос на дизайнера презентаций найден, но независимый индекс показывает публикацию 04.02.2026. Для текущего списка заказ устарел.",
+      "status": "stale_remove"
+    },
+    {
+      "company": "UIS / ООО «НОВОСИСТЕМ»",
+      "contact": "@darya_pptext",
+      "contact_exists": true,
+      "contact_identity": "Дарья Журавлева",
+      "company_verified": true,
+      "contact_company_link_verified": true,
+      "explicit_need_verified": true,
+      "freshness_verified": false,
+      "finding": "Telegram-контакт существует. TenChat подтверждает Дарью Журавлеву как текущего сотрудника ООО «НОВОСИСТЕМ». Пост с запросом подрядчика существует (Telegram message 3366), но он старше февральского поста NoStress в том же канале, поэтому не считаем текущим без повторного подтверждения.",
+      "status": "stale_remove"
+    },
+    {
+      "company": "Меморитека / Famiry",
+      "contact": "@alisa_memoryteka",
+      "contact_exists": true,
+      "contact_identity": "Алиса",
+      "company_verified": true,
+      "contact_company_link_verified": true,
+      "explicit_need_verified": true,
+      "freshness_verified": false,
+      "finding": "Telegram-профиль прямо указывает сооснователя «Меморитеки» и Famiry. Однако агрегатор Hirify помечает вакансию как archived и показывает её примерно трёхмесячной давности.",
+      "status": "stale_remove"
+    },
+    {
+      "company": "Агентство спортивного менеджмента (не раскрыто)",
+      "contact": "@berhamova",
+      "contact_exists": true,
+      "contact_identity": "Арианна Берхамова",
+      "company_verified": false,
+      "explicit_need_verified": true,
+      "freshness_verified": false,
+      "finding": "Telegram-профиль существует, а текст запроса на презентации/медиакиты действительно есть в нескольких Telegram-каналах. Но название агентства и связь контакта с конкретной компанией не подтверждены, точная дата первичного запроса не установлена.",
+      "status": "unverified_entity"
+    },
+    {
+      "company": "AI-видеостудия (не раскрыто)",
+      "contact": "@timurmeretukov",
+      "contact_exists": true,
+      "contact_identity": "Тимур Меретуков",
+      "company_verified": false,
+      "explicit_need_verified": true,
+      "freshness_verified": true,
+      "published_at": "2026-09-01",
+      "finding": "Контакт существует; запрос на полный пакет айдентики реально опубликован 01.09.2026. Но название AI-студии не раскрыто и независимую связь Тимура с этой студией подтвердить не удалось.",
+      "status": "unverified_entity"
+    },
+    {
+      "company": "Holod Agency (идентификация только по Telegram handle)",
+      "contact": "@holodagency",
+      "contact_exists": true,
+      "contact_identity": "ХОЛОД",
+      "company_verified": false,
+      "explicit_need_verified": true,
+      "freshness_verified": false,
+      "finding": "Telegram-профиль существует и описывает продвижение/маркетинг. Запрос на Tilda-лендинг есть. Но независимого сайта/юрлица, связывающего handle с конкретным российским агентством, не подтверждено; не путать с медиа «Холод» (@holodmedia).",
+      "status": "unverified_entity"
+    }
+  ]
+}
