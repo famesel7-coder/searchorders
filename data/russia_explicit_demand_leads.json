@@ -1,13 +1,191 @@
 {
   "checked_at": "2026-09-30",
-  "scope": "Только предварительно проверенные российские/русскоязычные компании с текущей внешней design-потребностью.",
+  "scope": "Российские компании/проекты с текущей конкретной внешней дизайн-потребностью. Источник спроса — преимущественно Telegram; компании и контакты дополнительно проверены.",
   "verification_gate": [
-    "контакт существует прямо сейчас",
-    "источник запроса свежий (по умолчанию <=30 дней; при срочных задачах <=14 дней)",
-    "компания/проект независимо идентифицированы",
-    "контакт связан с компанией/проектом",
-    "есть конкретный внешний проект / contract / subcontract need",
-    "нет признака archive/closed/stale"
+    "запрос опубликован не более 30 дней назад",
+    "компания/проект независимо существует вне репоста",
+    "есть конкретный scope работ",
+    "есть project/freelance/part-time/contract формат или прямое постоянное проектное сотрудничество",
+    "контакт/форма отклика существует сейчас",
+    "нет признака archived/closed"
   ],
-  "leads": []
+  "leads": [
+    {
+      "priority": 1,
+      "company": "Resorto.io / ООО «РЕСОРТО»",
+      "country": "Россия",
+      "city": "Санкт-Петербург",
+      "published_at": "2026-09-12",
+      "source_type": "Telegram",
+      "explicit_need": "Сильный продуктовый дизайнер: сделать несколько дополнений к уже работающему сервису Resorto.io.",
+      "engagement": "Сначала проектно, с потенциалом на постоянное сотрудничество.",
+      "fit_for_imon": "very_strong",
+      "contact": "Сергей Захаров — @zakharov_sa",
+      "contact_verified": true,
+      "contact_identity": "Founder Resorto.io",
+      "company_verified": true,
+      "company_evidence": "ООО «РЕСОРТО», ИНН 7801743547, ОГРН 1257800068349, Санкт-Петербург; официальный сайт resorto.io.",
+      "evidence": [
+        "Запрос опубликован 12 сентября 2026.",
+        "В запросе прямо указана проектная работа и потенциал постоянного сотрудничества.",
+        "Telegram-профиль @zakharov_sa существует и прямо указывает Founder Resorto.io.",
+        "Официальная оферта Resorto подтверждает российское ООО и сайт."
+      ],
+      "risks": [
+        "В публичном brief не перечислены конкретные экраны/фичи — scope нужно уточнить в первом сообщении."
+      ],
+      "source_urls": [
+        "https://telemetr.me/content/getjob_design",
+        "https://resorto.io/dogovor-oferty",
+        "https://t.me/zakharov_sa"
+      ]
+    },
+    {
+      "priority": 2,
+      "company": "RE:FRESH",
+      "country": "Россия",
+      "published_at": "2026-09-04",
+      "source_type": "Telegram",
+      "explicit_need": "Графический дизайнер на проектную работу: посты-карусели, Reels covers, презентации, рекламные баннеры, иногда афиши/печать и AI-графика.",
+      "engagement": "Удалённо, part-time 3–4 часа в день на старте, проектная работа.",
+      "fit_for_imon": "very_strong",
+      "contact": "Форма отклика RE:FRESH",
+      "apply_url": "https://docs.google.com/forms/d/e/1FAIpQLSetAKsLi-cr__8LYMOflhvj5ZFs7RtSAY7JD_UIBfZXvhdHFg/viewform",
+      "company_verified": true,
+      "company_evidence": "Официальный сайт refresh-agency.ru подтверждает действующее российское маркетинговое агентство и дизайн как услугу.",
+      "evidence": [
+        "Запрос опубликован 4 сентября 2026.",
+        "В brief прямо указаны презентации и рекламные материалы.",
+        "Формат прямо назван проектным."
+      ],
+      "risks": [
+        "Загрузка 3–4 часа в день может предполагать персонального embedded-дизайнера, а не агентство; это нужно проверить."
+      ],
+      "source_urls": [
+        "https://tg.me/designodromo/7360",
+        "https://refresh-agency.ru/"
+      ]
+    },
+    {
+      "priority": 3,
+      "company": "Hack!Art",
+      "country": "Россия",
+      "published_at": "2026-09-02",
+      "source_type": "Telegram",
+      "explicit_need": "Дизайнер сайтов/лендингов на Tilda для постоянного сотрудничества.",
+      "engagement": "Проектная работа, требуется самозанятость или возможность оформить; постоянное сотрудничество.",
+      "fit_for_imon": "strong",
+      "contact": "Анкета Hack!Art",
+      "apply_url": "https://forms.yandex.ru/u/6a95a504493639e8aaaa60ff",
+      "company_verified": true,
+      "company_evidence": "Официальный сайт hackartschool.com подтверждает действующую российскую школу искусств и проект Александры Плотниковой.",
+      "evidence": [
+        "Запрос опубликован в начале сентября 2026.",
+        "Нужны Tilda/Figma и опыт проектной работы.",
+        "Компания прямо пишет о постоянном сотрудничестве."
+      ],
+      "risks": [
+        "Требуется хорошее понимание искусства/дизайна и предусмотрено тестовое задание.",
+        "Публичной вилки бюджета нет."
+      ],
+      "source_urls": [
+        "https://xn--r1a.website/s/workfordesigner?q=%23%D0%92%D0%B5%D0%B1%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80",
+        "https://hackartschool.com/"
+      ]
+    },
+    {
+      "priority": 4,
+      "company": "Мегамозго",
+      "country": "Россия",
+      "city": "Череповец",
+      "published_at": "2026-09-02",
+      "source_type": "Telegram",
+      "explicit_need": "Графический дизайнер: 15–20 афиш мероприятий в месяц, VK, презентации, digital-материалы, макеты для типографии и мерча.",
+      "engagement": "Удалённо, part-time, гибкий график; оплата обсуждается.",
+      "fit_for_imon": "strong",
+      "contact": "Елена Сумкина — @sumkina_elena",
+      "contact_verified": true,
+      "company_verified": true,
+      "company_evidence": "Официальный сайт megamozgo.su подтверждает действующую ивент-компанию; оператор — ИП Сумкин Илья Андреевич, ИНН 352829089036.",
+      "evidence": [
+        "Текущий запрос опубликован в сентябре 2026.",
+        "Telegram-контакт @sumkina_elena существует.",
+        "В scope прямо входят презентации, digital и печатные материалы.",
+        "На официальном сайте есть актуальное расписание мероприятий на конец сентября/октябрь."
+      ],
+      "risks": [
+        "Формат похож на постоянную частичную загрузку одного дизайнера; агентский формат нужно предложить аккуратно.",
+        "Бюджет не указан."
+      ],
+      "source_urls": [
+        "https://tgchannels.org/channel/vakansi_rus?first=13741&lang=all&size=30&start=13741",
+        "https://megamozgo.su/",
+        "https://t.me/sumkina_elena"
+      ]
+    },
+    {
+      "priority": 5,
+      "company": "Family / ООО «Фэмели»",
+      "country": "Россия",
+      "city": "Москва",
+      "published_at": "2026-09-07",
+      "source_type": "Telegram",
+      "explicit_need": "Дизайнер-фрилансер с AI + Photoshop для регулярного большого объёма визуалов по автомобильным брендам: рекламные сцены, key visuals, финальные макеты.",
+      "engagement": "Фриланс / проектно.",
+      "fit_for_imon": "good",
+      "contact": "Алена Лебедева — @ouestale; также ich@creative.family",
+      "contact_verified": true,
+      "contact_identity": "Head of Product Design at creative.family (по публичному Telegram-профилю)",
+      "company_verified": true,
+      "company_evidence": "Family — российское digital-агентство, Москва; ООО «Фэмели», ОГРН 5107746064388; официальный домен creative.family.",
+      "evidence": [
+        "Свежий сентябрьский запрос прямо говорит «дизайнера-фрилансера».",
+        "Работа — постоянный большой объём визуалов каждый месяц.",
+        "Контакт @ouestale существует и публично связывает себя с creative.family."
+      ],
+      "risks": [
+        "Текущая потребность сильно AI/Photoshop-ориентирована и не является презентационной.",
+        "Нужно показывать релевантные AI/automotive кейсы, иначе fit слабее."
+      ],
+      "source_urls": [
+        "https://list.tg/channel/workygram/3541",
+        "https://ruward.ru/catalog/familyagency-ru/"
+      ]
+    },
+    {
+      "priority": 6,
+      "company": "Палиндром / направление «Ого»",
+      "country": "Россия",
+      "published_at": "2026-09-09",
+      "source_type": "Telegram",
+      "explicit_need": "Графический дизайнер для SMM-проектов малого и среднего бизнеса: карточки, типографика, обложки, визуалы и адаптация под разные платформы.",
+      "engagement": "Удалённо, проектная занятость.",
+      "fit_for_imon": "good",
+      "contact": "Наташа М. — @zZhuzha, HR в «Палиндроме»",
+      "contact_verified": true,
+      "contact_identity": "HR в «Палиндроме» (по прямому Telegram-профилю)",
+      "company_verified": true,
+      "company_evidence": "Официальный сайт palindrome.media подтверждает ООО «Палиндром», 250+ проектов и собственный дизайн/контент-продакшн.",
+      "evidence": [
+        "Запрос опубликован 9 сентября 2026.",
+        "Формат прямо указан как проектная занятость.",
+        "Контакт @zZhuzha существует и прямо обозначен как HR в «Палиндроме»."
+      ],
+      "risks": [
+        "Текущий scope — в основном SMM, а не презентации/брендинг.",
+        "Вероятнее партнёрский/production lead, чем крупный самостоятельный проект."
+      ],
+      "source_urls": [
+        "https://tgchannels.org/channel/polyaluzjob?first=20792&lang=all&size=30&start=20798",
+        "https://palindrome.media/",
+        "https://t.me/zZhuzha"
+      ]
+    }
+  ],
+  "excluded_after_verification": [
+    "I AM Agency — компания реальная и запрос свежий, но текущий формат описан как full-time; не включён как внешний заказ.",
+    "Метод — запрос идеально подходит по задачам и проектной модели, но независимую идентификацию агентства вне Telegram-бота подтвердить не удалось.",
+    "Яндекс Фантех — Telegram-репост говорит о проектной занятости, но официальный сайт Яндекса показывает штатную/офисную роль; из списка внешних заказов исключён.",
+    "Анонимные Telegram-заказы без независимо подтверждённой компании не включались."
+  ]
 }
