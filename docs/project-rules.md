@@ -82,3 +82,19 @@
 Gmail для исходящих коммерческих писем этого проекта **не использовать**.
 
 В Yandex ID включены пароли приложений и создан профиль `SearchOrders SMTP`. Одноразовый app password не хранить в репозитории и не передавать в чат. До отдельной локальной установки SMTP-secret письма отправлять через уже авторизованную веб-почту Yandex от `cco@imon.agency`.
+
+## Персональное портфолио для outbound
+
+Основной публичный адрес персонального портфолио Вячеслава:
+
+- `https://samsel.site`
+
+Статус на 2026-10-26:
+- домен зарегистрирован у REG.RU и делегирован на `ns1.vercel-dns.com` / `ns2.vercel-dns.com`;
+- проект размещён на Vercel, основной домен `samsel.site`;
+- `www.samsel.site` настроен на постоянный redirect 308 на `https://samsel.site/`;
+- HTTPS активен с валидным сертификатом;
+- canonical, Open Graph, robots.txt и sitemap.xml используют `samsel.site`;
+- форма заявки через FormSubmit активна и проверена тестовой отправкой на `cco@imon.agency`.
+
+Для персонального outbound использовать `https://samsel.site` как основной portfolio URL вместо временного `*.vercel.app`.
