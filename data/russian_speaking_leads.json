@@ -1,132 +1,87 @@
 {
-  "checked_at": "2026-09-29",
-  "scope": "Русскоязычные компании/фаундеры за рубежом — только конкретная подтвержденная потребность",
-  "methodology": "IA-5: hypothesis -> verify -> challenge -> conclude",
-  "explicit_demand_rule": {
-    "main_list_requires": [
-      "есть свежий первоисточник, где компания сама описывает конкретную задачу/роль/объем работ",
-      "потребность относится к услугам I’MON",
-      "допускается freelance / contract / project / agency / vendor формат либо это прямо можно проверить",
-      "есть понятный способ отклика или decision maker"
-    ],
-    "excluded_from_orders": [
-      "funding/rebrand/event сами по себе",
-      "предположение о возможной потребности",
-      "обычная штатная вакансия без признаков внешнего подрядчика",
-      "устаревшие вакансии и закрытые объявления"
-    ]
-  },
+  "checked_at": "2026-10-27",
+  "scope": "Русскоязычные / российские команды за рубежом с конкретной свежей project/freelance потребностью, релевантной I’MON.",
+  "methodology": "IA-5 + explicit demand gate",
   "leads": [
     {
-      "company": "Udora / Flowwow",
-      "geography": "UAE / Europe / UK / global",
-      "explicit_need": "Marketing Designer: создавать social media content, banners и promos для 6+ рынков.",
-      "source_date_status": "Публичный hiring-пост был опубликован около 5 месяцев назад; Product Communications Designer уже помечен как filled.",
-      "engagement_type": "full_time_internal_role",
-      "fit_for_imon": "partial",
+      "priority": 1,
+      "company": "Global Bali Home",
+      "geography": "Bali, Indonesia / русскоязычный рынок",
+      "published_at": "2026-10-26",
+      "explicit_need": "Графический дизайнер на фриланс для презентаций, буклетов, брошюр, маркетинговых материалов, social/ads visuals; материалы и бриф даёт заказчик.",
+      "engagement_type": "freelance_project_piece_rate",
+      "fit_for_imon": "very_strong",
       "evidence": [
-        "Компания сама описала конкретную потребность в Marketing Designer.",
-        "Задача напрямую относится к campaign/digital design."
+        "Свежий запрос от 26.10.2026.",
+        "Формат: фриланс, без фиксированного графика.",
+        "Оплата за единицу дизайна, проект или согласованную почасовую ставку.",
+        "Предпочтение кандидатам из СНГ; русский обязателен, английский контент нужен.",
+        "Официальный сайт подтверждает действующего девелопера на Бали."
       ],
       "counter_evidence": [
-        "Это штатная full-time позиция, а не заказ агентству.",
-        "Пост не свежий; актуальность Marketing Designer нужно перепроверить.",
-        "Product Communications Designer уже закрыт."
+        "Бюджет публично не указан.",
+        "Нужно сразу квалифицировать объём и средний чек, чтобы не уйти в мелкий production."
       ],
-      "conclusion": "reject_as_order",
-      "next_action": "Не показывать как заказ. Можно оставить в мониторинге до появления freelance/contract/agency brief.",
-      "source_url": "https://www.linkedin.com/posts/flowwow_were-hiring-for-our-design-team-flowwow-activity-7445850443659759617-4l6Z"
+      "proposed_service": "Презентации объектов, investment/sales decks, brochures, premium real-estate visual system.",
+      "relevant_case": "Презентации + ORLA / real-estate-adjacent premium visual cases",
+      "contact_route": "Актуальная анкета/отклик в HireHi; официальный sales@globalbalihome.com использовать только как резервный корпоративный контакт, не как hiring email.",
+      "source_urls": [
+        "https://hirehi.ru/design/graficheskii-dizainer-dlia-nedvizhimosti-180299",
+        "https://www.globalbalihome.com/"
+      ],
+      "conclusion": "strong",
+      "confidence": 97,
+      "status": "active"
     },
     {
-      "company": "XPANCEO",
-      "geography": "Dubai, UAE",
-      "explicit_need": "Junior Copywriter для communications: соцсети, press releases, print/marketing materials, conference leaflets, brochures, flyers, one-pagers; перевод и адаптация RU/EN.",
-      "source_date_status": "Текущая вакансия доступна на публичной Notion-странице XPANCEO.",
-      "engagement_type": "internal_role",
-      "fit_for_imon": "low",
+      "priority": 2,
+      "company": "Broxus",
+      "geography": "Belgrade, Serbia / международная русскоязычная команда",
+      "published_at": "2026-10",
+      "explicit_need": "Дизайнер презентаций на проектную занятость: сложные презентации, информационный дизайн, Figma, tech/startup context.",
+      "engagement_type": "project_part_time_remote",
+      "fit_for_imon": "very_strong",
       "evidence": [
-        "Потребность конкретная и свежая.",
-        "Есть задачи по conference/marketing materials."
+        "LinkedIn-роль прямо указывает проектную занятость.",
+        "Можно работать удалённо из любой страны и совмещать с основной работой.",
+        "Есть возможность долгосрочного сотрудничества.",
+        "Официальный профиль компании подтверждает HQ в Белграде и международные офисы."
       ],
       "counter_evidence": [
-        "Ищут копирайтера, а не дизайнера/агентство.",
-        "Нет подтверждения внешнего design brief."
+        "Оплата указана от $15/час, что может быть ниже целевого чека I’MON.",
+        "Формат похож на персонального contractor-дизайнера с интервью и тестовым, а не на заказ студии."
       ],
-      "conclusion": "reject_as_order",
-      "next_action": "Не считать заказом I’MON. Мониторить careers на freelance/contract design или presentation роли.",
-      "source_url": "https://app.notion.com/xpanceo/junior-copywriter-2f06f2871a4b806f906fe30e5b9adca9"
-    },
-    {
-      "company": "7MARCH Agency",
-      "geography": "Dubai, UAE",
-      "explicit_need": null,
-      "source_date_status": "На публичном сайте есть услуги, кейсы и контакт, но свежего открытого запроса на внешнего дизайнера/презентации/подрядчика не найдено.",
-      "engagement_type": null,
-      "fit_for_imon": "unknown",
-      "evidence": [
-        "Агентство активно работает с UAE/CIS клиентами."
+      "proposed_service": "Presentation design / information design for blockchain & enterprise products.",
+      "relevant_case": "Presentation portfolio https://imon.agency/prez + tech cases on samsel.site",
+      "contact_route": "Отклик через актуальную LinkedIn-вакансию.",
+      "source_urls": [
+        "https://ru.linkedin.com/jobs/view/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80-%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B9-at-broxus-4347892527",
+        "https://broxus.com/"
       ],
-      "counter_evidence": [
-        "Нет конкретного открытого brief.",
-        "Нет подтверждения, что им сейчас нужен внешний design partner."
-      ],
-      "conclusion": "monitor_only",
-      "next_action": "Не писать как по готовой потребности. Искать freelance/vendor/overflow запрос или пост о загрузке команды.",
-      "source_url": "https://7march.agency/"
-    },
-    {
-      "company": "Poison Drop",
-      "geography": "Dubai, UAE / Russia",
-      "explicit_need": null,
-      "source_date_status": "Карьера активна, но свежего открытого запроса на внешнего дизайнера/презентации не найдено.",
-      "engagement_type": null,
-      "fit_for_imon": "unknown",
-      "evidence": [
-        "У компании есть отдельные marketing, design, photo/video функции."
-      ],
-      "counter_evidence": [
-        "Наличие внутреннего design отдела снижает вероятность внешнего запроса.",
-        "Найденные UAE marketing вакансии не являются свежим внешним design brief."
-      ],
-      "conclusion": "monitor_only",
-      "next_action": "Убрать из списка заказов; мониторить проектные/фриланс запросы и конкретные campaign briefs.",
-      "source_url": "https://poisondrop.ru/career/"
-    },
-    {
-      "company": "3S Money",
-      "geography": "UK / UAE / Europe",
-      "explicit_need": null,
-      "source_date_status": "Найден старый пост о найме Visual Designer примерно трехлетней давности; свежей внешней design-потребности не подтверждено.",
-      "engagement_type": null,
-      "fit_for_imon": "unknown",
-      "evidence": [
-        "Исторически компания нанимала Visual Designer."
-      ],
-      "counter_evidence": [
-        "Источник устарел.",
-        "Нет свежего freelance/contract/project brief."
-      ],
-      "conclusion": "monitor_only",
-      "next_action": "Не показывать как текущий заказ; искать только новые внешние briefs.",
-      "source_url": "https://www.linkedin.com/company/3s-money/"
-    },
-    {
-      "company": "Futura Digital",
-      "geography": "UAE / Cyprus / global",
-      "explicit_need": null,
-      "source_date_status": "Публичного свежего запроса на внешний design/presentation подряд не найдено.",
-      "engagement_type": null,
-      "fit_for_imon": "unknown",
-      "evidence": [
-        "Консалтинг потенциально может использовать презентационные и report-design услуги."
-      ],
-      "counter_evidence": [
-        "Это лишь логичная гипотеза, а не подтвержденная потребность."
-      ],
-      "conclusion": "monitor_only",
-      "next_action": "Не писать как по заказу; ждать конкретного partner/vendor/freelance сигнала.",
-      "source_url": "https://www.futura.inc/"
+      "conclusion": "strong_budget_risk",
+      "confidence": 91,
+      "status": "active_low_priority"
     }
   ],
-  "conclusion": "По строгому правилу explicit demand ни один из прежних шести русскоязычных лидов сейчас не подтвержден как чистый внешний заказ для I’MON. Flowwow и XPANCEO имеют конкретные внутренние вакансии, остальные — только гипотезы. Они должны быть вынесены из списка заказов в мониторинг."
+  "monitoring": [
+    {
+      "company": "Pixel Point",
+      "geography": "Europe-based / внутри команды русский и английский",
+      "signal": "Публично сообщали, что собирают дизайнеров под новые проекты; официальный hiring — Independent Contractor, глобальная оплата.",
+      "reason_not_main": "Официальные условия ближе к постоянному contractor employment с фиксированными выплатами/PTO, а не к разовым заказам.",
+      "source_urls": [
+        "https://pixelpoint.notion.site/join-the-team"
+      ]
+    },
+    {
+      "company": "Syntoks",
+      "geography": "Россия / remote",
+      "signal": "Senior UI/UX redesign сайта под релиз, бюджет 50–250 тыс. ₽.",
+      "reason_not_main": "Part-time/role формат; внешний project/contract engagement явно не подтверждён.",
+      "source_urls": [
+        "https://www.job.uprock.ru/vacancies/syntoks"
+      ]
+    }
+  ],
+  "conclusion": "Главный зарубежный русскоязычный лид сейчас — Global Bali Home: реальный девелопер, свежий freelance brief, презентации и маркетинговые материалы, проектная/сдельная оплата. Broxus релевантен по презентациям, но имеет риск низкого чека и contractor-role формата."
 }
