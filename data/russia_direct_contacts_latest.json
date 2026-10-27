@@ -1,7 +1,7 @@
 {
   "checked_at": "2026-10-27",
   "qualification_rule": "Только конкретный оплачиваемый проект/внешний подряд с прямым Telegram или email, указанным в объявлении именно для этого проекта. Доступность работы на дату поиска окончательно не подтверждена без ответа заказчика.",
-  "scope": "Российские компании и объявления, размещенные на российском рынке; приоритет презентации, Key Visual, графический дизайн.",
+  "scope": "Российские компании и организации с подтвержденным прямым каналом подачи заявки на проектную работу; дата 27.10.2026.",
   "leads": [
     {
       "priority": 1,
@@ -30,6 +30,20 @@
     },
     {
       "priority": 3,
+      "company": "ГЕРОФАРМ",
+      "published_at": "2026-09-02",
+      "tasks": "Графический дизайн и иллюстрации по отдельным проектам биотехнологической компании",
+      "contact_type": "telegram",
+      "contact": "@Sokolovakristina",
+      "budget": "Не опубликован",
+      "terms": "Проектное сотрудничество, ИП или самозанятые",
+      "source": "https://tg.me/frilans/1211",
+      "verification_source": "https://t.me/s/designwork_vacansii?q=%23%D0%94%D0%98%D0%97%D0%90%D0%99%D0%9D%D0%95%D0%A0",
+      "status": "direct_contact_confirmed_open_status_unverified",
+      "caveat": "Сентябрьское объявление, свободные задачи на сегодня не подтверждены"
+    },
+    {
+      "priority": 4,
       "company": "ARVENT",
       "published_at": "2026-10-22",
       "tasks": "Подрядные рекламные макеты и карточки товаров, доработка AI-визуалов",
@@ -39,18 +53,6 @@
       "source": "https://teletarget.com/channel/%40Designs_job/",
       "status": "direct_contact_confirmed_open_status_unverified",
       "caveat": "Небольшое агентство, независимая регистрация не подтверждена"
-    },
-    {
-      "priority": 4,
-      "company": "TouringBee",
-      "published_at": "2026-10-22",
-      "tasks": "13 экранов и 8 диалоговых окон UI мобильного приложения; сначала оплачиваемый пробный заказ на 2 экрана и 1 диалог",
-      "contact_type": "telegram",
-      "contact": "@antonsvens",
-      "budget": "По ставке дизайнера, фикс по ТЗ",
-      "source": "https://t.me/s/zakaz_design/4908",
-      "verification_source": "https://www.unjobs.ru/vacancy/vac-tg-touringb-a9be12e2",
-      "status": "direct_contact_confirmed_open_status_unverified"
     },
     {
       "priority": 5,
@@ -70,6 +72,7 @@
     "Изидизи (только анкета)",
     "Onpoint (прямой контакт конкретной вакансии не подтвержден)",
     "Предложения с анонимной компанией и формами отклика",
-    "Архивные или закрытые объявления"
+    "Архивные или закрытые объявления",
+    "TouringBee (юридическое лицо зарегистрировано в Ирландии; не российская компания)"
   ]
 }
