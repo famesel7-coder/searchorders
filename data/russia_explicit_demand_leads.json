@@ -1,13 +1,14 @@
 {
   "checked_at": "2026-10-27",
-  "scope": "Свежие российские компании, преимущественно Москва, с подтверждённым freelance/project/contract запросом на дизайн. Только внешние/разовые или проектные задачи; full-time исключается.",
+  "scope": "Свежие российские компании, преимущественно Москва, с подтверждённым freelance/project/contract запросом на дизайн. Только внешние/разовые или проектные задачи; full-time исключается.; обязательный фильтр — проверенный прямой контакт заказчика по конкретному запросу.",
   "verification_gate": [
     "свежесть <= 30 дней, приоритет <= 14 дней",
     "компания независимо существует",
     "конкретный scope работ",
     "external/project/freelance/contract формат прямо указан",
-    "есть актуальный способ отклика",
-    "нет closed/paused статуса"
+    "нет closed/paused статуса",
+    "есть проверенный прямой контакт заказчика (мессенджер/адрес, явно предназначенный для этого заказа); формы и кнопки отклика не подходят",
+    "общий email с сайта без подтверждённой привязки к заказу не подходит"
   ],
   "leads": [
     {
@@ -39,7 +40,10 @@
       ],
       "conclusion": "strong",
       "confidence": 97,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 2,
@@ -72,7 +76,10 @@
       ],
       "conclusion": "strong",
       "confidence": 96,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 3,
@@ -105,7 +112,10 @@
       ],
       "conclusion": "strong",
       "confidence": 95,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 4,
@@ -137,7 +147,10 @@
       ],
       "conclusion": "strong",
       "confidence": 94,
-      "status": "active"
+      "status": "active",
+      "direct_contact_qualified": true,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "Прямой контакт указан в карточке и был ранее подтверждён; актуальность проверять перед отправкой."
     },
     {
       "priority": 5,
@@ -168,7 +181,10 @@
       ],
       "conclusion": "strong",
       "confidence": 91,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 6,
@@ -197,7 +213,10 @@
       ],
       "conclusion": "strong",
       "confidence": 91,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 7,
@@ -228,7 +247,10 @@
       ],
       "conclusion": "strong",
       "confidence": 88,
-      "status": "active"
+      "status": "excluded_no_direct_contact",
+      "direct_contact_qualified": false,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "В имеющихся данных нет подтверждённого прямого контакта для конкретного заказа. Отклик через площадку, форму или общий email без привязки к вакансии не подходит."
     },
     {
       "priority": 8,
@@ -258,7 +280,10 @@
       ],
       "conclusion": "strong_low_value",
       "confidence": 86,
-      "status": "active_low_priority"
+      "status": "active_low_priority",
+      "direct_contact_qualified": true,
+      "direct_contact_checked_at": "2026-10-27",
+      "direct_contact_note": "Прямой контакт указан в карточке и был ранее подтверждён; актуальность проверять перед отправкой."
     }
   ],
   "excluded_after_verification": [
