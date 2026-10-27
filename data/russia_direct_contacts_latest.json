@@ -1,0 +1,75 @@
+{
+  "checked_at": "2026-10-27",
+  "qualification_rule": "Только конкретный оплачиваемый проект/внешний подряд с прямым Telegram или email, указанным в объявлении именно для этого проекта. Доступность работы на дату поиска окончательно не подтверждена без ответа заказчика.",
+  "scope": "Российские компании и объявления, размещенные на российском рынке; приоритет презентации, Key Visual, графический дизайн.",
+  "leads": [
+    {
+      "priority": 1,
+      "company": "ВсеИнструменты.ру",
+      "published_at": "2026-10-10",
+      "tasks": "Корпоративные презентации по фирменной системе; внешний специалист, тестовое задание",
+      "contact_type": "telegram",
+      "contact": "@koterich",
+      "contact_role": "Непосредственный получатель тестового задания в опубликованном объявлении",
+      "budget": "Ставка предложением дизайнера",
+      "terms": "ИП или самозанятый, SolarStaff, оплата в конце месяца",
+      "source": "https://ru.tgchannels.org/channel/polyaluzjob?first=20792&lang=all&size=30&start=11986",
+      "status": "direct_contact_confirmed_open_status_unverified"
+    },
+    {
+      "priority": 2,
+      "company": "Радость планеты",
+      "published_at": "2026-10-26",
+      "tasks": "Графика мероприятий, сценические баннеры, дипломы, презентации, мерч, сайт",
+      "contact_type": "telegram",
+      "contact": "@radostplanet",
+      "budget": "По договоренности",
+      "source": "https://telemetr.me/content/6Pt8fBR6WkNlZDIy",
+      "verification_source": "https://rpfest.ru/festivali-ochnie",
+      "status": "direct_contact_confirmed_open_status_unverified"
+    },
+    {
+      "priority": 3,
+      "company": "ARVENT",
+      "published_at": "2026-10-22",
+      "tasks": "Подрядные рекламные макеты и карточки товаров, доработка AI-визуалов",
+      "contact_type": "telegram",
+      "contact": "@Arvent01",
+      "budget": "За отдельные заказы, по договоренности",
+      "source": "https://teletarget.com/channel/%40Designs_job/",
+      "status": "direct_contact_confirmed_open_status_unverified",
+      "caveat": "Небольшое агентство, независимая регистрация не подтверждена"
+    },
+    {
+      "priority": 4,
+      "company": "TouringBee",
+      "published_at": "2026-10-22",
+      "tasks": "13 экранов и 8 диалоговых окон UI мобильного приложения; сначала оплачиваемый пробный заказ на 2 экрана и 1 диалог",
+      "contact_type": "telegram",
+      "contact": "@antonsvens",
+      "budget": "По ставке дизайнера, фикс по ТЗ",
+      "source": "https://t.me/s/zakaz_design/4908",
+      "verification_source": "https://www.unjobs.ru/vacancy/vac-tg-touringb-a9be12e2",
+      "status": "direct_contact_confirmed_open_status_unverified"
+    },
+    {
+      "priority": 5,
+      "company": "GoMobile",
+      "published_at": "2026-10-15",
+      "tasks": "UX/UI мобильных e-commerce приложений, CJM, продуктовая логика",
+      "contact_type": "email",
+      "contact": "viktoriya.efimova@gomobile.ru",
+      "contact_role": "Viktoria Efimova, recruitment",
+      "source": "https://ru.linkedin.com/posts/julia-petrukhina-b40a8bb4_uxui-designer-%D0%BD%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82-%D0%BD%D0%B0%D0%B9%D0%B4%D0%B8%D1%81%D1%8C-activity-7513846999201267712-thEd",
+      "status": "direct_contact_confirmed_open_status_unverified",
+      "caveat": "Только при наличии портфолио mobile UX/UI"
+    }
+  ],
+  "excluded_examples": [
+    "UPECO (только отклик через платформу)",
+    "Изидизи (только анкета)",
+    "Onpoint (прямой контакт конкретной вакансии не подтвержден)",
+    "Предложения с анонимной компанией и формами отклика",
+    "Архивные или закрытые объявления"
+  ]
+}
