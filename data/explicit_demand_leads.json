@@ -1,264 +1,228 @@
 {
-  "checked_at": "2026-09-29",
-  "rule": "Only current explicit demand. No tenders, no funding/rebrand/event-only hypotheses, no generic monitoring signals.",
+  "checked_at": "2026-10-27",
+  "rule": "Fresh explicit project/freelance/contract demand, prioritizing Moscow/Russia and Russian-speaking companies abroad. Full-time internal roles excluded.",
   "leads": [
     {
-      "company": "M3M Marketing",
-      "country": "Canada",
+      "company": "Sasha AI",
+      "country": "Россия / Москва",
       "priority": 1,
-      "explicit_need": "Внешний freelance/contract Graphic Designer на project-by-project основе для клиентских и внутренних проектов.",
+      "explicit_need": "Разовый фриланс-проект: с нуля создать айдентику и UX/UI корпоративного сайта — логотип, визуальная система, desktop/mobile и UI-kit.",
       "deliverables": [
         "brand identity",
-        "brand guides",
-        "campaign creative",
-        "reports/PDFs",
-        "PowerPoint/presentation design",
-        "event materials",
-        "Canva templates",
-        "simple motion"
+        "corporate website UX/UI",
+        "desktop/mobile",
+        "UI kit"
       ],
-      "engagement": "Freelance / Contract, project-based, remote",
-      "current_status": "Official company posting dated 2026-09-17; no closing date stated.",
-      "fit": "strong",
+      "engagement": "Freelance / project, direct with owners",
+      "current_status": "Fresh active brief, 2026-10-15.",
+      "fit": "very_strong",
       "caveats": [
-        "Preference for Alberta/BC; company says elsewhere in Canada may be considered.",
-        "No guaranteed hours or minimum project volume."
+        "Budget not public",
+        "High visual quality bar"
       ],
-      "contact": "Application via email listed on M3M posting; include portfolio, rates, location and availability.",
-      "source_url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/",
-      "contact_people": [
-        {
-          "name": "Mariah Braun",
-          "role": "Owner / agency lead",
-          "email": "hello@m3mmarketing.ca"
-        }
-      ],
-      "contact_instruction": "Письмо с портфолио, ставкой, локацией и доступностью. В вакансии указан отдельный application email, но на публичной странице он защищён; рабочий публичный адрес компании — hello@m3mmarketing.ca.",
-      "apply_url": "https://m3mmarketing.ca/now-hiring-freelance-graphic-designer/"
+      "contact": "Apply via Designer.ru current listing.",
+      "source_url": "https://designer.ru/m/sasha-ai-ishchet-veb-dizaynera/",
+      "website": "https://trysasha.ru/",
+      "apply_url": "https://designer.ru/m/sasha-ai-ishchet-veb-dizaynera/"
     },
     {
-      "company": "Billy Tannery",
-      "country": "United Kingdom",
+      "company": "Convergent",
+      "country": "Россия / Москва",
+      "priority": 2,
+      "explicit_need": "Внешние Senior/Lead дизайнеры в пул подрядчиков для локальных проектов: KV, digital, e-commerce, презентации, branding.",
+      "deliverables": [
+        "key visual",
+        "digital special projects",
+        "e-commerce",
+        "presentations",
+        "branding"
+      ],
+      "engagement": "External contractor pool / project-by-project",
+      "current_status": "Published 2026-10-26; active.",
+      "fit": "very_strong",
+      "caveats": [
+        "First project may not be immediate"
+      ],
+      "contact": "Careers form / info@convergent.digital",
+      "source_url": "https://www.job.uprock.ru/vacancies/convergent",
+      "website": "https://convergent.digital/",
+      "apply_url": "https://convergent.digital/join-us"
+    },
+    {
+      "company": "Global Bali Home",
+      "country": "Indonesia / Bali; Russian-speaking",
       "priority": 3,
-      "explicit_need": "Ongoing freelance multidisciplinary designer to own brand output across channels.",
+      "explicit_need": "Фриланс-дизайнер для презентаций, буклетов, брошюр, marketing materials и рекламных визуалов девелоперских проектов.",
       "deliverables": [
-        "graphic design",
-        "illustration",
-        "motion",
-        "social",
-        "print",
-        "packaging",
-        "ecommerce"
-      ],
-      "engagement": "Freelance, remote, potential ongoing retainer",
-      "current_status": "Posted 2026-09-24; application ends 2026-10-01.",
-      "fit": "strong",
-      "caveats": [
-        "Occasional Hammersmith studio presence is a plus.",
-        "They want someone who personally understands and can run the brand."
-      ],
-      "contact": "Email founder Jack at jack@billytannery.co.uk with work and why the role fits.",
-      "source_url": "https://www.ifyoucouldjobs.com/jobs/1007365995",
-      "contact_people": [
-        {
-          "name": "Jack",
-          "role": "Founder",
-          "email": "jack@billytannery.co.uk"
-        }
-      ],
-      "contact_instruction": "Писать лично основателю: коротко о себе, ссылка на работы и почему подходите именно Billy Tannery.",
-      "apply_url": "mailto:jack@billytannery.co.uk"
-    },
-    {
-      "company": "B A S Media",
-      "country": "United States",
-      "priority": 4,
-      "explicit_need": "Freelance Graphic Designer for ongoing project-by-project agency work.",
-      "deliverables": [
-        "brand identity systems",
+        "presentations",
         "brochures",
-        "presentation decks",
-        "event collateral",
-        "website graphics",
-        "infographics",
-        "campaign creative"
+        "marketing collateral",
+        "social/ads visuals"
       ],
-      "engagement": "Freelance, ongoing project work, remote",
-      "current_status": "Current Behance listing remains accessible; posting describes ongoing project work.",
-      "fit": "strong",
+      "engagement": "Freelance; payment per asset/project or hourly",
+      "current_status": "Published 2026-10-26; active HireHi listing.",
+      "fit": "very_strong",
       "caveats": [
-        "US agency context; source is a job platform rather than the agency's own careers page.",
-        "Work is broader than presentations."
+        "Budget not public; qualify project size before starting"
       ],
-      "contact": "Apply through current Behance listing.",
-      "source_url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer",
-      "contact_people": [
-        {
-          "name": "Ameerah Saine",
-          "role": "Hiring Contact"
-        }
-      ],
-      "contact_instruction": "Ameerah Saine указана как Hiring Contact. Отклик через текущую вакансию Behance.",
-      "apply_url": "https://www.behance.net/joblist/fulltime/362027/Freelance%20Graphic%20Designer"
+      "contact": "Apply via HireHi current listing.",
+      "source_url": "https://hirehi.ru/design/graficheskii-dizainer-dlia-nedvizhimosti-180299",
+      "website": "https://www.globalbalihome.com/",
+      "apply_url": "https://hirehi.ru/design/graficheskii-dizainer-dlia-nedvizhimosti-180299"
     },
     {
-      "company": "Mousa Art Initiative (MAI)",
-      "country": "Remote / USA-Europe-Middle East preferred",
+      "company": "Repina Branding",
+      "country": "Россия / Москва",
+      "priority": 4,
+      "explicit_need": "Проектный графический дизайнер/верстальщик: презентации проектов, KV, packaging/POSM, многостраничные материалы, web banners, prepress.",
+      "deliverables": [
+        "project presentations",
+        "key visuals",
+        "packaging",
+        "POSM",
+        "editorial/layout",
+        "web banners"
+      ],
+      "engagement": "Project work / remote Russia",
+      "current_status": "Published 2026-10-23; active.",
+      "fit": "very_strong",
+      "caveats": [
+        "Some work is technical production",
+        "Likely individual contractor format"
+      ],
+      "contact": "Apply through current HH-linked listing; public hello@repinabranding.ru.",
+      "source_url": "https://finder.work/vacancies/37371733",
+      "website": "https://repinabranding.ru/",
+      "apply_url": "https://finder.work/vacancies/37371733"
+    },
+    {
+      "company": "GoMobile",
+      "country": "Россия / Москва",
       "priority": 5,
-      "explicit_need": "Freelance Graphic Designer to build and maintain visual identity and presentation/outreach materials.",
+      "explicit_need": "UX/UI дизайнер на проектную занятость для мобильных e-commerce приложений: UX/UI, CJM, prototyping, conversion/business metrics.",
       "deliverables": [
-        "social/digital materials",
-        "art portfolios",
-        "presentation materials",
-        "logo/visual identity",
-        "website assets",
-        "sponsor and philanthropy presentations"
+        "mobile UX/UI",
+        "CJM",
+        "prototyping",
+        "e-commerce product design"
       ],
-      "engagement": "Freelance / remote, immediate start",
-      "current_status": "Posted 2026-09-08; page remains current and asks for immediate availability.",
-      "fit": "strong",
+      "engagement": "Project-based / remote",
+      "current_status": "Published 2026-10-15; active.",
+      "fit": "very_strong",
       "caveats": [
-        "Arts/culture context.",
-        "Compensation not published."
+        "Requires strong product UX/UI portfolio"
       ],
-      "contact": "Ruba Hamdan — hamdanruba@gmail.com",
-      "source_url": "https://www.behance.net/joblist/fulltime/362639/Freelance-Graphic-Designer-Remote",
-      "contact_people": [
-        {
-          "name": "Ruba Hamdan",
-          "role": "Hiring Contact",
-          "email": "hamdanruba@gmail.com"
-        }
-      ],
-      "contact_instruction": "Отправить CV, короткое интро, портфолио и доступность к старту.",
-      "apply_url": "mailto:hamdanruba@gmail.com"
+      "contact": "viktoriya.efimova@gomobile.ru",
+      "source_url": "https://sobes.tech/en/vacancies/e9ac138b-2fc1-4165-b151-064d499fa2da-ux-ui-dizayner",
+      "website": "https://gomobile.ru/",
+      "apply_url": "mailto:viktoriya.efimova@gomobile.ru"
     },
     {
-      "company": "Global Dance Open",
-      "country": "Remote",
+      "company": "Grata ADV",
+      "country": "Россия / Москва",
       "priority": 6,
-      "explicit_need": "Long-term freelance graphic designer/creative partner for international competitions, events and marketing campaigns.",
+      "explicit_need": "Дизайнер на проект музейного/выставочного направления: панели, плакаты, печатные поверхности, коллажи и production files.",
       "deliverables": [
-        "event graphics",
-        "posters/flyers",
-        "registration campaigns",
-        "sponsor/partner graphics",
-        "website/email graphics",
-        "print-ready assets"
+        "exhibition graphics",
+        "posters",
+        "information panels",
+        "print production"
       ],
-      "engagement": "Contract, flexible / ongoing freelance, remote",
-      "current_status": "Posted 2026-09-15; listing states ongoing freelance basis.",
+      "engagement": "Project-based; piece-rate payment",
+      "current_status": "Published 2026-10-24; active.",
+      "fit": "strong",
+      "caveats": [
+        "Less aligned with presentations/web",
+        "Budget not public"
+      ],
+      "contact": "Apply via HH; public grata@grata-adv.ru.",
+      "source_url": "https://nesiditsa.ru/vacancy/138803948",
+      "website": "https://grata-adv.ru/",
+      "apply_url": "https://nesiditsa.ru/vacancy/138803948"
+    },
+    {
+      "company": "Chapter Me",
+      "country": "Россия",
+      "priority": 7,
+      "explicit_need": "Проектная разработка дизайнов персонализированных журналов/фотокниг: visual concept, cover, internal pages, editorial system.",
+      "deliverables": [
+        "editorial concept",
+        "cover design",
+        "multi-page layout"
+      ],
+      "engagement": "Piece-rate per design project; repeat orders possible",
+      "current_status": "Published 2026-10-27; active.",
+      "fit": "strong",
+      "caveats": [
+        "Likely smaller budget than I’MON target"
+      ],
+      "contact": "Founder Valeria Rodina via Designer.ru application.",
+      "source_url": "https://designer.ru/m/chapter-me-ishchet-graficheskogo-dizaynera-personalnye-zhurnaly-i-fotoknigi/",
+      "apply_url": "https://designer.ru/m/chapter-me-ishchet-graficheskogo-dizaynera-personalnye-zhurnaly-i-fotoknigi/"
+    },
+    {
+      "company": "Start Industries",
+      "country": "Россия / Москва",
+      "priority": 8,
+      "explicit_need": "Фриланс-дизайн упаковки детских сладостей/игрушек: concepts, redesigns, prepress, brand style development.",
+      "deliverables": [
+        "packaging concepts",
+        "packaging layouts",
+        "prepress",
+        "brand rollout"
+      ],
+      "engagement": "Freelance / fully remote / ongoing project flow",
+      "current_status": "Published 2026-10-23; active.",
       "fit": "good",
       "caveats": [
-        "Heavy event/social production focus rather than presentations.",
-        "Workload varies with competition calendar."
+        "Packaging is not core I’MON offer",
+        "Budget not public"
       ],
-      "contact": "Hiring contact Annika Thomas via current Behance listing.",
-      "source_url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer",
-      "contact_people": [
-        {
-          "name": "Annika Thomas",
-          "role": "Hiring Contact"
-        }
-      ],
-      "contact_instruction": "Annika Thomas указана как Hiring Contact. Отклик через Behance.",
-      "apply_url": "https://www.behance.net/joblist/fulltime/363489/Graphic-Designer"
+      "contact": "Apply through HH-linked Finder listing.",
+      "source_url": "https://finder.work/vacancies/37363983",
+      "apply_url": "https://finder.work/vacancies/37363983"
     },
     {
-      "company": "The Online Studio (OLS)",
-      "country": "United Kingdom",
-      "priority": 7,
-      "explicit_need": "Freelance Social Designer for static and motion social ads for global brands.",
-      "deliverables": [
-        "social ads",
-        "static/motion creative",
-        "campaign rollout"
-      ],
-      "engagement": "Freelance, remote, rolling roster",
-      "current_status": "Posted 2026-09-10; application ends 2026-10-09; £350/day.",
-      "fit": "partial",
-      "caveats": [
-        "Motion/social is the center of the brief.",
-        "Less aligned with I’MON's presentation-heavy offer."
-      ],
-      "contact": "Apply through If You Could Jobs.",
-      "source_url": "https://www.ifyoucouldjobs.com/jobs/1159160001",
-      "contact_people": [
-        {
-          "name": "OLS Recruitment Team",
-          "role": "Recruitment",
-          "email": "jobs@ols.design"
-        }
-      ],
-      "contact_instruction": "Отправить портфолио и доступность на jobs@ols.design, тема письма: Freelance Social Designer.",
-      "apply_url": "mailto:jobs@ols.design"
-    },
-    {
-      "company": "Airfoil",
-      "country": "Remote / Seoul-Toronto-Vancouver-London-Kuala Lumpur",
-      "priority": 8,
-      "explicit_need": "Forward Deployed Brand Designer embedded with 1–2 frontier-tech/AI clients.",
-      "deliverables": [
-        "brand identity systems",
-        "visual language",
-        "brand expression",
-        "marketing/product brand work"
-      ],
-      "engagement": "Freelance / part-time / full-time / fixed-term options",
-      "current_status": "Posted 2026-09-14; application ends 2026-10-13.",
-      "fit": "partial",
-      "caveats": [
-        "Embedded individual-designer model rather than agency subcontract.",
-        "Requires close day-to-day client integration."
-      ],
-      "contact": "Apply through Airfoil / If You Could Jobs.",
-      "source_url": "https://www.ifyoucouldjobs.com/jobs/2298973206",
-      "contact_people": [
-        {
-          "name": "Airfoil team",
-          "role": "Careers / Creative team",
-          "email": "hello@airfoil.studio"
-        }
-      ],
-      "contact_instruction": "Лучше откликнуться через careers; hello@airfoil.studio — публичный адрес для дизайнеров, если роль/формат нужно уточнить.",
-      "apply_url": "https://www.airfoil.studio/careers"
-    },
-    {
-      "company": "SULLIVAN",
-      "country": "United States / international remote",
+      "company": "ARVENT",
+      "country": "Россия / remote",
       "priority": 9,
-      "explicit_need": "Freelance Social Art Director / Editorial Designer to shape Instagram visual direction and campaign rollouts.",
+      "explicit_need": "Проектная production-поддержка: рекламные баннеры, карточки товаров и social-публикации из AI-визуалов.",
       "deliverables": [
-        "Instagram grid and Stories",
-        "editorial layout",
-        "image sequencing",
-        "campaign rollouts",
-        "typographic treatments",
-        "content strategy"
+        "ad banners",
+        "marketplace/product cards",
+        "social visuals"
       ],
-      "engagement": "Freelance / ongoing / remote, international applicants accepted",
-      "current_status": "Posted 2026-09-01; application ends 2026-09-30.",
+      "engagement": "Project collaboration; paid per completed order",
+      "current_status": "Published 2026-10-22; active.",
       "fit": "partial",
       "caveats": [
-        "Very urgent closing date.",
-        "Social/editorial rather than presentations/web."
+        "Likely 15–40k RUB/order; below target floor"
       ],
-      "contact": "Eva (Co-Founder & CEO) eva@sullivan.clothing and Rachel (Head of Marketing & Brand) rachel@sullivan.clothing",
-      "source_url": "https://www.ifyoucouldjobs.com/jobs/3973734109",
-      "contact_people": [
-        {
-          "name": "Eva",
-          "role": "Co-Founder & CEO",
-          "email": "eva@sullivan.clothing"
-        },
-        {
-          "name": "Rachel",
-          "role": "Head of Marketing & Brand",
-          "email": "rachel@sullivan.clothing"
-        }
+      "contact": "Telegram @Arvent01",
+      "source_url": "https://d-pub.ru/vacancies/dizajn/trebuetsya-dizayner_3019",
+      "apply_url": "https://t.me/Arvent01"
+    },
+    {
+      "company": "Broxus",
+      "country": "Serbia / international",
+      "priority": 10,
+      "explicit_need": "Presentation designer on project basis: complex tech/blockchain presentations, information design, Figma.",
+      "deliverables": [
+        "presentation design",
+        "information design",
+        "Figma presentation systems"
       ],
-      "contact_instruction": "Писать обоим одним письмом: портфолио, локация/часовой пояс, доступность и ставка.",
-      "apply_url": "mailto:eva@sullivan.clothing?cc=rachel@sullivan.clothing"
+      "engagement": "Project / part-time / remote worldwide",
+      "current_status": "Current LinkedIn listing; active.",
+      "fit": "strong",
+      "caveats": [
+        "Rate starts from $15/h; likely below target",
+        "Contractor-style hiring process"
+      ],
+      "contact": "Apply through LinkedIn.",
+      "source_url": "https://ru.linkedin.com/jobs/view/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80-%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B9-at-broxus-4347892527",
+      "website": "https://broxus.com/",
+      "apply_url": "https://ru.linkedin.com/jobs/view/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80-%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B9-at-broxus-4347892527"
     }
   ]
 }
