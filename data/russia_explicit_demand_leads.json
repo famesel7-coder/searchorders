@@ -1,191 +1,271 @@
 {
-  "checked_at": "2026-09-30",
-  "scope": "Российские компании/проекты с текущей конкретной внешней дизайн-потребностью. Источник спроса — преимущественно Telegram; компании и контакты дополнительно проверены.",
+  "checked_at": "2026-10-27",
+  "scope": "Свежие российские компании, преимущественно Москва, с подтверждённым freelance/project/contract запросом на дизайн. Только внешние/разовые или проектные задачи; full-time исключается.",
   "verification_gate": [
-    "запрос опубликован не более 30 дней назад",
-    "компания/проект независимо существует вне репоста",
-    "есть конкретный scope работ",
-    "есть project/freelance/part-time/contract формат или прямое постоянное проектное сотрудничество",
-    "контакт/форма отклика существует сейчас",
-    "нет признака archived/closed"
+    "свежесть <= 30 дней, приоритет <= 14 дней",
+    "компания независимо существует",
+    "конкретный scope работ",
+    "external/project/freelance/contract формат прямо указан",
+    "есть актуальный способ отклика",
+    "нет closed/paused статуса"
   ],
   "leads": [
     {
       "priority": 1,
-      "company": "Resorto.io / ООО «РЕСОРТО»",
+      "company": "Sasha AI",
       "country": "Россия",
-      "city": "Санкт-Петербург",
-      "published_at": "2026-09-12",
-      "source_type": "Telegram",
-      "explicit_need": "Сильный продуктовый дизайнер: сделать несколько дополнений к уже работающему сервису Resorto.io.",
-      "engagement": "Сначала проектно, с потенциалом на постоянное сотрудничество.",
+      "city": "Москва",
+      "published_at": "2026-10-15",
+      "source_type": "Designer.ru + официальный сайт",
+      "explicit_need": "Разовый проект: с нуля разработать айдентику и UX/UI-дизайн корпоративного сайта, включая логотип, визуальную систему, desktop/mobile и UI-kit.",
+      "engagement": "Фриланс / проект, работа напрямую с двумя собственниками; готовы хорошо платить за качество.",
       "fit_for_imon": "very_strong",
-      "contact": "Сергей Захаров — @zakharov_sa",
-      "contact_verified": true,
-      "contact_identity": "Founder Resorto.io",
+      "contact": "Отклик через актуальную карточку Designer.ru; компания подтверждена официальным сайтом trysasha.ru.",
       "company_verified": true,
-      "company_evidence": "ООО «РЕСОРТО», ИНН 7801743547, ОГРН 1257800068349, Санкт-Петербург; официальный сайт resorto.io.",
       "evidence": [
-        "Запрос опубликован 12 сентября 2026.",
-        "В запросе прямо указана проектная работа и потенциал постоянного сотрудничества.",
-        "Telegram-профиль @zakharov_sa существует и прямо указывает Founder Resorto.io.",
-        "Официальная оферта Resorto подтверждает российское ООО и сайт."
+        "В актуальном запросе прямо указан фриланс-дизайнер и конкретный конечный результат: айдентика + корпоративный сайт.",
+        "Проект ведётся напрямую с двумя собственниками без бюрократии.",
+        "Официальный сайт Sasha AI активен; сервис ориентирован на российский рынок и заявляет московскую юрисдикцию в пользовательском соглашении."
       ],
       "risks": [
-        "В публичном brief не перечислены конкретные экраны/фичи — scope нужно уточнить в первом сообщении."
+        "Публичный бюджет не указан.",
+        "Нужен уровень визуального исполнения близкий к tracebit.com / intercom.com."
       ],
+      "proposed_service": "Айдентика + арт-дирекшн + UX/UI корпоративного SaaS-сайта.",
+      "relevant_case": "Rocket Group / VRT World / digital & branding кейсы на samsel.site",
       "source_urls": [
-        "https://telemetr.me/content/getjob_design",
-        "https://resorto.io/dogovor-oferty",
-        "https://t.me/zakharov_sa"
-      ]
+        "https://designer.ru/m/sasha-ai-ishchet-veb-dizaynera/",
+        "https://trysasha.ru/"
+      ],
+      "conclusion": "strong",
+      "confidence": 97,
+      "status": "active"
     },
     {
       "priority": 2,
-      "company": "RE:FRESH",
+      "company": "Convergent",
       "country": "Россия",
-      "published_at": "2026-09-04",
-      "source_type": "Telegram",
-      "explicit_need": "Графический дизайнер на проектную работу: посты-карусели, Reels covers, презентации, рекламные баннеры, иногда афиши/печать и AI-графика.",
-      "engagement": "Удалённо, part-time 3–4 часа в день на старте, проектная работа.",
+      "city": "Москва",
+      "published_at": "2026-10-26",
+      "source_type": "UPROCK / HireHi + официальный сайт",
+      "explicit_need": "Senior/Lead коммуникационные и креативные дизайнеры в пул подрядчиков для локальных проектов: key visual, digital, e-commerce, презентации, брендинг и фирстиль.",
+      "engagement": "Внешний пул подрядчиков, работа под отдельные проекты; удалённо.",
       "fit_for_imon": "very_strong",
-      "contact": "Форма отклика RE:FRESH",
-      "apply_url": "https://docs.google.com/forms/d/e/1FAIpQLSetAKsLi-cr__8LYMOflhvj5ZFs7RtSAY7JD_UIBfZXvhdHFg/viewform",
+      "contact": "Отклик через актуальную карточку; официальный контакт агентства info@convergent.digital и форма «Задел на будущее» на convergent.digital/join-us.",
       "company_verified": true,
-      "company_evidence": "Официальный сайт refresh-agency.ru подтверждает действующее российское маркетинговое агентство и дизайн как услугу.",
       "evidence": [
-        "Запрос опубликован 4 сентября 2026.",
-        "В brief прямо указаны презентации и рекламные материалы.",
-        "Формат прямо назван проектным."
+        "Запрос опубликован 26.10.2026.",
+        "Компания прямо требует готовность быть в пуле подрядчиков агентства для локальных проектов.",
+        "В scope входят презентации, брендинг, спецпроекты и digital-дизайн.",
+        "Официальный сайт подтверждает московское digital-агентство и действующие контакты."
       ],
       "risks": [
-        "Загрузка 3–4 часа в день может предполагать персонального embedded-дизайнера, а не агентство; это нужно проверить."
+        "Это формирование contractor pool: конкретный первый проект может появиться не сразу."
       ],
+      "proposed_service": "White-label / subcontract: презентации, key visual, branding, digital production.",
+      "relevant_case": "Haval / Avito / презентации / Rocket Group",
       "source_urls": [
-        "https://tg.me/designodromo/7360",
-        "https://refresh-agency.ru/"
-      ]
+        "https://www.job.uprock.ru/vacancies/convergent",
+        "https://hirehi.ru/design/kommunikatsionnyi-dizainer-dlia-digital-proektov-181502",
+        "https://convergent.digital/",
+        "https://convergent.digital/join-us"
+      ],
+      "conclusion": "strong",
+      "confidence": 96,
+      "status": "active"
     },
     {
       "priority": 3,
-      "company": "Hack!Art",
+      "company": "Repina Branding",
       "country": "Россия",
-      "published_at": "2026-09-02",
-      "source_type": "Telegram",
-      "explicit_need": "Дизайнер сайтов/лендингов на Tilda для постоянного сотрудничества.",
-      "engagement": "Проектная работа, требуется самозанятость или возможность оформить; постоянное сотрудничество.",
-      "fit_for_imon": "strong",
-      "contact": "Анкета Hack!Art",
-      "apply_url": "https://forms.yandex.ru/u/6a95a504493639e8aaaa60ff",
+      "city": "Москва",
+      "published_at": "2026-10-23",
+      "source_type": "Finder / HireHi + официальный сайт",
+      "explicit_need": "Проектный графический дизайнер/верстальщик: презентации проектов, key visual, упаковка, POSM, многостраничные материалы, web-баннеры, препресс.",
+      "engagement": "Проектная работа; remote по России.",
+      "fit_for_imon": "very_strong",
+      "contact": "Актуальный отклик ведёт на HH; публичный контакт агентства hello@repinabranding.ru.",
       "company_verified": true,
-      "company_evidence": "Официальный сайт hackartschool.com подтверждает действующую российскую школу искусств и проект Александры Плотниковой.",
       "evidence": [
-        "Запрос опубликован в начале сентября 2026.",
-        "Нужны Tilda/Figma и опыт проектной работы.",
-        "Компания прямо пишет о постоянном сотрудничестве."
+        "В актуальной вакансии тип работы помечен project.",
+        "Условия прямо содержат «Проектная работа».",
+        "В задачах есть создание презентаций проектов и широкий production design.",
+        "Официальный сайт подтверждает московское брендинговое агентство."
       ],
       "risks": [
-        "Требуется хорошее понимание искусства/дизайна и предусмотрено тестовое задание.",
-        "Публичной вилки бюджета нет."
+        "Часть задач техническая/production и упаковочная, а не только high-level creative.",
+        "Формат может подразумевать персонального подрядчика, поэтому лучше заходить как самостоятельный senior designer."
       ],
+      "proposed_service": "Проектная поддержка агентства: презентации, brand rollout, KV, digital/print production.",
+      "relevant_case": "ORLA / Haval / презентации / branding cases",
       "source_urls": [
-        "https://xn--r1a.website/s/workfordesigner?q=%23%D0%92%D0%B5%D0%B1%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80",
-        "https://hackartschool.com/"
-      ]
+        "https://finder.work/vacancies/37371733",
+        "https://hirehi.ru/design/graficheskii-dizainer-v-brendinge-176424",
+        "https://repinabranding.ru/"
+      ],
+      "conclusion": "strong",
+      "confidence": 95,
+      "status": "active"
     },
     {
       "priority": 4,
-      "company": "Мегамозго",
+      "company": "GoMobile",
       "country": "Россия",
-      "city": "Череповец",
-      "published_at": "2026-09-02",
-      "source_type": "Telegram",
-      "explicit_need": "Графический дизайнер: 15–20 афиш мероприятий в месяц, VK, презентации, digital-материалы, макеты для типографии и мерча.",
-      "engagement": "Удалённо, part-time, гибкий график; оплата обсуждается.",
-      "fit_for_imon": "strong",
-      "contact": "Елена Сумкина — @sumkina_elena",
-      "contact_verified": true,
+      "city": "Москва",
+      "published_at": "2026-10-15",
+      "source_type": "Прямой Telegram-пост / Sobes + официальный сайт",
+      "explicit_need": "UX/UI-дизайнер на проектную работу с мобильными e-commerce приложениями: интерфейсы, CJM, прототипирование и улучшение конверсии.",
+      "engagement": "Проектная занятость, удалённо.",
+      "fit_for_imon": "very_strong",
+      "contact": "viktoriya.efimova@gomobile.ru",
       "company_verified": true,
-      "company_evidence": "Официальный сайт megamozgo.su подтверждает действующую ивент-компанию; оператор — ИП Сумкин Илья Андреевич, ИНН 352829089036.",
+      "contact_verified": true,
       "evidence": [
-        "Текущий запрос опубликован в сентябре 2026.",
-        "Telegram-контакт @sumkina_elena существует.",
-        "В scope прямо входят презентации, digital и печатные материалы.",
-        "На официальном сайте есть актуальное расписание мероприятий на конец сентября/октябрь."
+        "В оригинальном публичном запросе прямо сказано «проектная занятость».",
+        "Есть прямой корпоративный email для отклика.",
+        "Официальный сайт подтверждает московское mobile/performance агентство."
       ],
       "risks": [
-        "Формат похож на постоянную частичную загрузку одного дизайнера; агентский формат нужно предложить аккуратно.",
-        "Бюджет не указан."
+        "Это individual-contractor роль и продуктовый UX/UI, поэтому презентационное портфолио само по себе будет недостаточно."
       ],
+      "proposed_service": "UX/UI + продуктовая визуальная система для e-commerce приложений.",
+      "relevant_case": "VRT World / Avito / digital product cases",
       "source_urls": [
-        "https://tgchannels.org/channel/vakansi_rus?first=13741&lang=all&size=30&start=13741",
-        "https://megamozgo.su/",
-        "https://t.me/sumkina_elena"
-      ]
+        "https://sobes.tech/en/vacancies/e9ac138b-2fc1-4165-b151-064d499fa2da-ux-ui-dizayner",
+        "https://telegram.me/s/visionisland",
+        "https://gomobile.ru/"
+      ],
+      "conclusion": "strong",
+      "confidence": 94,
+      "status": "active"
     },
     {
       "priority": 5,
-      "company": "Family / ООО «Фэмели»",
+      "company": "Grata ADV",
       "country": "Россия",
       "city": "Москва",
-      "published_at": "2026-09-07",
-      "source_type": "Telegram",
-      "explicit_need": "Дизайнер-фрилансер с AI + Photoshop для регулярного большого объёма визуалов по автомобильным брендам: рекламные сцены, key visuals, финальные макеты.",
-      "engagement": "Фриланс / проектно.",
-      "fit_for_imon": "good",
-      "contact": "Алена Лебедева — @ouestale; также ich@creative.family",
-      "contact_verified": true,
-      "contact_identity": "Head of Product Design at creative.family (по публичному Telegram-профилю)",
+      "published_at": "2026-10-24",
+      "source_type": "HH mirror / Finder + официальный сайт",
+      "explicit_need": "Дизайнер на проект для музейных экспозиций и выставок: информационные панели, плакаты, печатные носители, коллажи и подготовка материалов к производству.",
+      "engagement": "Проектная занятость; сдельная оплата по объёму и сложности; удалённо, возможны встречи в московском офисе.",
+      "fit_for_imon": "strong",
+      "contact": "Отклик через HH; официальный контакт grata@grata-adv.ru.",
       "company_verified": true,
-      "company_evidence": "Family — российское digital-агентство, Москва; ООО «Фэмели», ОГРН 5107746064388; официальный домен creative.family.",
       "evidence": [
-        "Свежий сентябрьский запрос прямо говорит «дизайнера-фрилансера».",
-        "Работа — постоянный большой объём визуалов каждый месяц.",
-        "Контакт @ouestale существует и публично связывает себя с creative.family."
+        "Свежая публикация 24.10.2026.",
+        "Работодатель прямо пишет «на проектную занятость» и «оплата сдельная».",
+        "Официальный сайт подтверждает рекламный холдинг в Москве."
       ],
       "risks": [
-        "Текущая потребность сильно AI/Photoshop-ориентирована и не является презентационной.",
-        "Нужно показывать релевантные AI/automotive кейсы, иначе fit слабее."
+        "Музейный/экспозиционный scope ближе к print/exhibition production, чем к презентациям и web.",
+        "Бюджет не опубликован."
       ],
+      "proposed_service": "Арт-дирекшн и графическая система выставочного проекта, презентационные/печатные материалы.",
+      "relevant_case": "Haval event / exhibition & presentation work",
       "source_urls": [
-        "https://list.tg/channel/workygram/3541",
-        "https://ruward.ru/catalog/familyagency-ru/"
-      ]
+        "https://nesiditsa.ru/vacancy/138803948",
+        "https://grata-adv.ru/"
+      ],
+      "conclusion": "strong",
+      "confidence": 91,
+      "status": "active"
     },
     {
       "priority": 6,
-      "company": "Палиндром / направление «Ого»",
+      "company": "Chapter Me",
       "country": "Россия",
-      "published_at": "2026-09-09",
-      "source_type": "Telegram",
-      "explicit_need": "Графический дизайнер для SMM-проектов малого и среднего бизнеса: карточки, типографика, обложки, визуалы и адаптация под разные платформы.",
-      "engagement": "Удалённо, проектная занятость.",
-      "fit_for_imon": "good",
-      "contact": "Наташа М. — @zZhuzha, HR в «Палиндроме»",
-      "contact_verified": true,
-      "contact_identity": "HR в «Палиндроме» (по прямому Telegram-профилю)",
+      "published_at": "2026-10-27",
+      "source_type": "Designer.ru",
+      "explicit_need": "Проектная разработка полноценных дизайнов персонализированных журналов и фотокниг: концепция, обложка, внутренние страницы и editorial-система.",
+      "engagement": "Сдельная оплата за дизайн-проект; возможны регулярные новые заказы.",
+      "fit_for_imon": "strong",
+      "contact": "Отклик через актуальную карточку Designer.ru; заказчик — основательница Валерия Родина.",
       "company_verified": true,
-      "company_evidence": "Официальный сайт palindrome.media подтверждает ООО «Палиндром», 250+ проектов и собственный дизайн/контент-продакшн.",
       "evidence": [
-        "Запрос опубликован 9 сентября 2026.",
-        "Формат прямо указан как проектная занятость.",
-        "Контакт @zZhuzha существует и прямо обозначен как HR в «Палиндроме»."
+        "Запрос опубликован сегодня, 27.10.2026.",
+        "Основательница прямо пишет о проектном сотрудничестве.",
+        "Оплата сдельная за разработанный дизайн-проект."
       ],
       "risks": [
-        "Текущий scope — в основном SMM, а не презентации/брендинг.",
-        "Вероятнее партнёрский/production lead, чем крупный самостоятельный проект."
+        "Вероятный чек ниже целевого для I’MON; цену нужно квалифицировать до начала работы.",
+        "Editorial/fashion направление требует релевантных примеров."
       ],
+      "proposed_service": "Editorial art direction + дизайн-система журнала/фотокниги.",
+      "relevant_case": "Presentation/editorial layout portfolio",
       "source_urls": [
-        "https://tgchannels.org/channel/polyaluzjob?first=20792&lang=all&size=30&start=20798",
-        "https://palindrome.media/",
-        "https://t.me/zZhuzha"
-      ]
+        "https://designer.ru/m/chapter-me-ishchet-graficheskogo-dizaynera-personalnye-zhurnaly-i-fotoknigi/"
+      ],
+      "conclusion": "strong",
+      "confidence": 91,
+      "status": "active"
+    },
+    {
+      "priority": 7,
+      "company": "Start Industries",
+      "country": "Россия",
+      "city": "Москва",
+      "published_at": "2026-10-23",
+      "source_type": "Finder / UPROCK",
+      "explicit_need": "Фриланс-дизайнер упаковки: новые концепции упаковки детских сладостей и игрушек, обновление текущих макетов, препресс и развитие фирменного стиля.",
+      "engagement": "Фриланс-сотрудничество, полностью удалённо; постоянный поток отдельных задач.",
+      "fit_for_imon": "good",
+      "contact": "Отклик через актуальную HH-карточку из Finder.",
+      "company_verified": true,
+      "evidence": [
+        "Запрос свежий, опубликован 23.10.2026.",
+        "В условиях прямо указано «Фриланс-сотрудничество».",
+        "Работа разбита на конкретные дизайн-задачи и допускает долгосрочный поток."
+      ],
+      "risks": [
+        "Packaging не является главным направлением I’MON.",
+        "Бюджет не указан."
+      ],
+      "proposed_service": "Packaging/brand rollout под отдельные SKU и линейки.",
+      "relevant_case": "Branding / packaging-adjacent cases",
+      "source_urls": [
+        "https://finder.work/vacancies/37363983",
+        "https://www.job.uprock.ru/vacancies/start-industries"
+      ],
+      "conclusion": "strong",
+      "confidence": 88,
+      "status": "active"
+    },
+    {
+      "priority": 8,
+      "company": "ARVENT",
+      "country": "Россия / remote",
+      "published_at": "2026-10-22",
+      "source_type": "Telegram mirror / D-Pub",
+      "explicit_need": "Дизайнер для проектного сотрудничества: превращать AI-визуалы в готовые рекламные баннеры, карточки товаров и social-публикации.",
+      "engagement": "Оплата за выполненные заказы; бюджет по договорённости.",
+      "fit_for_imon": "partial",
+      "contact": "Telegram @Arvent01",
+      "contact_verified": true,
+      "evidence": [
+        "Публикация от 22.10.2026.",
+        "Формат прямо назван проектным сотрудничеством с оплатой за выполненные заказы.",
+        "Есть прямой Telegram-контакт."
+      ],
+      "risks": [
+        "Низко-/среднечековый production scope; отдельный агрегатор оценивает типичный заказ примерно в 15–40 тыс. ₽.",
+        "Не соответствует целевому чеку I’MON, поэтому только как загрузка/партнёрский production."
+      ],
+      "proposed_service": "Production design на базе AI-визуалов.",
+      "relevant_case": "AI/advertising creative examples",
+      "source_urls": [
+        "https://d-pub.ru/vacancies/dizajn/trebuetsya-dizayner_3019",
+        "https://teletarget.com/channel/%40Designs_job/"
+      ],
+      "conclusion": "strong_low_value",
+      "confidence": 86,
+      "status": "active_low_priority"
     }
   ],
   "excluded_after_verification": [
-    "I AM Agency — компания реальная и запрос свежий, но текущий формат описан как full-time; не включён как внешний заказ.",
-    "Метод — запрос идеально подходит по задачам и проектной модели, но независимую идентификацию агентства вне Telegram-бота подтвердить не удалось.",
-    "Яндекс Фантех — Telegram-репост говорит о проектной занятости, но официальный сайт Яндекса показывает штатную/офисную роль; из списка внешних заказов исключён.",
-    "Анонимные Telegram-заказы без независимо подтверждённой компании не включались."
+    "Noise Dealers — релевантный project/freelance brief, но карточка сейчас помечена «вакансия на паузе».",
+    "One Dom — хороший разовый заказ на каталог, но карточка сейчас помечена «вакансия на паузе».",
+    "Творческие Технологии — свежая роль по презентациям, но подтверждён full-time/офис 5/2, поэтому не считаем внешним заказом.",
+    "Штольцман и Кац — свежий дизайн-запрос, но внешняя/project модель не подтверждена; оставлять только в мониторинге.",
+    "Syntoks — конечный редизайн под релиз интересен, но найденный формат part-time не подтверждает внешний contractor/agency engagement; мониторинг."
   ]
 }
