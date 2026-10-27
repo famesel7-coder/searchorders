@@ -1,17 +1,9 @@
 {
   "checked_at": "2026-10-27",
-  "rule": "Only verified current external project/freelance/contract demand enters the active shortlist. Full-time, paused, anonymous or external-format-unclear items stay out.",
+  "rule": "Only verified current external project/freelance/contract demand with a confirmed direct client contact explicitly tied to this opportunity qualifies for outreach. Job boards, website forms and generic inboxes with no job-specific confirmation do not qualify.",
   "active_verified": [
-    "Sasha AI",
-    "Convergent",
-    "Repina Branding",
     "GoMobile",
-    "Grata ADV",
-    "Chapter Me",
-    "Start Industries",
-    "ARVENT",
-    "Global Bali Home",
-    "Broxus"
+    "ARVENT"
   ],
   "quarantine": [
     {
@@ -97,6 +89,40 @@
       "source_urls": [
         "https://jabka.work/jobs/dizayner-prezentatsiy-remote-20261017-sikd"
       ]
+    }
+  ],
+  "pending_direct_contact_verification": [
+    {
+      "company": "Sasha AI",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Convergent",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Repina Branding",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Grata ADV",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Chapter Me",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Start Industries",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Global Bali Home",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
+    },
+    {
+      "company": "Broxus",
+      "reason": "Ранее подходил по формату работы, но нет подтверждения прямого контакта для конкретного заказа. До проверки исключить из списков для отклика."
     }
   ]
 }
