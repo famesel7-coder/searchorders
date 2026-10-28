@@ -1,0 +1,82 @@
+{
+  "updated_at": "2026-10-28",
+  "basis": "Пользователь сообщил «всем кому нужно написал» после подготовки индивидуальных откликов в чате. Письма/Telegram не проверялись по внешним источникам.",
+  "status_legend": {
+    "sent_user_reported": "Пользователь сообщил, что написал; подтверждения со стороны адресата ещё нет",
+    "pending_unconfirmed": "Нет подтверждения, что пользователь отправлял сообщение",
+    "replied": "Заказчик ответил",
+    "negotiating": "Обсуждается конкретный заказ",
+    "won": "Получен оплачиваемый заказ",
+    "declined": "Отказ или закрытие запроса"
+  },
+  "contacted": [
+    {
+      "company": "ВсеИнструменты.ру",
+      "channel": "telegram",
+      "contact": "@koterich",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "Радость планеты",
+      "channel": "telegram",
+      "contact": "@radostplanet",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "ГЕРОФАРМ",
+      "channel": "telegram",
+      "contact": "@Sokolovakristina",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "TouringBee",
+      "channel": "telegram",
+      "contact": "@antonsvens",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "PRAGMATICA",
+      "channel": "email",
+      "contact": "team@pragmatica.design",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "GoMobile",
+      "channel": "email",
+      "contact": "viktoriya.efimova@gomobile.ru",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    }
+  ],
+  "not_confirmed_as_sent": [
+    {
+      "company": "Emerging Travel Group",
+      "contact": "a.tsareva@emergingtravel.com",
+      "status": "pending_unconfirmed"
+    },
+    {
+      "company": "Two Joy",
+      "contact": "@TwoJoyinfo",
+      "status": "pending_unconfirmed"
+    }
+  ],
+  "follow_up_policy": "При отсутствии ответа ориентир для первого вежливого повторного сообщения — через 4–5 рабочих дней от фактической даты отправки, уточнить дату при необходимости. Не отправлять автоматически без одобрения пользователя.",
+  "discovery_policy": "Не предлагать повторный первый отклик компаниям со статусом sent_user_reported; продолжать находить новые компании с прямыми контактами по утверждённым критериям."
+}
