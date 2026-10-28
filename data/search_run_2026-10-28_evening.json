@@ -1,0 +1,135 @@
+{
+  "checked_at": "2026-10-28T17:44:00+03:00",
+  "strict_window": "2026-10-26 to 2026-10-28 (calendar date of original project, not syndication)",
+  "scope": [
+    "Tilda and other websites",
+    "UI/UX, interfaces",
+    "presentations and infographics",
+    "branding, digital and graphic design"
+  ],
+  "run_type": "Expanded discovery pilot; public source search and selected original Telegram/archive checks; NOT a completed enumeration of all 24 registered sources",
+  "newly_qualified_for_immediate_outreach": [],
+  "lead_candidates_with_task_specific_public_contact_but_unverified_client": [
+    {
+      "project": "Minimalist branded social media design templates",
+      "post_date": "2026-10-27",
+      "contact": "@wompgas",
+      "budget": "not specified",
+      "format": "freelance project, possible ongoing",
+      "source": "https://teletarget.com/channel/%40design_vacancy/",
+      "original": "https://t.me/s/vakansi_rus",
+      "status": "pending_buyer_identity",
+      "reason": "Real organization not named in ad; 27-Oct time verified by independent post index"
+    },
+    {
+      "project": "Wildberries/Ozon marketplace cards and infographics for marketplace agency's clients",
+      "post_date": "2026-10-27",
+      "contact": "@kubov_kostya",
+      "budget": "negotiable after portfolio",
+      "format": "project external subcontract likely",
+      "source": "https://t.me/s/vakansi_rus/14089",
+      "status": "pending_agency_identity",
+      "reason": "Agency is not named; original ad links direct handle"
+    },
+    {
+      "project": "Logo plus catalog cards for children's party agency",
+      "post_date": "2026-10-26, syndication date approximate",
+      "contact": "@k_atushok",
+      "budget": "5000 RUB total",
+      "deadline": "2-3 days from brief",
+      "format": "fixed project",
+      "source": "https://t.me/s/vakansi_rus/14078",
+      "status": "pending_agency_identity_and_exact_first_publication_date",
+      "reason": "Agency unnamed; date must be verified at first original post rather than syndication"
+    },
+    {
+      "project": "Design and typeset 100-150 page catalog",
+      "post_date": null,
+      "contact": "@claudia_kotova",
+      "budget": "quote requested",
+      "format": "fixed deliverable",
+      "source": "https://t.me/s/vakansi_rus",
+      "status": "pending_date_and_buyer_identity_and_strict_past_work_requirements",
+      "reason": "Must evidence 3 qualifying previous catalogue/book projects and paperwork totaling >=300k RUB"
+    },
+    {
+      "project": "Graphic design in packaging and print with some English",
+      "post_date": null,
+      "contact": "@mariaaaassss",
+      "budget": "not shown",
+      "format": "part-time project-like",
+      "source": "https://t.me/s/vakansi_rus",
+      "status": "pending_date_and_buyer_identity",
+      "reason": "Neither client nor publication date verified"
+    }
+  ],
+  "named_company_contact_unavailable": [
+    {
+      "company": "Waistline",
+      "post_date": "2026-10-27 or 2026-10-28 (aggregators vary)",
+      "project": "WB/Ozon marketplace card design",
+      "link": "https://joba.work/jobs/dizayner-kartochek-marketpleysov-waistline-38623",
+      "reason": "Direct task-specific contact not published"
+    },
+    {
+      "company": "NOI STUDY",
+      "post_date": "2026-10-28",
+      "project": "Educational marketing visual content, possibly websites and presentations",
+      "link": "https://joba.work/jobs/spetsialist-po-vizualnomu-kontentu-noi-study-38554",
+      "reason": "No task-specific email/Telegram; role is hybrid employment-like"
+    },
+    {
+      "company": "ЦВЕТОВИК",
+      "post_date": "2026-10-28 per search index only",
+      "project": "Graphic and motion design",
+      "link": "https://teletarget.com/channel/%40design_vacancy/",
+      "reason": "Staff-style salaried post; no verifiable task-specific freelance contract"
+    }
+  ],
+  "excluded_or_not_new": [
+    {
+      "project": "Landing page maintenance for cognitive development school",
+      "source": "https://tg.me/vakansiidesign",
+      "contact": "@NastiBeautihihihaha",
+      "reason": "Original posting independently dated October 25 even though aggregator repost Oct 26; also buyer unidentified",
+      "rates": "1500 RUB per new block, 1500 RUB/hour tweaks"
+    },
+    {
+      "project": "140 slide deck",
+      "original_date": "2026-10-27",
+      "contact": "@olga_gukalo",
+      "reason": "Urgent same-day work requested for Oct 27, likely already expired on evening Oct 28"
+    },
+    {
+      "project": "Presentation and infographics @cleopatra_mir",
+      "original_date": "2026-10-27",
+      "reason": "Already shown as unverified pending contact in earlier lists"
+    },
+    {
+      "project": "Tilda landing @Ai_masterAlina",
+      "original_date": "2026-10-27",
+      "reason": "Previously given outreach draft to user, no confirmation it was sent, but not new in list"
+    },
+    {
+      "project": "Norllina Studio UI/UX Unreal Engine",
+      "original_date": "2026-10-26",
+      "reason": "Previously offered as qualifying new lead; don't recount it"
+    },
+    {
+      "project": "Phygital+ Product Designer",
+      "original_date": "2026-10-08",
+      "reason": "October 27 was aggregator repost, actual vacancy older, possibly full-time"
+    },
+    {
+      "project": "Blank Space iOS app",
+      "original_date": "2026-10-26",
+      "reason": "Already shown in prior list, client independently unconfirmed"
+    },
+    {
+      "project": "All 10 sent-user-reported contacts",
+      "reason": "Existing outreach status, not a new lead"
+    }
+  ],
+  "result_note": "0 never-before-proposed fully-qualified leads. Some new public direct contacts identified, but under explicit user rule unknown client identity or unknown original date bars them from 'ready to write' list. Date of school GetCourse post corrected.",
+  "count_disclaimer": "No exhaustive count of inspected posts or all 24 sources claimed. Search engine often shows archival copies and post recirculation."
+}
