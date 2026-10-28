@@ -1,0 +1,148 @@
+{
+  "updated_at": "2026-10-28",
+  "policy": "Only use source registries for discovery, not automatically qualified leads. Date, client identity, paid project & task-specific direct contact must be verified from original post. Sources are public pages observed during research, not approved contacts.",
+  "targets_per_day": {
+    "unique_sources_scanned_min": 20,
+    "candidate_posts_if_available": "50-100",
+    "ideal_qualified_for_outreach": "10-30, only if strictly verifiable",
+    "freshness_days_max": 3
+  },
+  "source_registry": [
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/zakaz_design",
+      "specialty": "Общие заказы на дизайн"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/digitaltender",
+      "specialty": "Прямые проектные digital-заказы; иногда контакты скрыты кнопкой"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/frilans",
+      "specialty": "Общие вакансии/фриланс, отделять штат от проектов"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/freelancetaverna",
+      "specialty": "Сайты, Tilda, freelance"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/pro_zayavki",
+      "specialty": "Сайты, Tilda, WordPress и дизайн"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/designizer",
+      "specialty": "Заказы дизайнеров"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/mskeventjob",
+      "specialty": "Москва; творчество и цифровые проекты"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/rueventjob",
+      "specialty": "Проектные творческие заказы"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/cgfreelance",
+      "specialty": "Проектный game/CG/UI"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/golubin_channel",
+      "specialty": "Разовые дизайн-заказы; проверять первоисточник"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/jobaem",
+      "specialty": "Веб-дизайн, графика"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/design_vacancy",
+      "specialty": "Дизайнерские вакансии; частые перепечатки"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/vakansii_dlya_dizaynera",
+      "specialty": "Вакансии/проекты дизайнеров"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/free_design1",
+      "specialty": "Web, UI/UX, графика"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/vakansi_rus",
+      "specialty": "Креативные проекты"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/webdesign_jobs",
+      "specialty": "Веб-дизайн, Tilda и UI/UX"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://connect.tg/orders/design/ui-ux-designer/telegram",
+      "specialty": "UX/UI заказы, контакт часто скрыт"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://connect.tg/orders/design/presentation-designer/telegram",
+      "specialty": "Презентации, контакт часто скрыт"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://jobsignal.me/ru/jobs/role/design",
+      "specialty": "Широкая лента, многие позиции штатные, контакты после регистрации"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://telemetr.me/content/zakaz_design",
+      "specialty": "Верификация постов, даты"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://telemetr.me/content/free_design1",
+      "specialty": "Верификация постов, даты"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://sobes.tech/en/vacancies",
+      "specialty": "Иногда прямой контакт и проектный формат"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://joba.work/jobs",
+      "specialty": "Поиск первичной публикации и названного заказчика"
+    },
+    {
+      "tier": "aggregator_discovery_only",
+      "url": "https://tgden.com/ru/chat/uiux_jobs",
+      "specialty": "UI/UX чат и статистика, не первоисточник"
+    }
+  ],
+  "search_queries": [
+    "\"ищу дизайнера\" \"Tilda\" \"проект\" \"@username\"",
+    "\"лендинг\" \"нужен\" \"telegram\" \"оплата\"",
+    "\"figma\" \"ui ux\" \"проект\" \"телеграм\"",
+    "\"UX аудит\" \"фриланс\" \"@\"",
+    "\"разработка сайта\" \"фриланс\" \"написать\" \"@username\"",
+    "\"сборка на Tilda\" \"пишите в личку\"",
+    "\"дизайнер презентаций\" \"присылайте портфолио\" \"@\"",
+    "\"брендбук\" \"проект\" \"телеграм\"",
+    "\"key visual\" \"ищем\" \"подрядчика\" \"@\"",
+    "\"дизайнер\" \"на проекты\" \"агентство\" \"email\"",
+    "\"русскоязычный\" \"designer\" \"freelance\" \"Cyprus\"",
+    "\"дизайнер\" \"фриланс\" \"ОАЭ\" \"Telegram\""
+  ],
+  "priority": "Scan individual Telegram channels and targeted search first, use aggregators only for primary-source discovery; geo distribution Russia, Russian-speaking international and Russian-founded overseas firms",
+  "caveat": "Search-engine crawls and UI may not expose direct message dates; exclude any unverifiable leads from ready."
+}
