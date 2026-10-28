@@ -1,0 +1,66 @@
+{
+  "checked_at": "2026-10-28",
+  "window_start": "2026-10-26",
+  "window_end": "2026-10-28",
+  "rules": [
+    "Original first publication within October 26-28, 2026; syndicated reposts do not reset age",
+    "Identified real client/company",
+    "Paid project/freelance/contract rather than obligatory full-time employment",
+    "Verified direct Telegram or email explicitly for the exact request",
+    "Avoid companies and contacts with sent_user_reported status from data/outreach_status.json"
+  ],
+  "qualified": [],
+  "verification_outcome": "No new opportunity verified across all required rules in public sources inspected",
+  "near_misses": [
+    {
+      "published_at": "2026-10-28",
+      "name": "Beauty-brand identity and packaging",
+      "budget_note": "35–70 thousand rubles is platform estimate, not verified direct buyer budget",
+      "source": "https://connect.tg/orders/b9e21ed6-7a82-4115-bfef-5aa80b519576",
+      "exclude_reason": "Client company and direct contact concealed behind third-party platform"
+    },
+    {
+      "published_at": "2026-10-27",
+      "name": "140-slide deck formatting",
+      "source": "https://connect.tg/orders/e2fcb939-e330-4c21-a126-f88ecf912e88",
+      "exclude_reason": "Client identity and direct contact unknown; contradictory deadline displayed on source"
+    },
+    {
+      "published_at": "2026-10-27",
+      "name": "Travel YouTube episode cover art",
+      "source": "https://telemetr.me/content/6Pt8fBR6WkNlZDIy",
+      "contact": "@ganovicheva",
+      "exclude_reason": "Direct contact in syndicated post, but company/channel cannot be independently identified"
+    },
+    {
+      "published_at": "2026-10-26",
+      "name": "FinGram children's 12 board games",
+      "contact": "@fingramkurs",
+      "approximate_budget": "15–20 thousand rubles per game",
+      "source": "https://telemetr.me/content/6Pt8fBR6WkNlZDIy",
+      "original_source": "https://telemetr.me/content/rabota_illustrator",
+      "exclude_reason": "Original publication dated October 25; October 26 republishing does not reset freshness"
+    },
+    {
+      "published_at": "2026-10-28",
+      "name": "Anonymous outsourced designer for banners and listings",
+      "contact": "@ElizavetaYurasovaa",
+      "source": "https://telemetr.me/content/zakaz_design",
+      "exclude_reason": "Client identity concealed and employment-like rotating shift schedule"
+    },
+    {
+      "published_at": "2026-10-27",
+      "name": "Financing agency landing page design",
+      "source": "https://ru.tgchannels.org/channel/rueventjob?first=19226&lang=all&size=30&start=11715",
+      "exclude_reason": "Agency unidentified; likely employment-style junior role"
+    },
+    {
+      "published_at": "2026-10-27",
+      "name": "Crosby Studios graphic designer",
+      "contact": "rita.antonova@crosby-studios.com",
+      "source": "https://tgchannels.org/channel/polyaluzjob?first=20792&lang=all&size=30&start=11939",
+      "exclude_reason": "Named company and direct email but explicitly full-time, non-Russia location required"
+    }
+  ],
+  "reporting": "A count of zero is the truthful result. Do not fill with archived, anonymous, forms-only, already-contacted or full-time vacancies."
+}
