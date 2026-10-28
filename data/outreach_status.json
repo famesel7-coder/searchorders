@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-10-28",
-  "basis": "Пользователь сообщил «всем кому нужно написал» после подготовки индивидуальных откликов в чате. Письма/Telegram не проверялись по внешним источникам.",
+  "basis": "User confirmed having written to all four contacts for whom messages were drafted in this conversation, in addition to previously reported contacts. No external delivery or response verification.",
   "status_legend": {
     "sent_user_reported": "Пользователь сообщил, что написал; подтверждения со стороны адресата ещё нет",
     "pending_unconfirmed": "Нет подтверждения, что пользователь отправлял сообщение",
@@ -60,6 +60,45 @@
       "channel": "email",
       "contact": "viktoriya.efimova@gomobile.ru",
       "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "Проект Татьяны Кравцовой",
+      "channel": "telegram",
+      "contact": "@tatiana_kravtsova_coach",
+      "status": "sent_user_reported",
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "Заказ на несколько сайтов Tilda по макетам InDesign",
+      "channel": "telegram",
+      "contact": "@anton_tellin",
+      "status": "sent_user_reported",
+      "organization_verified": false,
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "Редизайн одностраничного сайта Tilda",
+      "channel": "telegram",
+      "contact": "@EvgeniyaSulima",
+      "status": "sent_user_reported",
+      "organization_verified": false,
+      "sent_date": null,
+      "confirmation_date": "2026-10-28",
+      "last_reply": null
+    },
+    {
+      "company": "Брендбук и визуалы мероприятий",
+      "channel": "telegram",
+      "contact": "@mirrozavr",
+      "status": "sent_user_reported",
+      "organization_verified": false,
       "sent_date": null,
       "confirmation_date": "2026-10-28",
       "last_reply": null
