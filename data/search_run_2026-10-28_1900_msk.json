@@ -1,0 +1,445 @@
+{
+  "checked_at": "2026-10-28T18:56:46+03:00",
+  "window": "Original publication 2026-10-26 through 2026-10-28, inclusive",
+  "registry": {
+    "total": 24,
+    "attempted": 24,
+    "accessible_with_content": 19,
+    "telegram_primary_inaccessible_direct": [
+      "designizer",
+      "golubin_channel",
+      "vakansii_dlya_dizaynera",
+      "free_design1",
+      "webdesign_jobs"
+    ],
+    "frilans_recovered_via_telegram_me_mirror": true
+  },
+  "additional_sources_accessed": [
+    "design_freevacancies",
+    "workinart",
+    "vacancysmm",
+    "Designs_squad",
+    "aivacancychannel",
+    "designwork_vacansii"
+  ],
+  "unique_sources_with_content": 25,
+  "method": "Manually inspected 44 explicitly enumerated distinct primary-channel posts below, plus sampled aggregator cards not included in this count. No assertion that all 44 were fresh; most failed date/contact/client/format gates. Some older posts remain in public channel preview. Did not count multiple vacancies inside a single compilation post as separate posts.",
+  "raw_posts_audited": 44,
+  "audit_status_counts": {
+    "out_of_scope": 5,
+    "staff_or_out_of_scope": 1,
+    "old_confirmed": 3,
+    "no_direct_contact": 14,
+    "already_contacted": 2,
+    "anonymous_or_original_date_unverified": 8,
+    "staff": 2,
+    "not_paid_design_contract": 1,
+    "closed": 8
+  },
+  "ready_new": [],
+  "not_new_but_previously_qualified": [
+    {
+      "company": "Syntoks",
+      "date": "2026-10-26",
+      "contact": "@q_pounder",
+      "note": "Previously shown and draft prepared; not a new lead, user has not confirmed sending"
+    }
+  ],
+  "high_interest_pending": [
+    {
+      "task": "Дизайн 7-страничного гайда",
+      "contact": "@o_esonenko",
+      "source": "https://t.me/s/Designs_squad",
+      "reason": "Unidentified client; primary posting date not independently established"
+    },
+    {
+      "task": "Сайты/лендинги/интерфейсы для агентства",
+      "source": "https://t.me/s/Designs_squad",
+      "contact": "via original channel link, company unnamed",
+      "reason": "Company not identified; exact original date unverified"
+    },
+    {
+      "task": "UI-концепция приложения холдинга",
+      "source": "https://t.me/s/jobaem",
+      "reason": "Contact behind @JobaemPrimeBot, unnamed holding"
+    },
+    {
+      "task": "Проектные Tilda/WordPress заказы",
+      "source": "https://connect.tg/orders/design/ui-ux-designer/telegram",
+      "reason": "Aggregator, contact gated and original date unknown"
+    },
+    {
+      "task": "Презентация на 140 слайдов",
+      "source": "https://connect.tg/orders/design/presentation-designer/telegram",
+      "reason": "Urgent deadline yesterday and contact gated"
+    }
+  ],
+  "duplicates_detected_and_not_counted_as_new": [
+    "Изидизи Google Slides posted across zakaz_design/jobaem/design_freevacancies",
+    "Карина: already contacted, received shortlist reply",
+    "@drya_nikkk: already in previous run",
+    "@antonsvens: user already contacted",
+    "@wompgas: user already contacted; different ad in @frilans is not a new client"
+  ],
+  "contact_tracker": {
+    "user_reported_sent": 12,
+    "shortlisted_replied": 1,
+    "followups_due": 0,
+    "reason": "Confirmed user reports dated 28 Oct; less than 4–5 business days elapsed"
+  },
+  "audit": [
+    {
+      "id": 1,
+      "source": "zakaz_design",
+      "title": "Планировка дома 196 м²",
+      "status": "out_of_scope",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 2,
+      "source": "zakaz_design",
+      "title": "Срочная курсовая по Autodesk Maya",
+      "status": "out_of_scope",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 3,
+      "source": "zakaz_design",
+      "title": "Студия Эльвиры Вербицкой: архитектор на два дома",
+      "status": "out_of_scope",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 4,
+      "source": "zakaz_design",
+      "title": "Изидизи: преподаватель цифрового рисования",
+      "status": "staff_or_out_of_scope",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 5,
+      "source": "zakaz_design",
+      "title": "OLEN Music & Gastro: логотип",
+      "status": "old_confirmed",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 6,
+      "source": "zakaz_design",
+      "title": "Web3: 2D-художник персонажей",
+      "status": "out_of_scope",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 7,
+      "source": "zakaz_design",
+      "title": "Скетчинг спикера на iPad в Москве 20–22 октября",
+      "status": "old_confirmed",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 8,
+      "source": "zakaz_design",
+      "title": "Дизайн шевронов @reneartteam",
+      "status": "old_confirmed",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 9,
+      "source": "zakaz_design",
+      "title": "Изидизи: Google Slides 500 ₽/слайд",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 10,
+      "source": "zakaz_design",
+      "title": "TouringBee: мобильные UI-экраны @antonsvens",
+      "status": "already_contacted",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 11,
+      "source": "zakaz_design",
+      "title": "Семейные фотокниги Новосибирск",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 12,
+      "source": "zakaz_design",
+      "title": "Telegram игра: UI/графика @noreffshub",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 13,
+      "source": "zakaz_design",
+      "title": "Cocoon: Creative Director",
+      "status": "staff",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 14,
+      "source": "zakaz_design",
+      "title": "Рекламное производство: реферальное партнёрство",
+      "status": "not_paid_design_contract",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 15,
+      "source": "zakaz_design",
+      "title": "FMCG агентство: SMM-дизайнер 5/2",
+      "status": "staff",
+      "source_url": "https://t.me/s/zakaz_design",
+      "original_post_date": null
+    },
+    {
+      "id": 16,
+      "source": "jobaem",
+      "title": "AI-креатор для beauty-бренда",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 17,
+      "source": "jobaem",
+      "title": "Настенный календарь 2027",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 18,
+      "source": "jobaem",
+      "title": "Финальная Reels-заставка",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 19,
+      "source": "jobaem",
+      "title": "Концепция внутреннего приложения холдинга",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 20,
+      "source": "jobaem",
+      "title": "Инна: Figma/Tilda проектные задачи",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 21,
+      "source": "jobaem",
+      "title": "Переверстать книгу 340 страниц",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 22,
+      "source": "jobaem",
+      "title": "Совместные проекты на Tilda",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 23,
+      "source": "jobaem",
+      "title": "Логотип IT-приложения 3000 ₽",
+      "status": "closed",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 24,
+      "source": "jobaem",
+      "title": "Каталоговая презентация 10–15 страниц",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 25,
+      "source": "jobaem",
+      "title": "Junior Figma/Tilda 20000 ₽ за проект",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 26,
+      "source": "jobaem",
+      "title": "Сайт-портфолио на Tilda",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 27,
+      "source": "jobaem",
+      "title": "WordPress Bricks Builder сайты для США",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 28,
+      "source": "jobaem",
+      "title": "Моушн для застройщиков",
+      "status": "no_direct_contact",
+      "source_url": "https://t.me/s/jobaem",
+      "original_post_date": null
+    },
+    {
+      "id": 29,
+      "source": "design_freevacancies",
+      "title": "Редизайн четырёх страниц каталога @Dina_Korobkova",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 30,
+      "source": "design_freevacancies",
+      "title": "Упаковка функциональных напитков",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 31,
+      "source": "design_freevacancies",
+      "title": "Обложки игрового YouTube",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 32,
+      "source": "design_freevacancies",
+      "title": "10-страничный каталог загородной мебели",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 33,
+      "source": "design_freevacancies",
+      "title": "Флаер психолога",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 34,
+      "source": "design_freevacancies",
+      "title": "Постер 40×60 на холсте",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 35,
+      "source": "design_freevacancies",
+      "title": "Дмитрий: мерч студия 10–15 наборов",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 36,
+      "source": "design_freevacancies",
+      "title": "Агентство: Tilda, презентации, рекламные креативы",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 37,
+      "source": "design_freevacancies",
+      "title": "Пресс-волл 6×3 м для съезда ТПП",
+      "status": "closed",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 38,
+      "source": "design_freevacancies",
+      "title": "Международное агентство: посты и карусели 400–600 ₽",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 39,
+      "source": "design_freevacancies",
+      "title": "Премиум-подарки упаковка @drya_nikkk",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 40,
+      "source": "design_freevacancies",
+      "title": "Карина: ребрендинг реставрационной компании",
+      "status": "already_contacted",
+      "source_url": "https://t.me/s/design_freevacancies",
+      "original_post_date": null
+    },
+    {
+      "id": 41,
+      "source": "Designs_squad",
+      "title": "Оформление гайда до 7 страниц @o_esonenko",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/Designs_squad",
+      "original_post_date": null
+    },
+    {
+      "id": 42,
+      "source": "Designs_squad",
+      "title": "Сайты/лендинги/интерфейсы для агентства",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/Designs_squad",
+      "original_post_date": null
+    },
+    {
+      "id": 43,
+      "source": "Designs_squad",
+      "title": "Баннер фотозоны 4×2,5 м сегодня",
+      "status": "anonymous_or_original_date_unverified",
+      "source_url": "https://t.me/s/Designs_squad",
+      "original_post_date": null
+    },
+    {
+      "id": 44,
+      "source": "Designs_squad",
+      "title": "AI-креатор студии Замескино",
+      "status": "out_of_scope",
+      "source_url": "https://t.me/s/Designs_squad",
+      "original_post_date": null
+    }
+  ],
+  "notes": "Status buckets are mutually exclusive primary disqualifiers, not exhaustive independent dimensions. For original-post-date unknown, do not mark fresh. 19 registered sources were content-accessible including telegram.me/s/frilans mirror, 5 direct channel endpoints unavailable; additional 6 distinct channels opened. Search engine results used for crosschecks. No automatic outreach."
+}
