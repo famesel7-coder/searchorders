@@ -1,5 +1,5 @@
 """Local SearchOrders dashboard + API + notification delivery. No automated outreach."""
-import json, os, html, re, sys, threading, urllib.request, urllib.parse
+import json, os, html, re, sys, threading, urllib.request, urllib.parse, subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
@@ -28,12 +28,19 @@ def telegram(method,payload,token):
 
 def send_notifications(rows):
  s=settings();token=s.get("telegram_token","");chat=s.get("telegram_chat_id","")
- if not token or not chat:return
  recent=datetime.now(timezone.utc)
+ eligible=[]
  for row in rows:
   dt=datetime.fromisoformat(row["published_at"])
-  # Only actual fresh items, not a historical backlog on first boot.
-  if (recent-dt).total_seconds()>25*60 or row["score"]<int(s.get("min_alert_score",80)):continue
+  if (recent-dt).total_seconds()<=25*60 and row["score"]>=int(s.get("min_alert_score",80)):
+   eligible.append(row)
+ if eligible and sys.platform=="darwin":
+  title="SearchOrders: новые кандидаты"
+  message=f"Найдено новых релевантных публикаций: {len(eligible)}. Откройте панель на localhost:8787."
+  try:subprocess.run(["/usr/bin/osascript","-e",f'display notification "{message}" with title "{title}"'],timeout=5,capture_output=True)
+  except Exception as e:print("Local notification:",str(e)[:100],file=sys.stderr)
+ if not token or not chat:return
+ for row in eligible:
   caption={
    "web":"Сайты","uiux":"UI/UX","presentations":"Презентации","branding":"Брендинг / графика"
   }.get(row["category"],row["category"])
