@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-10-28",
-  "basis": "User confirmed having written to all four contacts for whom messages were drafted in this conversation, in addition to previously reported contacts. No external delivery or response verification.",
+  "basis": "Пользователь 28 октября подтвердил отправку откликов всем адресатам подготовленных сообщений, включая @wompgas и @claudia_kotova. Статус отражает сообщение пользователя, а не подтверждённую доставку/ответ; точное время отправки не установлено.",
   "status_legend": {
     "sent_user_reported": "Пользователь сообщил, что написал; подтверждения со стороны адресата ещё нет",
     "pending_unconfirmed": "Нет подтверждения, что пользователь отправлял сообщение",
@@ -105,19 +105,23 @@
     },
     {
       "company": "Визуальный стиль и шаблоны для соцсетей",
-      "channel": "telegram",
       "contact": "@wompgas",
+      "channel": "telegram",
       "status": "sent_user_reported",
       "confirmation_date": "2026-10-28",
-      "organization_verified": false
+      "organization_verified": false,
+      "sent_date": null,
+      "last_reply": null
     },
     {
       "company": "Каталог 100–150 страниц",
-      "channel": "telegram",
       "contact": "@claudia_kotova",
+      "channel": "telegram",
       "status": "sent_user_reported",
       "confirmation_date": "2026-10-28",
-      "organization_verified": false
+      "organization_verified": false,
+      "sent_date": null,
+      "last_reply": null
     }
   ],
   "not_confirmed_as_sent": [
