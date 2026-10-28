@@ -1,13 +1,14 @@
 {
   "updated_at": "2026-10-28",
-  "basis": "Пользователь 28 октября подтвердил отправку откликов всем адресатам подготовленных сообщений, включая @wompgas и @claudia_kotova. Статус отражает сообщение пользователя, а не подтверждённую доставку/ответ; точное время отправки не установлено.",
+  "basis": "User-supplied Telegram screenshot confirms sent message and positive response by Karina (shortlisted with decision within 3 days); other records reflect user-reported outreach.",
   "status_legend": {
     "sent_user_reported": "Пользователь сообщил, что написал; подтверждения со стороны адресата ещё нет",
     "pending_unconfirmed": "Нет подтверждения, что пользователь отправлял сообщение",
     "replied": "Заказчик ответил",
     "negotiating": "Обсуждается конкретный заказ",
     "won": "Получен оплачиваемый заказ",
-    "declined": "Отказ или закрытие запроса"
+    "declined": "Отказ или закрытие запроса",
+    "shortlisted": "Адресат ответил положительно, включил в предварительный список кандидатов; заказа или договора пока нет"
   },
   "contacted": [
     {
@@ -122,6 +123,24 @@
       "organization_verified": false,
       "sent_date": null,
       "last_reply": null
+    },
+    {
+      "company": "Ребрендинг строительной компании (заказчик не идентифицирован)",
+      "contact_name": "Карина | бренд-стратег • маркетолог",
+      "channel": "telegram",
+      "contact": null,
+      "organization_verified": false,
+      "project": "Ребрендинг строительной компании: айдентика, визуальная концепция, бренд-коммуникации",
+      "status": "shortlisted",
+      "sent_date": "2026-10-28",
+      "sent_time_local": "18:35",
+      "reply_date": "2026-10-28",
+      "reply_time_local": "18:38",
+      "last_reply": "Здравствуйте! Очень заинтересовали Ваши работы и портфолио. Вписала Вас в предварительный список, напишу в течение 3х дней с окончательным ответом!",
+      "promised_decision_by": "2026-10-31",
+      "recommended_follow_up_on": "2026-11-02",
+      "proof": "user-provided Telegram screenshot",
+      "note": "Contact Telegram handle not visible in screenshot; do not invent. 3-day estimate supplied by contact, not a promise of contract."
     }
   ],
   "not_confirmed_as_sent": [
