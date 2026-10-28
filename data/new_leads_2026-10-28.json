@@ -1,0 +1,98 @@
+{
+  "checked_at": "2026-10-28",
+  "objective": "Новые заказчики после отправленных откликов, direct-only, свежие оплачиваемые проекты",
+  "not_repeated": [
+    "ВсеИнструменты.ру",
+    "Радость планеты",
+    "ГЕРОФАРМ",
+    "TouringBee",
+    "PRAGMATICA",
+    "GoMobile",
+    "Emerging Travel Group",
+    "Two Joy"
+  ],
+  "shortlisted": [
+    {
+      "client": "Проект Татьяны Кравцовой (психология и саморазвитие)",
+      "published": "2026-10-27",
+      "scope": "Презентации, рекламная графика, баннеры, оформление лендинга",
+      "engagement": "Оплата за задачи, возможное регулярное сотрудничество",
+      "contact": "@tatiana_kravtsova_coach",
+      "contact_type": "Telegram",
+      "source": "https://t.me/s/rueventjob",
+      "status": "direct_contact_and_project_verified_company_registration_not_verified",
+      "verification_note": "Русскоязычный заказ с прямым Telegram. Не подтверждены название юридического лица и свободные заказы на дату."
+    },
+    {
+      "client": "OLEN — Music & Gastro",
+      "published": "2026-10-17",
+      "scope": "Ручная доработка логотипа бренда живой музыки и еды, без ИИ-генерации",
+      "engagement": "Разовый проект, оплата по договорённости",
+      "contact": "+77751480576",
+      "contact_type": "Telegram phone as listed",
+      "source": "https://t.me/s/zakaz_design/4879",
+      "status": "direct_contact_and_named_brand_verified_business_registration_unverified",
+      "verification_note": "Объявление с прямым Telegram номером и названием проекта; не подтверждены юридическое лицо, страна регистрации и наличие свободного заказа; по профилю задач ниже приоритет."
+    }
+  ],
+  "pending_identity_verification": [
+    {
+      "client": "Заказчик сайта Tilda (название бизнеса не раскрыто)",
+      "scope": "Сверстать несколько сайтов на Tilda по эскизам InDesign",
+      "contact": "@anton_tellin",
+      "source": "https://t.me/s/zakaz_design?after=3922",
+      "reason": "Контакт прямой, но имя и компания/проект заказчика не подтверждены"
+    },
+    {
+      "client": "Частный заказ на Tilda (название компании не раскрыто)",
+      "scope": "Оформить одностраничный сайт Tilda, структура готова",
+      "contact": "@EvgeniyaSulima",
+      "source": "https://t.me/s/rueventjob",
+      "reason": "Контакт прямой, но бизнес заказчика не идентифицирован"
+    },
+    {
+      "client": "Event брендбук и визуалы (компания не раскрыта)",
+      "scope": "Обновление брендбука и разработка клиентских визуалов",
+      "contact": "@mirrozavr",
+      "source": "https://t.me/s/mskeventjob/132700",
+      "reason": "Прямой контакт и ссылка на VK есть, но независимая проверка стороны заказчика не пройдена"
+    },
+    {
+      "client": "Презентация наглядной инфографики (компания не раскрыта)",
+      "scope": "Дизайн презентации и инфографики",
+      "contact": "@cleopatra_mir",
+      "source": "https://tg.me/vakansiidesign",
+      "reason": "Компания заказчика не раскрыта"
+    },
+    {
+      "client": "Дизайн сайта кофейни 100000 руб (бренд не раскрыт)",
+      "scope": "Сайт кофейни",
+      "contact": "@slavko_qq",
+      "source": "https://telemetr.io/ru/channels/1938067478-workfordesigner/posts?cursor=IBQ%3D",
+      "reason": "Бизнес и точная дата не подтверждены"
+    }
+  ],
+  "excluded": [
+    {
+      "client": "ChaChat",
+      "reason": "Публикация найдена за 14 сентября 2026, вне 30-дневного окна; без подтверждённой актуальности не включать",
+      "source": "https://telegram-dialogs.ru/channel/%40designs_job"
+    },
+    {
+      "client": "DIVE / Погружение",
+      "reason": "Для отклика только анкета, прямой контакт для данной заявки отсутствует",
+      "source": "https://joba.work/jobs/graficheskiy-dizayner-38346"
+    },
+    {
+      "client": "Яркие дети",
+      "reason": "Возраст объявления не подтверждён при проверке; давняя переиздача возможна",
+      "source": "https://t.me/s/zakaz_design?before=1734"
+    },
+    {
+      "client": "Crosby Studios",
+      "reason": "Full-time, запрещённый формат",
+      "source": "https://joba.work/jobs/graficheskiy-dizayner-crosby-studios-38503"
+    }
+  ],
+  "note": "Публичность и дата публикации не означают подтверждения свободного заказа. Подтверждение достигается только перепиской. Строгую проверку юрлиц не удалось пройти ни для одного из двух краткосрочных проектов; не описывать их как проверенные юридические лица."
+}
