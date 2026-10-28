@@ -1,0 +1,89 @@
+{
+  "checked_at": "2026-10-28",
+  "window": [
+    "2026-10-26",
+    "2026-10-28"
+  ],
+  "scope": [
+    "website development",
+    "UI/UX and interfaces",
+    "presentations",
+    "graphic design"
+  ],
+  "rules": "Only independently identifiable company, original posting 26-28 Oct 2026, paid project/freelance, task-specific direct contact, not already contacted",
+  "qualified": [
+    {
+      "company": "Norllina Studio",
+      "country": "Россия",
+      "published_at": "2026-10-26",
+      "area": "Game UI/UX",
+      "project": "UX review, UI improvements and implementation together with developer in Unreal Engine 5",
+      "format": "Remote, 1-2 months freelance project",
+      "payment": "Fixed agreed fee, possibility of deposit; amount undisclosed",
+      "contact": "@neakin",
+      "sources": [
+        "https://t.me/cgfreelance/20740",
+        "https://t.me/s/frilans/1492",
+        "https://render.ru/ru/company/12271/about",
+        "https://offercatch.io/vacancy/ui-ux-designer-13052"
+      ],
+      "note": "Requires UE5 and game UI experience; contact independently linked to studio by other Norllina post. Employer has not replied/confirmed still open."
+    }
+  ],
+  "pending_verification": [
+    {
+      "project": "Blank Space modular iOS Life OS",
+      "published_at": "2026-10-26",
+      "contact": "@NastiBeautihihihaha",
+      "budget": "from USD 1500 per completed app mockup",
+      "source": "https://telemetr.me/content/free_design1",
+      "issue": "Named app project, no independently confirmed registered or publicly attributable owner/company; first post and contact seen"
+    },
+    {
+      "project": "Tilda landing 6-9 blocks for unnamed marketing agency",
+      "published_at": "2026-10-27",
+      "contact": "@Ai_masterAlina",
+      "budget": "Negotiable",
+      "source": "https://telemetr.me/content/free_design1",
+      "issue": "Agency name withheld, cannot independently identify real client"
+    },
+    {
+      "project": "MCS parent cabinet educational Mini App",
+      "published_at": "2026-10-27",
+      "contact": "@reznik_kir1ll",
+      "budget": "Quoted rate requested from candidate",
+      "source": "https://t.me/s/frilans/1492",
+      "issue": "No independent identity verification tying project acronym/contact to a company"
+    },
+    {
+      "project": "WordPress Bricks/Elementor sites for local US businesses",
+      "published_at": "2026-10-27",
+      "contact": "Not disclosed in scraped listing",
+      "budget": "Not disclosed",
+      "source": "https://telemetr.me/content/Zu6OcQHjKKYzNTI6",
+      "issue": "Direct personal contact and identity not exposed, only hidden button"
+    },
+    {
+      "project": "РПК Много Букв: 3D outdoor advertising",
+      "published_at": "2026-10-27 (aggregator update)",
+      "source": "https://hirify.me/jobs/1293850-dizainer-naruznoi-reklamy-3d",
+      "issue": "Named company and project but only platform Apply; no direct task-specific email or Telegram"
+    },
+    {
+      "project": "Phygital+ Product Designer",
+      "repost_at": "2026-10-27",
+      "original_published_at": "2026-10-08",
+      "contact": "@zagadchenkokat",
+      "source": "https://teletarget.com/channel/@design_vacancy/",
+      "issue": "Original posting dated 8 Oct; repost does not reset freshness; role looks like employment"
+    },
+    {
+      "project": "Norllina 3D animator",
+      "source": "https://tg.me/animator_jobs/2051",
+      "issue": "Old posting not within the 3-day window; job is animation rather than design"
+    }
+  ],
+  "outreach_exclusions": "All 10 previously contacted recipients in data/outreach_status.json excluded",
+  "outcome": "1 strict qualifying new project. Other opportunities withheld for missing verified client/contact/original date.",
+  "note": "The company not replying yet means current availability of the project isn't guaranteed."
+}
