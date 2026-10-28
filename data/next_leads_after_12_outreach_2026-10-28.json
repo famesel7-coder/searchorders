@@ -1,0 +1,138 @@
+{
+  "checked_at": "2026-10-28",
+  "scope": "Paid independent web development, interfaces, presentation, branding and graphic-design projects; Russia or Russian-speaking clients abroad",
+  "sent_user_reported_count": 12,
+  "newly_strictly_qualified_not_previously_shared": 0,
+  "note": "No entirely new lead verified as original 26-28 Oct + independently identified buyer + publicly posted task-specific direct contact + external paid project. Do not make up exact dates or project open status.",
+  "fresh_direct_contacts_but_client_not_independently_identified": [
+    {
+      "date": "2026-10-27",
+      "title": "AI video for event: 60 seconds with motion graphics",
+      "contact": "@alexeypogodinn",
+      "scope": "AI generation, animation, post-production; 7 days to animatic, 3 weeks to delivery",
+      "budget": "Quote requested",
+      "source": "https://telemetr.me/content/free_design1",
+      "source_alternate": "https://t.me/s/aivacancychannel/6866",
+      "issue": "Client organization unnamed; not core design strength",
+      "tier": "verify_before_outreach"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Stories design for personal channel",
+      "contact": "@ananasfotoboody",
+      "scope": "Design social media stories in remote format",
+      "budget": "Negotiable",
+      "source": "https://telemetr.me/content/free_design1",
+      "issue": "Client organization not named; project vs part-time employment unclear",
+      "tier": "verify_before_outreach"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Graphic designer in an unidentified team",
+      "contact": "@olgasavchenko1111",
+      "scope": "Graphic layouts",
+      "budget": "Undisclosed",
+      "source": "https://telemetr.me/content/vakansi_rus",
+      "issue": "Unidentified business and job-like role, not a confirmed freelance project",
+      "tier": "verify_before_outreach"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Graphic designer with resume portfolio",
+      "contact": "@saidieva_zhazgul",
+      "scope": "Graphic design",
+      "budget": "Undisclosed",
+      "source": "https://telemetr.me/content/vakansi_rus",
+      "issue": "Unidentified buyer, vague tasks, possibly staff",
+      "tier": "verify_before_outreach"
+    }
+  ],
+  "direct_contacts_date_not_independently_confirmed": [
+    {
+      "title": "SEES: branded media, conferences and podcast visual design",
+      "contact": "a@sees.group",
+      "buyer": "SEES event organization / brand-media team",
+      "company_evidence": "https://digipharma.ru/",
+      "source": "https://t.me/s/pro_zayavki/4225",
+      "payment": "Project freelance, rate negotiated",
+      "issue": "Independently confirmed a@sees.group relates to SEES conferences, but initial posting date 26-28 Oct NOT confirmed",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "ВизитСервис: mobile landing page rescue on Textolite",
+      "contact": "@dry_ecstatic",
+      "buyer": "ВизитСервис, Симферополь",
+      "company_evidence": "https://xn--b1aaihebc6dhef.xn--p1ai",
+      "source": "https://t.me/s/pro_zayavki/4227",
+      "issue": "Company exists, link to contact from original post but first posting date NOT confirmed",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "6-block landing page with payment integration",
+      "contact": "@oksana_gugueva",
+      "source": "https://t.me/s/pro_zayavki/4223",
+      "budget": "Not specified",
+      "issue": "Original date and client identity not verified",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "Tourism business brandbook and recurring visual tasks",
+      "contact": "@yastrebovaya",
+      "source": "https://t.me/s/pro_zayavki",
+      "scope": "Brandbook first; up to 5 designs per month later; GPH contract",
+      "issue": "Client organization and exact date not independently verified",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "2-page landing on Tilda",
+      "contact": "@anakmva",
+      "source": "https://t.me/s/pro_zayavki/4227",
+      "budget": "10000 RUB",
+      "issue": "Buyer identity and original publication date not independently verified",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "2–3 logos for bots",
+      "contact": "@Im_marketing",
+      "source": "https://t.me/s/pro_zayavki/4223",
+      "budget": "Quote requested",
+      "issue": "Buyer and exact original publication date not verified",
+      "tier": "date_unverified"
+    },
+    {
+      "title": "Visual identity elements: logo, fonts, avatars and illustrations",
+      "contact": "@morningsun_kras",
+      "source": "https://t.me/s/pro_zayavki/4227",
+      "budget": "Quote requested",
+      "issue": "Buyer and original publication date not verified",
+      "tier": "date_unverified"
+    }
+  ],
+  "excluded": [
+    "@wompgas and @claudia_kotova newly marked sent_user_reported",
+    "@Ai_masterAlina already had outreach draft; not new",
+    "@ganovicheva already presented earlier",
+    "@k_atushok and @kubov_kostya previously shared",
+    "Norllina Studio already presented",
+    "Штольцман и Кац originally posted on Oct 23, Oct 26 repost should not reset original date, role is staff",
+    "Anonymous rotating-shift @ElizavetaYurasovaa is joblike rather than fixed scope",
+    "Generic hidden contacts behind lead brokers/marketplace not qualified",
+    "Casino and gambling niche excluded"
+  ],
+  "checked_sources": [
+    "https://telemetr.me/content/vakansi_rus",
+    "https://telemetr.me/content/free_design1",
+    "https://telemetr.me/content/zakaz_design",
+    "https://telemetr.me/content/freeworkfeed",
+    "https://telemetr.me/content/Zu6OcQHjKKYzNTI6",
+    "https://t.me/s/pro_zayavki",
+    "https://t.me/s/digitaltender",
+    "https://t.me/s/design_vacancy",
+    "https://t.me/s/zakaz_design",
+    "https://t.me/s/vakansi_rus",
+    "https://telemetr.me/content/rueventjob",
+    "https://t.me/s/frilans/1492",
+    "https://t.me/s/aivacancychannel/6866"
+  ],
+  "measurement": "List of sources consulted; not comprehensive archive scan nor verified per-post number. Counts are 0 strict, 4 fresh but anonymous/vague, 7 date/client unverified."
+}
