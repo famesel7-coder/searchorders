@@ -1,0 +1,17 @@
+services:
+  searchorders:
+    build:
+      context: ..
+      dockerfile: realtime_service/Dockerfile
+    container_name: searchorders-live
+    restart: unless-stopped
+    environment:
+      SEARCHORDERS_HOST: 0.0.0.0
+      SEARCHORDERS_PORT: "8787"
+      SEARCHORDERS_INTERVAL: "300"
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - searchorders_state:/app/.runtime
+volumes:
+  searchorders_state:
