@@ -10,7 +10,7 @@
     "Avoid companies and contacts with sent_user_reported status from data/outreach_status.json"
   ],
   "qualified": [],
-  "verification_outcome": "No new opportunity verified across all required rules in public sources inspected",
+  "verification_outcome": "Проверка обновлена: на момент повторного поиска ни одно новое объявление за 26–28 октября не прошло одновременно фильтр известной компании, прямого контакта и оплачиваемого проектного формата.",
   "near_misses": [
     {
       "published_at": "2026-10-28",
@@ -62,5 +62,50 @@
       "exclude_reason": "Named company and direct email but explicitly full-time, non-Russia location required"
     }
   ],
-  "reporting": "A count of zero is the truthful result. Do not fill with archived, anonymous, forms-only, already-contacted or full-time vacancies."
+  "reporting": "A count of zero is the truthful result. Do not fill with archived, anonymous, forms-only, already-contacted or full-time vacancies.",
+  "additional_checked": [
+    {
+      "company": "Премиальные подарочные наборы (название компании не опубликовано)",
+      "published_at": "2026-10-26",
+      "need": "Бренд-айдентика, коробка, печатные материалы для выставки",
+      "contact": "@darya_nikkk",
+      "source": "https://telemetr.me/content/design_freevacancies",
+      "status": "excluded_unidentified_company",
+      "notes": "Дата, проектный формат и контакт подтверждены; компания не названа"
+    },
+    {
+      "company": "Анонимный аутсорс по дизайну карточек и баннеров",
+      "published_at": "2026-10-28",
+      "need": "Дизайн карточек товаров и баннеров",
+      "contact": "@ElizavetaYurasovaa",
+      "source": "https://telemetr.me/content/zakaz_design",
+      "status": "excluded_unidentified_company_employment_shifts",
+      "notes": "5/2 или 2/2, оклад, компания не раскрыта"
+    },
+    {
+      "company": "Анонимный заказ на иллюстрации технических механизмов",
+      "published_at": "2026-10-26",
+      "need": "Иллюстрации замочных механизмов по видео",
+      "contact": "@kotkov5",
+      "source": "https://telemetr.me/content/zakaz_design",
+      "status": "excluded_unidentified_company_and_off_specialization"
+    },
+    {
+      "company": "BENZZY",
+      "published_at": "not independently established inside window",
+      "need": "Один анимированный HTML5 баннер",
+      "contact": "mariia.drukarova@benzzy.com",
+      "source": "https://t.me/s/rueventjob/19209",
+      "status": "quarantined_publication_date_not_verified",
+      "notes": "Названное агентство, конкретная задача и email. Поиск не подтвердил первичную публикацию 26-28 октября"
+    },
+    {
+      "company": "CashBox",
+      "published_at": "older than window",
+      "need": "Анимационные AI-ролики с маскотом",
+      "contact": "@cashbox_ex",
+      "source": "https://trustat.me/telegram/channels/rueventjob/post/18989",
+      "status": "excluded_old_and_off_specialization"
+    }
+  ]
 }
