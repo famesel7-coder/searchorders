@@ -1,0 +1,91 @@
+{
+  "date_checked": "2026-10-28",
+  "purpose": "Pilot source check and audit of constraints after scaling sourcing process; not an exhaustive scan of all 24 registered sources",
+  "sampled_source_urls": [
+    "https://t.me/s/zakaz_design",
+    "https://t.me/s/digitaltender",
+    "https://t.me/s/pro_zayavki/4223",
+    "https://t.me/s/freelancetaverna/3071",
+    "https://t.me/s/designizer/2501",
+    "https://t.me/s/mskeventjob",
+    "https://telemetr.me/content/free_design1",
+    "https://connect.tg/orders/design/ui-ux-designer/telegram",
+    "https://connect.tg/orders/design/presentation-designer/telegram",
+    "https://jobsignal.me/ru/jobs/role/design",
+    "https://joba.work/jobs/spetsialist-po-vizualnomu-kontentu-noi-study-38554"
+  ],
+  "source_level_observations": [
+    {
+      "source": "Connect UI/UX",
+      "reported_count": "73 orders in category (rolling monthly count, not all date-qualified)",
+      "reason": "Many contacts hidden behind platform flow"
+    },
+    {
+      "source": "Connect presentations",
+      "reported_count": "39 orders in category (rolling monthly count, not all date-qualified)",
+      "reason": "Many contacts hidden behind platform flow"
+    }
+  ],
+  "examples_checked": [
+    {
+      "project": "Веб-дизайнер для разработки лендингов",
+      "date": "2026-10-28",
+      "budget_rub": 70000,
+      "source": "https://connect.tg/orders/8886c4bc-fb93-4a6d-8790-05b6440e52ce",
+      "status": "reject_fulltime",
+      "reason": "The ad requires full-time schedule 09:00–18:00, despite aggregator classifying as design order"
+    },
+    {
+      "project": "Веб-дизайнер UI/UX для лендингов",
+      "date": "2026-10-27",
+      "budget_rub_range": [
+        100000,
+        250000
+      ],
+      "source": "https://connect.tg/orders/9c1bf398-9be9-4476-a7fc-f161f186f4d2",
+      "status": "verify_contact_and_client",
+      "reason": "Platform ad displays budget and activity but no publicly verifiable direct client contact"
+    },
+    {
+      "project": "Графический дизайнер презентаций",
+      "date": "2026-10-27",
+      "contact": "@cleopatra_mir",
+      "source": "https://telemetr.io/ru/channels/1548363362-vakansi_rus",
+      "status": "reject_anonymous",
+      "reason": "Direct handle exists but independently identified company is not available"
+    },
+    {
+      "project": "Blank Space iOS Product Designer",
+      "date": "2026-10-26",
+      "contact": "@NastiBeautihihihaha",
+      "source": "https://telemetr.me/content/free_design1",
+      "status": "verify_client_identity",
+      "reason": "Named app concept but not independently authenticated buyer, already included in previous conditional leads"
+    },
+    {
+      "project": "NOI STUDY visual content",
+      "date": "2026-10-28",
+      "source": "https://joba.work/jobs/spetsialist-po-vizualnomu-kontentu-noi-study-38554",
+      "status": "verify_direct_contact_and_contract",
+      "reason": "Named company, project scope but hybrid job and direct task-specific contact not exposed on verified source"
+    },
+    {
+      "project": "Tilda agency landing",
+      "contact": "@Ai_masterAlina",
+      "date": "2026-10-27",
+      "status": "not_new_to_user",
+      "reason": "Previously provided draft for direct outreach; user has not confirmed sending, do not duplicate as a new lead"
+    },
+    {
+      "project": "Norllina Studio",
+      "contact": "@neakin",
+      "date": "2026-10-26",
+      "status": "already_proposed",
+      "reason": "Previously presented, not a new discovery in this pilot"
+    }
+  ],
+  "publication_count_scanned": "not audited; do not report a made-up count",
+  "unique_qualified_new_leads_in_pilot": "not independently confirmed",
+  "next_step": "First scheduled expanded source batch on October 29 2026 at 09:00 Europe/Helsinki; all counts and eligibility to be reported from that actual run.",
+  "honesty": "Source inventory is 24 registered starting points, not 24 continuously polled APIs. The automation is scheduled but no ongoing computer process or 24/7 crawling was deployed."
+}
