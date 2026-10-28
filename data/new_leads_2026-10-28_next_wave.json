@@ -1,0 +1,140 @@
+{
+  "date_checked": "2026-10-28",
+  "search_window": "2026-10-26/28",
+  "eligibility": "Project/freelance, direct task-specific email/TG, identifiable company, original posting within 3 calendar days. Previously contacted excluded.",
+  "user_reported_sent_count": 12,
+  "verified_new": [
+    {
+      "client": "СИНТОКС / Syntoks",
+      "published": "2026-10-26",
+      "task": "Senior UI/UX redrawing launch-ready website, desktop and mobile adaptive, Figma UI-kit",
+      "format": "remote part-time project before release",
+      "budget_rub_range": [
+        50000,
+        250000
+      ],
+      "contact": "@q_pounder",
+      "website": "https://syntoks.com",
+      "source": "https://career.habr.com/vacancies/1000169530",
+      "mirror": "https://freehire.me/jobs/senior-ui-ux-designer-dlia-saita-v-it-startap-syntoks-part-time-pod-reliz-sintoks-btlnecoe",
+      "rank": 1,
+      "warning": "4–5 years web/UI/UX experience requested; live vacancy status not confirmed by reply"
+    }
+  ],
+  "leads_to_verify": [
+    {
+      "task": "Детская упаковка для товара",
+      "post_date_public": "2026-10-28 10:15",
+      "contact": "@Gulimaro",
+      "source": "https://teletarget.com/channel/%40Designs_squad/",
+      "budget": "user requests quotation",
+      "status": "client_identity_not_verified",
+      "note": "Strong packaging experience required"
+    },
+    {
+      "task": "Креативы и макеты сайтов для агентств/брендов",
+      "reposted_on": "2026-10-28",
+      "contact": "@taisiya_koklyagina",
+      "source": "https://tg.me/frilans",
+      "budget_rub_range_per_deliverable": [
+        1500,
+        6000
+      ],
+      "status": "anonymous_original_date_unverified"
+    },
+    {
+      "task": "Макеты сайтов в Figma, Photoshop art for agency clients",
+      "reposted_on": "2026-10-28",
+      "contact": "@alexsmmvito",
+      "source": "https://tg.me/frilans",
+      "format": "piecework",
+      "status": "anonymous_original_date_unverified",
+      "related_separate_task": "27 Oct source https://tg.me/program_job also asks CRM website transfer"
+    },
+    {
+      "task": "WB карточки / рекламные баннеры мероприятий",
+      "reposted_on": "2026-10-28",
+      "contact": "@olgakozlova888",
+      "source": "https://tg.me/frilans",
+      "quoted_rub_per_card": 1000,
+      "quoted_rub_per_banner": 4000,
+      "status": "anonymous_original_date_unverified"
+    },
+    {
+      "task": "SMM-агентство: посты и графика клиентам",
+      "reposted_on": "2026-10-28",
+      "contact": "@timakinaagency",
+      "source": "https://tg.me/frilans",
+      "quoted_rub_range_per_task": [
+        1200,
+        3000
+      ],
+      "status": "identity_and_original_date_unverified"
+    },
+    {
+      "task": "AI-person character design, UGC mini-series",
+      "post_date_public": "2026-10-28",
+      "contact": "@NataAntonova28",
+      "source": "https://teletarget.com/channel/%40aivacancychannel/",
+      "status": "client_unidentified_task_does_not_require_fulltime",
+      "caveat": "AI visuals portfolio required, not ordinary UI/UX"
+    },
+    {
+      "task": "Каталог и AI фотосъёмки для бренда одежды",
+      "reposted_on": "2026-10-28",
+      "contact": "@imkristas",
+      "source": "https://tg.me/frilans",
+      "status": "company_and_original_date_unknown"
+    },
+    {
+      "task": "Travel YouTube 4-5 covers monthly",
+      "reposted_on": "2026-10-28",
+      "contact": "@ganovicheva",
+      "source": "https://tg.me/frilans",
+      "status": "company_and_original_date_unknown",
+      "note": "Already listed in a prior conditional list; not completely new"
+    },
+    {
+      "task": "marketplace card visuals",
+      "reposted_on": "2026-10-28",
+      "contact": "@kristinanovinova",
+      "source": "https://tg.me/frilans",
+      "status": "company_and_original_date_unknown"
+    }
+  ],
+  "excluded": [
+    {
+      "client": "PAW GAMING",
+      "reason": "2026-10-14 original, recirculated 2026-10-28"
+    },
+    {
+      "client": "Phygital+",
+      "reason": "2026-10-08 original"
+    },
+    {
+      "client": "plotno_items",
+      "reason": "2026-10-06 original, reposted 28"
+    },
+    {
+      "client": "Штольцман и Кац",
+      "reason": "Named firm & direct job email 2026-10-26, but employment rather than confirmed paid contractor"
+    },
+    {
+      "client": "Цветовик",
+      "reason": "2026-10-28 direct phone, on-site staff role"
+    },
+    {
+      "client": "2GIS",
+      "reason": "2026-10-27 website employment role, no direct task-specific contact"
+    },
+    {
+      "client": "РемМашСервис",
+      "reason": "Project posted Oct 26 but only contact via Kwork/Connect platform, no direct task-specific email/TG"
+    },
+    {
+      "client": "NOI STUDY",
+      "reason": "28 Oct role hybrid and only platform apply"
+    }
+  ],
+  "reporting": "Only one fully qualifying named client in this run. Pending list is NOT a list of vetted employers. Many Oct 28 posts are aggregates of older work. Never present pending as verified."
+}
