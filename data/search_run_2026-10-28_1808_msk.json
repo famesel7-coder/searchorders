@@ -1,0 +1,132 @@
+{
+  "run_at": "2026-10-28T18:08:14+03:00",
+  "status": "completed_partial_source_coverage",
+  "source_window": "2026-10-26 through 2026-10-28 original publication",
+  "registered_sources": 24,
+  "registered_source_urls_attempted": 24,
+  "registered_source_urls_with_accessible_relevant_content": 18,
+  "registered_sources_unavailable_directly": [
+    "https://t.me/s/frilans",
+    "https://t.me/s/designizer",
+    "https://t.me/s/golubin_channel",
+    "https://t.me/s/vakansii_dlya_dizaynera",
+    "https://t.me/s/free_design1",
+    "https://t.me/s/webdesign_jobs"
+  ],
+  "extra_sources_accessed": [
+    "https://t.me/s/design_freevacancies",
+    "https://t.me/s/workinart",
+    "https://t.me/s/vacancysmm"
+  ],
+  "total_unique_source_sites_or_channels_accessed_with_content": 21,
+  "additional_web_searches": "multiple grouped targeted queries for dates, contact verification, and original publication",
+  "individual_posts_audited": "Not reliably countable from this run; no made-up claim of 25–50 posts",
+  "strict_new_ready": [],
+  "previously_proposed_strict": [
+    "Norllina Studio 26 Oct game UI/UX, @neakin"
+  ],
+  "new_pending": [
+    {
+      "title": "Ребрендинг премиальной строительной/реставрационной компании",
+      "date": "2026-10-28 16:18",
+      "origin": "https://telemetr.me/content/design_freevacancies",
+      "contact": "@kari_konst06",
+      "budget": "10,000 RUB for visual concept, negotiable upward",
+      "tasks": "premium visual brand concept, fonts, colors, materials/patterns for company restoring mansions and architectural decor",
+      "reason": "End client company not named or independently verified; Karina identified only as art director/brand strategist",
+      "priority": "high"
+    },
+    {
+      "title": "Упаковка подарочных наборов премиум-класса",
+      "date": "2026-10-26 11:55",
+      "origin": "https://telemetr.me/content/design_freevacancies",
+      "contact": "@drya_nikkk",
+      "budget": "negotiable",
+      "tasks": "gift box concept, visual identity, print-ready files, exhibition leaflets/catalogs",
+      "reason": "Brand and registered company not named, only describes products and website; contact from post",
+      "priority": "high"
+    },
+    {
+      "title": "Лендинги и многостраничные сайты на Tilda/WordPress",
+      "date": "2026-10-28 (relative 3 hours ago at crawl, exact primary time not verified)",
+      "origin": "https://connect.tg/orders/design/ui-ux-designer/telegram",
+      "contact": null,
+      "budget": "25,000–60,000 RUB",
+      "tasks": "manufacturing company website, forms and responsive layout",
+      "reason": "Contact behind platform, no direct original client; primary post not identified",
+      "priority": "high"
+    },
+    {
+      "title": "Сайт под ключ на Tilda с чат-ботом",
+      "date": "2026-10-27 or 28 (relative 19 hours ago, primary date not verified)",
+      "origin": "https://connect.tg/orders/design/ui-ux-designer/telegram",
+      "contact": null,
+      "budget": "40,000–50,000 RUB",
+      "tasks": "Tilda design, layout, chatbot integration, full brief available",
+      "reason": "Contact behind platform, company identity not independently verified",
+      "priority": "high"
+    },
+    {
+      "title": "Графический дизайнер соцсетей, каталогов и маркетинговых визуалов NOI STUDY",
+      "date": "2026-10-28 (aggregator listing)",
+      "origin": "https://joba.work/jobs/spetsialist-po-vizualnomu-kontentu-noi-study-38554",
+      "contact": null,
+      "budget": null,
+      "reason": "No task-specific direct contact; employment-like role",
+      "priority": "low"
+    },
+    {
+      "title": "Анимированный HTML5-баннер для BENZZY Studio",
+      "date": "original older than window, 2026-10-14 referenced",
+      "origin": "https://t.me/s/rueventjob/19092",
+      "contact": "mariia.drukarova@benzzy.com",
+      "budget": "negotiable",
+      "reason": "Named verified company and real project-specific contact, but original ad in October 14 listings, excluded for age",
+      "priority": "exclude"
+    }
+  ],
+  "excluded_examples": [
+    {
+      "title": "ФинГрам 12 children's board games",
+      "original_date": "2026-10-25 21:03",
+      "reason": "Original older than 3 calendar days; reprint on Oct 26"
+    },
+    {
+      "title": "Изидизи Google Slides",
+      "original_date": "2026-10-21",
+      "reason": "Older than window and form-only contact"
+    },
+    {
+      "title": "Kivora AI animation",
+      "original_date": "2026-10-16",
+      "reason": "Older than window and off-scope animation"
+    },
+    {
+      "title": "Шевроны @reneartteam",
+      "original_date": "2026-10-21",
+      "reason": "Older than window"
+    },
+    {
+      "title": "UX/UI corporate dashboard @dikarevaaa",
+      "original_date": "2026-10-15",
+      "reason": "Older than window"
+    },
+    {
+      "title": "ЦВЕТОВИК",
+      "date": "2026-10-28",
+      "reason": "Employee position, not freelance external project"
+    },
+    {
+      "title": "SMM for Не спеша",
+      "date": "2026-10-26",
+      "reason": "Actual scope is full social media strategy, filming, copywriting and account management, not design project"
+    },
+    {
+      "title": "12 previously contacted clients",
+      "reason": "Excluded from new first outreach"
+    }
+  ],
+  "strict_new_qualified_count": 0,
+  "followup": "No actual send dates known for most of 12 user-reported outreach contacts, only confirmation date October 28; cannot determine 4–5 working day elapsed, do not send",
+  "integrity": "No inflated lead count; no promise of current availability without client reply. One-off run, recurring automation stays active."
+}
