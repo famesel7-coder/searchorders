@@ -11,3 +11,8 @@ data/signals_latest.json
 data/signals_latest.csv
 data/dashboard.html
 data/translation_cache.json
+
+# Local SearchOrders runtime (credentials + SQLite)
+.runtime/
+__pycache__/
+*.pyc
