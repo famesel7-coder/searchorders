@@ -72,6 +72,13 @@
       "task": "Презентация на 140 слайдов",
       "source": "https://connect.tg/orders/design/presentation-designer/telegram",
       "reason": "Urgent deadline yesterday and contact gated"
+    },
+    {
+      "task": "MCS: UI/UX кабинета родителей в образовательном мини-приложении",
+      "contact": "@reznik_kir1ll",
+      "source": "https://t.me/s/rueventjob",
+      "crosspost": "https://telegram.me/s/frilans",
+      "reason": "No independent client-company identity or exact original post date; multiple crossposts are not separate orders"
     }
   ],
   "duplicates_detected_and_not_counted_as_new": [
