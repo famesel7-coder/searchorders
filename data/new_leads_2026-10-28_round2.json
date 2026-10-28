@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-10-28",
+  "stage": "Сбор новых адресных проектных заказов после 10 пользовательских откликов",
+  "qualification": "Только актуальные проектные/контрактные задачи, названный заказчик, прямой email/TG, без повторов; наличие незакрытого заказа без ответа не гарантируется",
+  "exclude_outreach_status_file": "data/outreach_status.json",
+  "confirmed": [
+    {
+      "rank": 1,
+      "client": "Besters",
+      "type": "Российское маркетинговое агентство, Санкт-Петербург",
+      "post_date": "2026-10-22",
+      "scope": "SMM-дизайн beauty-клиента, возможен поток заказов агентства",
+      "contract": "Почасовой внешний проект, удалённо",
+      "contact": "@vrthnsl",
+      "contact_type": "telegram",
+      "budget": "Ставка не указана",
+      "sources": [
+        "https://sobes.tech/en/vacancies/0b92c6fb-6305-44d5-b628-a723d03ced9e-dizayner",
+        "https://besters.ru/",
+        "https://workspace.ru/contractors/besters/"
+      ],
+      "status": "qualified_for_initial_outreach_freshness_public_not_reconfirmed_by_client",
+      "fit": "good"
+    },
+    {
+      "rank": 2,
+      "client": "БуксХаб / Редакция88",
+      "type": "Российская издательская группа",
+      "post_date": "2026-10-21",
+      "scope": "Дизайн обложек, сложная многостраничная верстка, иллюстрации и полиграфия",
+      "contract": "Удаленно, сдельная оплата, проектный формат",
+      "contact": "@Al_Vavilov",
+      "alternate_contact": "aa@books-hub.ru",
+      "budget": "По договоренности",
+      "sources": [
+        "https://sobes.tech/en/vacancies/38aa7e95-ad59-4f07-a049-d29aaaceb616-dizayner-verstalshchik-knig",
+        "https://books-hub.ru/"
+      ],
+      "status": "qualified_for_initial_outreach_freshness_public_not_reconfirmed_by_client",
+      "fit": "good_if_editorial_portfolio"
+    }
+  ],
+  "additional_verified_but_out_of_core": [
+    {
+      "client": "AISTLab.AI",
+      "post_date": "2026-10-20",
+      "scope": "Senior motion design коротких роликов, AE, AI-анимация",
+      "contact": "@foreverinlovewithsummer",
+      "contract": "Freelance allowed, оплатa за ролик; full-time/part-time также возможно",
+      "source": "https://sobes.tech/en/vacancies/cbbc3176-367b-4e0a-8ce3-f597aa7aca47-moushn-dizayner",
+      "reason": "Вне основной специализации презентаций/бренд-графики, нужен сильный motion showreel"
+    }
+  ],
+  "quarantine": [
+    {
+      "client": "Nexora",
+      "post_date": "2026-10-25",
+      "contact": "@ansargtech",
+      "source": "https://t.me/s/vakansi_rus/14074",
+      "reason": "Бренд назван в объявлении, но сайт/реальную компанию с этим Telegram нельзя однозначно связать; в выдаче много одноимённых компаний."
+    },
+    {
+      "client": "B2B branding project, Москва",
+      "contact": "@angelinahim",
+      "budget": "60000–150000 ₽",
+      "source": "https://t.me/s/vakansi_rus/14067",
+      "reason": "Прямой контакт и отличный бриф, но компания-клиент не названа; проверить личность заказчика до рекомендации"
+    },
+    {
+      "client": "Каталоговая презентация, 10–15 стр",
+      "contact": "@inemesis_ss",
+      "source": "https://t.me/s/vakansi_rus/14067",
+      "reason": "Прямой TG, но заказчик/компания не раскрыты, бюджет и актуальность не подтверждены"
+    },
+    {
+      "client": "Переплёт",
+      "post_date": "2026-10-19",
+      "contact": "@bogdanakira",
+      "source": "https://sobes.tech/en/vacancies/71191e14-a9f9-4848-8f41-d871ea6ca34f-ai-dizayner-dizayner-verstalshchik",
+      "reason": "Реальный бренд и прямой контакт, но опубликована вакансия с зарплатой; именно внешний контракт или разовые оплачиваемые проекты не подтверждены"
+    },
+    {
+      "client": "PowerPoint 3 interactive slide objects",
+      "contact": "@vs_sting",
+      "budget": "5000 ₽",
+      "deadline": "2026-11-01",
+      "source": "https://t.me/s/vakansi_rus/14067",
+      "reason": "Компания не названа, объем/чек мал"
+    },
+    {
+      "client": "LifePlan",
+      "contact": "@lifeplan_assistant",
+      "source": "https://t.me/s/freelancetaverna/2324",
+      "reason": "Дата публикации и актуальность не подтверждены"
+    }
+  ],
+  "excluded": [
+    "ВсеИнструменты.ру",
+    "Радость планеты",
+    "ГЕРОФАРМ",
+    "TouringBee",
+    "PRAGMATICA",
+    "GoMobile",
+    "Проект Татьяны Кравцовой",
+    "@anton_tellin",
+    "@EvgeniyaSulima",
+    "@mirrozavr",
+    "Маркетинговое агентство с редактированным статусом 'контакты неактуально'",
+    "Формы отклика без прямого TG или email"
+  ]
+}
