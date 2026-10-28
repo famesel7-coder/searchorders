@@ -1,0 +1,129 @@
+{
+  "checked_at": "2026-10-28",
+  "scope": "Оплачиваемые проектные заказы: российские компании, иностранные компании с русскоязычной коммуникацией, российские команды за рубежом",
+  "requirements": {
+    "direct_contact": "Только email или Telegram/мессенджер, явно указанный для конкретного дизайн-заказа; формы и общий контакт без привязки исключаются.",
+    "job_type": "freelance / external projects, no obligatory staff employment",
+    "validation": "Компания отдельно существует; дата публикации не старше 30 дней, свежесть и доступность на дату поиска подтверждены настолько, насколько возможно публично. Без ответа заказчика свободный слот не доказан.",
+    "deduplicate": [
+      "ВсеИнструменты.ру",
+      "Радость планеты",
+      "ГЕРОФАРМ"
+    ]
+  },
+  "foreign": [
+    {
+      "priority": 1,
+      "company": "Emerging Travel Group",
+      "country": "международная компания, штаб-квартира уточняется",
+      "published_at": "2026-10-14",
+      "project": "Дизайн презентаций, digital-рекламы, корпоративных материалов и мероприятий",
+      "contact_type": "direct_email",
+      "contact": "a.tsareva@emergingtravel.com",
+      "sources": [
+        "https://ru.tgchannels.org/channel/workfordesigner?first=5410&lang=all&size=30&start=5501",
+        "https://emergingtravel.com/"
+      ],
+      "budget": "В валюте, размер не указан",
+      "payment_condition": "Нужно зарубежное юридическое лицо",
+      "language": "Русское объявление; английский B2 требуется",
+      "status": "direct_contact_confirmed_availability_unverified",
+      "risk": "Нет зарубежного юрлица — не квалифицируется под условия оплаты."
+    },
+    {
+      "priority": 2,
+      "company": "TouringBee",
+      "country": "Ирландия",
+      "published_at": "2026-10-22",
+      "project": "13 экранов, 8 диалоговых окон для приложения аудиогидов; первый оплачиваемый тест (2 экрана и 1 диалог)",
+      "contact_type": "telegram",
+      "contact": "@antonsvens",
+      "sources": [
+        "https://t.me/s/zakaz_design",
+        "https://touringbee.com/about/"
+      ],
+      "budget": "По ставке дизайнера, согласованной до теста",
+      "payment_condition": "Mellow; объявлена возможность выплаты на карту любой страны, проверить при отклике",
+      "language": "Русскоязычное объявление",
+      "status": "direct_contact_confirmed_availability_unverified",
+      "risk": "Приоритет ниже для автора презентаций, если нет UI/UX-кейсов."
+    }
+  ],
+  "russia": [
+    {
+      "priority": 1,
+      "company": "PRAGMATICA",
+      "published_at": "2026-10-15",
+      "project": "Бренд-дизайн на проекты: айдентика и графика для клиентов, цифровых продуктов и стартапов",
+      "contact_type": "direct_email",
+      "contact": "team@pragmatica.design",
+      "sources": [
+        "https://sobes.tech/en/vacancies/0a42a552-408a-45ba-b40b-05fc192b8080-brend-dizayner",
+        "https://www.pragmatica.design/",
+        "https://www.linkedin.com/company/pragmaticadesign"
+      ],
+      "budget": "Не объявлен",
+      "language": "Русский",
+      "status": "direct_contact_confirmed_availability_unverified",
+      "strength": "Агентство работает с презентациями, брендингом, корпоративными клиентами; high-fit"
+    },
+    {
+      "priority": 2,
+      "company": "Two Joy",
+      "published_at": "2026-10-26/27",
+      "project": "Регулярное оформление Stories и соцсетей бренда одежды",
+      "contact_type": "telegram",
+      "contact": "@TwoJoyinfo",
+      "sources": [
+        "https://t.me/s/mskeventjob?before=132966",
+        "https://twojoy.ru/about"
+      ],
+      "budget": "Не указан",
+      "language": "Русский",
+      "status": "direct_contact_confirmed_availability_unverified",
+      "strength": "Небольшие быстрые заказы, возможный регулярный контракт; не high-ticket KV/презентации"
+    },
+    {
+      "priority": 3,
+      "company": "GoMobile",
+      "published_at": "2026-10-15",
+      "project": "Проектный UX/UI для мобильных приложений в e-commerce",
+      "contact_type": "direct_email",
+      "contact": "viktoriya.efimova@gomobile.ru",
+      "sources": [
+        "https://sobes.tech/en/vacancies/e9ac138b-2fc1-4165-b151-064d499fa2da-ux-ui-dizayner",
+        "https://gomobile.ru/"
+      ],
+      "budget": "Не указан",
+      "language": "Русский",
+      "status": "direct_contact_confirmed_availability_unverified",
+      "strength": "Нужно сильное UI/UX mobile портфолио"
+    }
+  ],
+  "excluded_or_hold": [
+    {
+      "company": "SpaceLevel",
+      "reason": "Русскоязычная международная студия, контакт есть, но свежесть и актуальность конкретного дизайнерского запроса не подтверждены."
+    },
+    {
+      "company": "UPECO",
+      "reason": "Нет прямого контакта по проекту; только платформа"
+    },
+    {
+      "company": "Onpoint",
+      "reason": "Нет прямого контакта по проекту"
+    },
+    {
+      "company": "ARVENT",
+      "reason": "Прямой контакт есть, но независимая проверка компании недостаточна"
+    },
+    {
+      "company": "Изидизи",
+      "reason": "Только форма отклика"
+    },
+    {
+      "company": "Анонимные объявления на презентации",
+      "reason": "Невозможно подтвердить компанию-заказчика"
+    }
+  ]
+}
