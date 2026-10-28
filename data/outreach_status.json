@@ -102,6 +102,22 @@
       "sent_date": null,
       "confirmation_date": "2026-10-28",
       "last_reply": null
+    },
+    {
+      "company": "Визуальный стиль и шаблоны для соцсетей",
+      "channel": "telegram",
+      "contact": "@wompgas",
+      "status": "sent_user_reported",
+      "confirmation_date": "2026-10-28",
+      "organization_verified": false
+    },
+    {
+      "company": "Каталог 100–150 страниц",
+      "channel": "telegram",
+      "contact": "@claudia_kotova",
+      "status": "sent_user_reported",
+      "confirmation_date": "2026-10-28",
+      "organization_verified": false
     }
   ],
   "not_confirmed_as_sent": [
