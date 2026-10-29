@@ -32,10 +32,10 @@ a{color:#7daef9;text-decoration:none}a:hover{text-decoration:underline}.shell{mi
 <div class="sectionLine"><h2>Подключённые каналы</h2><button class="btn" onclick="addSource()">+ Добавить канал</button></div><div id="sources" class="sources"></div>
 <p class="muted" style="margin:20px 0">Объявления показываются как кандидаты, не как подтверждённые заказы. Контакт и компанию необходимо проверять до отклика. Система никогда не пишет заказчикам самостоятельно.</p>
 </main></div>
-<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal"><h2>Уведомления в Telegram</h2><p>Создайте бота у @BotFather, вставьте токен, напишите своему боту /start и нажмите «Найти чат». Токен хранится только локально на этом компьютере.</p><label for="token">Токен бота</label><input class="field" type="password" id="token" placeholder="123456789:AA..."><label for="chatid">Chat ID</label><input class="field" id="chatid" placeholder="Определится автоматически"><label for="threshold">Минимальный рейтинг для уведомления</label><input class="field" id="threshold" type="number" min="60" max="99" value="80"><div class="modalactions"><button class="btn primary" onclick="saveSettings()">Сохранить</button><button class="btn" onclick="discoverChat()">Найти чат</button><button class="btn" onclick="sendTest()">Тест</button><button class="btn" onclick="document.getElementById('settingsModal').classList.remove('open')">Закрыть</button></div><p id="settingsState"></p></div></div>
+<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal"><h2>Уведомления в Telegram</h2><p>Создайте бота у @BotFather, вставьте токен, напишите своему боту /start и нажмите «Найти чат». Токен хранится только локально на этом компьютере.</p><label for="token">Токен бота</label><input class="field" type="password" id="token" placeholder="123456789:AA..."><label for="chatid">Chat ID</label><input class="field" id="chatid" placeholder="Определится автоматически"><label for="threshold">Минимальный рейтинг для уведомления</label><input class="field" id="threshold" type="number" min="60" max="99" value="80"><div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div><h3 style="margin:0 0 8px;font-size:16px">ИИ для индивидуальных откликов</h3><p>С подключённой моделью каждый запрос анализируется отдельно, а предыдущие письма учитываются, чтобы не повторяться. Без ключа работает упрощённая локальная генерация. API оплачивается отдельно от подписки ChatGPT.</p><label for="aiKey">OpenAI API key</label><input class="field" type="password" id="aiKey" autocomplete="off" placeholder="sk-..."><label for="aiModel">Модель</label><input class="field" id="aiModel" value="gpt-4.1-mini"><p id="aiState"></p><div class="modalactions"><button class="btn primary" onclick="saveSettings()">Сохранить</button><button class="btn" onclick="discoverChat()">Найти чат</button><button class="btn" onclick="sendTest()">Тест</button><button class="btn" onclick="document.getElementById('settingsModal').classList.remove('open')">Закрыть</button></div><p id="settingsState"></p></div></div>
 <div id="toast" class="toast"></div>
 <script>
-let leads=[],selected=null,sourceList=[],previousIds=null,scanBusy=false,drafts={},detailRenderedId=null;
+let leads=[],selected=null,sourceList=[],previousIds=null,scanBusy=false,drafts={},draftInfo={},draftBusy=false,detailRenderedId=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const labels={web:'Сайты',uiux:'UI/UX',presentations:'Презентации',branding:'Брендинг / графика'};
@@ -60,27 +60,38 @@ function renderDetails(){
  detailRenderedId=l.id;
  $('detailsDate').textContent=when(l.published_at);
  let date=new Date(l.published_at),age=Math.round((Date.now()-date.getTime())/3600000);
- $('details').innerHTML='<div class="detailBody"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span> <span class="score">Рейтинг '+l.score+'/99</span><h3 class="detailTitle">'+esc(l.buyer||'Запрос на дизайн')+'</h3><div class="detailMeta"><div><div class="itemlabel">Прямой контакт</div><div class="itemvalue" style="color:#b8ec99">'+esc(l.contact)+'</div></div><div><div class="itemlabel">Публикация</div><div class="itemvalue">'+esc(when(l.published_at))+' ('+age+' ч назад)</div></div><div><div class="itemlabel">Канал</div><div class="itemvalue">'+esc(l.channel)+'</div></div><div><div class="itemlabel">Бюджет в объявлении</div><div class="itemvalue">'+esc(l.budget||'Не указан')+'</div></div></div><p class="muted">'+esc(l.reason)+'</p><div class="detailText">'+esc(l.body)+'</div><div class="detailButtons" style="margin-top:20px"><button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">↗ Первоисточник</button><button class="btn" onclick="copyContact()">Копировать контакт</button><button class="btn" onclick="changeStage(\'saved\')">☆ Сохранить</button><button class="btn" onclick="changeStage(\'contacted\')">✓ Написал</button><button class="btn" onclick="changeStage(\'dismissed\')">Скрыть</button><button class="btn draftCta" id="draftGenerate" onclick="generateDraft()">✦ Сформировать отклик</button></div><div class="draftPanel" id="draftPanel" hidden><h4>Индивидуальное письмо для отклика</h4><p class="draftHint">Черновик составляется по задаче из объявления и твоему портфолио. Проверь детали перед отправкой: контакт и заказчик ещё могут требовать подтверждения.</p><textarea class="draftText" id="draftText" aria-label="Текст отклика" oninput="cacheDraft()" spellcheck="true"></textarea><div class="draftActions"><button class="btn primary" id="sendDraftButton" onclick="sendDraft()">➤ Открыть в Telegram и отправить</button><button class="btn" onclick="copyDraft()">Копировать письмо</button><button class="btn" onclick="generateDraft()">↻ Сформировать заново</button></div><p class="draftHint" id="sendDraftHint" style="margin:12px 0 0">Сообщение будет подставлено в чат с заказчиком. Проверь получателя и нажми «Отправить» в Telegram.</p></div></div>';
+ $('details').innerHTML='<div class="detailBody"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span> <span class="score">Рейтинг '+l.score+'/99</span><h3 class="detailTitle">'+esc(l.buyer||'Запрос на дизайн')+'</h3><div class="detailMeta"><div><div class="itemlabel">Прямой контакт</div><div class="itemvalue" style="color:#b8ec99">'+esc(l.contact)+'</div></div><div><div class="itemlabel">Публикация</div><div class="itemvalue">'+esc(when(l.published_at))+' ('+age+' ч назад)</div></div><div><div class="itemlabel">Канал</div><div class="itemvalue">'+esc(l.channel)+'</div></div><div><div class="itemlabel">Бюджет в объявлении</div><div class="itemvalue">'+esc(l.budget||'Не указан')+'</div></div></div><p class="muted">'+esc(l.reason)+'</p><div class="detailText">'+esc(l.body)+'</div><div class="detailButtons" style="margin-top:20px"><button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">↗ Первоисточник</button><button class="btn" onclick="copyContact()">Копировать контакт</button><button class="btn" onclick="changeStage(\'saved\')">☆ Сохранить</button><button class="btn" onclick="changeStage(\'contacted\')">✓ Написал</button><button class="btn" onclick="changeStage(\'dismissed\')">Скрыть</button><button class="btn draftCta" id="draftGenerate" onclick="generateDraft()">✦ Сформировать отклик</button></div><div class="draftPanel" id="draftPanel" hidden><h4>Индивидуальное письмо для отклика</h4><p class="draftHint" id="draftMethod">Разбираю задачу перед генерацией.</p><p class="draftHint" id="draftAnalysis"></p><textarea class="draftText" id="draftText" aria-label="Текст отклика" oninput="cacheDraft()" spellcheck="true"></textarea><div class="draftActions"><button class="btn primary" id="sendDraftButton" onclick="sendDraft()">➤ Открыть в Telegram и отправить</button><button class="btn" onclick="copyDraft()">Копировать письмо</button><button class="btn" onclick="generateDraft()">↻ Сформировать заново</button></div><p class="draftHint" id="sendDraftHint" style="margin:12px 0 0">Сообщение будет подставлено в чат с заказчиком. Проверь получателя и нажми «Отправить» в Telegram.</p></div></div>';
  if(drafts[l.id]){$('draftPanel').hidden=false;$('draftText').value=drafts[l.id]}
+ if(draftInfo[l.id])showDraftInfo(draftInfo[l.id]);
  document.querySelector('.detail')?.classList.toggle('draftExpanded',!$('draftPanel').hidden);
  updateSendButton(l);
 }
+function showDraftInfo(result){
+ const mode=$('draftMethod'),analysis=$('draftAnalysis');
+ if(mode)mode.textContent=result.method==='ai'
+   ?'ИИ прочитал исходное объявление и подготовил новый вариант.'
+   :'Локальный вариант по требованиям объявления. Для полноценной ИИ-генерации подключите API в настройках.';
+ if(analysis)analysis.textContent=(result.facts||[]).length
+   ?'Учтено из объявления: '+result.facts.slice(0,4).join(' · '):'В объявлении мало конкретных деталей, стоит уточнить ТЗ.';
+}
 async function generateDraft(){
- const id=selected;if(!id)return;
+ const id=selected;if(!id||draftBusy)return;
+ draftBusy=true;
  const btn=$('draftGenerate');if(btn){btn.disabled=true;btn.textContent='Готовлю отклик…'}
  try{
-  const result=await api('/api/draft',{id});drafts[id]=result.draft;
+  const result=await api('/api/draft',{id});drafts[id]=result.draft;draftInfo[id]=result;
   if(selected!==id)return;
   $('draftPanel').hidden=false;$('draftText').value=result.draft;
+  showDraftInfo(result);
   document.querySelector('.detail')?.classList.add('draftExpanded');
   updateSendButton(leads.find(x=>x.id===id));
-  // Align the new letter to the top of the viewport after layout settles.
+  // Start-align the expanded panel, after layout recalculation.
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     if(selected===id)$('draftPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
   }));
-  toast('Отклик готов. Проверь текст и открой диалог с заказчиком.');
+  toast(result.method==='ai'?'Новый индивидуальный текст готов':'Новый локальный вариант. ИИ пока не подключён.');
  }catch(e){toast('Ошибка генерации: '+e.message)}
- finally{if(btn&&btn.isConnected){btn.disabled=false;btn.textContent='✦ Сформировать отклик'}}
+ finally{draftBusy=false;if(btn&&btn.isConnected){btn.disabled=false;btn.textContent='✦ Сформировать отклик'}}
 }
 function recipientKind(contact){
  const c=String(contact||'').trim();
@@ -107,7 +118,7 @@ function sendDraft(){
  cacheDraft();
  if(kind==='telegram'){
   const username=lead.contact.slice(1);
-  // Telegram link pre-fills the draft. It does NOT send a message.
+  // Official Telegram public-username draft links. This does NOT send automatically.
   const url='https://t.me/'+encodeURIComponent(username)+'?text='+encodeURIComponent(message);
   const popup=window.open(url,'_blank');
   if(!popup)window.location.href=url;
@@ -119,7 +130,7 @@ function sendDraft(){
  }else{
   toast('Прямой адрес получателя не распознан');
  }
- // Never claim sent or mark contacted without user confirmation.
+ // Не меняем статус на «Написал», пока пользователь не подтвердил отправку.
 }
 function cacheDraft(){if(selected&&$('draftText'))drafts[selected]=$('draftText').value}
 async function copyDraft(){
@@ -135,8 +146,8 @@ async function refreshSources(){try{sourceList=(await api('/api/sources')).items
 async function runScan(){if(scanBusy)return;scanBusy=true;try{await api('/api/scan',{});toast('Проверка источников запущена');setTimeout(refreshStatus,1000)}catch(e){toast(e.message)}finally{scanBusy=false}}
 async function addSource(){let url=prompt('Ссылка на публичный Telegram-канал, например https://t.me/s/zakaz_design');if(!url)return;try{let x=await api('/api/source',{url:url.trim()});await refreshSources();toast('Источник добавлен');runScan()}catch(e){toast(e.message)}}
 async function showSettings(){$('settingsModal').classList.add('open');await refreshSettings()}
-async function refreshSettings(){try{let s=await api('/api/settings');$('chatid').value=s.telegram_chat_id||'';$('threshold').value=s.min_alert_score;$('settingsState').textContent=s.telegram_configured?'Токен сохранён локально':'Telegram пока не подключён'}catch(e){$('settingsState').textContent=e.message}}
-async function saveSettings(){try{let data={telegram_chat_id:$('chatid').value.trim(),min_alert_score:Number($('threshold').value)};if($('token').value.trim())data.telegram_token=$('token').value.trim();await api('/api/settings',data);$('token').value='';await refreshSettings();toast('Настройки сохранены')}catch(e){toast(e.message)}}
+async function refreshSettings(){try{let s=await api('/api/settings');$('chatid').value=s.telegram_chat_id||'';$('threshold').value=s.min_alert_score;$('aiModel').value=s.ai_model||'gpt-4.1-mini';$('aiState').textContent=s.ai_configured?'ИИ подключён · ключ сохранён локально':'ИИ ещё не подключён · работает локальный генератор';$('settingsState').textContent=s.telegram_configured?'Токен Telegram сохранён локально':'Telegram пока не подключён'}catch(e){$('settingsState').textContent=e.message}}
+async function saveSettings(){try{let data={telegram_chat_id:$('chatid').value.trim(),min_alert_score:Number($('threshold').value),ai_model:$('aiModel').value.trim()};if($('token').value.trim())data.telegram_token=$('token').value.trim();if($('aiKey').value.trim())data.openai_api_key=$('aiKey').value.trim();await api('/api/settings',data);$('token').value='';$('aiKey').value='';await refreshSettings();toast('Настройки сохранены')}catch(e){toast(e.message)}}
 async function discoverChat(){try{let r=await api('/api/telegram/discover',{});$('chatid').value=r.chat_id;await saveSettings();toast('Чат найден')}catch(e){toast(e.message)}}
 async function sendTest(){try{await api('/api/telegram/test',{});toast('Пробное сообщение отправлено в Telegram')}catch(e){toast(e.message)}}
 refreshStatus();refreshLeads();refreshSources();setInterval(()=>{refreshStatus();refreshLeads()},15000);
