@@ -79,19 +79,27 @@ class Handler(BaseHTTPRequestHandler):
    q=urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
    stage=(q.get("stage",["all"])[0]);category=q.get("category",["all"])[0]
    filters=[];values=[]
-   if stage!="all":filters.append("stage=?");values.append(stage)
+   if stage=="contacted":filters.append("contacted=1")
+   elif stage=="not_contacted":filters.append("contacted=0 AND stage!='dismissed'")
+   elif stage=="saved":filters.append("saved=1 AND stage!='dismissed'")
+   elif stage=="dismissed":filters.append("stage='dismissed'")
    if category!="all":filters.append("category=?");values.append(category)
    sql="SELECT * FROM leads"+(" WHERE "+" AND ".join(filters) if filters else "")+" ORDER BY published_at DESC LIMIT 600"
    db=conn();rows=[dict(x) for x in db.execute(sql,values).fetchall()];db.close()
    return self.json({"items":rows})
   if path=="/api/status":
    db=conn()
-   counts=dict(db.execute("SELECT stage,count(*) FROM leads GROUP BY stage").fetchall())
+   counts={
+      "new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed'").fetchone()[0],
+      "contacted":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=1 AND stage!='dismissed'").fetchone()[0],
+      "saved":db.execute("SELECT COUNT(*) FROM leads WHERE saved=1 AND stage!='dismissed'").fetchone()[0],
+      "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0]
+   }
    bycat=dict(db.execute("SELECT category,count(*) FROM leads WHERE stage!='dismissed' GROUP BY category").fetchall())
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
    db.close()
    return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources()),
-     "counts":counts,"by_category":bycat,"last_scan":dict(scan) if scan else None})
+     "counts":counts,"total_leads":counts["new"]+counts["contacted"]+counts["dismissed"],"by_category":bycat,"last_scan":dict(scan) if scan else None})
   if path=="/api/sources":return self.json({"items":sources()})
   if path=="/api/settings":
    conf=settings()
@@ -138,11 +146,26 @@ class Handler(BaseHTTPRequestHandler):
    threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
    return self.json({"ok":True})
   if path=="/api/lead":
-   ident=str(data.get("id",""));stage=str(data.get("stage",""))
-   if not re.fullmatch(r"[a-f0-9]{20}",ident) or stage not in ("new","saved","contacted","dismissed"):
-    return self.json({"error":"Invalid lead/stage"},400)
-   db=conn();db.execute("UPDATE leads SET stage=? WHERE id=?",(stage,ident));db.commit();db.close()
-   return self.json({"ok":True})
+   ident=str(data.get("id",""))
+   field=str(data.get("field",""))
+   value=data.get("value")
+   if not re.fullmatch(r"[a-f0-9]{20}",ident):
+    return self.json({"error":"Invalid lead"},400)
+   if field not in ("contacted","saved","hidden") or type(value) is not bool:
+    return self.json({"error":"Invalid status update"},400)
+   db=conn()
+   try:
+    if field=="contacted":
+     db.execute("UPDATE leads SET contacted=? WHERE id=?",(int(value),ident))
+    elif field=="saved":
+     db.execute("UPDATE leads SET saved=? WHERE id=?",(int(value),ident))
+    else:
+     db.execute("UPDATE leads SET stage=? WHERE id=?",("dismissed" if value else "new",ident))
+    db.commit()
+    row=db.execute("SELECT contacted,saved,stage FROM leads WHERE id=?",(ident,)).fetchone()
+   finally: db.close()
+   if not row:return self.json({"error":"Project not found"},404)
+   return self.json({"ok":True,"lead":{"contacted":row["contacted"],"saved":row["saved"],"stage":row["stage"]}})
   if path=="/api/source":
    url=str(data.get("url","")).strip()
    if not re.fullmatch(r"https://t\.me/s/[A-Za-z0-9_]+",url):return self.json({"error":"Нужна публичная ссылка формата https://t.me/s/channel"},400)
