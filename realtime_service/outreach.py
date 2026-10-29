@@ -274,13 +274,13 @@ def local_draft(facts: dict, previous: Sequence[str] = ()) -> str:
         professional=pick(PRACTICE[kind])
         ending=pick(FINISH).format(question=question)
         core=" ".join(x for x in (grounded,professional) if x)
-        draft=f"{opener} {identity}\n\n{core}\n\nПортфолио: {PORTFOLIO}\n\n{ending}"
+        draft=f"{opener} {identity}\n\n{core}\n\nПортфолио: {PORTFOLIO}\n\n{ending}\n\nС уважением,\nВячеслав"
         sim=max((difflib.SequenceMatcher(None,draft,p).ratio() for p in previous[:25]),default=0)
         if draft not in previous and sim<0.82:return draft
         if 1-sim>best_score:best_score=1-sim;best_text=draft
     return best_text or draft
 
-INSTRUCTIONS="""Ты пишешь КОРОТКИЕ индивидуальные отклики для Telegram от имени Вячеслава,
+INSTRUCTIONS="""Ты пишешь КОРОТКИЕ индивидуальные письма по электронной почте для проектных заказчиков от имени Вячеслава,
 самостоятельного дизайнера (не директора и не агентства). Прочитай объявление целиком;
 выбери 1–3 наиболее конкретных требования и ответь именно на них.
 Напиши текст на русском в 45–90 слов, без длинной самопрезентации, без канцелярита,
@@ -302,7 +302,7 @@ def ai_draft(lead:Mapping[str,Any], analysis:dict, previous:Sequence[str], api_k
       "объявление":analysis["source"],"задача":analysis["topic"],
       "детали_объявления":analysis["facts"],"ограничения":analysis["constraints"],
       "предыдущие_версии_этого_отклика_НЕ_повторять":list(previous[:6]),
-      "инструкция":"Создай новую самостоятельную версию короткого отклика от Вячеслава, ориентированную именно на это объявление."
+      "инструкция":"Создай новую короткую версию email-отклика по конкретному объявлению. Приветствие, суть, портфолио и подпись «С уважением, Вячеслав» обязательны. Тему письма приложение создаст отдельно."
     },ensure_ascii=False)
     response=requests.post("https://api.openai.com/v1/responses",
       headers={"Authorization":"Bearer "+api_key,"Content-Type":"application/json"},
@@ -331,6 +331,22 @@ def valid_draft(text:str,analysis:dict,previous:Sequence[str])->bool:
       if not source_hits and not any(t.lower() in text.lower() for t in analysis["source"].split() if len(t)>9):
        return False
     return True
+
+def subject_for_brief(analysis: Mapping[str,Any]) -> str:
+    """Grounded short email subject, no unrelated brand references."""
+    kind=str(analysis.get("kind") or "")
+    facts=analysis.get("facts") or []
+    if kind=="web":
+        platform=next((f for f in ("Tilda","Webflow","Framer") if f in facts),"")
+        return "Отклик на проект: "+("лендинг" if "лендинг" in analysis.get("topic","") else "дизайн сайта")+(" на "+platform if platform else "")
+    if kind=="presentations":
+        volume=next((f for f in facts if " слайдов" in f),"")
+        return "Отклик: дизайн презентации"+(" · "+volume if volume else "")
+    if kind=="packaging":return "Отклик: дизайн упаковки и айдентика"
+    if kind=="marketplace":return "Отклик: дизайн карточек товаров"
+    if kind=="uiux":return "Отклик: UI/UX-дизайн"
+    if kind=="branding":return "Отклик: фирменный стиль и графика"
+    return "Отклик: графический дизайн"
 
 def create_draft(lead:Mapping[str,Any],previous:Sequence[str]=(),api_key:str="",model:str=MODEL_DEFAULT)->tuple[str,str,dict]:
     brief=analyse_brief(lead)
