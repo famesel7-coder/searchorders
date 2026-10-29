@@ -159,7 +159,8 @@ class Monitor:
   errors=[];new=[];matched=0;count=0;fetched=0
   try:
    from .email_sources import SOURCES as EMAIL_SOURCES,FETCHERS as EMAIL_FETCHERS
-   from .platform_sources import SOURCES as PLATFORM_SOURCES,FETCHERS as PLATFORM_FETCHERS
+   from .free_bid_sources import SOURCES as FREE_SOURCES,FETCHERS as FREE_FETCHERS
+   from .direct_email_sources import SOURCES as DIRECT_SOURCES,FETCHERS as DIRECT_FETCHERS
    urls=sources()
    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
     futures={ex.submit(fetch,url):url for url in urls}
@@ -183,7 +184,7 @@ class Monitor:
      except Exception as e:errors.append(f"{futures[future]}: {str(e)[:100]}")
     # Non-Telegram public boards: check every 15 minutes. Re-run through
     # the button only after a short cooldown, to respect source bandwidth.
-    for src in (*EMAIL_SOURCES,*PLATFORM_SOURCES):
+    for src in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES):
      name=src["id"]
      previous=db.execute("SELECT checked_at FROM email_source_checks WHERE source_id=?",(name,)).fetchone()
      if previous:
@@ -193,7 +194,7 @@ class Monitor:
      count+=1
      check_time=datetime.now(timezone.utc).isoformat()
      try:
-      fetcher=(EMAIL_FETCHERS.get(name) or PLATFORM_FETCHERS.get(name))
+      fetcher=(EMAIL_FETCHERS.get(name) or FREE_FETCHERS.get(name) or DIRECT_FETCHERS.get(name))
       nposts,items,source_errors=fetcher()
       fetched+=nposts;matched+=len(items)
       errors.extend(source_errors)
@@ -217,7 +218,7 @@ class Monitor:
        (now,count,fetched,matched,len(new),json.dumps(errors,ensure_ascii=False)))
     db.commit();db.close()
    self.last={"at":now,"sources":count,"posts":fetched,"matched":matched,"new":len(new),"errors":errors}
-   if notify and new: notify([x for x in new if x.get("channel")!="workspace-tender"])
+   if notify and new: notify(new)
    return self.last
   finally:self.active=False;self.lock.release()
  def start(self,notify=None):
