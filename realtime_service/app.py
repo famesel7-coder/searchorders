@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
-from .outreach import create_draft
+from .outreach import create_draft, subject_for_brief
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
 CONFIG=RUNTIME/"settings.json"
@@ -71,13 +71,14 @@ class Handler(BaseHTTPRequestHandler):
   return json.loads(self.rfile.read(length) or b"{}")
  def do_GET(self):
   path=urllib.parse.urlsplit(self.path).path
-  if path in ("/","/index.html","/contacted","/contacted/","/saved","/saved/","/hidden","/hidden/"):
+  if path in ("/","/index.html","/contacted","/contacted/","/saved","/saved/","/hidden","/hidden/","/without-email","/without-email/"):
    data=(Path(__file__).resolve().parent/"index.html").read_bytes()
    self.send_response(200);self.send_header("Content-Type","text/html; charset=utf-8")
    self.send_header("Cache-Control","no-store");self.end_headers();self.wfile.write(data);return
   if path=="/api/leads":
    q=urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
    stage=(q.get("stage",["all"])[0]);category=q.get("category",["all"])[0]
+   email_only=q.get("email_only",["0"])[0]=="1"
    filters=[];values=[]
    if stage=="contacted":filters.append("contacted=1 AND stage!='dismissed'")
    elif stage=="not_contacted":
@@ -86,6 +87,9 @@ class Handler(BaseHTTPRequestHandler):
         (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')""")
    elif stage=="saved":filters.append("saved=1 AND stage!='dismissed'")
    elif stage=="dismissed":filters.append("stage='dismissed'")
+   elif stage=="without_email":
+    filters.append("contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')")
+   if email_only:filters.append("contact NOT LIKE '@%' AND contact LIKE '%@%.%'")
    if category!="all":filters.append("category=?");values.append(category)
    sql="SELECT * FROM leads"+(" WHERE "+" AND ".join(filters) if filters else "")+" ORDER BY published_at DESC LIMIT 600"
    db=conn();rows=[dict(x) for x in db.execute(sql,values).fetchall()];db.close()
@@ -98,7 +102,9 @@ class Handler(BaseHTTPRequestHandler):
          (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')""").fetchone()[0],
       "contacted":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=1 AND stage!='dismissed'").fetchone()[0],
       "saved":db.execute("SELECT COUNT(*) FROM leads WHERE saved=1 AND stage!='dismissed'").fetchone()[0],
-      "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0]
+      "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0],
+      "email_new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact NOT LIKE '@%' AND contact LIKE '%@%.%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0],
+      "without_email":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0]
    }
    bycat=dict(db.execute("SELECT category,count(*) FROM leads WHERE stage!='dismissed' GROUP BY category").fetchall())
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
@@ -128,6 +134,8 @@ class Handler(BaseHTTPRequestHandler):
     try:
      lead=db.execute("SELECT body, buyer, category, contact FROM leads WHERE id=?",(ident,)).fetchone()
      if lead is None:return self.json({"error":"Проект не найден"},404)
+     if not re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",lead["contact"]):
+      return self.json({"error":"У заказчика нет опубликованного email. Отправка письма недоступна."},409)
      past=db.execute("""SELECT content FROM draft_history
        ORDER BY CASE WHEN lead_id=? THEN 0 ELSE 1 END, id DESC LIMIT 30""",(ident,)).fetchall()
      previous=[x["content"] for x in past]
@@ -145,8 +153,44 @@ class Handler(BaseHTTPRequestHandler):
       (ident,draft,method,datetime.now(timezone.utc).isoformat()))
      db.commit()
     finally:db.close()
-   return self.json({"ok":True,"draft":draft,"method":method,
-       "ai_configured":bool(api_key),"facts":brief["facts"][:5],"contact":lead["contact"]})
+   return self.json({"ok":True,"draft":draft,"subject":subject_for_brief(brief),
+       "method":method,"ai_configured":bool(api_key),"facts":brief["facts"][:5],
+       "contact":lead["contact"],"from_address":"cco@imon.agency"})
+  if path=="/api/lead/manual":
+   address=str(data.get("email") or "").strip().lower()
+   url=str(data.get("url") or "").strip()
+   body=str(data.get("brief") or "").strip()
+   buyer=str(data.get("buyer") or "").strip()
+   if not re.fullmatch(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}",address):
+    return self.json({"error":"Укажите реальный email из объявления"},400)
+   parsed=urllib.parse.urlparse(url)
+   if parsed.scheme not in ("http","https") or not parsed.hostname or len(url)>1000:
+    return self.json({"error":"Добавьте ссылку на первоисточник"},400)
+   if len(body)<35 or len(body)>3600:
+    return self.json({"error":"Вставьте описание задачи (35–3600 символов)"},400)
+   if len(buyer)>150:return self.json({"error":"Слишком длинное имя заказчика"},400)
+   from .outreach import analyse_brief
+   from .engine import CATEGORIES
+   import hashlib
+   category_counts={k:len(re.findall(pattern,body,re.I)) for k,(label,pattern) in CATEGORIES.items()}
+   category=max(category_counts,key=category_counts.get)
+   if category_counts[category]==0:return self.json({"error":"Не удалось определить дизайн-задачу по тексту"},400)
+   leadid=hashlib.sha1((url+"|"+address).encode()).hexdigest()[:20]
+   db=conn()
+   try:
+    blocked=db.execute("SELECT 1 FROM leads WHERE lower(contact)=? AND (contacted=1 OR stage='dismissed') LIMIT 1",(address,)).fetchone()
+    if blocked:return self.json({"error":"Этот контакт ранее отмечен «Написал» или скрыт. Не добавляем повторно."},409)
+    existing=db.execute("SELECT id FROM leads WHERE url=? OR id=? LIMIT 1",(url,leadid)).fetchone()
+    if existing:return self.json({"error":"Такой заказ уже есть в базе"},409)
+    now=datetime.now(timezone.utc).isoformat()
+    db.execute("""INSERT INTO leads(id,url,channel,published_at,discovered_at,body,category,score,contact,buyer,budget,reason,fingerprint)
+      VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+      (leadid,url,"manual-email",now,now,body,category,75,address,buyer,"",
+       "Добавлено вручную по ссылке. Дата карточки — время добавления, а не дата публикации.",
+       hashlib.sha1((url+"|"+address).encode()).hexdigest()))
+    db.commit()
+   finally:db.close()
+   return self.json({"ok":True,"id":leadid,"message":"Email-заказ добавлен"})
   if path=="/api/scan":
    if monitor.active:return self.json({"ok":True,"message":"Scan already in progress"})
    threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
