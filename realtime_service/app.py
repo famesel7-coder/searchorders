@@ -6,11 +6,13 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
 from .email_sources import SOURCES as EMAIL_SOURCES
 from .outreach import create_draft, subject_for_brief
+from .translation import looks_english,body_digest,translate_to_russian
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
 CONFIG=RUNTIME/"settings.json"
 monitor=Monitor()
 draft_lock=threading.Lock()
+translation_lock=threading.Lock()
 
 def settings():
  if not CONFIG.exists():return {}
@@ -133,6 +135,40 @@ class Handler(BaseHTTPRequestHandler):
   path=urllib.parse.urlsplit(self.path).path
   try:data=self.readjson()
   except (ValueError,json.JSONDecodeError) as e:return self.json({"error":str(e)},400)
+  if path=="/api/translate":
+   ident=str(data.get("id",""))
+   lang=str(data.get("target","ru"))
+   if not re.fullmatch(r"[a-f0-9]{20}",ident) or lang!="ru":
+    return self.json({"error":"Неверный идентификатор или язык"},400)
+   # SQLite cache is bound to the exact original body hash. Any new text
+   # automatically invalidates an old translation for the same lead.
+   with translation_lock:
+    db=conn()
+    try:
+     row=db.execute("SELECT body FROM leads WHERE id=?",(ident,)).fetchone()
+     if row is None:return self.json({"error":"Заказ не найден"},404)
+     source=row["body"] or ""
+     if not looks_english(source):
+      return self.json({"error":"Этот текст уже на русском или язык не распознан"},409)
+     digest=body_digest(source)
+     cached=db.execute("SELECT translated_body FROM translation_cache WHERE lead_id=? AND source_digest=?",
+       (ident,digest)).fetchone()
+     if cached:return self.json({"ok":True,"translation":cached["translated_body"],
+                                   "target":"ru","cached":True})
+    finally:db.close()
+    try:
+     text=translate_to_russian(source)
+    except Exception as exc:
+     # Never claim success or replace the original text after provider failure.
+     print("Translation error:",str(exc)[:200],file=sys.stderr)
+     return self.json({"error":"Перевод временно недоступен. Оригинальный текст сохранён, попробуйте ещё раз."},502)
+    db=conn()
+    try:
+     db.execute("""INSERT OR REPLACE INTO translation_cache(lead_id,source_digest,translated_body,translated_at)
+        VALUES(?,?,?,?)""",(ident,digest,text,datetime.now(timezone.utc).isoformat()))
+     db.commit()
+    finally:db.close()
+    return self.json({"ok":True,"translation":text,"target":"ru","cached":False})
   if path=="/api/draft":
    ident=str(data.get("id", ""))
    if not re.fullmatch(r"[a-f0-9]{20}",ident):
