@@ -283,7 +283,7 @@ def local_draft(facts: dict, previous: Sequence[str] = ()) -> str:
 INSTRUCTIONS="""Ты пишешь КОРОТКИЕ индивидуальные письма по электронной почте для проектных заказчиков от имени Вячеслава,
 самостоятельного дизайнера (не директора и не агентства). Прочитай объявление целиком;
 выбери 1–3 наиболее конкретных требования и ответь именно на них.
-Напиши текст на русском в 45–90 слов, без длинной самопрезентации, без канцелярита,
+Напиши текст на ЯЗЫКЕ ОБЪЯВЛЕНИЯ: на английском, если исходник английский; на русском, если исходник русский. 45–90 слов, без длинной самопрезентации, без канцелярита,
 пустых комплиментов, искусственных рекламных фраз и клише. Голос естественный и дружелюбно-деловой.
 Ссылку https://samsel.site укажи один раз.
 Не вставляй Avito, Haval и другие бренды, если они не нужны самому заказчику.
@@ -332,8 +332,89 @@ def valid_draft(text:str,analysis:dict,previous:Sequence[str])->bool:
        return False
     return True
 
+def english_brief(source: str)->bool:
+    """Decide by content language, not sender email domain."""
+    letters=re.findall(r"[A-Za-zА-Яа-яЁё]",source)
+    if not letters:return False
+    latin=sum(1 for c in letters if "A"<=c<="Z" or "a"<=c<="z")
+    return latin/len(letters)>0.75
+
+def english_local_draft(brief: Mapping[str,Any], previous: Sequence[str]=())->str:
+    """No fabricated qualifications, prices, or customer-specific successes."""
+    source=brief["source"].lower()
+    if "transparency international" in source or "tender for freelance" in source:
+        context="your call for freelance designers supporting publications, visual materials and data visualizations"
+        capability="editorial layouts, clear visual communication and information-heavy design"
+        question="Could you confirm the format for submitting rates and supporting documents?"
+    elif "future london academy" in source or "occasional project" in source:
+        context="your invitation to freelance designers for upcoming project-based collaborations"
+        capability="presentation design, visual communication and brand-consistent creative work"
+        question="Would it be useful to discuss the kinds of projects you expect to commission?"
+    elif "makkai hang" in source or "typography" in source:
+        context="your freelance Graphic Designer opportunity"
+        capability="typography, layout and consistent visual identities"
+        question="Are you currently reviewing freelance applicants for the upcoming project?"
+    else:
+        context="your freelance design brief"
+        if re.search(r"pitch deck|presentation|slides",source,re.I):
+            context="your presentation design project"
+            capability="clear slide structures, typography and visual storytelling"
+        elif re.search(r"website|landing page|web design",source,re.I):
+            context="your website design project"
+            capability="page structure, responsive design and visual hierarchy"
+        elif re.search(r"ui/ux|interface|product design",source,re.I):
+            context="your product design brief"
+            capability="interface layout, usability and cohesive components"
+        else:
+            capability="visual concepts and production-ready design materials"
+        question="Could you share the scope and expected timeline?"
+    intro=(
+        f"Hello,\n\nI saw {context} and would like to apply.",
+        f"Hi,\n\nI'm interested in {context}.",
+        f"Hello,\n\nI came across {context} and wanted to get in touch.",
+        f"Hi,\n\nI would be glad to be considered for {context}.",
+    )
+    middle=(
+        f"I'm Vyacheslav, an independent designer. My work includes {capability}.",
+        f"My name is Vyacheslav, and I work independently as a designer, with a focus on {capability}.",
+        f"I'm an independent designer working across {capability}.",
+        f"I work as an independent designer and can help with {capability}.",
+    )
+    ending=(
+        question,
+        "Is the opportunity still open to external freelancers?",
+        "I'd be happy to share more detail about relevant work if useful.",
+        "Please let me know the next steps for a freelance application.",
+    )
+    best=None
+    best_similarity=10.0
+    for _ in range(120):
+        text=(pick(intro)+"\n\n"+pick(middle)+
+              f"\n\nPortfolio: {PORTFOLIO}\n\n"+pick(ending)+
+              "\n\nBest regards,\nVyacheslav")
+        score=max((difflib.SequenceMatcher(None,text,p).ratio() for p in previous[:25]),default=0)
+        if score<.82 and text not in previous:return text
+        if score<best_similarity:best_similarity=score;best=text
+    return best or text
+
 def subject_for_brief(analysis: Mapping[str,Any]) -> str:
     """Grounded short email subject, no unrelated brand references."""
+    source=str(analysis.get("source") or "")
+    if english_brief(source):
+        patterns=[
+            r"with the subject line\s*[\'\"“]([^\'\"”]{4,85})[\'\"”]",
+            r"indicate\s*[\'\"“]([^\'\"”]{4,85})[\'\"”]\s+in the subject line",
+            r"subject:\s*([A-Za-z][A-Za-z \-/]{5,80})"
+        ]
+        for pattern in patterns:
+            m=re.search(pattern,source,re.I)
+            if m:return m.group(1).strip()
+        if re.search(r"please indicate.{0,25}freelance graphic designer.{0,25}in the subject",source,re.I):return "Freelance Graphic Designer"
+        if re.search(r"graphic designer",source,re.I):return "Freelance Graphic Designer | Vyacheslav Samsel"
+        if re.search(r"presentation|pitch deck|slides",source,re.I):return "Freelance Presentation Designer | Vyacheslav Samsel"
+        if re.search(r"ui/ux|interface|product designer",source,re.I):return "Freelance UI/UX Designer | Vyacheslav Samsel"
+        if re.search(r"web design|website|landing page",source,re.I):return "Freelance Web Designer | Vyacheslav Samsel"
+        return "Freelance Graphic Designer | Vyacheslav Samsel"
     kind=str(analysis.get("kind") or "")
     facts=analysis.get("facts") or []
     if kind=="web":
@@ -357,5 +438,6 @@ def create_draft(lead:Mapping[str,Any],previous:Sequence[str]=(),api_key:str="",
           if valid_draft(draft,brief,previous):return draft,"ai",brief
         except (requests.RequestException, ValueError,KeyError):
           break
-    local=local_draft(brief,previous)
+    local=(english_local_draft(brief,previous) if english_brief(brief["source"])
+           else local_draft(brief,previous))
     return local,"local",brief
