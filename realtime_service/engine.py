@@ -4,6 +4,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import requests
 from lxml import html
+from .direct_contacts import is_direct_lead
 
 ROOT=Path(__file__).resolve().parent.parent
 RUNTIME=Path(os.environ.get("SEARCHORDERS_STATE",str(ROOT/".runtime")))
@@ -24,14 +25,48 @@ CONTACT=re.compile(r"(?<![\w.])@[a-zA-Z][\w]{4,31}\b|[\w.+-]+@[\w.-]+\.[A-Za-z]{
 BLOCKED={"zakaz_design","digitaltender","freelancetaverna","frilans","designizer","jobaem","telegram","pro_zayavki"}
 SQL="""CREATE TABLE IF NOT EXISTS leads(id TEXT PRIMARY KEY,url TEXT UNIQUE,channel TEXT,published_at TEXT,discovered_at TEXT,
 body TEXT,category TEXT,score INTEGER,contact TEXT,buyer TEXT,budget TEXT,reason TEXT,
-fingerprint TEXT,stage TEXT DEFAULT 'new',notified INTEGER DEFAULT 0);
+fingerprint TEXT,stage TEXT DEFAULT 'new',notified INTEGER DEFAULT 0, contacted INTEGER NOT NULL DEFAULT 0, saved INTEGER NOT NULL DEFAULT 0, expires_at TEXT NOT NULL DEFAULT '');
 CREATE INDEX IF NOT EXISTS idx_time ON leads(published_at DESC);
 CREATE INDEX IF NOT EXISTS idx_fp ON leads(fingerprint);
-CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,at TEXT,sources INTEGER,posts INTEGER,matched INTEGER,new_leads INTEGER,errors TEXT);"""
+CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,at TEXT,sources INTEGER,posts INTEGER,matched INTEGER,new_leads INTEGER,errors TEXT);
+CREATE TABLE IF NOT EXISTS draft_history(
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ lead_id TEXT NOT NULL,
+ content TEXT NOT NULL,
+ method TEXT NOT NULL,
+ created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_draft_lead ON draft_history(lead_id, id DESC);
+CREATE TABLE IF NOT EXISTS email_source_checks(
+ source_id TEXT PRIMARY KEY, checked_at TEXT NOT NULL, fetched INTEGER DEFAULT 0,
+ matched INTEGER DEFAULT 0, last_error TEXT DEFAULT ''
+);
+CREATE TABLE IF NOT EXISTS translation_cache(
+ lead_id TEXT NOT NULL, source_digest TEXT NOT NULL,
+ translated_body TEXT NOT NULL, translated_at TEXT NOT NULL,
+ PRIMARY KEY(lead_id,source_digest)
+);
+"""
 
 def conn():
  RUNTIME.mkdir(exist_ok=True,parents=True)
- db=sqlite3.connect(DB,timeout=30,check_same_thread=False);db.row_factory=sqlite3.Row;db.executescript(SQL)
+ db=sqlite3.connect(DB,timeout=30,check_same_thread=False)
+ db.row_factory=sqlite3.Row
+ db.executescript(SQL)
+ # Older installs stored mutually exclusive 'saved' and 'contacted' as one
+ # stage. Migrate once, preserving all existing flags without data loss.
+ columns={row["name"] for row in db.execute("PRAGMA table_info(leads)")}
+ if "contacted" not in columns:
+  db.execute("ALTER TABLE leads ADD COLUMN contacted INTEGER NOT NULL DEFAULT 0")
+ if "saved" not in columns:
+  db.execute("ALTER TABLE leads ADD COLUMN saved INTEGER NOT NULL DEFAULT 0")
+ if "expires_at" not in columns:
+  db.execute("ALTER TABLE leads ADD COLUMN expires_at TEXT NOT NULL DEFAULT ''")
+ if "contacted" not in columns or "saved" not in columns:
+  db.execute("UPDATE leads SET contacted=1 WHERE stage='contacted'")
+  db.execute("UPDATE leads SET saved=1 WHERE stage='saved'")
+  db.execute("UPDATE leads SET stage='new' WHERE stage IN ('contacted','saved')")
+  db.commit()
  return db
 
 def sources():
@@ -79,6 +114,8 @@ def classify(text,url,node,channel,published):
   if item.lstrip("@").lower() in BLOCKED or item.lstrip("@").lower()==channel.lower() or item.lower().endswith("bot"):continue
   if item.lower() not in [x.lower() for x in cc]:cc.append(item)
  if not cc:return None
+ # Prefer an explicitly published email over a Telegram handle.
+ cc.sort(key=lambda v: 0 if re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",v) else 1)
  if cc[0].lower().startswith(("info@","hello@")) and not re.search(r"контакт|отклик|писать|пишите|резюме|портфолио",text,re.I):return None
  buyer_match=re.search(r"(?:компания|агентство|заказчик)\s*[:—-]\s*([^\n,]{3,45})",text,re.I)
  buyer=buyer_match.group(1).strip(" .—-") if buyer_match else ""
@@ -117,26 +154,69 @@ def fetch(url):
 
 class Monitor:
  def __init__(self): self.lock=threading.Lock();self.active=False;self.last={};self.stop=threading.Event()
- def scan(self,notify=None):
+ def scan(self,notify=None,force_email=False):
   if not self.lock.acquire(False):return {"busy":True}
   self.active=True
   errors=[];new=[];matched=0;count=0;fetched=0
   try:
-   urls=sources()
+   from .email_sources import SOURCES as EMAIL_SOURCES,FETCHERS as EMAIL_FETCHERS
+   from .direct_email_sources import SOURCES as DIRECT_SOURCES,FETCHERS as DIRECT_FETCHERS
+   # Telegram reposts do not prove the contact belongs to the buyer.
+   # Keep their old data in the archive; do not ingest them as new direct leads.
+   urls=[]
    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
     futures={ex.submit(fetch,url):url for url in urls}
     db=conn();outreach=contacted()
+    # Do not reintroduce a previous customer's repost, even if the
+    # message URL or wording changed. Keep archived leads in the database.
+    outreach.update(row["contact"].lower() for row in db.execute(
+        "SELECT DISTINCT contact FROM leads WHERE contacted=1 OR stage='dismissed'"
+    ) if row["contact"])
     for future in concurrent.futures.as_completed(futures):
      count+=1
      try:
       posts,leads=future.result();fetched+=posts;matched+=len(leads)
       for item in leads:
+       if not is_direct_lead(item):continue
+       item.setdefault("expires_at","")
        if item["contact"].lower() in outreach:continue
        if db.execute("SELECT 1 FROM leads WHERE url=? OR fingerprint=?",(item["url"],item["fingerprint"])).fetchone():continue
-       db.execute("""INSERT OR IGNORE INTO leads(id,url,channel,published_at,discovered_at,body,category,score,contact,buyer,budget,reason,fingerprint)
-           VALUES(:id,:url,:channel,:published_at,:discovered_at,:body,:category,:score,:contact,:buyer,:budget,:reason,:fingerprint)""",item)
+       db.execute("""INSERT OR IGNORE INTO leads(id,url,channel,published_at,discovered_at,body,category,score,contact,buyer,budget,reason,fingerprint,expires_at)
+           VALUES(:id,:url,:channel,:published_at,:discovered_at,:body,:category,:score,:contact,:buyer,:budget,:reason,:fingerprint,:expires_at)""",item)
        if db.execute("SELECT changes()").fetchone()[0]:new.append(item)
      except Exception as e:errors.append(f"{futures[future]}: {str(e)[:100]}")
+    # Non-Telegram public boards: check every 15 minutes. Re-run through
+    # the button only after a short cooldown, to respect source bandwidth.
+    for src in (*EMAIL_SOURCES,*DIRECT_SOURCES):
+     name=src["id"]
+     previous=db.execute("SELECT checked_at FROM email_source_checks WHERE source_id=?",(name,)).fetchone()
+     if previous:
+      try:age=(datetime.now(timezone.utc)-datetime.fromisoformat(previous["checked_at"])).total_seconds()
+      except ValueError:age=999999
+      if age < (120 if force_email else 900):continue
+     count+=1
+     check_time=datetime.now(timezone.utc).isoformat()
+     try:
+      fetcher=(EMAIL_FETCHERS.get(name) or DIRECT_FETCHERS.get(name))
+      nposts,items,source_errors=fetcher()
+      fetched+=nposts;matched+=sum(1 for item in items if is_direct_lead(item))
+      errors.extend(source_errors)
+      for item in items:
+       if not is_direct_lead(item):continue
+       item.setdefault("expires_at","")
+       if item["contact"].lower() in outreach:continue
+       if db.execute("SELECT 1 FROM leads WHERE url=? OR fingerprint=?",(item["url"],item["fingerprint"])).fetchone():continue
+       db.execute("""INSERT OR IGNORE INTO leads(id,url,channel,published_at,discovered_at,body,category,score,contact,buyer,budget,reason,fingerprint,expires_at)
+         VALUES(:id,:url,:channel,:published_at,:discovered_at,:body,:category,:score,:contact,:buyer,:budget,:reason,:fingerprint,:expires_at)""",item)
+       if db.execute("SELECT changes()").fetchone()[0]:new.append(item)
+      err_text="; ".join(source_errors)[:300]
+     except Exception as exc:
+      nposts=0;items=[];err_text=str(exc)[:300];errors.append(name+": "+err_text)
+     db.execute("""INSERT INTO email_source_checks(source_id,checked_at,fetched,matched,last_error)
+        VALUES(?,?,?,?,?) ON CONFLICT(source_id) DO UPDATE SET
+        checked_at=excluded.checked_at,fetched=excluded.fetched,
+        matched=excluded.matched,last_error=excluded.last_error""",
+        (name,check_time,nposts,len(items),err_text))
     now=datetime.now(timezone.utc).isoformat()
     db.execute("INSERT INTO scans(at,sources,posts,matched,new_leads,errors) VALUES(?,?,?,?,?,?)",
        (now,count,fetched,matched,len(new),json.dumps(errors,ensure_ascii=False)))

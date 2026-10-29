@@ -14,5 +14,3 @@ data/translation_cache.json
 
 # Local SearchOrders runtime (credentials + SQLite)
 .runtime/
-__pycache__/
-*.pyc
