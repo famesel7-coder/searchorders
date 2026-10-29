@@ -110,7 +110,8 @@ class InboxArchiveTests(unittest.TestCase):
                     item("i"*20,"@contact_fresh")]
         with patch.object(engine,"sources",return_value=["https://t.me/s/fake"]), \
              patch.object(engine,"fetch",return_value=(3,candidates)), \
-             patch.object(engine,"contacted",return_value=set()):
+             patch.object(engine,"contacted",return_value=set()), \
+             patch("realtime_service.email_sources.SOURCES",()):
             result=engine.Monitor().scan()
         self.assertEqual(result["new"],1)
         available=self.get("/api/leads?stage=not_contacted")["items"]
