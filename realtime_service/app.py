@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
+from .email_sources import SOURCES as EMAIL_SOURCES
 from .outreach import create_draft, subject_for_brief
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
@@ -90,7 +91,9 @@ class Handler(BaseHTTPRequestHandler):
    elif stage=="dismissed":filters.append("stage='dismissed'")
    elif stage=="without_email":
     filters.append("contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')")
-   if email_only:filters.append("contact NOT LIKE '@%' AND contact LIKE '%@%.%'")
+   if email_only:
+    filters.append("contact NOT LIKE '@%' AND contact LIKE '%@%.%'")
+    filters.append("(expires_at='' OR expires_at>=DATE('now'))")
    if category!="all":filters.append("category=?");values.append(category)
    sql="SELECT * FROM leads"+(" WHERE "+" AND ".join(filters) if filters else "")+" ORDER BY published_at DESC LIMIT 600"
    db=conn();rows=[dict(x) for x in db.execute(sql,values).fetchall()];db.close()
@@ -104,16 +107,20 @@ class Handler(BaseHTTPRequestHandler):
       "contacted":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=1 AND stage!='dismissed'").fetchone()[0],
       "saved":db.execute("SELECT COUNT(*) FROM leads WHERE saved=1 AND stage!='dismissed'").fetchone()[0],
       "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0],
-      "email_new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact NOT LIKE '@%' AND contact LIKE '%@%.%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0],
+      "email_new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact NOT LIKE '@%' AND contact LIKE '%@%.%' AND (expires_at='' OR expires_at>=DATE('now')) AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0],
       "without_email":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0]
    }
    bycat=dict(db.execute("SELECT category,count(*) FROM leads WHERE stage!='dismissed' GROUP BY category").fetchall())
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
    total_count=db.execute("SELECT COUNT(*) FROM leads").fetchone()[0]
+   checks=[dict(x) for x in db.execute("SELECT * FROM email_source_checks ORDER BY source_id").fetchall()]
    db.close()
-   return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources()),
+   return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources())+len(EMAIL_SOURCES),
+     "email_sources":checks,
      "counts":counts,"total_leads":total_count,"by_category":bycat,"last_scan":dict(scan) if scan else None})
-  if path=="/api/sources":return self.json({"items":sources()})
+  if path=="/api/sources":
+   return self.json({"items":sources()+[row["url"] for row in EMAIL_SOURCES],
+      "email_sources":[{"id":row["id"],"name":row["title"],"url":row["url"]} for row in EMAIL_SOURCES]})
   if path=="/api/settings":
    conf=settings()
    return self.json({"telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
@@ -194,7 +201,7 @@ class Handler(BaseHTTPRequestHandler):
    return self.json({"ok":True,"id":leadid,"message":"Email-заказ добавлен"})
   if path=="/api/scan":
    if monitor.active:return self.json({"ok":True,"message":"Scan already in progress"})
-   threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
+   threading.Thread(target=monitor.scan,args=(send_notifications,),kwargs={"force_email":True},daemon=True).start()
    return self.json({"ok":True})
   if path=="/api/lead":
    ident=str(data.get("id",""))
@@ -224,7 +231,7 @@ class Handler(BaseHTTPRequestHandler):
    existing=json.loads(p.read_text()) if p.exists() else []
    if url not in existing:existing.append(url)
    p.write_text(json.dumps(existing,ensure_ascii=False,indent=2))
-   return self.json({"ok":True,"sources":len(sources())})
+   return self.json({"ok":True,"sources":len(sources())+len(EMAIL_SOURCES)})
   if path=="/api/settings":
    c=settings()
    token=data.get("telegram_token")
@@ -274,7 +281,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
  server=ThreadingHTTPServer((HOST,PORT),Handler)
  monitor.start(send_notifications)
- print(f"SearchOrders dashboard: http://{HOST}:{PORT}, Telegram sources: {len(sources())}, interval: {INTERVAL}s",flush=True)
+ print(f"SearchOrders dashboard: http://{HOST}:{PORT}, Telegram sources: {len(sources())}, email sources: {len(EMAIL_SOURCES)}, interval: {INTERVAL}s",flush=True)
  try:server.serve_forever(poll_interval=.4)
  except KeyboardInterrupt:pass
  finally:monitor.stop.set();server.server_close()
