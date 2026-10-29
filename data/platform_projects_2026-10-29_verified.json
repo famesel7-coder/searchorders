@@ -1,0 +1,80 @@
+{
+  "checked_on": "2026-10-29",
+  "objective": "Первичная подборка новых проектов с ОФИЦИАЛЬНЫМ откликом через площадку вместо холодных Telegram-DM",
+  "important": "Дата и описание из первичных карточек подтверждены, но факт открытого слота клиентом в переписке не подтвержден. Некоторые карточки требуют аккаунт/верификацию или PRO. Не отправляли ни одной заявки.",
+  "projects": [
+    {
+      "rank": 1,
+      "platform": "Workspace",
+      "title": "Редизайн сайта мебельной фабрики",
+      "post_date": "2026-10-29",
+      "budget_rub_min": 100000,
+      "budget_rub_max": 400000,
+      "deadline": "2026-11-05",
+      "url": "https://workspace.ru/tenders/redizayn-sayta-mebelnoy-fabriki-19087/",
+      "brief": "B2B-презентация фабрики в эстетике тихой роскоши, переработка сайта, отдельный лого-редизайн",
+      "status": "accepting_offers",
+      "way_to_apply": "Workspace, PRO required for tender submissions, individual specialist registration supported",
+      "buyer_verification": "Organizing legal entity in Penza; exact legal name not public; do not invent",
+      "fit": "High visual design/website/identity relevance, but budget for entire site; check technical scope and PRO cost",
+      "security": "Do not buy PRO unless economically justified; no automatic application"
+    },
+    {
+      "rank": 2,
+      "platform": "FL.ru",
+      "title": "Дизайн для сайта по сантехническим услугам",
+      "post_date": "2026-10-28",
+      "budget": "по договоренности",
+      "url": "https://www.fl.ru/projects/5527094/dizayn-dlya-sayta-po-santeh-uslugam.html",
+      "brief": "Главная и несколько внутренних страниц для desktop and mobile",
+      "way_to_apply": "Отклик на карточке FL.ru после входа/верификации",
+      "buyer_verification": "User Сергей зарегистрирован ~15 лет, 12 отзывов, 5.0 per card; real company not confirmed",
+      "competition_observed": "~75 bids at check; high",
+      "fit": "Good web design match, but already crowded"
+    },
+    {
+      "rank": 3,
+      "platform": "FL.ru",
+      "title": "Разработка корпоративного сайта консалтинговой компании",
+      "post_date": "2026-10-28",
+      "budget": "по договоренности",
+      "url": "https://www.fl.ru/projects/5527028/razrabotka-korporativnogo-sayta-konsaltingovoy-kompanii-dizayn-i-zapusk.html",
+      "brief": "English multi-page site, Figma design + CMS build + SEO, forms, blog, knowledge transfer",
+      "way_to_apply": "Отклик через FL.ru после проверки аккаунта",
+      "buyer_verification": "Profile Надежда, registered ~9 months, no public legal name verified",
+      "fit": "Strong editorial B2B branding, but full development skills or teammate required",
+      "competition_observed": "~53 bids at check"
+    },
+    {
+      "rank": 4,
+      "platform": "FL.ru",
+      "title": "UX/UI-дизайн B2B-приложения iOS Android",
+      "post_date": "2026-10-26",
+      "budget": "по договоренности",
+      "url": "https://www.fl.ru/projects/5526833/razrabotka-ux-ui-dizayna-prilojeniya.html",
+      "brief": "Design iOS/Android B2B app, actual app/Figma cases required",
+      "way_to_apply": "FL.ru on-platform response after verification",
+      "buyer_verification": "New profile less than one month, company not published",
+      "fit": "Apply only with relevant product UX/UI portfolio examples",
+      "competition_observed": "~26 responses at check"
+    },
+    {
+      "rank": 5,
+      "platform": "FL.ru",
+      "title": "Анимационный дизайн сайта компании по продаже дверей",
+      "post_date": "2026-10-29",
+      "budget_rub": 70000,
+      "url": "https://www.fl.ru/projects/5527273/animatsionnyiy-dizayn-sayta-.html",
+      "brief": "Animate door nature-to-interior scene, aesthetic product transitions",
+      "way_to_apply": "FL.ru on-platform response after verification",
+      "buyer_verification": "Profile ~8 years old, legal buyer identity unconfirmed",
+      "fit": "Only if confident motion/3D web implementation skills"
+    }
+  ],
+  "lead_gates": {
+    "Workspace": "PRO required to submit and see attachments; do not mark accessible without account",
+    "FL.ru": "on-platform proposals require login and potentially account verification",
+    "All": "No messages submitted automatically; one tick in Telegram does not establish read status"
+  },
+  "prioritization_note": "The platform-first change permits pseudonymous buyer IDs backed by platform history and a legitimate reply route; independently verified company names are not required in this category."
+}
