@@ -27,7 +27,15 @@ body TEXT,category TEXT,score INTEGER,contact TEXT,buyer TEXT,budget TEXT,reason
 fingerprint TEXT,stage TEXT DEFAULT 'new',notified INTEGER DEFAULT 0);
 CREATE INDEX IF NOT EXISTS idx_time ON leads(published_at DESC);
 CREATE INDEX IF NOT EXISTS idx_fp ON leads(fingerprint);
-CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,at TEXT,sources INTEGER,posts INTEGER,matched INTEGER,new_leads INTEGER,errors TEXT);"""
+CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,at TEXT,sources INTEGER,posts INTEGER,matched INTEGER,new_leads INTEGER,errors TEXT);
+CREATE TABLE IF NOT EXISTS draft_history(
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ lead_id TEXT NOT NULL,
+ content TEXT NOT NULL,
+ method TEXT NOT NULL,
+ created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_draft_lead ON draft_history(lead_id, id DESC);"""
 
 def conn():
  RUNTIME.mkdir(exist_ok=True,parents=True)
