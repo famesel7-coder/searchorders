@@ -120,7 +120,11 @@ class EmailWorkflowTests(unittest.TestCase):
         self.assertIn("mailto:",page)
         self.assertIn("cco@imon.agency",page)
         self.assertNotIn("window.open(url,'_blank')",page)
-        self.assertIn("Отправка не произойдёт автоматически",page)
+        self.assertIn("Перед отправкой проверь аккаунт",page)
+        self.assertIn('id="emailFrom"',page)
+        self.assertIn("famesel7@gmail.com",page)
+        self.assertIn('href="/without-email"',page)
+        self.assertIn('id="channelSwitch"',page)
 
 if __name__=="__main__":
     unittest.main()
