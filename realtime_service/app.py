@@ -71,7 +71,7 @@ class Handler(BaseHTTPRequestHandler):
   return json.loads(self.rfile.read(length) or b"{}")
  def do_GET(self):
   path=urllib.parse.urlsplit(self.path).path
-  if path in ("/","/index.html"):
+  if path in ("/","/index.html","/contacted","/contacted/","/saved","/saved/","/hidden","/hidden/"):
    data=(Path(__file__).resolve().parent/"index.html").read_bytes()
    self.send_response(200);self.send_header("Content-Type","text/html; charset=utf-8")
    self.send_header("Cache-Control","no-store");self.end_headers();self.wfile.write(data);return
@@ -79,8 +79,11 @@ class Handler(BaseHTTPRequestHandler):
    q=urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
    stage=(q.get("stage",["all"])[0]);category=q.get("category",["all"])[0]
    filters=[];values=[]
-   if stage=="contacted":filters.append("contacted=1")
-   elif stage=="not_contacted":filters.append("contacted=0 AND stage!='dismissed'")
+   if stage=="contacted":filters.append("contacted=1 AND stage!='dismissed'")
+   elif stage=="not_contacted":
+    filters.append("""contacted=0 AND stage!='dismissed'
+        AND lower(contact) NOT IN
+        (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')""")
    elif stage=="saved":filters.append("saved=1 AND stage!='dismissed'")
    elif stage=="dismissed":filters.append("stage='dismissed'")
    if category!="all":filters.append("category=?");values.append(category)
@@ -90,16 +93,19 @@ class Handler(BaseHTTPRequestHandler):
   if path=="/api/status":
    db=conn()
    counts={
-      "new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed'").fetchone()[0],
+      "new":db.execute("""SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed'
+         AND lower(contact) NOT IN
+         (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')""").fetchone()[0],
       "contacted":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=1 AND stage!='dismissed'").fetchone()[0],
       "saved":db.execute("SELECT COUNT(*) FROM leads WHERE saved=1 AND stage!='dismissed'").fetchone()[0],
       "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0]
    }
    bycat=dict(db.execute("SELECT category,count(*) FROM leads WHERE stage!='dismissed' GROUP BY category").fetchall())
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
+   total_count=db.execute("SELECT COUNT(*) FROM leads").fetchone()[0]
    db.close()
    return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources()),
-     "counts":counts,"total_leads":counts["new"]+counts["contacted"]+counts["dismissed"],"by_category":bycat,"last_scan":dict(scan) if scan else None})
+     "counts":counts,"total_leads":total_count,"by_category":bycat,"last_scan":dict(scan) if scan else None})
   if path=="/api/sources":return self.json({"items":sources()})
   if path=="/api/settings":
    conf=settings()
