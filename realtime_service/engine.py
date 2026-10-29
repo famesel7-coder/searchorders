@@ -24,7 +24,7 @@ CONTACT=re.compile(r"(?<![\w.])@[a-zA-Z][\w]{4,31}\b|[\w.+-]+@[\w.-]+\.[A-Za-z]{
 BLOCKED={"zakaz_design","digitaltender","freelancetaverna","frilans","designizer","jobaem","telegram","pro_zayavki"}
 SQL="""CREATE TABLE IF NOT EXISTS leads(id TEXT PRIMARY KEY,url TEXT UNIQUE,channel TEXT,published_at TEXT,discovered_at TEXT,
 body TEXT,category TEXT,score INTEGER,contact TEXT,buyer TEXT,budget TEXT,reason TEXT,
-fingerprint TEXT,stage TEXT DEFAULT 'new',notified INTEGER DEFAULT 0);
+fingerprint TEXT,stage TEXT DEFAULT 'new',notified INTEGER DEFAULT 0, contacted INTEGER NOT NULL DEFAULT 0, saved INTEGER NOT NULL DEFAULT 0);
 CREATE INDEX IF NOT EXISTS idx_time ON leads(published_at DESC);
 CREATE INDEX IF NOT EXISTS idx_fp ON leads(fingerprint);
 CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,at TEXT,sources INTEGER,posts INTEGER,matched INTEGER,new_leads INTEGER,errors TEXT);
@@ -39,7 +39,21 @@ CREATE INDEX IF NOT EXISTS idx_draft_lead ON draft_history(lead_id, id DESC);"""
 
 def conn():
  RUNTIME.mkdir(exist_ok=True,parents=True)
- db=sqlite3.connect(DB,timeout=30,check_same_thread=False);db.row_factory=sqlite3.Row;db.executescript(SQL)
+ db=sqlite3.connect(DB,timeout=30,check_same_thread=False)
+ db.row_factory=sqlite3.Row
+ db.executescript(SQL)
+ # Older installs stored mutually exclusive 'saved' and 'contacted' as one
+ # stage. Migrate once, preserving all existing flags without data loss.
+ columns={row["name"] for row in db.execute("PRAGMA table_info(leads)")}
+ if "contacted" not in columns:
+  db.execute("ALTER TABLE leads ADD COLUMN contacted INTEGER NOT NULL DEFAULT 0")
+ if "saved" not in columns:
+  db.execute("ALTER TABLE leads ADD COLUMN saved INTEGER NOT NULL DEFAULT 0")
+ if "contacted" not in columns or "saved" not in columns:
+  db.execute("UPDATE leads SET contacted=1 WHERE stage='contacted'")
+  db.execute("UPDATE leads SET saved=1 WHERE stage='saved'")
+  db.execute("UPDATE leads SET stage='new' WHERE stage IN ('contacted','saved')")
+  db.commit()
  return db
 
 def sources():
