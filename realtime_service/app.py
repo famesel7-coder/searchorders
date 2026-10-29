@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
+from .outreach import create_draft
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
 CONFIG=RUNTIME/"settings.json"
@@ -101,6 +102,15 @@ class Handler(BaseHTTPRequestHandler):
   path=urllib.parse.urlsplit(self.path).path
   try:data=self.readjson()
   except (ValueError,json.JSONDecodeError) as e:return self.json({"error":str(e)},400)
+  if path=="/api/draft":
+   ident=str(data.get("id", ""))
+   if not re.fullmatch(r"[a-f0-9]{20}",ident):
+    return self.json({"error":"Неверный идентификатор проекта"},400)
+   db=conn()
+   try: lead=db.execute("SELECT body, buyer, category, contact FROM leads WHERE id=?",(ident,)).fetchone()
+   finally: db.close()
+   if lead is None:return self.json({"error":"Проект не найден"},404)
+   return self.json({"ok":True,"draft":create_draft(dict(lead)),"contact":lead["contact"]})
   if path=="/api/scan":
    if monitor.active:return self.json({"ok":True,"message":"Scan already in progress"})
    threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
