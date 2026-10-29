@@ -1,0 +1,202 @@
+{
+  "checked_at_msk": "2026-10-29T18:55:20+03:00",
+  "strategy": "platform-first; official bids, no Telegram cold DM",
+  "compared_with": [
+    "data/outreach_status.json",
+    "data/platform_projects_2026-10-29_verified.json"
+  ],
+  "review_scope": {
+    "fl_ru_category_lists_opened": 15,
+    "freelance_ru_task_list_opened": true,
+    "workspace_category_lists_opened": 2,
+    "dprofile_list_opened": true,
+    "kwork_projects_public_listing_blocked": true,
+    "behance_freelance_jobs_blocked": true,
+    "tilda_experts_inbound_read": true,
+    "individual_primary_briefs_read": 14,
+    "note": "These counts are category pages and direct brief pages, not distinct posts. Search snippets/list rows reviewed are not asserted as exhaustive individual checks."
+  },
+  "new_qualified": [
+    {
+      "rank": 1,
+      "title": "Дизайн интернет-магазина дизайнерских светильников",
+      "platform": "Freelance.ru",
+      "url": "https://freelance.ru/task/view/13985",
+      "date": "2026-10-28 (listing: day ago on Oct 29; card shows user activity Oct 29, not original exact timestamp)",
+      "budget": "по договоренности",
+      "task": "Figma UX/UI: main/catalog/product/cart/mobile/architects area/design system/prototype",
+      "buyer": "Игорь, 9 лет на площадке, 8 отзывов, 3 задания; юридическое лицо не подтверждено",
+      "apply": "Войти и откликнуться; бесплатная регистрация",
+      "status": "open",
+      "fit": "very high",
+      "risk": "Точная дата оригинальной публикации в карточке относительная; подтверждение по ленте 'день назад'; 14 дней на проект"
+    },
+    {
+      "rank": 2,
+      "title": "Презентация по финансам с авторской инфографикой",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527154/sozdat-topovuyu-prezentatsiyu-tema-finansyi.html",
+      "date": "2026-10-28 18:11",
+      "budget_rub": 12000,
+      "task": "Figma, editable financial presentation, diagrams, charts, PDF, source",
+      "buyer": "аккаунт 6 лет 10 мес, 1 отзыв 5.0",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "very high",
+      "risk": "нужно уметь принимать оплату от юрлица РФ; стоимость после ТЗ"
+    },
+    {
+      "rank": 3,
+      "title": "Логотип для бренда на латинице",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527248/razrabotat-logotip.html",
+      "date": "2026-10-29 12:22",
+      "budget": "по договоренности",
+      "task": "typographic brand logo based on Canela/Bodoni/Cormorant reference",
+      "buyer": "Любовь, аккаунт 12 лет 11 мес, 68 отзывов 5.0",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "high",
+      "risk": "высокая конкуренция 92 отклика по ленте"
+    },
+    {
+      "rank": 4,
+      "title": "Ребрендинг строительной компании ИЖС",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5526911/rebrending-stroitelnoy-kompanii-ijs-.html",
+      "date": "2026-10-27 07:44",
+      "budget": "по договоренности",
+      "task": "brand positioning, identity, presentation, website/UI kit, social, offline carriers",
+      "buyer": "новый аккаунт меньше месяца, юрлицо не раскрыто",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "high",
+      "risk": "large scope and no budget, not same as previously contacted premium construction brand"
+    },
+    {
+      "rank": 5,
+      "title": "Фирменный стиль для культурного мероприятия",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5526738/razrabotat-firmennyiy-stil-dlya-meropriyatiya-v-sfere-kulturyi.html",
+      "date": "2026-10-26 10:55",
+      "budget_rub": 25000,
+      "task": "logo variants, typography, colors, poster, rollup, merch, screen, diploma, guideline",
+      "buyer": "аккаунт 10 месяцев, компания не указана",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "high",
+      "risk": "срок до 2 ноября, scope большой за бюджет"
+    },
+    {
+      "rank": 6,
+      "title": "Фирменный стиль для соцсетей",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5526769/dizayn-firstilya-dlya-sotssetey.html",
+      "date": "2026-10-26 13:55",
+      "budget": "по договоренности",
+      "task": "harmonize social media brand identity and microelements",
+      "buyer": "аккаунт 10 лет 6 месяцев, 4 отзыва 5.0",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "high",
+      "risk": "ТЗ надо изучить, название бренда не раскрыто"
+    },
+    {
+      "rank": 7,
+      "title": "Логотип и фирменный бланк для спецтехники",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527139/razrabotka-neslojnogo-logotipa-i-firmennogo-blanka-.html",
+      "date": "2026-10-28 16:42",
+      "budget": "по договоренности",
+      "task": "logo and letterhead for heavy machinery services",
+      "buyer": "аккаунт меньше месяца, юрлицо не подтверждено",
+      "apply": "Откликнуться через FL.ru после верификации",
+      "status": "open",
+      "fit": "high",
+      "risk": "45 откликов по ленте"
+    }
+  ],
+  "conditional": [
+    {
+      "title": "6-8 макетов для типографии",
+      "url": "https://www.fl.ru/projects/5527216/dizayner-poligrafist-ofsetnaya-pechat-tsifrovaya-shirokoformatnaya-plotternaya-rezka-fleksopechat.html",
+      "date": "2026-10-29 09:05",
+      "budget": "по договоренности",
+      "why": "требуется опыт офсета, флексо и плоттерной резки, не подтвержден"
+    },
+    {
+      "title": "Стикербук 18 страниц",
+      "url": "https://www.fl.ru/projects/5527097/dizayn-stikerbuka.html",
+      "date": "2026-10-28 10:49",
+      "budget": "по договоренности",
+      "why": "500 PNG + CorelDRAW cdr, 7 рабочих дней, непропорционально большой объем"
+    },
+    {
+      "title": "Новый сайт спортивной федерации",
+      "url": "https://workspace.ru/tenders/novyy-sayt-dlya-oficialnoy-sportivnoy-federacii-19084/",
+      "date": "2026-10-27",
+      "budget_rub": [
+        800000,
+        3000000
+      ],
+      "why": "PRO, требуется команда, разработка/SEO/поддержка, 29+ участников; не одиночный дизайн"
+    },
+    {
+      "title": "Редизайн сайта мебельной фабрики",
+      "url": "https://workspace.ru/tenders/redizayn-sayta-mebelnoy-fabriki-19087/",
+      "date": "2026-10-29",
+      "why": "already in previous platform registry; not a new lead; PRO"
+    },
+    {
+      "title": "Dprofile project briefs",
+      "url": "https://dprofile.ru/jobs/projects?category=1",
+      "why": "three visible budgets but dates not rendered; cannot certify 3-day window"
+    },
+    {
+      "title": "Kwork project listing",
+      "url": "https://kwork.ru/projects",
+      "why": "public content not visible without login"
+    },
+    {
+      "title": "Behance freelance job listing",
+      "url": "https://www.behance.net/joblist?jobType=freelance",
+      "why": "403; platform and payment eligibility not checked"
+    }
+  ],
+  "inbound": [
+    {
+      "name": "Tilda Experts",
+      "url": "https://experts.tilda.cc/ru/",
+      "status": "verified onboarding, developer ID needed, not created"
+    },
+    {
+      "name": "Dprofile",
+      "url": "https://dprofile.ru/",
+      "status": "portfolio onboarding, not created"
+    },
+    {
+      "name": "Behance Hire",
+      "url": "https://www.behance.net/",
+      "status": "availability and payment eligibility unverified, not created"
+    }
+  ],
+  "excluded_examples": [
+    {
+      "title": "Доработать дизайн",
+      "url": "https://www.fl.ru/projects/5527092/dorabotat-dizayn-.html",
+      "reason": "main work is development/testing of portal 65 page spec, not design"
+    },
+    {
+      "title": "Презентация викторина",
+      "url": "https://www.fl.ru/projects/5527169/sozdat-smeshnuyu-prezentatsiyu-viktorinu-dlya-mujskoy-kompanii.html",
+      "reason": "noncommercial personal quiz requiring extensive unlicensed audiovisual media, poor fit"
+    },
+    {
+      "title": "SMM агентство",
+      "url": "https://freelance.ru/task/view/14086",
+      "reason": "ongoing SMM/lead generation beyond designer's remit"
+    }
+  ],
+  "outreach": "No applications submitted, no account or subscription purchased",
+  "caveat": "Direct link and public apply button confirmed; ability to submit requires own verified account. Exact buyer identity may remain anonymous as platform pseudonym."
+}
