@@ -269,13 +269,13 @@ function openSelectedMailbox(){
  const sender=$('emailFrom')?.value||senderForLead(lead);
  // The Gmail deep link /mail/u/<email>/?to=... can produce a
  // Temporary Error (404) when Google handles account routing. Do not use it.
- // Gmail is opened only to view inbox; sending uses the local POST API.
+ // The inbox button is separate; the ready-to-send draft uses gmailComposeUrl().
  const url=sender===PERSONAL_SENDER?
   'https://mail.google.com/':
   'https://mail.yandex.ru/';
  window.open(url,'_blank','noopener');
  toast(sender===PERSONAL_SENDER?
-  'Gmail открыт для проверки почты, не для отправки. В SearchOrders письма отправляются отдельной кнопкой.':
+  'Открыта почта Gmail. Готовое письмо открой кнопкой «Открыть готовое письмо в Gmail».':
   'Открыта почта '+sender);
 }
 function cacheDraft(){
