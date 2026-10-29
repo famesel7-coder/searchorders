@@ -39,6 +39,11 @@ CREATE INDEX IF NOT EXISTS idx_draft_lead ON draft_history(lead_id, id DESC);
 CREATE TABLE IF NOT EXISTS email_source_checks(
  source_id TEXT PRIMARY KEY, checked_at TEXT NOT NULL, fetched INTEGER DEFAULT 0,
  matched INTEGER DEFAULT 0, last_error TEXT DEFAULT ''
+);
+CREATE TABLE IF NOT EXISTS translation_cache(
+ lead_id TEXT NOT NULL, source_digest TEXT NOT NULL,
+ translated_body TEXT NOT NULL, translated_at TEXT NOT NULL,
+ PRIMARY KEY(lead_id,source_digest)
 );"""
 
 def conn():
