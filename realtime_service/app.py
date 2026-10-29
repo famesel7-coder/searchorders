@@ -9,6 +9,7 @@ PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
 CONFIG=RUNTIME/"settings.json"
 monitor=Monitor()
+draft_lock=threading.Lock()
 
 def settings():
  if not CONFIG.exists():return {}
@@ -95,7 +96,9 @@ class Handler(BaseHTTPRequestHandler):
   if path=="/api/settings":
    conf=settings()
    return self.json({"telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
-      "min_alert_score":int(conf.get("min_alert_score",80))})
+      "min_alert_score":int(conf.get("min_alert_score",80)),
+      "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or conf.get("openai_api_key")),
+      "ai_model":os.environ.get("SEARCHORDERS_AI_MODEL",conf.get("ai_model","gpt-4.1-mini"))})
   self.json({"error":"Not found"},404)
  def do_POST(self):
   # The dashboard is intentionally localhost-only by default.
@@ -106,11 +109,30 @@ class Handler(BaseHTTPRequestHandler):
    ident=str(data.get("id", ""))
    if not re.fullmatch(r"[a-f0-9]{20}",ident):
     return self.json({"error":"Неверный идентификатор проекта"},400)
-   db=conn()
-   try: lead=db.execute("SELECT body, buyer, category, contact FROM leads WHERE id=?",(ident,)).fetchone()
-   finally: db.close()
-   if lead is None:return self.json({"error":"Проект не найден"},404)
-   return self.json({"ok":True,"draft":create_draft(dict(lead)),"contact":lead["contact"]})
+   with draft_lock:
+    db=conn()
+    try:
+     lead=db.execute("SELECT body, buyer, category, contact FROM leads WHERE id=?",(ident,)).fetchone()
+     if lead is None:return self.json({"error":"Проект не найден"},404)
+     past=db.execute("""SELECT content FROM draft_history
+       ORDER BY CASE WHEN lead_id=? THEN 0 ELSE 1 END, id DESC LIMIT 30""",(ident,)).fetchall()
+     previous=[x["content"] for x in past]
+     conf=settings()
+     api_key=os.environ.get("OPENAI_API_KEY") or conf.get("openai_api_key","")
+     model=os.environ.get("SEARCHORDERS_AI_MODEL") or conf.get("ai_model","gpt-4.1-mini")
+     draft,method,brief=create_draft(dict(lead),previous=previous,api_key=api_key,model=model)
+     # Make each regeneration different, even without an API key.
+     for attempt in range(5):
+      if all(draft != earlier for earlier in previous):break
+      draft,method,brief=create_draft(dict(lead),previous=previous,api_key="",model=model)
+     if draft in previous:
+      return self.json({"error":"Не удалось получить новый вариант: повторите попытку"},503)
+     db.execute("INSERT INTO draft_history(lead_id,content,method,created_at) VALUES(?,?,?,?)",
+      (ident,draft,method,datetime.now(timezone.utc).isoformat()))
+     db.commit()
+    finally:db.close()
+   return self.json({"ok":True,"draft":draft,"method":method,
+       "ai_configured":bool(api_key),"facts":brief["facts"][:5],"contact":lead["contact"]})
   if path=="/api/scan":
    if monitor.active:return self.json({"ok":True,"message":"Scan already in progress"})
    threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
@@ -141,7 +163,20 @@ class Handler(BaseHTTPRequestHandler):
     if chat and not re.fullmatch(r"-?\d{4,18}",chat):return self.json({"error":"Chat ID должен содержать цифры"},400)
     c["telegram_chat_id"]=chat
    if "min_alert_score" in data:c["min_alert_score"]=max(60,min(99,int(data["min_alert_score"])))
-   save_settings(c);return self.json({"ok":True,"telegram_configured":bool(c.get("telegram_token")),"telegram_chat_id":c.get("telegram_chat_id","")})
+   if "openai_api_key" in data:
+    key=str(data.get("openai_api_key") or "").strip()
+    if key and not re.fullmatch(r"sk-[A-Za-z0-9_\-]{15,250}",key):
+     return self.json({"error":"Проверьте формат ключа OpenAI API"},400)
+    if key:c["openai_api_key"]=key
+   if data.get("remove_ai_key") is True:c.pop("openai_api_key",None)
+   if "ai_model" in data:
+    model=str(data["ai_model"]).strip()
+    if not re.fullmatch(r"[a-zA-Z0-9._-]{3,64}",model):return self.json({"error":"Недопустимое имя модели"},400)
+    c["ai_model"]=model
+   save_settings(c)
+   return self.json({"ok":True,"telegram_configured":bool(c.get("telegram_token")),
+        "telegram_chat_id":c.get("telegram_chat_id",""),
+        "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or c.get("openai_api_key"))})
   if path=="/api/telegram/discover":
    conf=settings();token=conf.get("telegram_token")
    if not token:return self.json({"error":"Сначала сохраните токен бота"},400)
