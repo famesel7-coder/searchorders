@@ -1,135 +1,345 @@
-"""Create editable, task-specific outreach drafts without sending messages.
+"""Short, grounded outreach: first analyse the exact job, then write a fresh reply.
 
-This deterministic generator is intentionally local, with no external API,
-credentials, fabricated client names, portfolio achievements, or auto-send.
+Optional OpenAI Responses API powers genuinely new natural-language drafts. When no
+API key is configured, a transparent local context-aware variant generator is used.
+Neither mode sends messages or makes up credentials, prices or client case studies.
 """
+from __future__ import annotations
+
+import difflib
+import json
+import random
 import re
-from typing import Mapping, Any
+from typing import Any, Mapping, Sequence
+
+import requests
 
 PORTFOLIO = "https://samsel.site"
+RNG = random.SystemRandom()
+MODEL_DEFAULT = "gpt-4.1-mini"
 
+def contains(s: str, pattern: str) -> bool:
+    return bool(re.search(pattern, s, re.I))
 
-def mentioned(text: str, *patterns: str) -> bool:
-    return any(re.search(pattern, text, re.I) for pattern in patterns)
+def pick(seq):
+    return RNG.choice(tuple(seq))
 
-
-def short_brand(lead: Mapping[str, Any]) -> str:
-    buyer = str(lead.get("buyer") or "").strip()
-    if 2 <= len(buyer) <= 48 and not mentioned(
-        buyer, r"^запрос", r"^дизайн", r"^ищ", r"^нуж", r"^для ", r"^на "
-    ):
-        return buyer
-    body = str(lead.get("body") or "")
-    # "Waistline (российский бренд женской одежды) ...".
-    match = re.search(
-        r"\b([A-Z][A-Za-z0-9-]{2,32})\s*\([^)]{0,65}\b(?:бренд|компания|студия)\b",
-        body, re.I,
-    )
-    return match.group(1) if match else ""
-
-
-def create_draft(lead: Mapping[str, Any]) -> str:
-    body = str(lead.get("body") or "")[:3600]
+def analyse_brief(lead: Mapping[str, Any]) -> dict:
+    text = re.sub(r"\s+", " ", str(lead.get("body") or "")).strip()[:3600]
     cat = str(lead.get("category") or "")
-    brand = short_brand(lead)
-    intro = ""
-    detail = ""
-    evidence = ""
-    next_step = ""
-
-    # Prioritise the concrete deliverable over a broad category assigned by
-    # a keyword classifier. Marketplace infographics often contain "slides".
-    if mentioned(body, r"wildberries|\bwb\b|\bozon\b|маркетплейс|карточ(?:ек|ки) товар"):
-        intro = "ваш запрос по визуалам для маркетплейсов"
-        if brand:
-            intro += f" бренда {brand}"
-        detail = ("Могу помочь с обложками и слайдами карточек: выделить преимущества товаров, "
-                  "собрать понятную инфографику и выдержать единый визуальный стиль.")
-        evidence = ("В моём портфолио есть инфографика и коммерческие визуальные материалы "
-                    "для крупных брендов, включая Avito.")
-        next_step = "Готов посмотреть текущие карточки и обсудить объём задач, сроки и стоимость."
-
-    elif mentioned(body, r"упаковк|этикетк|коробк|пакетир"):
-        intro = "ваш проект по дизайну упаковки"
-        detail = ("Могу проработать визуальную концепцию, композицию и типографику, "
-                  "а затем подготовить макеты под необходимые форматы.")
-        evidence = ("Занимаюсь айдентикой и графическим дизайном, "
-                    "работал над визуальными материалами для крупных брендов.")
-        next_step = "Готов ознакомиться с продуктом, техническими требованиями и референсами."
-
-    elif mentioned(body, r"брендбук|айдентик|фирменн.{0,15}стил|ребрендинг|логотип"):
-        intro = "ваш запрос по фирменному стилю"
-        if brand:
-            intro += f" для {brand}"
-        detail = ("Могу помочь с визуальной концепцией, типографикой и системой носителей, "
-                  "чтобы фирменный стиль последовательно работал в разных форматах.")
-        evidence = ("В портфолио представлены проекты по брендингу и визуальным коммуникациям, "
-                    "в том числе для Haval.")
-        next_step = "Могу изучить текущие материалы и предложить подход к задаче и этапам работы."
-
-    elif cat == "web" or mentioned(body, r"\btilda\b|тильд|\bwebflow\b|\bframer\b|wordpress|лендинг"):
-        platform = (
-            "Tilda" if mentioned(body, r"tilda|тильд") else
-            "Webflow" if mentioned(body, r"webflow") else
-            "Framer" if mentioned(body, r"framer") else
-            "WordPress" if mentioned(body, r"wordpress") else ""
-        )
-        intro = ("ваш заказ на лендинг" if mentioned(body, r"лендинг|landing") else
-                 "ваш проект по разработке сайта")
-        if platform:
-            intro += f" на {platform}"
-        detail = ("Могу продумать структуру страниц, подготовить аккуратный адаптивный дизайн "
-                  "и довести сайт до удобного использования на мобильных устройствах.")
-        evidence = "Занимаюсь веб-дизайном и digital-проектами, в портфолио есть работы для Avito."
-        next_step = "Готов изучить исходные макеты или текущий сайт и обсудить сроки, объём и бюджет."
-
-    elif cat == "uiux" or mentioned(body, r"ui.?ux|интерфейс|\bfigma\b|дизайн.?систем|прототип"):
-        intro = "ваш проект по UI/UX-дизайну"
-        specifics = []
-        if mentioned(body, r"мобильн|\bios\b|\bandroid\b"):
-            specifics.append("мобильные сценарии")
-        if mentioned(body, r"дизайн.?систем|ui.?kit|компонент"):
-            specifics.append("систему компонентов")
-        if mentioned(body, r"ux.?аудит|аудит|юзабилити"):
-            specifics.append("UX-аудит текущих экранов")
-        detail = ("Могу помочь проработать пользовательские сценарии, "
-                  "структуру экранов и адаптивные макеты в Figma.")
-        if specifics:
-            detail = "В запросе выделил ключевые задачи: " + ", ".join(specifics[:3]) + ". " + detail
-        evidence = "Работаю с веб-дизайном и интерфейсами, есть опыт digital-проектов для Avito."
-        next_step = "Готов посмотреть прототипы или текущие экраны и обсудить объём и этапы работы."
-
-    elif cat == "presentations" or mentioned(body, r"презентац|слайд|pitch.?deck|powerpoint"):
-        intro = "ваш запрос на дизайн презентации"
-        deck = re.search(r"\b(\d{1,3})\s*(?:слайд(?:ов|а)?|стр(?:аниц|аницы)?)", body, re.I)
-        detail = ("Могу выстроить единую структуру, типографику и визуальный стиль, "
-                  "сделать диаграммы и инфографику понятными и удобными для восприятия.")
-        if deck:
-            detail = f"Увидел объём около {deck.group(1)} слайдов. " + detail
-        evidence = ("Специализируюсь на презентациях и инфографике, в портфолио есть проекты "
-                    "для Avito и Haval.")
-        next_step = "Готов оценить исходные материалы, сроки и стоимость после просмотра брифа."
-
-    elif mentioned(body, r"smm|соцсет|пост|карусел|рекламн|баннер"):
-        intro = "ваш запрос на оформление digital-материалов"
-        detail = ("Могу собрать единый визуальный подход для постов, рекламных макетов "
-                  "и инфографики с упором на читаемость и узнаваемость.")
-        evidence = "В портфолио есть рекламная графика и визуальные системы для Avito и Haval."
-        next_step = "Готов посмотреть текущие материалы, объём и сроки задач."
-
+    tags = []
+    type_name = ""
+    detail = []
+    constraint = []
+    question = ""
+    if contains(text,r"wildberries|\bwb\b|ozon|маркетплейс|карточ(?:ек|ки|ку) товар"):
+        kind = "marketplace"
+        type_name = "карточкам товаров для маркетплейсов"
+        mapping = [
+            (r"wildberries|\bwb\b","Wildberries"),
+            (r"\bozon\b","Ozon"),
+            (r"инфографик","инфографика"),
+            (r"обложк|перв.{0,10}слайд","обложки карточек"),
+            (r"ретуш|обработк.{0,12}фото","обработка фото"),
+            (r"единый стиль|фирменн.{0,15}стил","единый стиль карточек"),
+        ]
+        question="Сколько товаров в первой партии и есть ли исходные фото?"
+    elif contains(text,r"этикетк|флакон|коробк|упаковк|косметик|beauty.brand"):
+        kind="packaging"
+        type_name="дизайну упаковки"
+        mapping=[
+            (r"логотип","логотип"),
+            (r"фирменн.{0,12}стил|айдентик","фирменный стиль"),
+            (r"этикетк","этикетка"),
+            (r"флакон","флакон"),
+            (r"коробк","коробка"),
+            (r"печатн|полиграф|типограф|печати|cmyk|вылет|тиснени","печатные материалы"),
+            (r"косметик|бьюти|beauty","бьюти-продукт"),
+        ]
+        question="Есть ли размеры упаковки и требования типографии?"
+    elif contains(text,r"лендинг|tilda|тильд|webflow|framer|редизайн сайта|сайт.{0,60}(блок|страниц)"):
+        kind="web"
+        type_name="лендингу" if contains(text,r"лендинг|landing") else "сайту"
+        mapping=[
+            (r"tilda|тильд","Tilda"),
+            (r"webflow","Webflow"),
+            (r"framer","Framer"),
+            (r"\bfigma\b","макеты в Figma"),
+            (r"адаптив|мобильн","мобильная версия"),
+            (r"редизайн","редизайн текущей страницы"),
+            (r"с нуля","разработка с нуля"),
+            (r"\b(\d+)\s*[–-]\s*(\d+)\s*блок","блоки"),
+            (r"маркетингов.{0,18}агентств","маркетинговое агентство"),
+            (r"интернет-магазин","интернет-магазин"),
+        ]
+        count=re.search(r"\b(\d{1,2})\s*[–-]\s*(\d{1,2})\s*блок",text,re.I)
+        if count: detail.append(f"{count.group(1)}–{count.group(2)} блоков")
+        question="Есть ли референсы и к какому сроку нужен сайт?"
+    elif contains(text,r"презентац|питч.?дек|pitch.?deck|\bслайд|powerpoint") or cat=="presentations":
+        kind="presentations"
+        type_name="презентации"
+        mapping=[
+            (r"един(?:ый|ому) стил|привести.{0,40}стил","единый визуальный стиль"),
+            (r"инфографик|диаграмм|график","инфографика и графики"),
+            (r"pitch.?deck|питч.?дек","коммерческий питч"),
+            (r"редактируем|powerpoint|\bppt","редактируемый файл"),
+            (r"срочн|сегодня|завтра","срочный срок"),
+        ]
+        count=re.search(r"\b(\d{1,3})\s*слайд",text,re.I)
+        if count:detail.append(f"{count.group(1)} слайдов")
+        question="Можете показать пару исходных слайдов и уточнить дедлайн?"
+    elif contains(text,r"ux.?ui|ui.?ux|интерфейс|\bios\b|android|дизайн.?систем|прототип") or cat=="uiux":
+        kind="uiux"
+        type_name="дизайну интерфейсов"
+        mapping=[
+            (r"\bios\b|iphone","iOS"),
+            (r"android","Android"),
+            (r"дизайн.?систем|design.system","дизайн-система"),
+            (r"прототип","прототипы"),
+            (r"widget|виджет","виджеты"),
+            (r"ux.?аудит|аудит","UX-аудит"),
+            (r"мобильн","мобильный продукт"),
+            (r"фигм|figma","Figma"),
+        ]
+        question="Есть ли текущие экраны или прототип, чтобы оценить объём?"
+    elif contains(text,r"логотип|брендбук|айдентик|фирменн.{0,16}стил|ребрендинг"):
+        kind="branding"
+        type_name="фирменному стилю"
+        mapping=[
+            (r"логотип","логотип"),
+            (r"брендбук","брендбук"),
+            (r"айдентик|фирменн.{0,15}стил","айдентика"),
+            (r"типографик","типографика"),
+            (r"ребрендинг","обновление бренда"),
+            (r"строительн","строительная компания"),
+            (r"мероприят|ивент|event","материалы мероприятий"),
+        ]
+        question="Есть ли текущий стиль, референсы и список нужных носителей?"
     else:
-        intro = "ваш проект по графическому дизайну"
-        detail = ("Могу помочь с визуальной концепцией, типографикой "
-                  "и аккуратной подготовкой макетов под нужные форматы.")
-        evidence = "В моём портфолио есть проекты для Avito и Haval."
-        next_step = "Готов ознакомиться с подробным ТЗ, обсудить сроки и бюджет."
+        kind="graphics"
+        type_name="графическому дизайну"
+        mapping=[
+            (r"полиграф|печатн.{0,12}материал","печатные материалы"),
+            (r"рекламн|баннер","рекламные баннеры"),
+            (r"соцсет|пост|сторис","визуалы для соцсетей"),
+            (r"графическ.{0,15}дизайн","графический дизайн"),
+            (r"обложк","обложки"),
+            (r"каталог","каталог"),
+        ]
+        question="Какой объём задач планируется и в какие сроки?"
+    for regex,fact in mapping:
+        if contains(text,regex) and fact not in detail:detail.append(fact)
+    # Prefer specific deliverables, not broad employer categories or generic tools.
+    specifics=[f for f in detail if f not in ["бьюти-продукт","маркетинговое агентство","графический дизайн","Figma"]]
+    if "6–9 блоков" in specifics or any(" блоков" in x for x in specifics):
+        specifics=[x for x in specifics if x!="блоки"]
+    if not specifics:specifics=detail
+    if contains(text,r"срочн|сегодня|завтра"):constraint.append("срочные сроки")
+    if contains(text,r"английск"):constraint.append("базовый английский")
+    if contains(text,r"предоплат"):constraint.append("условия оплаты")
+    if contains(text,r"небольш.{0,15}занятост|оперативн"):constraint.append("оперативность при небольшой загрузке")
+    return {"kind":kind,"topic":type_name,"facts":specifics[:6],"constraints":constraint,
+            "question":question,"source":text}
 
-    # The user represents themself as a designer, not an agency or director.
-    return (
-        "Здравствуйте!\n\n"
-        f"Меня зовут Вячеслав, я независимый дизайнер. Заинтересовал {intro}.\n\n"
-        f"{detail}\n\n"
-        f"{evidence}\n\n"
-        f"Портфолио: {PORTFOLIO}\n\n"
-        f"Подскажите, задача ещё актуальна? {next_step}"
-    )
+OPENERS=[
+ "Здравствуйте! Увидел ваш запрос по {topic}.",
+ "Добрый день! Заинтересовала ваша задача по {topic}.",
+ "Здравствуйте! Пишу по вашему запросу на дизайн.",
+ "Добрый день! Хотел бы откликнуться на ваш проект по {topic}.",
+ "Здравствуйте! Увидел задачу по {topic} и решил написать.",
+ "Добрый день! Заинтересовал ваш проект по {topic}.",
+]
+IDENTITY=[
+ "Я Вячеслав, занимаюсь дизайном и работаю самостоятельно.",
+ "Меня зовут Вячеслав, я дизайнер, работаю на проектной основе.",
+ "Я Вячеслав, работаю дизайнером на проектах.",
+ "Меня зовут Вячеслав. Работаю как самостоятельный дизайнер.",
+]
+FINISH=[
+ "Буду рад обсудить проект. {question}",
+ "Подскажите, задача ещё актуальна? {question}",
+ "Если ещё ищете дизайнера, напишите, пожалуйста. {question}",
+ "Могу оценить работу после уточнения деталей. {question}",
+ "Буду рад подключиться, если проект открыт. {question}",
+]
+
+PRACTICE={
+"web":[
+ "Могу собрать структуру страницы, продумать подачу и адаптив.",
+ "Возьму на себя дизайн страницы и проверю, чтобы она хорошо работала на мобильных устройствах.",
+ "Сделаю аккуратную структуру и адаптивную версию без лишних визуальных элементов.",
+ "Могу проработать блоки, визуальную иерархию и мобильную версию.",
+],
+"packaging":[
+ "Могу продумать визуальный стиль и подготовить макеты с учётом требований печати.",
+ "Интересно поработать над цельным решением от айдентики до печатных носителей.",
+ "Могу предложить визуальную концепцию и подготовить файлы для производства.",
+],
+"presentations":[
+ "Могу привести материал к единой сетке, типографике и понятной визуальной логике.",
+ "Помогу оформить слайды в едином стиле, сохранив структуру и читабельность.",
+ "Могу аккуратно собрать презентацию, выделить ключевые цифры и упорядочить сложные блоки.",
+],
+"uiux":[
+ "Могу проработать логику экранов, компоненты и понятную визуальную систему.",
+ "Помогу со структурой интерфейса и рабочими макетами в Figma.",
+ "Могу посмотреть текущие сценарии и предложить аккуратное решение по интерфейсу.",
+],
+"branding":[
+ "Могу проработать визуальную концепцию и систему применения фирменного стиля.",
+ "Возьмусь за айдентику и оформление носителей в едином визуальном языке.",
+ "Могу предложить цельный визуальный подход и подготовить нужные макеты.",
+],
+"marketplace":[
+ "Могу собрать наглядные карточки с понятной иерархией преимуществ товара.",
+ "Помогу сделать обложки и инфографику едиными по стилю и читаемыми на телефоне.",
+ "Могу выстроить визуал карточек вокруг ключевых характеристик товара.",
+],
+"graphics":[
+ "Могу помочь с визуальной концепцией и подготовкой макетов под нужные форматы.",
+ "Могу подхватить задачи по графике и быстро согласовывать материалы.",
+ "Помогу выстроить единый визуальный подход и аккуратно подготовить файлы.",
+]
+}
+FACT_FRAMING=[
+ "Обратил внимание на конкретные задачи: {facts}.",
+ "Вижу, что в работе важны {facts}.",
+ "По описанию, основной объём здесь: {facts}.",
+ "Особенно интересна часть с {facts}.",
+ "Понял задачу как работу над {facts}.",
+]
+
+def natural_details(analysis: dict) -> str:
+    """Brief-specific fact sentence: use grammatical constructions, not raw keyword lists."""
+    text=analysis["source"]
+    kind=analysis["kind"]
+    found=analysis["facts"]
+    if kind=="web":
+        platform=next((x for x in ("Tilda","Webflow","Framer") if x in found),"")
+        blocks=next((x for x in found if " блоков" in x),"")
+        subject=("лендинг" if "лендинг" in analysis["topic"] else "сайт")
+        suffix=(" на "+platform if platform else "")
+        pieces=[]
+        if blocks:pieces.append(blocks)
+        if "разработка с нуля" in found:pieces.append("разработка с нуля")
+        if "мобильная версия" in found:pieces.append("адаптив")
+        context=" для маркетингового агентства" if "маркетинговое агентство" in found else ""
+        overview=(f"{subject}{suffix}{context}"+(f", {', '.join(pieces)}" if pieces else ""))
+        return pick([
+           f"По описанию, нужен {overview}.",
+           f"Вижу задачу: {overview}.",
+           f"Увидел, что требуется {overview}.",
+        ])
+    if kind=="packaging":
+        specific=[]
+        for item in ["логотип","фирменный стиль","этикетка","флакон","коробка","печатные материалы"]:
+            if item in found:specific.append(item)
+        if "базовый английский" in analysis["constraints"]:specific.append("базовый английский")
+        if "оперативность при небольшой загрузке" in analysis["constraints"]:specific.append("оперативность")
+        if not specific:specific=["упаковка и макеты для печати"]
+        return pick([
+            "По описанию, важны "+", ".join(specific[:4])+".",
+            "Увидел ваши требования: "+", ".join(specific[:4])+".",
+            "Понял задачу: "+", ".join(specific[:4])+".",
+        ])
+    if kind=="presentations":
+        count=next((x for x in found if " слайдов" in x),"")
+        if count:
+            return pick([f"Увидел объём {count}, важно привести материал к единому стилю.",
+                         f"Понял задачу: {count} нужно оформить в одной визуальной системе.",
+                         f"Вижу, что требуется оформление {count}; особенно важно согласовать объём и сроки."])
+    if kind=="uiux":
+        specifics=[f for f in found if f in ("iOS","Android","виджеты","дизайн-система","прототипы","UX-аудит")]
+        if specifics:return "По описанию, в приоритете "+", ".join(specifics[:3])+"."
+    if kind=="marketplace":
+        specifics=[x for x in found if x in ("Wildberries","Ozon","инфографика","обложки карточек","обработка фото")]
+        if specifics:return pick(["Увидел задачи по карточкам: "+", ".join(specifics[:3])+".",
+                                  "Вижу, что нужны "+", ".join(specifics[:3])+"."])
+    if kind in ("branding","graphics"):
+        if found:return pick(["По задаче вижу фокус на "+", ".join(found[:2])+".",
+                              "В объявлении выделил "+", ".join(found[:2])+"."])
+    return ""
+
+def local_draft(facts: dict, previous: Sequence[str] = ()) -> str:
+    """Human-readable local fallback; never present it as model generation."""
+    kind=facts["kind"]
+    topic=facts["topic"]
+    question=facts["question"]
+    grounded=natural_details(facts)
+    best_text=None
+    best_score=-1
+    for _ in range(110):
+        opener=pick(OPENERS).format(topic=topic)
+        identity=pick(IDENTITY)
+        professional=pick(PRACTICE[kind])
+        ending=pick(FINISH).format(question=question)
+        core=" ".join(x for x in (grounded,professional) if x)
+        draft=f"{opener} {identity}\n\n{core}\n\nПортфолио: {PORTFOLIO}\n\n{ending}"
+        sim=max((difflib.SequenceMatcher(None,draft,p).ratio() for p in previous[:25]),default=0)
+        if draft not in previous and sim<0.82:return draft
+        if 1-sim>best_score:best_score=1-sim;best_text=draft
+    return best_text or draft
+
+INSTRUCTIONS="""Ты пишешь КОРОТКИЕ индивидуальные отклики для Telegram от имени Вячеслава,
+самостоятельного дизайнера (не директора и не агентства). Прочитай объявление целиком;
+выбери 1–3 наиболее конкретных требования и ответь именно на них.
+Напиши текст на русском в 45–90 слов, без длинной самопрезентации, без канцелярита,
+пустых комплиментов, искусственных рекламных фраз и клише. Голос естественный и дружелюбно-деловой.
+Ссылку https://samsel.site укажи один раз.
+Не вставляй Avito, Haval и другие бренды, если они не нужны самому заказчику.
+Не приписывай исполнителю дипломы, опыт печати, кейсы, специализации или сроки,
+которые не подтверждены: допустимо лишь предложить помощь с заявленными задачами.
+Не обещай выполнить невыполнимое. Бюджет не выдумывай.
+Если в объявлении есть конкретные размеры, объём, платформа, печать, дедлайн,
+покажи, что ты заметил именно эти детали.
+Заверши одним уместным вопросом, если он нужен.
+Пиши новый вариант, не повторяя фразы и структуру прошлых писем.
+НЕ добавляй вступление от нейросети, кавычки, подпись должности или пояснения.
+"""
+
+def ai_draft(lead:Mapping[str,Any], analysis:dict, previous:Sequence[str], api_key:str, model:str=MODEL_DEFAULT) -> str:
+    prompt=json.dumps({
+      "объявление":analysis["source"],"задача":analysis["topic"],
+      "детали_объявления":analysis["facts"],"ограничения":analysis["constraints"],
+      "предыдущие_версии_этого_отклика_НЕ_повторять":list(previous[:6]),
+      "инструкция":"Создай новую самостоятельную версию короткого отклика от Вячеслава, ориентированную именно на это объявление."
+    },ensure_ascii=False)
+    response=requests.post("https://api.openai.com/v1/responses",
+      headers={"Authorization":"Bearer "+api_key,"Content-Type":"application/json"},
+      json={"model":model,"instructions":INSTRUCTIONS,"input":prompt,"store":False,"max_output_tokens":400},
+      timeout=(6,38))
+    response.raise_for_status()
+    data=response.json()
+    texts=[a.get("text","") for m in data.get("output",[]) if m.get("type")=="message"
+           for a in m.get("content",[]) if a.get("type")=="output_text"]
+    draft="\n".join(texts).strip().strip('«»"')
+    return draft
+
+def valid_draft(text:str,analysis:dict,previous:Sequence[str])->bool:
+    if not 120<=len(text)<=950:return False
+    if not PORTFOLIO in text or text.count(PORTFOLIO)!=1:return False
+    if contains(text,r"креативн.{0,8}директор|creative lead|арт.?директор|руководитель|\bAvito\b|\bHaval\b"):return False
+    if contains(text,r"гарантирую|бесплатн.{0,12}тест|скидка\s*\d+|опыт.{0,12}\d+\s*лет"):return False
+    # Normalize to compare meaningfully across repeated generations.
+    compare=lambda x:re.sub(r"\s+"," ",x.lower()).strip()
+    for past in previous:
+      if compare(text)==compare(past) or difflib.SequenceMatcher(None,compare(text),compare(past)).ratio()>0.84:
+       return False
+    if analysis["facts"]:
+      source_hits=sum(contains(text,re.escape(f)) for f in analysis["facts"][:5])
+      # AI can paraphrase details; requiring literal tokens is too strict.
+      if not source_hits and not any(t.lower() in text.lower() for t in analysis["source"].split() if len(t)>9):
+       return False
+    return True
+
+def create_draft(lead:Mapping[str,Any],previous:Sequence[str]=(),api_key:str="",model:str=MODEL_DEFAULT)->tuple[str,str,dict]:
+    brief=analyse_brief(lead)
+    if api_key:
+      for _ in range(2):
+        try:
+          draft=ai_draft(lead,brief,previous,api_key,model)
+          if valid_draft(draft,brief,previous):return draft,"ai",brief
+        except (requests.RequestException, ValueError,KeyError):
+          break
+    local=local_draft(brief,previous)
+    return local,"local",brief
