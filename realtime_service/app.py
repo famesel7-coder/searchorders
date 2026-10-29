@@ -34,11 +34,12 @@ def send_notifications(rows):
  eligible=[]
  for row in rows:
   dt=datetime.fromisoformat(row["published_at"])
-  if (recent-dt).total_seconds()<=25*60 and row["score"]>=int(s.get("min_alert_score",80)):
+  if ((recent-dt).total_seconds()<=25*60 and row["score"]>=int(s.get("min_alert_score",80))
+      and re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",str(row.get("contact", "")))):
    eligible.append(row)
  if eligible and sys.platform=="darwin":
-  title="SearchOrders: новые кандидаты"
-  message=f"Найдено новых релевантных публикаций: {len(eligible)}. Откройте панель на localhost:8787."
+  title="SearchOrders: email-заявки"
+  message=f"Новых заявок с опубликованным email: {len(eligible)}. Откройте панель."
   try:subprocess.run(["/usr/bin/osascript","-e",f'display notification "{message}" with title "{title}"'],timeout=5,capture_output=True)
   except Exception as e:print("Local notification:",str(e)[:100],file=sys.stderr)
  if not token or not chat:return
