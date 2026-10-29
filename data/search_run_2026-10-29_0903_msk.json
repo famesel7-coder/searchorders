@@ -1,0 +1,509 @@
+{
+  "checked_at": "2026-10-29T09:03:17+03:00",
+  "window_original_post_dates": [
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29"
+  ],
+  "registry_total": 24,
+  "registered_sources_attempted": 24,
+  "registered_sources_content_accessible": 19,
+  "inaccessible_direct_channels": [
+    "frilans (mirror recovered)",
+    "designizer",
+    "golubin_channel",
+    "vakansii_dlya_dizaynera",
+    "free_design1",
+    "webdesign_jobs"
+  ],
+  "frilans_mirror_recovered": true,
+  "additional_distinct_sources_with_content": [
+    "Designs_squad",
+    "design_freevacancies",
+    "workinart",
+    "vacancysmm",
+    "FreeWorkFeed"
+  ],
+  "accessible_distinct_sources_total": 24,
+  "raw_distinct_post_or_listing_cards_audited": 46,
+  "raw_audit_counts": {
+    "client_or_original_date_unverified": 17,
+    "staff_or_role_unverified": 5,
+    "previously_presented": 3,
+    "already_contacted": 5,
+    "no_public_direct_contact": 10,
+    "closed_or_contact_inactive": 2,
+    "expired_deadline": 1,
+    "out_of_scope": 2,
+    "old_confirmed": 1
+  },
+  "crosspost_patterns_not_counted_as_separate_leads": [
+    "@wompgas design_vacancy/vakansi_rus/vacancysmm",
+    "@gulimaro Designs_squad/vakansi_rus",
+    "@reznik_kir1ll rueventjob/frilans",
+    "@timakinaagency rueventjob/frilans"
+  ],
+  "qualified_new": [],
+  "pending_high_interest": [
+    {
+      "title": "ВизитСервис: исправить мобильный лендинг",
+      "contact": "@dry_ecstatic",
+      "source": "https://t.me/pro_zayavki/4227",
+      "company_independent": "https://визитсервис.рф",
+      "missing": "Telegram-авторизация контакта и точная дата первичной публикации"
+    },
+    {
+      "title": "Фирменный стиль туристического бизнеса",
+      "contact": "@yastrebovaya",
+      "source": "https://t.me/pro_zayavki/4225",
+      "missing": "Название клиента и оригинальная дата"
+    },
+    {
+      "title": "Tilda сайт на две страницы, 10 тыс ₽",
+      "contact": "@anakmva",
+      "source": "https://t.me/s/pro_zayavki",
+      "missing": "Клиент и дата; бюджет из объявления"
+    },
+    {
+      "title": "Косметический бренд: логотип, фирстиль, упаковка",
+      "contact": "@anna_visaa",
+      "source": "https://t.me/s/vakansi_rus",
+      "missing": "Название бренда и дата первоисточника"
+    },
+    {
+      "title": "Редизайн сайта в Figma",
+      "contact": "@darendorff",
+      "source": "https://t.me/s/rueventjob",
+      "missing": "Клиент и оригинальная дата"
+    },
+    {
+      "title": "MCS кабинет родителей",
+      "contact": "@reznik_kir1ll",
+      "source": "https://t.me/s/rueventjob",
+      "missing": "Связь контакта с компанией, оригинальная дата"
+    }
+  ],
+  "contact_tracker": {
+    "user_reported_sent": 12,
+    "shortlisted": 1,
+    "followups_due": 0,
+    "reason": "All user-reported sent contacts were recorded Oct 28; 4–5 business days have not passed. Karina shortlisted Oct 28 and expects decision by Oct 31."
+  },
+  "methodology": "44 explicitly identified distinct posts/listing cards re-inspected on accessible pages, including some posts previously audited; counts are of this pass's concrete samples, NOT 44 new publications. Original dates missing for most preview cards, so they cannot be called fresh. 0 qualified, no outbound messages.",
+  "audit": [
+    {
+      "id": 1,
+      "source": "pro_zayavki",
+      "title": "Небольшой редизайн сайта HTML/CSS-конструктора",
+      "status": "client_or_original_date_unverified",
+      "contact": "@and_angel",
+      "source_url": "https://t.me/pro_zayavki/4223",
+      "note": ""
+    },
+    {
+      "id": 2,
+      "source": "pro_zayavki",
+      "title": "Фирменный стиль туристического проекта по ГПХ",
+      "status": "client_or_original_date_unverified",
+      "contact": "@yastrebovaya",
+      "source_url": "https://t.me/pro_zayavki/4225",
+      "note": ""
+    },
+    {
+      "id": 3,
+      "source": "pro_zayavki",
+      "title": "Логотип, фирменный стиль, иллюстрации",
+      "status": "client_or_original_date_unverified",
+      "contact": "@morningsun_kras",
+      "source_url": "https://t.me/pro_zayavki/4226",
+      "note": ""
+    },
+    {
+      "id": 4,
+      "source": "pro_zayavki",
+      "title": "ВизитСервис: исправить мобильную версию сайта",
+      "status": "client_or_original_date_unverified",
+      "contact": "@dry_ecstatic",
+      "source_url": "https://t.me/pro_zayavki/4227",
+      "note": "Сайт визитсервис.рф независимо подтверждает компанию в Симферополе, но связь TG-контакта с компанией и оригинальная дата заявки не подтверждены"
+    },
+    {
+      "id": 5,
+      "source": "pro_zayavki",
+      "title": "WordPress разовая задача без ТЗ",
+      "status": "client_or_original_date_unverified",
+      "contact": "@danilvchr",
+      "source_url": "https://t.me/pro_zayavki/4228",
+      "note": ""
+    },
+    {
+      "id": 6,
+      "source": "pro_zayavki",
+      "title": "WordPress сайт с доступами и фильтрами",
+      "status": "client_or_original_date_unverified",
+      "contact": "+7 937 633 7311",
+      "source_url": "https://t.me/pro_zayavki/4232",
+      "note": ""
+    },
+    {
+      "id": 7,
+      "source": "pro_zayavki",
+      "title": "Поддержка двух сайтов MODx и amoCRM",
+      "status": "client_or_original_date_unverified",
+      "contact": "@WD_Vladislav",
+      "source_url": "https://t.me/s/pro_zayavki",
+      "note": ""
+    },
+    {
+      "id": 8,
+      "source": "pro_zayavki",
+      "title": "Презентации и графика, поиск дизайнера в коллектив",
+      "status": "staff_or_role_unverified",
+      "contact": "@streltsooova",
+      "source_url": "https://t.me/s/pro_zayavki",
+      "note": ""
+    },
+    {
+      "id": 9,
+      "source": "pro_zayavki",
+      "title": "Вёрстка интерфейса PyQT по готовому Figma",
+      "status": "client_or_original_date_unverified",
+      "contact": "@McMurphyRP",
+      "source_url": "https://t.me/s/pro_zayavki",
+      "note": ""
+    },
+    {
+      "id": 10,
+      "source": "pro_zayavki",
+      "title": "Tilda двухстраничный сайт 10 тыс ₽",
+      "status": "client_or_original_date_unverified",
+      "contact": "@anakmva",
+      "source_url": "https://t.me/s/pro_zayavki",
+      "note": ""
+    },
+    {
+      "id": 11,
+      "source": "rueventjob",
+      "title": "Two Joy: Stories и публикации для бренда одежды",
+      "status": "previously_presented",
+      "contact": "@TwoJoyinfo",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": "В списке неподтверждённых отправок; повторно не выдавать"
+    },
+    {
+      "id": 12,
+      "source": "rueventjob",
+      "title": "Психология: лендинг, презентации и баннеры",
+      "status": "already_contacted",
+      "contact": "@tatiana_kravtsova_coach",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 13,
+      "source": "rueventjob",
+      "title": "Редизайн одностраничного Tilda",
+      "status": "already_contacted",
+      "contact": "@EvgeniyaSulima",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 14,
+      "source": "rueventjob",
+      "title": "Редизайн сайта в Figma, UX/UI",
+      "status": "client_or_original_date_unverified",
+      "contact": "@darendorff",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 15,
+      "source": "rueventjob",
+      "title": "MCS: кабинет родителей образовательного приложения",
+      "status": "client_or_original_date_unverified",
+      "contact": "@reznik_kir1ll",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": "Компания и связь контакта не установлены, ранее показан как ожидающий проверки"
+    },
+    {
+      "id": 16,
+      "source": "rueventjob",
+      "title": "DIVE: еженедельные презентации и графика",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/rueventjob",
+      "note": "Только Яндекс-форма отклика"
+    },
+    {
+      "id": 17,
+      "source": "rueventjob",
+      "title": "SMM-агентство: оформление постов 1200–3000 ₽",
+      "status": "client_or_original_date_unverified",
+      "contact": "@timakinaagency",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 18,
+      "source": "rueventjob",
+      "title": "Премиальный ландшафтный бренд: Instagram обложки",
+      "status": "client_or_original_date_unverified",
+      "contact": "@valeriya_gulit",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 19,
+      "source": "rueventjob",
+      "title": "Карточки женских сумок WB 300–400 ₽/слайд",
+      "status": "client_or_original_date_unverified",
+      "contact": "@AIiccrs",
+      "source_url": "https://t.me/s/rueventjob",
+      "note": ""
+    },
+    {
+      "id": 20,
+      "source": "vakansi_rus",
+      "title": "Бали: дизайн буклетов и презентаций для девелопера",
+      "status": "closed_or_contact_inactive",
+      "contact": null,
+      "source_url": "https://t.me/vakansi_rus/14081",
+      "note": "Пост отмечен «Контакты неактуально», только форма"
+    },
+    {
+      "id": 21,
+      "source": "vakansi_rus",
+      "title": "Радость планеты: графика для фестивалей",
+      "status": "already_contacted",
+      "contact": "@radostplanet",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 22,
+      "source": "vakansi_rus",
+      "title": "Агентство маркетплейсов: карточки WB/Ozon",
+      "status": "previously_presented",
+      "contact": "@kubov_kostya",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 23,
+      "source": "vakansi_rus",
+      "title": "Инфографика и презентации",
+      "status": "previously_presented",
+      "contact": "@cleopatra_mir",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 24,
+      "source": "vakansi_rus",
+      "title": "140 слайдов срочно за один день",
+      "status": "expired_deadline",
+      "contact": "@olga_gukalo",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": "Срочная задача 27 октября, дедлайн в прошлом"
+    },
+    {
+      "id": 25,
+      "source": "vakansi_rus",
+      "title": "Каталог 100–150 страниц",
+      "status": "already_contacted",
+      "contact": "@claudia_kotova",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 26,
+      "source": "vakansi_rus",
+      "title": "Корпоративные шаблоны для соцсетей",
+      "status": "already_contacted",
+      "contact": "@wompgas",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 27,
+      "source": "vakansi_rus",
+      "title": "Графика упаковки и печати",
+      "status": "client_or_original_date_unverified",
+      "contact": "@mariaaaassss",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 28,
+      "source": "vakansi_rus",
+      "title": "Детская упаковка",
+      "status": "client_or_original_date_unverified",
+      "contact": "@gulimaro",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": "Индекс 28 октября, компания неизвестна"
+    },
+    {
+      "id": 29,
+      "source": "vakansi_rus",
+      "title": "Косметический бренд: логотип, фирстиль и упаковка",
+      "status": "client_or_original_date_unverified",
+      "contact": "@anna_visaa",
+      "source_url": "https://t.me/s/vakansi_rus",
+      "note": ""
+    },
+    {
+      "id": 30,
+      "source": "jobaem",
+      "title": "Календарь 2027 А3",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 31,
+      "source": "jobaem",
+      "title": "Финальная анимация Reels для автомобильного бренда",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 32,
+      "source": "jobaem",
+      "title": "UX/UI концепция закрытого приложения холдинга",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 33,
+      "source": "jobaem",
+      "title": "Инна: дизайн Figma/Tilda на субподряде",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": "Отклик только через Google-форму"
+    },
+    {
+      "id": 34,
+      "source": "jobaem",
+      "title": "Совместные проекты Tilda",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 35,
+      "source": "jobaem",
+      "title": "Логотип приложения аналитики YouTube",
+      "status": "closed_or_contact_inactive",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": "Прямо написано UPD: вакансия неактуальна"
+    },
+    {
+      "id": 36,
+      "source": "jobaem",
+      "title": "Каталоговая презентация 10–15 страниц",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 37,
+      "source": "jobaem",
+      "title": "Изидизи: Google Slides 500 ₽ за слайд",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": "Контакт через анкету"
+    },
+    {
+      "id": 38,
+      "source": "jobaem",
+      "title": "Tilda сайт-портфолио по готовому черновику",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/jobaem",
+      "note": ""
+    },
+    {
+      "id": 39,
+      "source": "digitaltender",
+      "title": "WB спортивное питание: инфографика на упаковку",
+      "status": "no_public_direct_contact",
+      "contact": null,
+      "source_url": "https://t.me/s/digitaltender",
+      "note": "Скрыт за КОНТАКТЫ"
+    },
+    {
+      "id": 40,
+      "source": "digitaltender",
+      "title": "Доработка CRM Next.js PostgreSQL",
+      "status": "out_of_scope",
+      "contact": null,
+      "source_url": "https://t.me/s/digitaltender",
+      "note": "Backend без задачи дизайна"
+    },
+    {
+      "id": 41,
+      "source": "digitaltender",
+      "title": "Creative Director международные проекты",
+      "status": "staff_or_role_unverified",
+      "contact": null,
+      "source_url": "https://t.me/s/digitaltender",
+      "note": "Руководящая роль, контакт скрыт"
+    },
+    {
+      "id": 42,
+      "source": "digitaltender",
+      "title": "Копирайтер нутри-лендингов",
+      "status": "out_of_scope",
+      "contact": null,
+      "source_url": "https://t.me/s/digitaltender",
+      "note": ""
+    },
+    {
+      "id": 43,
+      "source": "design_vacancy",
+      "title": "ONE International School коммуникационный дизайнер",
+      "status": "staff_or_role_unverified",
+      "contact": null,
+      "source_url": "https://t.me/s/design_vacancy",
+      "note": "Офис Москва"
+    },
+    {
+      "id": 44,
+      "source": "vacancysmm",
+      "title": "VILLKA SMM",
+      "status": "staff_or_role_unverified",
+      "contact": null,
+      "source_url": "https://teletarget.com/channel/%40vacancysmm/",
+      "note": "28.10, SMM-штат, не дизайн-подряд"
+    },
+    {
+      "id": 45,
+      "source": "design_vacancy",
+      "title": "ЦВЕТОВИК графический и моушн дизайнер",
+      "status": "staff_or_role_unverified",
+      "contact": null,
+      "source_url": "https://teletarget.com/channel/%40design_vacancy/",
+      "note": "28.10, salaried employment"
+    },
+    {
+      "id": 46,
+      "source": "cgfreelance",
+      "title": "Norllina Studio Unreal Engine 5 UI/UX",
+      "status": "old_confirmed",
+      "contact": "@neakin",
+      "source_url": "https://t.me/s/cgfreelance",
+      "note": "26 октября, за пределами 27–29 октября"
+    }
+  ]
+}
