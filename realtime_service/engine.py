@@ -148,6 +148,11 @@ class Monitor:
    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
     futures={ex.submit(fetch,url):url for url in urls}
     db=conn();outreach=contacted()
+    # Do not reintroduce a previous customer's repost, even if the
+    # message URL or wording changed. Keep archived leads in the database.
+    outreach.update(row["contact"].lower() for row in db.execute(
+        "SELECT DISTINCT contact FROM leads WHERE contacted=1 OR stage='dismissed'"
+    ) if row["contact"])
     for future in concurrent.futures.as_completed(futures):
      count+=1
      try:
