@@ -45,15 +45,7 @@ CREATE TABLE IF NOT EXISTS translation_cache(
  translated_body TEXT NOT NULL, translated_at TEXT NOT NULL,
  PRIMARY KEY(lead_id,source_digest)
 );
-CREATE TABLE IF NOT EXISTS gmail_sends(
- lead_id TEXT PRIMARY KEY,
- recipient TEXT NOT NULL,
- subject TEXT NOT NULL,
- status TEXT NOT NULL,
- message_id TEXT NOT NULL,
- attempted_at TEXT NOT NULL,
- sent_at TEXT NOT NULL DEFAULT ''
-);"""
+"""
 
 def conn():
  RUNTIME.mkdir(exist_ok=True,parents=True)
