@@ -1,5 +1,5 @@
 """Local SearchOrders dashboard + API + notification delivery. No automated outreach."""
-import json, os, html, re, sys, threading, urllib.request, urllib.parse, subprocess, smtplib
+import json, os, html, re, sys, threading, urllib.request, urllib.parse, subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
@@ -7,14 +7,12 @@ from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
 from .email_sources import SOURCES as EMAIL_SOURCES
 from .outreach import create_draft, subject_for_brief
 from .translation import looks_english,body_digest,translate_to_russian
-from .gmail_delivery import GMAIL_ADDRESS,normalize_app_password,validated_message,deliver
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
 HOST=os.environ.get("SEARCHORDERS_HOST","127.0.0.1")
 CONFIG=RUNTIME/"settings.json"
 monitor=Monitor()
 draft_lock=threading.Lock()
 translation_lock=threading.Lock()
-mail_send_lock=threading.Lock()
 
 def settings():
  if not CONFIG.exists():return {}
@@ -130,9 +128,7 @@ class Handler(BaseHTTPRequestHandler):
       "email_sources":[{"id":row["id"],"name":row["title"],"url":row["url"]} for row in EMAIL_SOURCES]})
   if path=="/api/settings":
    conf=settings()
-   return self.json({"gmail_configured":bool(conf.get("gmail_app_password")),
-      "gmail_address":GMAIL_ADDRESS,
-      "telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
+   return self.json({"telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
       "min_alert_score":int(conf.get("min_alert_score",80)),
       "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or conf.get("openai_api_key")),
       "ai_model":os.environ.get("SEARCHORDERS_AI_MODEL",conf.get("ai_model","gpt-4.1-mini"))})
@@ -140,7 +136,7 @@ class Handler(BaseHTTPRequestHandler):
  def do_POST(self):
   # The dashboard is intentionally localhost-only by default.
   path=urllib.parse.urlsplit(self.path).path
-  if path in ("/api/gmail/send","/api/settings"):
+  if path=="/api/settings":
    origin=self.headers.get("Origin")
    expected="http://"+self.headers.get("Host","127.0.0.1:"+str(PORT))
    if origin and origin!=expected:
@@ -184,61 +180,6 @@ class Handler(BaseHTTPRequestHandler):
      db.commit()
     finally:db.close()
     return self.json({"ok":True,"translation":text,"target":"ru","cached":False})
-  if path=="/api/gmail/send":
-   # One explicit button click = at most one message for one sourced lead.
-   # No background sends, bulk sends, arbitrary recipients or arbitrary sender.
-   ident=str(data.get("id",""))
-   address=str(data.get("from",""))
-   if not re.fullmatch(r"[a-f0-9]{20}",ident) or address!=GMAIL_ADDRESS:
-    return self.json({"error":"Недопустимый заказ или отправитель"},400)
-   conf=settings()
-   app_password=conf.get("gmail_app_password","")
-   if not app_password:return self.json({"error":"Сначала подключи Gmail в настройках SearchOrders."},409)
-   with mail_send_lock:
-    db=conn()
-    try:
-     lead=db.execute("SELECT contact,contacted,stage,expires_at FROM leads WHERE id=?",(ident,)).fetchone()
-     if not lead:return self.json({"error":"Заказ не найден"},404)
-     if lead["contacted"] or lead["stage"]=="dismissed":
-      return self.json({"error":"Заказ уже обработан или скрыт; повторную отправку заблокировали."},409)
-     if lead["expires_at"] and lead["expires_at"]<datetime.now(timezone.utc).date().isoformat():
-      return self.json({"error":"Дедлайн заявки истёк; отправка заблокирована."},409)
-     if not re.fullmatch(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}",lead["contact"]):
-      return self.json({"error":"В объявлении нет достоверного email"},409)
-     try:
-      msg=validated_message(lead["contact"],str(data.get("subject") or ""),str(data.get("body") or ""))
-     except ValueError as err:return self.json({"error":str(err)},400)
-     existing=db.execute("SELECT status FROM gmail_sends WHERE lead_id=?",(ident,)).fetchone()
-     if existing and existing["status"]!="failed":
-      return self.json({"error":"Эта заявка уже отправлена или результат предыдущей попытки неизвестен. Проверь папку «Отправленные» Gmail."},409)
-     ts=datetime.now(timezone.utc).isoformat()
-     db.execute("""INSERT INTO gmail_sends(lead_id,recipient,subject,status,message_id,attempted_at)
-       VALUES(?,?,?,?,?,?)
-       ON CONFLICT(lead_id) DO UPDATE SET recipient=excluded.recipient,subject=excluded.subject,
-       status=excluded.status,message_id=excluded.message_id,attempted_at=excluded.attempted_at""",
-       (ident,lead["contact"],str(msg["Subject"]),"sending",str(msg["Message-ID"]),ts))
-     db.commit()
-     try:
-      server_id=deliver(msg,app_password)
-     except smtplib.SMTPAuthenticationError:
-      db.execute("UPDATE gmail_sends SET status='failed' WHERE lead_id=?",(ident,));db.commit()
-      return self.json({"error":"Gmail отклонил пароль приложения. Проверь подключение аккаунта в настройках."},401)
-     except (smtplib.SMTPSenderRefused,smtplib.SMTPRecipientsRefused):
-      db.execute("UPDATE gmail_sends SET status='failed' WHERE lead_id=?",(ident,));db.commit()
-      return self.json({"error":"Gmail отклонил адрес отправителя или получателя. Письмо не отправлено."},502)
-     except (smtplib.SMTPException,OSError,ValueError) as exc:
-      # After network loss it is possible that Gmail accepted the message.
-      # Do not allow automatic retries and accidental double outreach.
-      db.execute("UPDATE gmail_sends SET status='unknown' WHERE lead_id=?",(ident,));db.commit()
-      print("Gmail send uncertainty:",type(exc).__name__,file=sys.stderr)
-      return self.json({"error":"Не удалось подтвердить отправку. Проверь папку «Отправленные» Gmail перед повторной попыткой."},502)
-     db.execute("UPDATE gmail_sends SET status='sent',sent_at=? WHERE lead_id=?",
-                (datetime.now(timezone.utc).isoformat(),ident))
-     db.execute("UPDATE leads SET contacted=1 WHERE id=?",(ident,))
-     db.commit()
-     return self.json({"ok":True,"sent":True,"from":GMAIL_ADDRESS,
-                         "to":lead["contact"],"message_id":server_id,"contacted":True})
-    finally:db.close()
   if path=="/api/draft":
    ident=str(data.get("id", ""))
    if not re.fullmatch(r"[a-f0-9]{20}",ident):
@@ -356,20 +297,12 @@ class Handler(BaseHTTPRequestHandler):
      return self.json({"error":"Проверьте формат ключа OpenAI API"},400)
     if key:c["openai_api_key"]=key
    if data.get("remove_ai_key") is True:c.pop("openai_api_key",None)
-   if "gmail_app_password" in data:
-    new_pass=str(data.get("gmail_app_password") or "")
-    if new_pass:
-     try:c["gmail_app_password"]=normalize_app_password(new_pass)
-     except ValueError as exc:return self.json({"error":str(exc)},400)
-   if data.get("remove_gmail_app_password") is True:
-    c.pop("gmail_app_password",None)
    if "ai_model" in data:
     model=str(data["ai_model"]).strip()
     if not re.fullmatch(r"[a-zA-Z0-9._-]{3,64}",model):return self.json({"error":"Недопустимое имя модели"},400)
     c["ai_model"]=model
    save_settings(c)
    return self.json({"ok":True,"telegram_configured":bool(c.get("telegram_token")),
-        "gmail_configured":bool(c.get("gmail_app_password")),
         "telegram_chat_id":c.get("telegram_chat_id",""),
         "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or c.get("openai_api_key"))})
   if path=="/api/telegram/discover":
