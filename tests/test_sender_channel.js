@@ -15,17 +15,11 @@ const context={gmailConfigured:true,gmailSending:false,api:async(path,data)=>{se
  senderChoices:{},CORPORATE_SENDER:'cco@imon.agency',PERSONAL_SENDER:'famesel7@gmail.com',
  $:key=>fields[key],toast:()=>{},cacheDraft:()=>{},window:{open:(url)=>{targetUrl=url}}};
 vm.createContext(context);
-vm.runInContext(fn+'\nthis.TEST={foreignLead,senderForLead,changeSender,gmailComposeUrl,yandexComposeUrl,updateSendButton,sendDraft};',context);
+vm.runInContext(fn+'\nthis.TEST={foreignLead,senderForLead,changeSender,yandexComposeUrl,updateSendButton,sendDraft,openSelectedMailbox};',context);
 const t=context.TEST;
 assert.strictEqual(t.senderForLead(leads[0]),'famesel7@gmail.com');
 assert.strictEqual(t.senderForLead({id:'ru',channel:'manual-email',body:'Ищем дизайнера для разработки лендинга на Тильде. Нужно оформить несколько экранов, проработать структуру и сделать адаптив.'}),'cco@imon.agency');
 assert.strictEqual(t.senderForLead({id:'en',channel:'manual-email',body:'We need a freelance graphic designer to design presentation slides and materials.'}),'famesel7@gmail.com');
-const gm=new URL(t.gmailComposeUrl('hiring@example.org','Проект №7','First line\nSecond line'));
-assert.strictEqual(decodeURIComponent(gm.pathname),'/mail/u/famesel7@gmail.com/');
-assert.strictEqual(gm.searchParams.get('to'),'hiring@example.org');
-assert.strictEqual(gm.searchParams.get('su'),'Проект №7');
-assert.strictEqual(gm.searchParams.get('body'),'First line\nSecond line');
-assert.strictEqual(gm.searchParams.get('tf'),'cm');
 const ym=new URL(t.yandexComposeUrl('hiring@example.org','Тема','Привет'));
 const mailto=new URL(ym.searchParams.get('mailto'));
 assert.strictEqual(ym.host,'mail.yandex.ru');
@@ -48,5 +42,10 @@ assert.strictEqual(mailto.searchParams.get('body'),'Привет');
  assert.strictEqual(fields.sendDraftButton.textContent,'✉ Открыть письмо в Яндекс Почте');
  await t.sendDraft();
  assert.strictEqual(new URL(targetUrl).host,'mail.yandex.ru');
- console.log('PASS: direct Gmail API send, no Gmail tab, manual Yandex draft, sender selection');
+ // A standalone "check inbox" button must use canonical Gmail home.
+ context.senderChoices['abc']='famesel7@gmail.com';
+ fields.emailFrom.value='famesel7@gmail.com';
+ t.openSelectedMailbox();
+ assert.strictEqual(targetUrl,'https://mail.google.com/');
+ console.log('PASS: direct Gmail API send, safe inbox URL, manual Yandex draft, sender selection');
 })().catch(e=>{console.error(e);process.exitCode=1});
