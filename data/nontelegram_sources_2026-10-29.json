@@ -1,0 +1,99 @@
+{
+  "updated_at": "2026-10-29",
+  "objective": "Avoid Telegram cold DMs; find paid client-posted project briefs with legitimate on-platform proposal paths and build inbound lead channels.",
+  "buckets": {
+    "brief_boards": [
+      {
+        "name": "FL.ru UI/UX",
+        "url": "https://www.fl.ru/projects/category/dizajn/ui-ux-dizajn/",
+        "terms": "Откликнуться через FL.ru, часто требуется верификация; исключать вакансии в штат",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "FL.ru websites",
+        "url": "https://www.fl.ru/projects/category/saity/web-dizajner-razrabotka-sajtov/",
+        "terms": "Заказы через платформу, часть проектов начинается от малых бюджетов",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "FL.ru sites turnkey",
+        "url": "https://www.fl.ru/projects/category/saity/sajt-pod-kljuch/",
+        "terms": "Скрининг по посильной разработке, не обещать интеграций без опыта",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "FL.ru presentations",
+        "url": "https://www.fl.ru/projects/category/dizajn/dizajner-prezentacij/",
+        "terms": "Проверить тип Заказ и исполнитель не определен",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Freelance.ru tasks",
+        "url": "https://freelance.ru/task",
+        "terms": "Регистрация/платформенный отклик; проверить статус и конкурсность",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Kwork buyer projects",
+        "url": "https://kwork.ru/projects",
+        "terms": "Создание профиля продавца; предложения по проектам заказчиков",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Dprofile project jobs",
+        "url": "https://dprofile.ru/jobs/projects?category=1",
+        "terms": "Проектные дизайн-заказы с бюджетами; проверять свежесть и интерфейс связи",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Workspace sites tender",
+        "url": "https://workspace.ru/tenders/web-development/",
+        "terms": "Некоторые тендеры требуют PRO для отклика; смотреть объем/бюджет/дедлайн",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Workspace identity tender",
+        "url": "https://workspace.ru/tenders/identity/",
+        "terms": "Платформенные тендеры на брендинг; проверить PRO и условия",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Behance freelance jobs",
+        "url": "https://www.behance.net/joblist?jobType=freelance",
+        "terms": "Для предложения требуется Behance Pro; доступность и оплаты зависят от страны",
+        "verified": "2026-10-29"
+      }
+    ],
+    "inbound": [
+      {
+        "name": "Tilda Experts",
+        "url": "https://experts.tilda.cc/ru/",
+        "terms": "Входящие брифы для специалистов по Tilda, авторство сайтов подтвердить идентификатором",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Behance Hire",
+        "url": "https://www.behance.net/",
+        "terms": "Freelance availability, Services, eligibility and payment restrictions",
+        "verified": "2026-10-29"
+      },
+      {
+        "name": "Dprofile portfolio",
+        "url": "https://dprofile.ru/",
+        "terms": "Профессиональные кейсы, доступность и прямые запросы от клиентов",
+        "verified": "2026-10-29"
+      }
+    ],
+    "subcontract": [
+      {
+        "name": "Workspace specialist directory",
+        "url": "https://workspace.ru/",
+        "terms": "Поиск проектных партнерств с веб/маркетинг агентствами; не массовый общий outbound",
+        "verified": "2026-10-29"
+      }
+    ]
+  },
+  "freshness": "3 calendar days for open briefs. Long-term inbound profiles and partners have no 3-day posting cutoff, but must have current activity.",
+  "outreach": "Use platform buttons/applications. No unsolicited Telegram messages. Never submit or pay without user instruction.",
+  "note": "Research entry points only. Registered accounts and platform fees were not set up in this turn."
+}
