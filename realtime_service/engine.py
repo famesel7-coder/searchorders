@@ -101,6 +101,8 @@ def classify(text,url,node,channel,published):
   if item.lstrip("@").lower() in BLOCKED or item.lstrip("@").lower()==channel.lower() or item.lower().endswith("bot"):continue
   if item.lower() not in [x.lower() for x in cc]:cc.append(item)
  if not cc:return None
+ # Prefer an explicitly published email over a Telegram handle.
+ cc.sort(key=lambda v: 0 if re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",v) else 1)
  if cc[0].lower().startswith(("info@","hello@")) and not re.search(r"контакт|отклик|писать|пишите|резюме|портфолио",text,re.I):return None
  buyer_match=re.search(r"(?:компания|агентство|заказчик)\s*[:—-]\s*([^\n,]{3,45})",text,re.I)
  buyer=buyer_match.group(1).strip(" .—-") if buyer_match else ""
