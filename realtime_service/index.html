@@ -29,9 +29,18 @@ a{color:#7daef9;text-decoration:none}a:hover{text-decoration:underline}.shell{mi
 <section class="panel detail"><div class="panelheader"><h2>Детали проекта</h2><span class="muted" id="detailsDate">Первоисточник</span></div><div id="details"><div class="empty"><strong>Выберите объявление</strong>Здесь появятся описание задачи, контакт и ссылка на исходную публикацию.</div></div></section>
 </div>
 <div class="sectionLine"><h2>Источники поиска</h2><button class="btn" onclick="addSource()">+ Добавить канал</button></div><div id="sources" class="sources"></div>
-<p class="muted" style="margin:20px 0">В поиске можно переключать email и Telegram-заказы. Зарубежные заявки по умолчанию открываются в Gmail, остальные в Яндекс Почте. Это выбор черновика, а не подтверждение отправки: перед отправкой проверь аккаунт.</p>
+<p class="muted" style="margin:20px 0">В поиске можно переключать email и Telegram-заказы. Для зарубежных проектов Gmail выбирается по умолчанию: после однократного подключения аккаунта письмо отправляется прямо из SearchOrders. Для Яндекс Почты по-прежнему открывается черновик.</p>
 </main></div>
-<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal"><h2>Уведомления в Telegram</h2><p>Создайте бота у @BotFather, вставьте токен, напишите своему боту /start и нажмите «Найти чат». Токен хранится только локально на этом компьютере.</p><label for="token">Токен бота</label><input class="field" type="password" id="token" placeholder="123456789:AA..."><label for="chatid">Chat ID</label><input class="field" id="chatid" placeholder="Определится автоматически"><label for="threshold">Минимальный рейтинг для уведомления</label><input class="field" id="threshold" type="number" min="60" max="99" value="80"><div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div><h3 style="margin:0 0 8px;font-size:16px">ИИ для индивидуальных откликов</h3><p>С подключённой моделью каждый запрос анализируется отдельно, а предыдущие письма учитываются, чтобы не повторяться. Без ключа работает упрощённая локальная генерация. API оплачивается отдельно от подписки ChatGPT.</p><label for="aiKey">OpenAI API key</label><input class="field" type="password" id="aiKey" autocomplete="off" placeholder="sk-..."><label for="aiModel">Модель</label><input class="field" id="aiModel" value="gpt-4.1-mini"><p id="aiState"></p><div class="modalactions"><button class="btn primary" onclick="saveSettings()">Сохранить</button><button class="btn" onclick="discoverChat()">Найти чат</button><button class="btn" onclick="sendTest()">Тест</button><button class="btn" onclick="document.getElementById('settingsModal').classList.remove('open')">Закрыть</button></div><p id="settingsState"></p></div></div>
+<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal"><h2>Настройки SearchOrders</h2><p>Создайте бота у @BotFather, вставьте токен, напишите своему боту /start и нажмите «Найти чат». Токен хранится только локально на этом компьютере.</p><label for="token">Токен бота</label><input class="field" type="password" id="token" placeholder="123456789:AA..."><label for="chatid">Chat ID</label><input class="field" id="chatid" placeholder="Определится автоматически"><label for="threshold">Минимальный рейтинг для уведомления</label><input class="field" id="threshold" type="number" min="60" max="99" value="80"><div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div><h3 style="margin:0 0 8px;font-size:16px">ИИ для индивидуальных откликов</h3><p>С подключённой моделью каждый запрос анализируется отдельно, а предыдущие письма учитываются, чтобы не повторяться. Без ключа работает упрощённая локальная генерация. API оплачивается отдельно от подписки ChatGPT.</p><label for="aiKey">OpenAI API key</label><input class="field" type="password" id="aiKey" autocomplete="off" placeholder="sk-..."><label for="aiModel">Модель</label><input class="field" id="aiModel" value="gpt-4.1-mini"><p id="aiState"></p>
+<div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div>
+<h3 style="margin:0 0 8px;font-size:16px">Gmail · отправка без открытия почты</h3>
+<p>Подключи famesel7@gmail.com один раз. Нужен пароль приложения Google из 16 символов, не обычный пароль аккаунта. Двухэтапная проверка должна быть включена.</p>
+<p><a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer">Создать пароль приложения Google ↗</a></p>
+<label for="gmailAppPassword">Пароль приложения Gmail</label>
+<input class="field" type="password" id="gmailAppPassword" autocomplete="new-password" maxlength="40" placeholder="16 символов · один раз">
+<p id="gmailState" class="draftHint">Gmail пока не подключён</p>
+<button class="btn" onclick="disconnectGmail()" id="disconnectGmailButton" type="button">Отключить Gmail</button>
+<div class="modalactions"><button class="btn primary" onclick="saveSettings()">Сохранить</button><button class="btn" onclick="discoverChat()">Найти чат</button><button class="btn" onclick="sendTest()">Тест</button><button class="btn" onclick="document.getElementById('settingsModal').classList.remove('open')">Закрыть</button></div><p id="settingsState"></p></div></div>
 <div class="modal-overlay" id="manualModal" onclick="if(event.target===this)this.classList.remove('open')">
  <div class="modal">
   <h2>Добавить заказ с email</h2>
@@ -49,6 +58,7 @@ const stageQuery={inbox:'not_contacted',contacted:'contacted',saved:'saved',hidd
 let leads=[],selected=null,sourceList=[],previousIds=null,scanBusy=false,listBusy=false,drafts={},draftInfo={},draftBusy=false,detailRenderedId=null;
 const translations={},translationLanguage={},translationPending={};
 const CORPORATE_SENDER='cco@imon.agency',PERSONAL_SENDER='famesel7@gmail.com';
+let gmailConfigured=false,gmailSending=false;
 let senderChoices={};
 try{senderChoices=JSON.parse(localStorage.getItem('searchorders_sender_choices_v1')||'{}')||{}}catch{senderChoices={}}
 const $=id=>document.getElementById(id);
@@ -236,28 +246,50 @@ function updateSendButton(lead){
  if(!button||!hint)return;
  const isEmail=recipientKind(lead?.contact)==='email';
  const from=senderForLead(lead);
- button.disabled=!isEmail;
+ button.disabled=!isEmail||gmailSending;
  button.textContent=!isEmail?'Нет email для отклика':
-  from===PERSONAL_SENDER?'✉ Открыть письмо в Gmail':'✉ Открыть письмо в Яндекс Почте';
- hint.textContent=isEmail?
-  ('Откроется черновик в '+(from===PERSONAL_SENDER?'Gmail':'Яндекс Почте')+
-   '. Проверь отправителя '+from+' и нажми «Отправить» самостоятельно.'):
-  'У заказчика нет опубликованного email. Почтовый адрес не выдумываем.';
+  from===PERSONAL_SENDER?(gmailSending?'✉ Отправка…':gmailConfigured?'✉ Отправить через Gmail':'🔐 Подключить Gmail для отправки'):'✉ Открыть письмо в Яндекс Почте';
+ hint.textContent=!isEmail?'У заказчика нет опубликованного email. Почтовый адрес не выдумываем.':
+  from===PERSONAL_SENDER?(gmailConfigured?
+   'После нажатия письмо отправится с famesel7@gmail.com без открытия Gmail. Проверь текст, тему и адрес получателя.':
+   'Подключи Gmail в настройках для отправки без открытия приложения.'):
+  'Яндекс Почта продолжает открывать черновик.';
 }
-function sendDraft(){
- const lead=leads.find(x=>x.id===selected);
+async function sendDraft(){
+ const id=selected,lead=leads.find(x=>x.id===id);
  const body=$('draftText')?.value.trim(),subject=$('emailSubject')?.value.trim();
  if(!lead||!body||!subject){toast('Заполни тему и текст письма');return}
- if(recipientKind(lead.contact)!=='email'){toast('В объявлении отсутствует email');return}
+ if(recipientKind(lead.contact)!=='email'){toast('В объявлении нет email');return}
  const sender=$('emailFrom')?.value;
- if(sender!==PERSONAL_SENDER&&sender!==CORPORATE_SENDER){toast('Выбери адрес отправителя');return}
+ if(sender!==PERSONAL_SENDER&&sender!==CORPORATE_SENDER){toast('Выбери отправителя');return}
  cacheDraft();
- const url=sender===PERSONAL_SENDER?
-   gmailComposeUrl(lead.contact,subject,body):
-   yandexComposeUrl(lead.contact,subject,body);
- window.open(url,'_blank','noopener');
- toast('Черновик открыт для '+sender+'. Проверь отправителя перед отправкой.');
- // Opening a draft does not count as sent; never update "Написал".
+ if(sender===PERSONAL_SENDER){
+  if(!gmailConfigured){
+   await showSettings();
+   toast('Для отправки подключи Gmail в настройках один раз.');
+   return;
+  }
+  if(gmailSending)return;
+  gmailSending=true;
+  updateSendButton(lead);
+  try{
+   const result=await api('/api/gmail/send',{id,from:PERSONAL_SENDER,subject,body});
+   if(!result.sent)throw Error('Нет подтверждения от Gmail');
+   const current=leads.find(x=>x.id===id);
+   if(current)current.contacted=1;
+   await Promise.all([refreshLeads(),refreshStatus()]);
+   toast('✓ Gmail принял письмо для '+result.to+'. Заказ перемещён в «Написал».');
+  }catch(e){
+   toast('Не отправлено: '+e.message);
+  }finally{
+   gmailSending=false;
+   const current=leads.find(x=>x.id===selected);
+   if(current)updateSendButton(current);
+  }
+  return;
+ }
+ window.open(yandexComposeUrl(lead.contact,subject,body),'_blank','noopener');
+ toast('Открыт черновик Яндекс Почты. Отправку нужно подтвердить вручную.');
 }
 function openSelectedMailbox(){
  const lead=leads.find(x=>x.id===selected);
@@ -387,9 +419,11 @@ async function saveManualLead(){
 }
 async function addSource(){let url=prompt('Ссылка на публичный Telegram-канал, например https://t.me/s/zakaz_design');if(!url)return;try{let x=await api('/api/source',{url:url.trim()});await refreshSources();toast('Источник добавлен');runScan()}catch(e){toast(e.message)}}
 async function showSettings(){$('settingsModal').classList.add('open');await refreshSettings()}
-async function refreshSettings(){try{let s=await api('/api/settings');$('chatid').value=s.telegram_chat_id||'';$('threshold').value=s.min_alert_score;$('aiModel').value=s.ai_model||'gpt-4.1-mini';$('aiState').textContent=s.ai_configured?'ИИ подключён · ключ сохранён локально':'ИИ ещё не подключён · работает локальный генератор';$('settingsState').textContent=s.telegram_configured?'Токен Telegram сохранён локально':'Telegram пока не подключён'}catch(e){$('settingsState').textContent=e.message}}
-async function saveSettings(){try{let data={telegram_chat_id:$('chatid').value.trim(),min_alert_score:Number($('threshold').value),ai_model:$('aiModel').value.trim()};if($('token').value.trim())data.telegram_token=$('token').value.trim();if($('aiKey').value.trim())data.openai_api_key=$('aiKey').value.trim();await api('/api/settings',data);$('token').value='';$('aiKey').value='';await refreshSettings();toast('Настройки сохранены')}catch(e){toast(e.message)}}
+async function refreshSettings(){try{let s=await api('/api/settings');gmailConfigured=!!s.gmail_configured;$('chatid').value=s.telegram_chat_id||'';$('threshold').value=s.min_alert_score;$('aiModel').value=s.ai_model||'gpt-4.1-mini';$('aiState').textContent=s.ai_configured?'ИИ подключён · ключ сохранён локально':'ИИ ещё не подключён · работает локальный генератор';$('gmailState').textContent=gmailConfigured?'✓ Gmail famesel7@gmail.com подключён · можно отправлять прямо из SearchOrders':'Gmail не подключён · требуется пароль приложения';$('disconnectGmailButton').disabled=!gmailConfigured;$('settingsState').textContent=s.telegram_configured?'Токен Telegram сохранён локально':'Telegram пока не подключён';const lead=leads.find(x=>x.id===selected);if(lead)updateSendButton(lead)}catch(e){$('settingsState').textContent=e.message}}
+async function saveSettings(){try{let data={telegram_chat_id:$('chatid').value.trim(),min_alert_score:Number($('threshold').value),ai_model:$('aiModel').value.trim()};if($('token').value.trim())data.telegram_token=$('token').value.trim();if($('aiKey').value.trim())data.openai_api_key=$('aiKey').value.trim();if($('gmailAppPassword').value.trim())data.gmail_app_password=$('gmailAppPassword').value.trim();await api('/api/settings',data);$('token').value='';$('aiKey').value='';$('gmailAppPassword').value='';await refreshSettings();toast('Настройки сохранены')}catch(e){toast(e.message)}}
+async function disconnectGmail(){if(!confirm('Отключить прямую отправку Gmail от SearchOrders?'))return;try{await api('/api/settings',{remove_gmail_app_password:true});$('gmailAppPassword').value='';await refreshSettings();toast('Подключение Gmail отключено')}catch(e){toast(e.message)}}
+async function refreshGmailConnection(){try{const s=await api('/api/settings');gmailConfigured=!!s.gmail_configured;const lead=leads.find(x=>x.id===selected);if(lead)updateSendButton(lead)}catch{}}
 async function discoverChat(){try{let r=await api('/api/telegram/discover',{});$('chatid').value=r.chat_id;await saveSettings();toast('Чат найден')}catch(e){toast(e.message)}}
 async function sendTest(){try{await api('/api/telegram/test',{});toast('Пробное сообщение отправлено в Telegram')}catch(e){toast(e.message)}}
-configurePage();refreshStatus();refreshLeads();refreshSources();setInterval(()=>{refreshStatus();refreshLeads()},15000);
+configurePage();refreshGmailConnection();refreshStatus();refreshLeads();refreshSources();setInterval(()=>{refreshStatus();refreshLeads()},15000);
 </script></body></html>
