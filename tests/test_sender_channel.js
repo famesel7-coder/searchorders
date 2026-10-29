@@ -10,7 +10,8 @@ const fields={
  sendDraftHint:{textContent:''}
 };
 const leads=[{id:'abc',contact:'hiring@example.org',channel:'pending-agency',body:'We are looking for a freelance graphic designer.'}];
-const context={URLSearchParams,encodeURIComponent,selected:'abc',leads,localStorage:{setItem:()=>{},getItem:()=>null},
+let sendCalls=[];let refreshCalls=0;
+const context={gmailConfigured:true,gmailSending:false,api:async(path,data)=>{sendCalls.push({path,data});return {sent:true,from:'famesel7@gmail.com',to:'hiring@example.org'}},refreshLeads:async()=>{refreshCalls++},refreshStatus:async()=>{},showSettings:async()=>{},URLSearchParams,encodeURIComponent,selected:'abc',leads,localStorage:{setItem:()=>{},getItem:()=>null},
  senderChoices:{},CORPORATE_SENDER:'cco@imon.agency',PERSONAL_SENDER:'famesel7@gmail.com',
  $:key=>fields[key],toast:()=>{},cacheDraft:()=>{},window:{open:(url)=>{targetUrl=url}}};
 vm.createContext(context);
@@ -30,14 +31,22 @@ const mailto=new URL(ym.searchParams.get('mailto'));
 assert.strictEqual(ym.host,'mail.yandex.ru');
 assert.strictEqual(mailto.protocol,'mailto:');
 assert.strictEqual(mailto.searchParams.get('body'),'Привет');
-t.updateSendButton(leads[0]);
-assert.strictEqual(fields.sendDraftButton.textContent,'✉ Открыть письмо в Gmail');
-t.sendDraft();
-assert.strictEqual(new URL(targetUrl).host,'mail.google.com');
-context.senderChoices['abc']='cco@imon.agency';
-fields.emailFrom.value='cco@imon.agency';
-t.updateSendButton(leads[0]);
-assert.strictEqual(fields.sendDraftButton.textContent,'✉ Открыть письмо в Яндекс Почте');
-t.sendDraft();
-assert.strictEqual(new URL(targetUrl).host,'mail.yandex.ru');
-console.log('PASS: foreign/domestic, manual override, Gmail/Yandex specific compose URLs, Unicode, no send');
+(async()=>{
+ t.updateSendButton(leads[0]);
+ assert.strictEqual(fields.sendDraftButton.textContent,'✉ Отправить через Gmail');
+ await t.sendDraft();
+ assert.strictEqual(sendCalls.length,1);
+ assert.strictEqual(sendCalls[0].path,'/api/gmail/send');
+ assert.strictEqual(sendCalls[0].data.id,'abc');
+ assert.strictEqual(sendCalls[0].data.from,'famesel7@gmail.com');
+ assert.strictEqual(refreshCalls,1);
+ assert.strictEqual(targetUrl,'','Gmail must not open any browser tab');
+ assert.strictEqual(leads[0].contacted,1);
+ context.senderChoices['abc']='cco@imon.agency';
+ fields.emailFrom.value='cco@imon.agency';
+ t.updateSendButton(leads[0]);
+ assert.strictEqual(fields.sendDraftButton.textContent,'✉ Открыть письмо в Яндекс Почте');
+ await t.sendDraft();
+ assert.strictEqual(new URL(targetUrl).host,'mail.yandex.ru');
+ console.log('PASS: direct Gmail API send, no Gmail tab, manual Yandex draft, sender selection');
+})().catch(e=>{console.error(e);process.exitCode=1});
