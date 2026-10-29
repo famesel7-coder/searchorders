@@ -5,7 +5,8 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
 from .email_sources import SOURCES as EMAIL_SOURCES
-from .platform_sources import SOURCES as PLATFORM_SOURCES
+from .free_bid_sources import SOURCES as FREE_SOURCES
+from .direct_email_sources import SOURCES as DIRECT_SOURCES
 from .outreach import create_draft, subject_for_brief
 from .translation import looks_english,body_digest,translate_to_russian
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
@@ -79,7 +80,7 @@ class Handler(BaseHTTPRequestHandler):
   return json.loads(self.rfile.read(length) or b"{}")
  def do_GET(self):
   path=urllib.parse.urlsplit(self.path).path
-  if path in ("/","/index.html","/contacted","/contacted/","/saved","/saved/","/hidden","/hidden/","/without-email","/without-email/","/platforms","/platforms/"):
+  if path in ("/","/index.html","/contacted","/contacted/","/saved","/saved/","/hidden","/hidden/","/without-email","/without-email/","/free-bids","/free-bids/"):
    data=(Path(__file__).resolve().parent/"index.html").read_bytes()
    self.send_response(200);self.send_header("Content-Type","text/html; charset=utf-8")
    self.send_header("Cache-Control","no-store");self.end_headers();self.wfile.write(data);return
@@ -97,8 +98,8 @@ class Handler(BaseHTTPRequestHandler):
    elif stage=="dismissed":filters.append("stage='dismissed'")
    elif stage=="without_email":
     filters.append("contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')")
-   elif stage=="platform":
-    filters.append("channel='workspace-tender' AND contacted=0 AND stage!='dismissed' AND (expires_at='' OR expires_at>=DATE('now'))")
+   elif stage=="free_bids":
+    filters.append("channel='flru-free' AND contacted=0 AND stage!='dismissed' AND (expires_at='' OR expires_at>=DATE('now'))")
    if email_only:
     filters.append("contact NOT LIKE '@%' AND contact LIKE '%@%.%'")
     filters.append("(expires_at='' OR expires_at>=DATE('now'))")
@@ -117,19 +118,19 @@ class Handler(BaseHTTPRequestHandler):
       "dismissed":db.execute("SELECT COUNT(*) FROM leads WHERE stage='dismissed'").fetchone()[0],
       "email_new":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact NOT LIKE '@%' AND contact LIKE '%@%.%' AND (expires_at='' OR expires_at>=DATE('now')) AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0],
       "without_email":db.execute("SELECT COUNT(*) FROM leads WHERE contacted=0 AND stage!='dismissed' AND contact LIKE '@%' AND lower(contact) NOT IN (SELECT lower(contact) FROM leads WHERE contacted=1 OR stage='dismissed')").fetchone()[0],
-      "platform_new":db.execute("SELECT COUNT(*) FROM leads WHERE channel='workspace-tender' AND contacted=0 AND stage!='dismissed' AND (expires_at='' OR expires_at>=DATE('now'))").fetchone()[0]
+      "free_new":db.execute("SELECT COUNT(*) FROM leads WHERE channel='flru-free' AND contacted=0 AND stage!='dismissed' AND (expires_at='' OR expires_at>=DATE('now'))").fetchone()[0]
    }
    bycat=dict(db.execute("SELECT category,count(*) FROM leads WHERE stage!='dismissed' GROUP BY category").fetchall())
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
    total_count=db.execute("SELECT COUNT(*) FROM leads").fetchone()[0]
    checks=[dict(x) for x in db.execute("SELECT * FROM email_source_checks ORDER BY source_id").fetchall()]
    db.close()
-   return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources())+len(EMAIL_SOURCES)+len(PLATFORM_SOURCES),
+   return self.json({"running":monitor.active,"interval_seconds":INTERVAL,"sources":len(sources())+len(EMAIL_SOURCES)+len(FREE_SOURCES)+len(DIRECT_SOURCES),
      "email_sources":checks,
      "counts":counts,"total_leads":total_count,"by_category":bycat,"last_scan":dict(scan) if scan else None})
   if path=="/api/sources":
-   return self.json({"items":sources()+[row["url"] for row in (*EMAIL_SOURCES,*PLATFORM_SOURCES)],
-      "email_sources":[{"id":row["id"],"name":row["title"],"url":row["url"]} for row in (*EMAIL_SOURCES,*PLATFORM_SOURCES)]})
+   return self.json({"items":sources()+[row["url"] for row in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES)],
+      "email_sources":[{"id":row["id"],"name":row["title"],"url":row["url"]} for row in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES)]})
   if path=="/api/settings":
    conf=settings()
    return self.json({"telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
@@ -193,7 +194,7 @@ class Handler(BaseHTTPRequestHandler):
     try:
      lead=db.execute("SELECT body, buyer, category, contact, channel FROM leads WHERE id=?",(ident,)).fetchone()
      if lead is None:return self.json({"error":"Проект не найден"},404)
-     is_tender=lead["channel"]=="workspace-tender"
+     is_tender=lead["channel"]=="flru-free"
      if not is_tender and not re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",lead["contact"]):
       return self.json({"error":"У заказчика нет опубликованного email. Отправка письма недоступна."},409)
      past=db.execute("""SELECT content FROM draft_history
@@ -334,7 +335,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
  server=ThreadingHTTPServer((HOST,PORT),Handler)
  monitor.start(send_notifications)
- print(f"SearchOrders dashboard: http://{HOST}:{PORT}, Telegram sources: {len(sources())}, public board sources: {len(EMAIL_SOURCES)+len(PLATFORM_SOURCES)}, interval: {INTERVAL}s",flush=True)
+ print(f"SearchOrders dashboard: http://{HOST}:{PORT}, Telegram sources: {len(sources())}, public board sources: {len(EMAIL_SOURCES)+len(FREE_SOURCES)+len(DIRECT_SOURCES)}, interval: {INTERVAL}s",flush=True)
  try:server.serve_forever(poll_interval=.4)
  except KeyboardInterrupt:pass
  finally:monitor.stop.set();server.server_close()
