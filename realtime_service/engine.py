@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import requests
 from lxml import html
-from .direct_contacts import is_direct_lead
+from .direct_contacts import is_direct_lead, is_telegram_lead
 
 ROOT=Path(__file__).resolve().parent.parent
 RUNTIME=Path(os.environ.get("SEARCHORDERS_STATE",str(ROOT/".runtime")))
@@ -161,9 +161,10 @@ class Monitor:
   try:
    from .email_sources import SOURCES as EMAIL_SOURCES,FETCHERS as EMAIL_FETCHERS
    from .direct_email_sources import SOURCES as DIRECT_SOURCES,FETCHERS as DIRECT_FETCHERS
-   # Telegram reposts do not prove the contact belongs to the buyer.
-   # Keep their old data in the archive; do not ingest them as new direct leads.
-   urls=[]
+   from .free_bid_sources import SOURCES as FREE_SOURCES,FETCHERS as FREE_FETCHERS
+   # Telegram posts are a separate, unverified-contact feed. Only real
+   # public posts with explicit contacts qualify, not generic group handles.
+   urls=sources()
    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
     futures={ex.submit(fetch,url):url for url in urls}
     db=conn();outreach=contacted()
@@ -177,7 +178,7 @@ class Monitor:
      try:
       posts,leads=future.result();fetched+=posts;matched+=len(leads)
       for item in leads:
-       if not is_direct_lead(item):continue
+       if not is_telegram_lead(item):continue
        item.setdefault("expires_at","")
        if item["contact"].lower() in outreach:continue
        if db.execute("SELECT 1 FROM leads WHERE url=? OR fingerprint=?",(item["url"],item["fingerprint"])).fetchone():continue
@@ -187,7 +188,7 @@ class Monitor:
      except Exception as e:errors.append(f"{futures[future]}: {str(e)[:100]}")
     # Non-Telegram public boards: check every 15 minutes. Re-run through
     # the button only after a short cooldown, to respect source bandwidth.
-    for src in (*EMAIL_SOURCES,*DIRECT_SOURCES):
+    for src in (*EMAIL_SOURCES,*DIRECT_SOURCES,*FREE_SOURCES):
      name=src["id"]
      previous=db.execute("SELECT checked_at FROM email_source_checks WHERE source_id=?",(name,)).fetchone()
      if previous:
@@ -197,7 +198,7 @@ class Monitor:
      count+=1
      check_time=datetime.now(timezone.utc).isoformat()
      try:
-      fetcher=(EMAIL_FETCHERS.get(name) or DIRECT_FETCHERS.get(name))
+      fetcher=(EMAIL_FETCHERS.get(name) or DIRECT_FETCHERS.get(name) or FREE_FETCHERS.get(name))
       nposts,items,source_errors=fetcher()
       fetched+=nposts;matched+=sum(1 for item in items if is_direct_lead(item))
       errors.extend(source_errors)
@@ -205,6 +206,11 @@ class Monitor:
        if not is_direct_lead(item):continue
        item.setdefault("expires_at","")
        if item["contact"].lower() in outreach:continue
+       if item["channel"]=="flru-free":
+        match=re.search(r"/projects/(\d{4,12})/",item["url"])
+        if match and db.execute(
+            "SELECT 1 FROM leads WHERE channel='flru-free' AND url LIKE ? LIMIT 1",
+            ("%/projects/"+match.group(1)+"/%",)).fetchone():continue
        if db.execute("SELECT 1 FROM leads WHERE url=? OR fingerprint=?",(item["url"],item["fingerprint"])).fetchone():continue
        db.execute("""INSERT OR IGNORE INTO leads(id,url,channel,published_at,discovered_at,body,category,score,contact,buyer,budget,reason,fingerprint,expires_at)
          VALUES(:id,:url,:channel,:published_at,:discovered_at,:body,:category,:score,:contact,:buyer,:budget,:reason,:fingerprint,:expires_at)""",item)

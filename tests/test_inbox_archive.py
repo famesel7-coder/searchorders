@@ -112,7 +112,8 @@ class InboxArchiveTests(unittest.TestCase):
              patch.object(engine,"contacted",return_value=set()), \
              patch("realtime_service.email_sources.SOURCES",({"id":"pending-agency"},)), \
              patch("realtime_service.email_sources.FETCHERS",{"pending-agency":lambda: (3,candidates,[])}), \
-             patch("realtime_service.direct_email_sources.SOURCES",()):
+             patch("realtime_service.direct_email_sources.SOURCES",()), \
+             patch("realtime_service.free_bid_sources.SOURCES",()):
             result=engine.Monitor().scan()
         self.assertEqual(result["new"],1)
         available=self.get("/api/leads?stage=not_contacted")["items"]

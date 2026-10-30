@@ -59,7 +59,8 @@ class BrowserSourcesTests(unittest.TestCase):
                          {"HeadHunter", "FL.ru", "Kwork", "Freelance.ru"})
         self.assertTrue(all(x["url"].startswith("https://") for x in data["searches"]))
         self.assertFalse(any("api.hh.ru" in x["url"] for x in data["searches"]))
-        self.assertEqual(self.get("/api/status")["sources"], 3 + len(PLATFORMS))
+        self.assertEqual(self.get("/api/status")["sources"],
+                         4 + len(PLATFORMS) + len(engine.sources()))
 
     def test_exact_vacancy_url_validation(self):
         allowed = [

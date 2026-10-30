@@ -5,7 +5,8 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
 from .email_sources import SOURCES as EMAIL_SOURCES
-from .direct_contacts import is_direct_lead
+from .direct_contacts import is_direct_lead, is_telegram_lead, source_group
+from .free_bid_sources import SOURCES as FREE_SOURCES
 from .direct_email_sources import SOURCES as DIRECT_SOURCES
 from .browse_sources import PLATFORMS, SEARCHES, platform_for_url
 from .outreach import create_draft, subject_for_brief
@@ -69,6 +70,28 @@ def send_notifications(rows):
     db=conn();db.execute("UPDATE leads SET notified=1 WHERE id=?",(row["id"],));db.commit();db.close()
   except Exception as e:print("Telegram failed:",str(e)[:130],file=sys.stderr)
 
+def project_key(row):
+ """Group FL.ru project URLs by numeric project id, not mutable title slug."""
+ url=str(row.get("url") or "")
+ parsed=urllib.parse.urlsplit(url)
+ host=(parsed.hostname or "").lower().removeprefix("www.")
+ if host=="fl.ru" and row.get("channel") in ("flru-free","manual-platform"):
+  match=re.match(r"^/projects/(\d{4,12})(?:/|$)",parsed.path)
+  if match:return "flru:"+match.group(1)
+ return "id:"+str(row.get("id") or url)
+
+def unique_projects(rows):
+ """Keep the strongest status when RSS changes a project's URL slug."""
+ ranked=sorted(rows,key=lambda x:(
+    x.get("stage")=="dismissed",bool(x.get("contacted")),bool(x.get("saved")),
+    str(x.get("discovered_at") or "")),reverse=True)
+ out=[];seen=set()
+ for row in ranked:
+  key=project_key(row)
+  if key not in seen:
+   out.append(row);seen.add(key)
+ return sorted(out,key=lambda x:str(x.get("published_at") or ""),reverse=True)
+
 class Handler(BaseHTTPRequestHandler):
  def log_message(self,fmt,*args):print("%s %s"%(self.log_date_time_string(),fmt%args))
  def json(self,obj,status=200):
@@ -92,6 +115,9 @@ class Handler(BaseHTTPRequestHandler):
    q=urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
    stage=(q.get("stage",["all"])[0]);category=q.get("category",["all"])[0]
    email_only=q.get("email_only",["0"])[0]=="1"
+   source=q.get("source",["all"])[0]
+   if source not in ("all","telegram","other"):
+    return self.json({"error":"Invalid source filter"},400)
    filters=[];values=[]
    if stage=="contacted":filters.append("contacted=1 AND stage!='dismissed'")
    elif stage=="not_contacted":
@@ -109,25 +135,33 @@ class Handler(BaseHTTPRequestHandler):
     filters.append("(expires_at='' OR expires_at>=DATE('now'))")
    if category!="all":filters.append("category=?");values.append(category)
    sql="SELECT * FROM leads"+(" WHERE "+" AND ".join(filters) if filters else "")+" ORDER BY published_at DESC LIMIT 600"
-   db=conn();rows=[dict(x) for x in db.execute(sql,values).fetchall()];db.close()
-   rows=[r for r in rows if is_direct_lead(r)]
-   return self.json({"items":rows})
+   db=conn()
+   rows=[dict(x) for x in db.execute(sql,values).fetchall()]
+   handled={project_key(dict(x)) for x in db.execute(
+       "SELECT id,url,channel FROM leads WHERE contacted=1 OR stage='dismissed'")}
+   db.close()
+   rows=[r for r in rows if source_group(r) and (source=="all" or source_group(r)==source)]
+   if stage=="not_contacted":
+    rows=[r for r in rows if project_key(r) not in handled]
+   return self.json({"items":unique_projects(rows)})
   if path=="/api/status":
    db=conn()
    all_rows=[dict(x) for x in db.execute("SELECT * FROM leads").fetchall()]
-   rows=[r for r in all_rows if is_direct_lead(r)]
+   rows=unique_projects([r for r in all_rows if source_group(r)])
    blocked={r["contact"].lower() for r in all_rows if r.get("contact") and
        (r["contacted"] or r["stage"]=="dismissed")}
    is_new=lambda r: not r["contacted"] and r["stage"]!="dismissed" and r["contact"].lower() not in blocked
    counts={
      "new":sum(bool(is_new(r)) for r in rows),
-     "direct_new":sum(bool(is_new(r)) for r in rows),
-     "email_new":sum(bool(is_new(r) and "@" in r["contact"]) for r in rows),
+     "telegram_new":sum(bool(is_new(r) and source_group(r)=="telegram") for r in rows),
+     "other_new":sum(bool(is_new(r) and source_group(r)=="other") for r in rows),
+     "direct_new":sum(bool(is_new(r) and source_group(r)=="other") for r in rows),
+     "email_new":sum(bool(is_new(r) and is_direct_lead(r) and "@" in r["contact"]) for r in rows),
      "contacted":sum(bool(r["contacted"] and r["stage"]!="dismissed") for r in rows),
      "saved":sum(bool(r["saved"] and r["stage"]!="dismissed") for r in rows),
      "dismissed":sum(bool(r["stage"]=="dismissed") for r in rows),
      "without_email":0,
-     "free_new":0,
+     "free_new":sum(bool(is_new(r) and r["channel"]=="flru-free") for r in rows),
    }
    bycat={}
    for row in rows:
@@ -135,16 +169,20 @@ class Handler(BaseHTTPRequestHandler):
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
    checks=[dict(x) for x in db.execute("SELECT * FROM email_source_checks ORDER BY source_id").fetchall()]
    db.close()
-   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES)
+   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES,*FREE_SOURCES)
+   from .engine import sources as telegram_sources
    return self.json({"running":monitor.active,"interval_seconds":INTERVAL,
-     "sources":len(allowed)+len(PLATFORMS),"manual_sources":len(PLATFORMS),
+     "sources":len(allowed)+len(PLATFORMS)+len(telegram_sources()),"manual_sources":len(PLATFORMS),
+     "telegram_sources":len(telegram_sources()),
      "automatic_sources":len(allowed),
      "email_sources":[x for x in checks if x["source_id"] in {a["id"] for a in allowed}],
      "counts":counts,"total_leads":len(rows),"by_category":bycat,
      "last_scan":dict(scan) if scan else None})
   if path=="/api/sources":
-   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES)
+   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES,*FREE_SOURCES)
+   from .engine import sources as telegram_sources
    return self.json({"items":[r["url"] for r in allowed],
+     "telegram_sources":telegram_sources(),
      "email_sources":[{"id":r["id"],"name":r["title"],"url":r["url"]} for r in allowed]})
   if path=="/api/browse-sources":
    return self.json({"platforms":PLATFORMS,"searches":SEARCHES,
@@ -213,9 +251,9 @@ class Handler(BaseHTTPRequestHandler):
     try:
      lead=db.execute("SELECT body, buyer, category, contact, channel, url, expires_at FROM leads WHERE id=?",(ident,)).fetchone()
      if lead is None:return self.json({"error":"Проект не найден"},404)
-     if not is_direct_lead(dict(lead)):
+     if not (is_direct_lead(dict(lead)) or is_telegram_lead(dict(lead))):
       return self.json({"error":"Заказ без проверенного первоисточника."},409)
-     is_tender=lead["channel"]=="manual-platform"
+     is_tender=lead["channel"] in ("manual-platform","flru-free") or is_telegram_lead(dict(lead)) and "@"==lead["contact"][:1] and "@" not in lead["contact"][1:]
      if not is_tender and not re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",lead["contact"]):
       return self.json({"error":"Для письма нужен прямой email."},409)
      past=db.execute("""SELECT content FROM draft_history
@@ -298,12 +336,17 @@ class Handler(BaseHTTPRequestHandler):
     return self.json({"error":"Invalid status update"},400)
    db=conn()
    try:
+    target=db.execute("SELECT id,url,channel FROM leads WHERE id=?",(ident,)).fetchone()
+    if target is None:return self.json({"error":"Project not found"},404)
+    related=[r["id"] for r in db.execute("SELECT id,url,channel FROM leads")
+        if project_key(dict(r))==project_key(dict(target))]
+    placeholders=",".join("?" for _ in related)
     if field=="contacted":
-     db.execute("UPDATE leads SET contacted=? WHERE id=?",(int(value),ident))
+     db.execute(f"UPDATE leads SET contacted=? WHERE id IN ({placeholders})",(int(value),*related))
     elif field=="saved":
-     db.execute("UPDATE leads SET saved=? WHERE id=?",(int(value),ident))
+     db.execute(f"UPDATE leads SET saved=? WHERE id IN ({placeholders})",(int(value),*related))
     else:
-     db.execute("UPDATE leads SET stage=? WHERE id=?",("dismissed" if value else "new",ident))
+     db.execute(f"UPDATE leads SET stage=? WHERE id IN ({placeholders})",("dismissed" if value else "new",*related))
     db.commit()
     row=db.execute("SELECT contacted,saved,stage FROM leads WHERE id=?",(ident,)).fetchone()
    finally: db.close()
