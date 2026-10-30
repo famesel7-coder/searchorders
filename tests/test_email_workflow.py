@@ -97,7 +97,7 @@ class EmailWorkflowTests(unittest.TestCase):
         self.assertEqual(len(matches),1)
         self.assertEqual(matches[0]["url"],"https://example.org/open-request/123")
         self.assertEqual(matches[0]["channel"],"manual-email")
-        self.assertIn("время добавления",matches[0]["reason"])
+        self.assertIn("время сохранения",matches[0]["reason"])
         status,draft=self.post("/api/draft",{"id":response["id"]})
         self.assertEqual(status,200)
         self.assertIn("samsel.site",draft["draft"])

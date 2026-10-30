@@ -161,7 +161,6 @@ class Monitor:
   try:
    from .email_sources import SOURCES as EMAIL_SOURCES,FETCHERS as EMAIL_FETCHERS
    from .direct_email_sources import SOURCES as DIRECT_SOURCES,FETCHERS as DIRECT_FETCHERS
-   from .hh_sources import SOURCES as HH_SOURCES,FETCHERS as HH_FETCHERS
    # Telegram reposts do not prove the contact belongs to the buyer.
    # Keep their old data in the archive; do not ingest them as new direct leads.
    urls=[]
@@ -188,18 +187,17 @@ class Monitor:
      except Exception as e:errors.append(f"{futures[future]}: {str(e)[:100]}")
     # Non-Telegram public boards: check every 15 minutes. Re-run through
     # the button only after a short cooldown, to respect source bandwidth.
-    for src in (*EMAIL_SOURCES,*DIRECT_SOURCES,*HH_SOURCES):
+    for src in (*EMAIL_SOURCES,*DIRECT_SOURCES):
      name=src["id"]
-     previous=db.execute("SELECT checked_at,last_error FROM email_source_checks WHERE source_id=?",(name,)).fetchone()
+     previous=db.execute("SELECT checked_at FROM email_source_checks WHERE source_id=?",(name,)).fetchone()
      if previous:
       try:age=(datetime.now(timezone.utc)-datetime.fromisoformat(previous["checked_at"])).total_seconds()
       except ValueError:age=999999
-      wait = 3600 if name=="hh-direct" and "403" in str(previous["last_error"] or "") else 900
-      if age < (120 if force_email and wait == 900 else wait):continue
+      if age < (120 if force_email else 900):continue
      count+=1
      check_time=datetime.now(timezone.utc).isoformat()
      try:
-      fetcher=(EMAIL_FETCHERS.get(name) or DIRECT_FETCHERS.get(name) or HH_FETCHERS.get(name))
+      fetcher=(EMAIL_FETCHERS.get(name) or DIRECT_FETCHERS.get(name))
       nposts,items,source_errors=fetcher()
       fetched+=nposts;matched+=sum(1 for item in items if is_direct_lead(item))
       errors.extend(source_errors)

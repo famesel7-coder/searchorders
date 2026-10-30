@@ -1,4 +1,4 @@
-"""Strict eligibility for direct-client contact leads.
+"""Strict eligibility for original-source leads and manual on-site applications.
 
 An open bidding link, a Telegram nickname from a repost, or a site footer
 must never be treated as the customer's direct application address.
@@ -13,7 +13,7 @@ EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
 # Explicit first-party collectors; extend only with collectors that check
 # the actual order page and the contact in that order, not a generic footer.
 DIRECT_CHANNELS = frozenset({
-    "pending-agency", "impactpool-design", "design-jobs-board", "manual-email", "hh-direct"
+    "pending-agency", "impactpool-design", "design-jobs-board", "manual-email", "manual-platform"
 })
 PHONE = re.compile(r"\+\d{10,15}")
 
@@ -23,7 +23,11 @@ def is_direct_lead(row, today=None):
     url = str(row.get("url") or "").strip()
     if channel not in DIRECT_CHANNELS:
         return False
-    if not EMAIL.fullmatch(email) and not (channel=="hh-direct" and PHONE.fullmatch(email)):
+    if channel=="manual-platform":
+        from .browse_sources import platform_for_url
+        if email != url or platform_for_url(url) is None:
+            return False
+    elif not EMAIL.fullmatch(email):
         return False
     text = str(row.get("body") or "").lower()
     reason = str(row.get("reason") or "").lower()
@@ -35,13 +39,9 @@ def is_direct_lead(row, today=None):
     parsed = urlparse(url)
     if parsed.scheme not in ("https", "http") or not parsed.hostname:
         return False
-    if channel=="hh-direct" and not re.fullmatch(r"/vacancy/\d{5,15}/?", parsed.path):
-        return False
-    if channel=="hh-direct" and parsed.hostname.lower() not in ("hh.ru", "www.hh.ru"):
-        return False
     # Never treat a free exchange bid or a public Telegram repost as a
     # confirmed client contact, even when its name happens to look like email.
-    if parsed.hostname.lower().removeprefix("www.") in ("fl.ru", "t.me", "telegram.me"):
+    if channel!="manual-platform" and parsed.hostname.lower().removeprefix("www.") in ("fl.ru", "t.me", "telegram.me"):
         return False
     expires = str(row.get("expires_at") or "")
     if expires and expires < (today or date.today()).isoformat():

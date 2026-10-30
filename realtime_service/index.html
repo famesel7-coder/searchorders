@@ -13,43 +13,40 @@ a{color:#7daef9;text-decoration:none}a:hover{text-decoration:underline}.shell{mi
 <div class="shell">
 <aside class="side"><div class="brand"><span class="mark">⌕</span><span>SearchOrders</span></div>
 <div><div><div class="sidelabel">Мониторинг</div><a class="sideitem active" data-view="inbox" href="/"><span>◉</span><span>Новые заказы</span></a><a class="sideitem" data-view="contacted" href="/contacted"><span>✓</span><span>Написал</span></a><a class="sideitem" data-view="saved" href="/saved"><span>☆</span><span>Избранное</span></a><a class="sideitem" data-view="hidden" href="/hidden"><span>⊘</span><span>Скрытые</span></a><button class="sideitem" onclick="showSettings()"><span>⚙</span><span>Настройки</span></button></div>
-<div class="sidebarbottom"><span class="circle"></span> Мониторинг заказов<br><span id="sideInterval">Сканирование каждые 5 минут</span><br>Почтовые отклики с выбором отправителя.</div></aside>
+<div class="sidebarbottom"><span class="circle"></span> Мониторинг заказов<br><span id="sideInterval">Сканирование каждые 5 минут</span><br>Отклики вручную из своего аккаунта.</div></aside>
 <main class="main">
-<div class="topline" role="toolbar" aria-label="Управление поиском"><div class="top-actions"><button class="btn" onclick="showSettings()">⚙ Настройки</button><button class="btn" id="manualLeadButton" onclick="showManualLead()">+ Добавить заказ по email</button><button class="btn primary" id="scanButton" onclick="runScan()">↻ Новый поиск заказов</button><a class="btn primary" id="backToInbox" href="/" hidden>← К новым заказам</a></div></div>
+<div class="topline" role="toolbar" aria-label="Управление поиском"><div class="top-actions"><button class="btn" onclick="showSettings()">⚙ Настройки</button><button class="btn" id="manualLeadButton" onclick="showManualLead()">+ Сохранить заказ</button><button class="btn primary" id="scanButton" onclick="runScan()">↻ Проверить автоисточники</button><a class="btn primary" id="backToInbox" href="/" hidden>← К новым заказам</a></div></div>
 <section class="metrics">
-<div class="metric"><div class="small" id="mAllLabel">Заказы с email</div><div class="num" id="mAll">…</div></div>
+<div class="metric"><div class="small" id="mAllLabel">Ждут отклика</div><div class="num" id="mAll">…</div></div>
 <div class="metric"><div class="small">Сохранено</div><div class="num" id="mSaved">…</div></div>
 <div class="metric"><div class="small">Источников</div><div class="num" id="mSources">…</div></div>
 <div class="metric"><div class="small">Последняя проверка</div><div class="num" style="font-size:18px;margin-top:15px" id="mCheck">…</div></div>
 </section>
+<div class="sectionLine"><h2>Открыть заказы на площадках</h2></div>
+<p class="muted" style="margin:8px 0 15px">Без API и парсинга. Выбирай направление, открывай объявления, откликайся со своего аккаунта. Сохраняй интересные объявления кнопкой «+ Сохранить заказ». Платные отклики пропускай.</p>
+<div id="browseSources" class="sources">Загрузка прямых ссылок...</div>
 <div class="workspace">
-<section class="panel"><div class="panelheader"><h2 id="feedTitle">Заказы с email</h2><div class="feed-actions"><span id="runtime"><span class="badgeDot"></span> проверка</span><button class="btn btn-compact" id="refreshListButton" onclick="refreshListNow()" aria-label="Обновить список заказов" title="Обновить список из базы данных">↻ Обновить список</button></div></div>
+<section class="panel"><div class="panelheader"><h2 id="feedTitle">Мои заказы и отклики</h2><div class="feed-actions"><span id="runtime"><span class="badgeDot"></span> проверка</span><button class="btn btn-compact" id="refreshListButton" onclick="refreshListNow()" aria-label="Обновить список заказов" title="Обновить список из базы данных">↻ Обновить список</button></div></div>
 <div class="listtools"><input class="field search" id="search" placeholder="Поиск по задачам или контактам" oninput="renderList()"><select class="field" id="category" onchange="renderList()"><option value="all">Все направления</option><option value="web">Сайты</option><option value="uiux">UI/UX</option><option value="presentations">Презентации</option><option value="branding">Брендинг</option></select><span class="page-scope" id="pageScope">Без отправленных и скрытых</span></div>
 <div id="leadList"><div class="empty"><strong>Загрузка источников</strong>Проверяем реальные объявления, без демонстрационных лидов.</div></div></section>
 <section class="panel detail"><div class="panelheader"><h2>Детали проекта</h2><span class="muted" id="detailsDate">Первоисточник</span></div><div id="details"><div class="empty"><strong>Выберите объявление</strong>Здесь появятся описание задачи, контакт и ссылка на исходную публикацию.</div></div></section>
 </div>
-<div class="sectionLine"><h2>Источники с прямым контактом</h2></div><div id="sources" class="sources"></div>
-<p class="muted" style="margin:20px 0">Показываются только объявления с прямым email или телефоном из конкретного заказа и ссылкой на первоисточник. FL.ru без контакта заказчика и перепосты с непроверенными Telegram-никами исключены. Для зарубежных запросов по умолчанию выбирается Gmail, письма отправляются вручную.</p>
+<div class="sectionLine"><h2>Автоматически проверяемые источники с email</h2></div><div id="sources" class="sources"></div>
+<p class="muted" style="margin:20px 0">Сохранённые вручную задания из hh.ru, FL.ru, Kwork и Freelance.ru открываются в личном аккаунте площадки. Остальные источники автоматически проверяются без специальных API и показываются только при наличии прямого email. Отправка отклика всегда вручную.</p>
 </main></div>
 <div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal"><h2>Настройки SearchOrders</h2><p>Создайте бота у @BotFather, вставьте токен, напишите своему боту /start и нажмите «Найти чат». Токен хранится только локально на этом компьютере.</p><label for="token">Токен бота</label><input class="field" type="password" id="token" placeholder="123456789:AA..."><label for="chatid">Chat ID</label><input class="field" id="chatid" placeholder="Определится автоматически"><label for="threshold">Минимальный рейтинг для уведомления</label><input class="field" id="threshold" type="number" min="60" max="99" value="80"><div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div><h3 style="margin:0 0 8px;font-size:16px">ИИ для индивидуальных откликов</h3><p>С подключённой моделью каждый запрос анализируется отдельно, а предыдущие письма учитываются, чтобы не повторяться. Без ключа работает упрощённая локальная генерация. API оплачивается отдельно от подписки ChatGPT.</p><label for="aiKey">OpenAI API key</label><input class="field" type="password" id="aiKey" autocomplete="off" placeholder="sk-..."><label for="aiModel">Модель</label><input class="field" id="aiModel" value="gpt-4.1-mini"><p id="aiState"></p>
-<div style="border-top:1px solid #384b5c;margin:24px 0 16px"></div>
-<h3 style="margin:0 0 8px;font-size:16px">HeadHunter · официальный API</h3>
-<p>Источник включён. Доступ к вакансиям может требовать авторизацию или капчу.
-Можно сохранить собственный OAuth-токен hh.ru. Пароль HeadHunter здесь не нужен.
-Если сервис возвращает 403, источник покажет ошибку, а объявления без контактов не появятся.</p>
-<label for="hhToken">OAuth access token hh.ru (необязательно)</label>
-<input class="field" type="password" id="hhToken" autocomplete="off" placeholder="Токен официального API">
-<p id="hhState"></p>
 <div class="modalactions"><button class="btn primary" onclick="saveSettings()">Сохранить</button><button class="btn" onclick="discoverChat()">Найти чат</button><button class="btn" onclick="sendTest()">Тест</button><button class="btn" onclick="document.getElementById('settingsModal').classList.remove('open')">Закрыть</button></div><p id="settingsState"></p></div></div>
 <div class="modal-overlay" id="manualModal" onclick="if(event.target===this)this.classList.remove('open')">
  <div class="modal">
-  <h2>Добавить заказ с email</h2>
-  <p>Заполни данные из исходного объявления. Сервис не придумывает контакты и не отправляет письма самостоятельно.</p>
+  <h2>Сохранить интересный заказ</h2>
+  <p>Вставь ссылку на конкретное объявление и короткое описание. Отклик отправляешь сам из аккаунта на площадке или по email.</p>
   <label for="manualBuyer">Компания или имя заказчика (если известно)</label><input class="field" id="manualBuyer" placeholder="Название заказчика">
-  <label for="manualEmail">Email, указанный заказчиком</label><input class="field" id="manualEmail" type="email" required placeholder="contact@company.com">
-  <label for="manualUrl">Ссылка на объявление</label><input class="field" id="manualUrl" type="url" required placeholder="https://...">
+  <label for="manualMethod">Как будешь откликаться?</label>
+  <select class="field" id="manualMethod" onchange="switchManualMode()"><option value="platform">Через свой аккаунт на площадке</option><option value="email">На email заказчика</option></select>
+  <div id="manualEmailRow" hidden><label for="manualEmail">Email, указанный заказчиком</label><input class="field" id="manualEmail" type="email" placeholder="contact@company.com"></div>
+  <label for="manualUrl">Ссылка на объявление</label><input class="field" id="manualUrl" type="url" required placeholder="Ссылка на конкретную вакансию или проект">
   <label for="manualBrief">Текст задачи из объявления</label><textarea class="field" id="manualBrief" rows="5" placeholder="Что конкретно требуется, сроки и формат сотрудничества"></textarea>
-  <div class="modalactions"><button class="btn primary" id="manualSubmit" onclick="saveManualLead()">Добавить в email-ленту</button><button class="btn" onclick="document.getElementById('manualModal').classList.remove('open')">Отмена</button></div>
+  <div class="modalactions"><button class="btn primary" id="manualSubmit" onclick="saveManualLead()">Сохранить в заказы</button><button class="btn" onclick="document.getElementById('manualModal').classList.remove('open')">Отмена</button></div>
  </div>
 </div><div id="toast" class="toast"></div>
 <script>
@@ -69,7 +66,7 @@ async function api(path,data){const opts=data===undefined?{}:{method:'POST',head
 function when(s){try{let d=new Date(s);return d.toLocaleString('ru-RU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}catch{return s}}
 function configurePage(){
  const config={
-  inbox:{title:'Заказы с прямыми контактами',scope:'Email или телефон из вакансии · без платных откликов и посредников',metric:'Прямые контакты'},
+  inbox:{title:'Мои заказы и отклики',scope:'Сохранённые объявления и прямые email · отклик вручную',metric:'Ждут отклика'},
   contacted:{title:'Написал · история откликов',scope:'Заказы, по которым ты уже написал',metric:'Написал'},
   saved:{title:'Избранные заказы',scope:'Сохранённые объявления',metric:'В избранном'},
   hidden:{title:'Скрытые заказы',scope:'Архив скрытых объявлений',metric:'Скрыто'},
@@ -85,13 +82,13 @@ function configurePage(){
 }
 function renderList(){
  const search=$('search').value.toLowerCase().trim(),cat=$('category').value;
- const eligible=l=>pageView==='inbox'?!l.contacted&&l.stage!=='dismissed'&&['email','phone'].includes(recipientKind(l.contact)):
+ const eligible=l=>pageView==='inbox'?!l.contacted&&l.stage!=='dismissed'&&(l.channel==='manual-platform'||['email','phone'].includes(recipientKind(l.contact))):
    pageView==='contacted'?!!l.contacted&&l.stage!=='dismissed':
    pageView==='saved'?!!l.saved&&l.stage!=='dismissed':l.stage==='dismissed';
  const list=leads.filter(l=>eligible(l)&&(cat==='all'||l.category===cat)&&(!search||[l.body,l.contact,l.buyer,l.channel].join(' ').toLowerCase().includes(search)));
- const emptyTitle=pageView==='contacted'?'Пока нет отмеченных откликов':pageView==='hidden'?'Скрытых заказов нет':pageView==='saved'?'Избранное пока пустое':'Пока нет заказов с прямым контактом';
- const emptyHelp=pageView==='contacted'?'После отправки письма и отметки заказ появится здесь.':pageView==='hidden'?'Скрытые объявления будут храниться здесь.':pageView==='saved'?'Сохранённые заказы появятся здесь.':'Поиск принимает только объявления с опубликованным email или телефоном заказчика и ссылкой на исходный запрос. Если прямых контактов нет, список останется пустым.';
- $('leadList').innerHTML=list.length?list.map(l=>'<article class="lead '+(selected===l.id?'selected':'')+'" onclick="choose(\''+l.id+'\')"><div class="leadtop"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span><span class="score">'+l.score+'/99</span></div><h3>'+esc(l.buyer||l.body.slice(0,105))+'</h3><div class="excerpt">'+esc(l.body)+'</div><div class="leadfooter"><span>'+esc(when(l.published_at))+'</span><span>'+esc(l.channel)+'</span><span class="status-pill '+(l.contacted?'contacted':'not-contacted')+'">'+(l.contacted?'✓ Написал':'✕ Не написал')+'</span>'+(recipientKind(l.contact)==='email'?'<span class="email-badge">✉ Email</span>':recipientKind(l.contact)==='phone'?'<span class="email-badge">☎ Телефон</span>':'')+(l.saved?'<span class="favorite-mark">★ Избранное</span>':'')+'</div></article>').join(''):'<div class="empty"><strong>'+emptyTitle+'</strong>'+emptyHelp+'</div>';
+ const emptyTitle=pageView==='contacted'?'Пока нет отмеченных откликов':pageView==='hidden'?'Скрытых заказов нет':pageView==='saved'?'Избранное пока пустое':'Пока нет сохранённых заказов';
+ const emptyHelp=pageView==='contacted'?'После отправки письма и отметки заказ появится здесь.':pageView==='hidden'?'Скрытые объявления будут храниться здесь.':pageView==='saved'?'Сохранённые заказы появятся здесь.':'Сохраняй задания по ссылке на конкретный заказ с hh.ru, FL.ru, Kwork и Freelance.ru. Автоматическая лента с прямыми email тоже работает.';
+ $('leadList').innerHTML=list.length?list.map(l=>'<article class="lead '+(selected===l.id?'selected':'')+'" onclick="choose(\''+l.id+'\')"><div class="leadtop"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span><span class="score">'+l.score+'/99</span></div><h3>'+esc(l.buyer||l.body.slice(0,105))+'</h3><div class="excerpt">'+esc(l.body)+'</div><div class="leadfooter"><span>'+esc(when(l.published_at))+'</span><span>'+esc(l.channel)+'</span><span class="status-pill '+(l.contacted?'contacted':'not-contacted')+'">'+(l.contacted?'✓ Написал':'✕ Не написал')+'</span>'+(recipientKind(l.contact)==='email'?'<span class="email-badge">✉ Email</span>':recipientKind(l.contact)==='phone'?'<span class="email-badge">☎ Телефон</span>':l.channel==='manual-platform'?'<span class="email-badge">↗ Отклик на площадке</span>':'')+(l.saved?'<span class="favorite-mark">★ Избранное</span>':'')+'</div></article>').join(''):'<div class="empty"><strong>'+emptyTitle+'</strong>'+emptyHelp+'</div>';
  if(selected&&!list.some(x=>x.id===selected)){selected=null;detailRenderedId=null;}
  if(!selected&&list.length)selected=list[0].id;
  renderDetails();
@@ -157,7 +154,7 @@ function renderDetails(){
  detailRenderedId=l.id;
  $('detailsDate').textContent=when(l.published_at);
  let date=new Date(l.published_at),age=Math.round((Date.now()-date.getTime())/3600000);
- $('details').innerHTML='<div class="detailBody"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span> <span class="score">Рейтинг '+l.score+'/99</span><h3 class="detailTitle">'+esc(l.buyer||'Запрос на дизайн')+'</h3><div class="contact-status '+(l.contacted?'contacted':'not-contacted')+'">'+(l.contacted?'✓ Написал':'✕ Не написал')+'</div><div class="detailMeta"><div><div class="itemlabel">'+(recipientKind(l.contact)==='email'?'Email заказчика':recipientKind(l.contact)==='phone'?'Телефон работодателя':'Контакт')+'</div><div class="itemvalue" style="color:#b8ec99">'+esc(l.contact)+(recipientKind(l.contact)==='phone'?' <a href="tel:'+encodeURIComponent(l.contact)+'">☎ Позвонить</a>':'')+'</div></div><div><div class="itemlabel">'+(l.channel==='manual-email'||l.channel==='pending-agency'||l.channel==='impactpool-design'||l.channel==='design-jobs-board'?'Обнаружено сервисом':'Публикация')+'</div><div class="itemvalue">'+esc(when(l.published_at))+' ('+age+' ч назад)</div></div><div><div class="itemlabel">Канал</div><div class="itemvalue">'+esc(l.channel)+'</div></div><div><div class="itemlabel">Бюджет в объявлении</div><div class="itemvalue">'+esc(l.budget||'Не указан')+'</div></div></div><p class="muted">'+esc(l.reason)+'</p>'+(looksEnglish(l.body)?'<div class="translationBar"><span class="translationBarLabel">Язык описания</span><div class="translationButtons" role="group" aria-label="Язык объявления"><button class="translationChoice active" data-lang="en" aria-pressed="true" onclick="switchTranslation(\'en\')">English</button><button class="translationChoice" data-lang="ru" id="translateRussian" aria-pressed="false" onclick="switchTranslation(\'ru\')">Русский</button></div></div><p class="translationStatus" id="translationStatus" hidden></p>':'')+'<div class="detailText" id="projectDescription">'+esc(l.body)+'</div><div class="detailButtons" style="margin-top:20px"><button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">↗ Первоисточник</button><button class="btn" onclick="copyContact()">Копировать контакт</button>'+(l.channel==='flru-free'?'<button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">▣ FL.ru · бесплатно</button>':'')+'<button class="btn" onclick="toggleSaved()">'+(l.saved?'★ В избранном':'☆ Сохранить')+'</button><button class="btn btn-contact" onclick="toggleContacted()">'+(l.contacted?'↶ Отметить: не написал':'✓ Отметить: написал')+'</button><button class="btn" onclick="hideLead()">'+(l.stage==='dismissed'?'↶ Вернуть в ленту':'Скрыть')+'</button><button class="btn draftCta" id="draftGenerate" onclick="generateDraft()" '+(recipientKind(l.contact)==='email'||l.channel==='flru-free'?'':'disabled title="Email в объявлении не указан"')+'>'+(l.channel==='flru-free'?'✦ Подготовить отклик':'✦ Написать письмо')+'</button></div><div class="draftPanel" id="draftPanel" hidden><h4>'+(l.channel==='flru-free'?'Текст заявки для FL.ru':'Письмо заказчику')+'</h4><p class="draftHint" id="draftMethod">Разбираю задачу перед генерацией.</p><p class="draftHint" id="draftAnalysis"></p><div class="emailMeta" '+(l.channel==='flru-free'?'style="display:none"':'')+'><div class="emailRow"><label class="emailLabel" for="emailFrom">От</label><select class="emailInput" id="emailFrom" onchange="changeSender(this.value)" aria-label="Почта отправителя"><option value="cco@imon.agency">cco@imon.agency · Яндекс</option><option value="famesel7@gmail.com">famesel7@gmail.com · Gmail</option></select></div><div class="emailRow"><label class="emailLabel" for="emailTo">Кому</label><input class="emailInput" id="emailTo" readonly></div><div class="emailRow"><label class="emailLabel" for="emailSubject">Тема</label><input class="emailInput" id="emailSubject" oninput="cacheDraft()" maxlength="180"></div></div><textarea class="draftText" id="draftText" aria-label="Текст письма" oninput="cacheDraft()" spellcheck="true"></textarea><div class="draftActions"><button class="btn primary" id="sendDraftButton" '+(l.channel==='flru-free'?'hidden ':'')+'onclick="sendDraft()">✉ Открыть готовое письмо</button><button class="btn" onclick="copyDraft()">Копировать письмо</button><button class="btn" '+(l.channel==='flru-free'?'hidden ':'')+'onclick="openSelectedMailbox()">Открыть почту</button><button class="btn" onclick="generateDraft()">↻ Другой вариант</button></div><p class="draftHint" id="sendDraftHint" style="margin:12px 0 0">'+(l.channel==='flru-free'?'Скопируй текст и вставь в форму отклика на FL.ru после входа в аккаунт. Открытие объявления не означает отправку.':'Письмо откроется с заполненными полями. Отправка происходит вручную из почты.')+'</p></div></div>';
+ $('details').innerHTML='<div class="detailBody"><span class="cat '+esc(l.category)+'">'+esc(labels[l.category]||l.category)+'</span> <span class="score">Рейтинг '+l.score+'/99</span><h3 class="detailTitle">'+esc(l.buyer||'Запрос на дизайн')+'</h3><div class="contact-status '+(l.contacted?'contacted':'not-contacted')+'">'+(l.contacted?'✓ Написал':'✕ Не написал')+'</div><div class="detailMeta"><div><div class="itemlabel">'+(l.channel==='manual-platform'?'Отклик через личный аккаунт':recipientKind(l.contact)==='email'?'Email заказчика':recipientKind(l.contact)==='phone'?'Телефон работодателя':'Контакт')+'</div><div class="itemvalue" style="color:#b8ec99">'+esc(l.contact)+(recipientKind(l.contact)==='phone'?' <a href="tel:'+encodeURIComponent(l.contact)+'">☎ Позвонить</a>':'')+'</div></div><div><div class="itemlabel">'+(l.channel==='manual-email'||l.channel==='pending-agency'||l.channel==='impactpool-design'||l.channel==='design-jobs-board'?'Обнаружено сервисом':'Публикация')+'</div><div class="itemvalue">'+esc(when(l.published_at))+' ('+age+' ч назад)</div></div><div><div class="itemlabel">Канал</div><div class="itemvalue">'+esc(l.channel)+'</div></div><div><div class="itemlabel">Бюджет в объявлении</div><div class="itemvalue">'+esc(l.budget||'Не указан')+'</div></div></div><p class="muted">'+esc(l.reason)+'</p>'+(looksEnglish(l.body)?'<div class="translationBar"><span class="translationBarLabel">Язык описания</span><div class="translationButtons" role="group" aria-label="Язык объявления"><button class="translationChoice active" data-lang="en" aria-pressed="true" onclick="switchTranslation(\'en\')">English</button><button class="translationChoice" data-lang="ru" id="translateRussian" aria-pressed="false" onclick="switchTranslation(\'ru\')">Русский</button></div></div><p class="translationStatus" id="translationStatus" hidden></p>':'')+'<div class="detailText" id="projectDescription">'+esc(l.body)+'</div><div class="detailButtons" style="margin-top:20px"><button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">↗ Первоисточник</button><button class="btn" onclick="copyContact()">'+(l.channel==='manual-platform'?'Копировать ссылку':'Копировать контакт')+'</button>'+(l.channel==='manual-platform'?'<button class="btn primary" onclick="window.open(\''+encodeURI(l.url).replaceAll("'","")+'\',\'_blank\')">↗ Откликнуться из аккаунта</button>':'')+'<button class="btn" onclick="toggleSaved()">'+(l.saved?'★ В избранном':'☆ Сохранить')+'</button><button class="btn btn-contact" onclick="toggleContacted()">'+(l.contacted?'↶ Отметить: не написал':'✓ Отметить: написал')+'</button><button class="btn" onclick="hideLead()">'+(l.stage==='dismissed'?'↶ Вернуть в ленту':'Скрыть')+'</button><button class="btn draftCta" id="draftGenerate" onclick="generateDraft()" '+(recipientKind(l.contact)==='email'||l.channel==='manual-platform'?'':'disabled title="Нет способа отклика"')+'>'+(l.channel==='manual-platform'?'✦ Текст отклика':'✦ Написать письмо')+'</button></div><div class="draftPanel" id="draftPanel" hidden><h4>'+(l.channel==='manual-platform'?'Отклик для площадки':'Письмо заказчику')+'</h4><p class="draftHint" id="draftMethod">Разбираю задачу перед генерацией.</p><p class="draftHint" id="draftAnalysis"></p><div class="emailMeta" '+(l.channel==='manual-platform'?'style="display:none"':'')+'><div class="emailRow"><label class="emailLabel" for="emailFrom">От</label><select class="emailInput" id="emailFrom" onchange="changeSender(this.value)" aria-label="Почта отправителя"><option value="cco@imon.agency">cco@imon.agency · Яндекс</option><option value="famesel7@gmail.com">famesel7@gmail.com · Gmail</option></select></div><div class="emailRow"><label class="emailLabel" for="emailTo">Кому</label><input class="emailInput" id="emailTo" readonly></div><div class="emailRow"><label class="emailLabel" for="emailSubject">Тема</label><input class="emailInput" id="emailSubject" oninput="cacheDraft()" maxlength="180"></div></div><textarea class="draftText" id="draftText" aria-label="Текст письма" oninput="cacheDraft()" spellcheck="true"></textarea><div class="draftActions"><button class="btn primary" id="sendDraftButton" '+(l.channel==='manual-platform'?'hidden ':'')+'onclick="sendDraft()">✉ Открыть готовое письмо</button><button class="btn" onclick="copyDraft()">Копировать письмо</button><button class="btn" '+(l.channel==='manual-platform'?'hidden ':'')+'onclick="openSelectedMailbox()">Открыть почту</button><button class="btn" onclick="generateDraft()">↻ Другой вариант</button></div><p class="draftHint" id="sendDraftHint" style="margin:12px 0 0">'+(l.channel==='manual-platform'?'Скопируй текст и вставь в форму отклика после входа в свой аккаунт. Открытие карточки не отправляет отклик.':'Письмо откроется с заполненными полями. Отправка происходит вручную из почты.')+'</p></div></div>';
  if(looksEnglish(l.body))displayTranslation(l,translationLanguage[l.id]||'en');
  if(drafts[l.id]){$('draftPanel').hidden=false;$('draftText').value=drafts[l.id]}
  if($('emailFrom'))$('emailFrom').value=senderForLead(l);
@@ -192,7 +189,7 @@ async function generateDraft(){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     if(selected===id)$('draftPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
   }));
-  toast(result.application_mode?'Подготовлен текст для заявки через FL.ru':result.method==='ai'?'Тема и письмо подготовлены':'Подготовлен черновик с темой письма');
+  toast(result.application_mode?'Текст отклика подготовлен для копирования на площадку':result.method==='ai'?'Тема и письмо подготовлены':'Подготовлен черновик с темой письма');
  }catch(e){toast('Ошибка генерации: '+e.message)}
  finally{draftBusy=false;if(btn&&btn.isConnected){btn.disabled=false;btn.textContent=leads.find(x=>x.id===selected)?.channel==='flru-free'?'✦ Подготовить отклик':'✦ Написать письмо'}}
 }
@@ -290,7 +287,7 @@ async function copyDraft(){
  const input=$('draftText'),subject=$('emailSubject');
  if(!input||!subject||!input.value.trim()){toast('Сначала сформируйте письмо');return}
  const lead=leads.find(x=>x.id===selected);
- const full=lead?.channel==='flru-free'?input.value:
+ const full=lead?.channel==='manual-platform'?input.value:
   'От: '+($('emailFrom')?.value||CORPORATE_SENDER)+'\nКому: '+(lead?.contact||'')+'\nТема: '+subject.value+'\n\n'+input.value;
  try{await navigator.clipboard.writeText(full);toast('Адрес, тема и письмо скопированы.')}
  catch{input.focus();input.select();try{document.execCommand('copy');toast('Текст скопирован')}catch{toast('Выдели текст и скопируй вручную')}}
@@ -315,6 +312,14 @@ function hideLead(){const l=leads.find(x=>x.id===selected);if(l)updateLeadFlag('
 async function copyContact(){let l=leads.find(x=>x.id===selected);if(!l)return;try{await navigator.clipboard.writeText(l.contact);toast('Контакт скопирован')}catch{toast('Не удалось скопировать')}}
 async function refreshStatus(){try{let s=await api('/api/status');$('mAll').textContent=pageView==='inbox'?s.counts.direct_new:pageView==='contacted'?s.counts.contacted:pageView==='saved'?s.counts.saved:pageView==='without-email'?s.counts.without_email:pageView==='free-bids'?s.counts.free_new:s.counts.dismissed;$('mSaved').textContent=s.counts.saved||0;$('mSources').textContent=s.sources;$('mCheck').textContent=s.last_scan?when(s.last_scan.at):'Ожидание';$('sideInterval').textContent='Сканирование каждые '+Math.floor(s.interval_seconds/60)+' мин';$('runtime').textContent=s.running?'◌ Сканирование…':'● Мониторинг активен';$('scanButton').disabled=s.running;return true;}catch(e){$('runtime').textContent='● Нет соединения';return false}}
 async function refreshLeads(){try{let data=await api('/api/leads?stage='+encodeURIComponent(stageQuery[pageView]));let ids=new Set(data.items.map(x=>x.id));if(previousIds){let fresh=data.items.filter(x=>!previousIds.has(x.id));if(fresh.length)toast('Новых кандидатов: '+fresh.length)}previousIds=ids;leads=data.items;renderList();return true}catch(e){toast('Ошибка загрузки заказов: '+e.message);return false}}
+async function refreshBrowseSources(){
+ try{
+  const data=await api('/api/browse-sources');
+  const notes=new Map(data.platforms.map(x=>[x.name,x.description]));
+  $('browseSources').innerHTML=data.searches.map(x=>
+   '<a class="source" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" title="'+esc(notes.get(x.site)||'')+'">↗ '+esc(x.site)+' · '+esc(x.title)+'</a>').join('');
+ }catch(e){$('browseSources').textContent='Не удалось загрузить ссылки: '+e.message}
+}
 async function refreshSources(){
  try{
   const [info,status]=await Promise.all([api('/api/sources'),api('/api/status')]);
@@ -369,37 +374,43 @@ async function runScan(){
     const fresh=Number(completed.new_leads||0);
     toast(fresh?'Поиск завершён. Новых заказов: '+fresh:'Поиск завершён. Новых заказов пока нет.');
   }else{
-    toast('Поиск продолжается. Лента обновится автоматически.');
+    toast('Проверка автоисточников продолжается. Лента обновится автоматически.');
   }
  }catch(e){toast('Ошибка повторного поиска: '+e.message)}
  finally{
   scanBusy=false;
-  if(button){button.disabled=false;button.textContent='↻ Новый поиск заказов'}
+  if(button){button.disabled=false;button.textContent='↻ Проверить автоисточники'}
  }
 }
-function showManualLead(){$('manualModal').classList.add('open')}
+function switchManualMode(){
+ const mode=$('manualMethod').value;
+ $('manualEmailRow').hidden=mode!=='email';
+ $('manualEmail').required=mode==='email';
+}
+function showManualLead(){switchManualMode();$('manualModal').classList.add('open')}
 async function saveManualLead(){
  const button=$('manualSubmit');
  if(button.disabled)return;
  const data={
    buyer:$('manualBuyer').value.trim(),
    email:$('manualEmail').value.trim(),
+   reply_via:$('manualMethod').value,
    url:$('manualUrl').value.trim(),
    brief:$('manualBrief').value.trim()
  };
- if(!data.email||!data.url||data.brief.length<35){toast('Укажи email, ссылку и описание задачи от 35 символов');return}
+ if((data.reply_via==='email'&&!data.email)||!data.url||data.brief.length<35){toast('Укажи ссылку, описание от 35 символов и email, если нужен отклик по почте');return}
  button.disabled=true;
  try{
   const answer=await api('/api/lead/manual',data);
   $('manualModal').classList.remove('open');
   ['manualBuyer','manualEmail','manualUrl','manualBrief'].forEach(id=>$(id).value='');
+  $('manualMethod').value='platform';switchManualMode();
   await Promise.all([refreshLeads(),refreshStatus()]);
   selected=answer.id;detailRenderedId=null;renderList();
-  toast('Заказ с email добавлен');
+  toast('Заказ добавлен. Отклик отправляется вручную.');
  }catch(e){toast('Не удалось добавить: '+e.message)}
  finally{button.disabled=false}
 }
-async function addSource(){let url=prompt('Ссылка на публичный Telegram-канал, например https://t.me/s/zakaz_design');if(!url)return;try{let x=await api('/api/source',{url:url.trim()});await refreshSources();toast('Источник добавлен');runScan()}catch(e){toast(e.message)}}
 async function showSettings(){$('settingsModal').classList.add('open');await refreshSettings()}
 async function refreshSettings(){
  try{
@@ -407,8 +418,6 @@ async function refreshSettings(){
   $('chatid').value=settings.telegram_chat_id||'';
   $('threshold').value=settings.min_alert_score;
   $('aiModel').value=settings.ai_model||'gpt-4.1-mini';
-  $('hhState').textContent=settings.hh_token_configured?
-   'OAuth-токен hh.ru сохранён локально':'Токен не указан; анонимные запросы могут блокироваться';
   $('aiState').textContent=settings.ai_configured?
    'ИИ подключён · ключ сохранён локально':
    'ИИ ещё не подключён · работает локальный генератор';
@@ -423,16 +432,14 @@ async function saveSettings(){
               ai_model:$('aiModel').value.trim()};
   if($('token').value.trim())data.telegram_token=$('token').value.trim();
   if($('aiKey').value.trim())data.openai_api_key=$('aiKey').value.trim();
-  if($('hhToken').value.trim())data.hh_api_token=$('hhToken').value.trim();
   await api('/api/settings',data);
   $('token').value='';
   $('aiKey').value='';
-  $('hhToken').value='';
   await refreshSettings();
   toast('Настройки сохранены');
  }catch(e){toast(e.message)}
 }
 async function discoverChat(){try{let r=await api('/api/telegram/discover',{});$('chatid').value=r.chat_id;await saveSettings();toast('Чат найден')}catch(e){toast(e.message)}}
 async function sendTest(){try{await api('/api/telegram/test',{});toast('Пробное сообщение отправлено в Telegram')}catch(e){toast(e.message)}}
-configurePage();refreshStatus();refreshLeads();refreshSources();setInterval(()=>{refreshStatus();refreshLeads()},15000);
+configurePage();switchManualMode();refreshBrowseSources();refreshStatus();refreshLeads();refreshSources();setInterval(()=>{refreshStatus();refreshLeads()},15000);
 </script></body></html>

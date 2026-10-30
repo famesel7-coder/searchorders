@@ -65,7 +65,7 @@ class InboxArchiveTests(unittest.TestCase):
             self.assertEqual(status,200,path)
             self.assertIn("pageView",body)
             self.assertIn('href="/contacted"',body)
-            self.assertIn("Новый поиск заказов",body)
+            self.assertIn("Проверить автоисточники",body)
 
     def test_main_inbox_excludes_contacted_hidden_and_their_reposts(self):
         main=self.get("/api/leads?stage=not_contacted")["items"]
