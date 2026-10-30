@@ -1,0 +1,204 @@
+{
+  "checked_at_msk": "2026-10-30T09:00:54+03:00",
+  "strategy": "Official platform proposals; no cold Telegram outreach",
+  "reviewed": {
+    "sources": [
+      "FL.ru all projects",
+      "FL.ru design",
+      "FL.ru sites",
+      "FL.ru firmennyi-stil",
+      "FL.ru presentation",
+      "FL.ru UI/UX",
+      "FL.ru web-design",
+      "FL.ru logos",
+      "FL.ru social design",
+      "Freelance.ru/task",
+      "Kwork/projects",
+      "Dprofile/jobs/projects",
+      "Workspace/tenders",
+      "Workspace/tenders/web-development",
+      "Workspace/tenders/identity",
+      "Behance freelance jobs",
+      "Tilda Experts",
+      "Strichpunkt freelancer pool",
+      "Freelancehunt/projects"
+    ],
+    "unique_FL_project_detail_pages_read": 14,
+    "workspace_individual_tender_pages_read": 2,
+    "listing_pages_are_not_individual_project_verifications": true,
+    "duplicates_against_previous_2026_10_29_list": [
+      "https://www.fl.ru/projects/5527248/razrabotat-logotip.html",
+      "https://www.fl.ru/projects/5527154/sozdat-topovuyu-prezentatsiyu-tema-finansyi.html",
+      "https://www.fl.ru/projects/5527139/razrabotka-neslojnogo-logotipa-i-firmennogo-blanka-.html",
+      "https://freelance.ru/task/view/13985",
+      "https://workspace.ru/tenders/redizayn-sayta-mebelnoy-fabriki-19087/"
+    ],
+    "caveat": "Number of browsed category/list pages is not number of unique posts. Only counts for manually opened primary briefs are asserted."
+  },
+  "new_projects": [
+    {
+      "rank": 1,
+      "title": "Дизайн многостраничного сайта в Figma",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527336/dizayn-mnogostranichnogo-sayta-v-figma.html",
+      "published": "2026-10-30 07:33",
+      "budget": "по договоренности",
+      "scope": "RU+EN consulting website desktop/mobile, components/forms, logo; developer already assigned",
+      "buyer": "profile <1 month; company not disclosed",
+      "competition_seen": "~11 responses in category listing",
+      "apply": "on FL.ru after login/verification, some projects may require response credits",
+      "fit": "very high",
+      "status": "public response button present"
+    },
+    {
+      "rank": 2,
+      "title": "Дизайн страниц кейсов для B2B-портфолио",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527295/ischem-dizaynera-na-proekt-dizayn-stranits-keysov-portfolio---proektyi.html",
+      "published": "2026-10-29 17:41",
+      "budget": "по договоренности",
+      "scope": "5+ case detail pages desktop+mobile, technical B2B visual language, mockups",
+      "buyer": "Ильшат, 18 years on platform, 56 reviews, 5.0; legal company not disclosed",
+      "competition_seen": "~29 responses",
+      "apply": "on FL.ru after login/verification",
+      "fit": "very high (samsel.site cases)",
+      "status": "public response button present"
+    },
+    {
+      "rank": 3,
+      "title": "Редизайн PROORGANIC на Яндекс Ките",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527019/redizayn-sayta-na-yandeks-kite--dizayner-middle-senior.html",
+      "published": "2026-10-27 18:07",
+      "budget": "по договоренности",
+      "scope": "brand website redesign and navigation on Yandex Kit, 1 month, existing photo/copy team",
+      "buyer": "brand named PROORGANIC, platform account <1 month, relationship not independently verified",
+      "competition_seen": "~26 responses",
+      "apply": "on FL.ru",
+      "fit": "high with caveat platform Yandex Kit",
+      "status": "public response button present"
+    },
+    {
+      "rank": 4,
+      "title": "Прототип сайта деревянного домостроения",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527107/sdelat-prototip-dlya-sayta-stroitelnoy-kompanii-zanimayuscheysya-derevyannyim-domostroeniem.html",
+      "published": "2026-10-28 11:54",
+      "budget": "по договоренности",
+      "scope": "working website prototype from supplied concept for developer handoff",
+      "buyer": "Дмитрий, 11 years 5 months, 18 reviews, 4.9; legal company not disclosed",
+      "competition_seen": "~66 responses",
+      "apply": "on FL.ru",
+      "fit": "high but crowded",
+      "status": "public response button present"
+    },
+    {
+      "rank": 5,
+      "title": "Листовка и уличный баннер по брендбуку",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527323/dizayn-listovki-i-ulichnogo-bannera-.html",
+      "published": "2026-10-30 07:42",
+      "budget": "по договоренности",
+      "scope": "leaflet and outdoor banner for club with existing brandbook",
+      "buyer": "account <1 month; company not disclosed",
+      "competition_seen": "~11 responses",
+      "apply": "on FL.ru",
+      "fit": "high, smaller scope",
+      "status": "public response button present"
+    },
+    {
+      "rank": 6,
+      "title": "ИИ-презентации и видеоматериалы для B2B-портала",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527306/razrabotka-ii-prezentatsiy-i-videomaterialov-dlya-vsemirnogo-portala-tovarov-i-uslug-.html",
+      "published": "2026-10-29 23:08",
+      "budget": "по договоренности",
+      "scope": "English presentations, product demos and tutorial videos for international oil/gas platform",
+      "buyer": "account <1 month; organization not verified",
+      "competition_seen": "~12 responses",
+      "apply": "on FL.ru",
+      "fit": "conditional; large multimedia scope, first-stage free concepts requested, don't provide extensive unpaid work",
+      "status": "public response button present"
+    },
+    {
+      "rank": 7,
+      "title": "24 иллюстрации в стиле абсурдного технического плаката для печати",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527281/sozdat-i-podgotovit-dlya-pechati.html",
+      "published": "2026-10-29 15:58",
+      "budget": "по договоренности",
+      "scope": "24 character scenes, adult ironic bureaucratic design, prepress",
+      "buyer": "account <1 month",
+      "competition_seen": "~10 responses",
+      "apply": "on FL.ru",
+      "fit": "conditional; illustration capability and budget must be checked",
+      "status": "public response button present"
+    },
+    {
+      "rank": 8,
+      "title": "Дизайн хоккейной формы (2 комплекта)",
+      "platform": "FL.ru",
+      "url": "https://www.fl.ru/projects/5527255/dizayn-formyi-.html",
+      "published": "2026-10-29 13:20",
+      "budget": "по договоренности",
+      "scope": "production-ready jersey layouts, sublimation, manufacturer patterns, individual numbers/names",
+      "buyer": "account 10y 10m, 8 reviews, 5.0",
+      "competition_seen": "~7 responses",
+      "apply": "on FL.ru",
+      "fit": "conditional; sports affinity but textile manufacturing expertise required",
+      "status": "public response button present"
+    }
+  ],
+  "conditional_not_new": [
+    {
+      "title": "Редизайн сайта мебельной фабрики",
+      "url": "https://workspace.ru/tenders/redizayn-sayta-mebelnoy-fabriki-19087/",
+      "reason": "previously reported; active till Nov 5, Workspace PRO"
+    },
+    {
+      "title": "Интернет-магазин светильников",
+      "url": "https://freelance.ru/task/view/13985",
+      "reason": "previously reported; freelance.ru listing marks ★ Premium-only, earlier free access claim not supported"
+    },
+    {
+      "title": "Dprofile medical redesign / AI travel assistant / artist site",
+      "url": "https://dprofile.ru/jobs/projects?category=1",
+      "reason": "original dates absent from public rendered listing"
+    },
+    {
+      "title": "Kwork projects",
+      "url": "https://kwork.ru/projects",
+      "reason": "buyer briefs not publicly rendered"
+    },
+    {
+      "title": "Behance jobs",
+      "url": "https://www.behance.net/joblist?jobType=freelance",
+      "reason": "403 access; payment/eligibility not confirmed"
+    },
+    {
+      "title": "Freelancehunt branding book completion",
+      "url": "https://freelancehunt.com/projects",
+      "reason": "dated Oct 28, payment in UAH, bidder and settlement eligibility unclear"
+    }
+  ],
+  "inbound": [
+    {
+      "name": "Tilda Experts",
+      "url": "https://experts.tilda.cc/ru/",
+      "status": "accepts designer profiles, site author ID needed; no account created"
+    },
+    {
+      "name": "Strichpunkt Identity freelancer pool",
+      "url": "https://sp.design/de/karriere/freelance",
+      "status": "open freelancer pool via official form, remote collaboration, German language and payment eligibility need checking; not a specific paid project"
+    }
+  ],
+  "stats": {
+    "primary_FL_briefs_read": 14,
+    "workspace_primary_briefs_read": 2,
+    "new_recommended_distinct": 8,
+    "prior_repeats_detected_at_least": 5,
+    "applications_sent": 0
+  },
+  "notes": "No claim that user has registered, verified or paid. Public response button does not prove free submission; FL.ru official FAQ says some responses free and others require response credits, PRO not required."
+}
