@@ -1,0 +1,181 @@
+{
+  "checked_at_msk": "2026-10-30T19:04:34+03:00",
+  "strategy": "one-off paid deliverables, official on-platform proposals, no Telegram cold DMs",
+  "sources_checked": [
+    "FL.ru projects kind=1 pages 1-3",
+    "FL.ru design, brand identity, web design, presentation, UI/UX, Figma, Tilda categories",
+    "Freelance.ru tasks pages 1-2",
+    "Dprofile projects",
+    "Workspace general and identity tenders",
+    "Kwork projects",
+    "Behance freelance jobs",
+    "Tilda Experts",
+    "Strichpunkt Identity freelance pool"
+  ],
+  "primary_briefs_opened_unique": 18,
+  "counts_note": "18 individually opened and inspected current primary briefs (15 FL.ru, 3 Freelance.ru); category/list pages not counted. Counts are best-effort and do not include previously reviewed morning items.",
+  "new_suitable_or_conditional": 9,
+  "projects": [
+    {
+      "rank": 1,
+      "title": "Библиотека визуальных элементов для B2B-презентации",
+      "url": "https://www.fl.ru/projects/5527396/razrabotka-biblioteki-vizualnyih-elementov-dlya-prezentatsii-v-firmennom-stile.html",
+      "published_msk": "2026-10-30 14:22",
+      "budget": "по договоренности",
+      "scope": "Riso-style visual identity elements AI/SVG/PNG + 3 demo 16:9 slides",
+      "deadline": "2026-11-02",
+      "buyer": "9 months on FL.ru, 1 positive review 5.0, company unnamed",
+      "bids_at_check": 7,
+      "fit": "very high",
+      "caveat": "3 demo slides requested as unpaid test, do not produce full commercial work free"
+    },
+    {
+      "rank": 2,
+      "title": "Редизайн интернет-магазина станков, адаптивная HTML/CSS/JS верстка",
+      "url": "https://www.fl.ru/projects/5527421/redizayn-internet-magazina-stankov-dizayn-adaptiv-i-vrstka.html",
+      "published_msk": "2026-10-30 15:52",
+      "budget": "по договоренности",
+      "scope": "full storefront design plus ready frontend code, responsive desktop/tablet/mobile, WordPress integration not required",
+      "buyer": "11 years 2 months on FL.ru, company anonymous",
+      "bids_at_check": 23,
+      "fit": "high if able to supply working frontend, or partner",
+      "caveat": "paid test stage, need 2-3 live sites, quote design+frontend separately"
+    },
+    {
+      "rank": 3,
+      "title": "5 рекламных креативов для Яндекс Директ",
+      "url": "https://www.fl.ru/projects/5527404/sozdat-5-izobrajeniy-dlya-yandeks-direkt.html",
+      "published_msk": "2026-10-30 14:27",
+      "budget": "по договоренности",
+      "scope": "5 images for Freedom internet provider, 2 with man/woman, logo",
+      "buyer": "8 months on FL.ru, no verified company",
+      "bids_at_check": 16,
+      "fit": "high"
+    },
+    {
+      "rank": 4,
+      "title": "Редактируемый шаблон обложки статьи Яндекс Дзен",
+      "url": "https://www.fl.ru/projects/5527380/dizayn-oblojki-stati-v-yadzen.html",
+      "published_msk": "2026-10-30 12:49",
+      "budget": "по договоренности",
+      "scope": "cover with author photo and editable title, personal brand visual consistency",
+      "buyer": "11 years 5 months, 47 reviews 5.0",
+      "bids_at_check": 16,
+      "fit": "high"
+    },
+    {
+      "rank": 5,
+      "title": "Отрисовка вектора для печати и вышивки",
+      "url": "https://www.fl.ru/projects/5527370/dizayner-vektorschik---tehnicheskiy-illyustrator-dlya-shveynogo-proizvodstva.html",
+      "published_msk": "2026-10-30 11:08",
+      "budget": "по договоренности",
+      "scope": "redraw AI image to production-ready vector and PDF",
+      "buyer": "Sergey, 13 years 4 months, 5 reviews 5.0",
+      "bids_at_check": 10,
+      "fit": "medium-high; print production familiarity"
+    },
+    {
+      "rank": 6,
+      "title": "Анимация наружного рекламного экрана по готовому макету",
+      "url": "https://www.fl.ru/projects/5527375/sozdanie-moushn-animatsii-narujnoy-reklamyi-na-baze-statichnogo-maketa.html",
+      "published_msk": "2026-10-30 11:54",
+      "budget": "по договоренности",
+      "scope": "15 sec 1024x512 mp4 25fps, split-flap airport display text and animated icons",
+      "buyer": "3 years on FL.ru, no reviews visible",
+      "bids_at_check": 12,
+      "fit": "conditional on motion skills"
+    },
+    {
+      "rank": 7,
+      "title": "Страница карты дилеров с поиском",
+      "url": "https://www.fl.ru/projects/5527378/sdelat-odnu-stranitsu-na-sayte-s-kartoy-i-poiskom.html",
+      "published_msk": "2026-10-30 12:50",
+      "budget": "по договоренности",
+      "scope": "dealer/ambassador map with city search, >67 points, host on subdomain or alternative Tilda",
+      "buyer": "Roman, 17 years 6 months, 12 reviews 5.0",
+      "bids_at_check": 34,
+      "fit": "conditional on map data integration and frontend"
+    },
+    {
+      "rank": 8,
+      "title": "Ролик для LED-панели стадиона",
+      "url": "https://www.fl.ru/projects/5527368/sozdanie-rolika-dlya-led-paneli-stadiona.html",
+      "published_msk": "2026-10-30 10:54",
+      "budget": "по договоренности",
+      "scope": "15 sec motion design, 24640x96 LED layout, AE project source, deadline Nov 5",
+      "buyer": "Nikolay, 5 years 8 months",
+      "bids_at_check": 11,
+      "fit": "conditional on After Effects and LED output"
+    },
+    {
+      "rank": 9,
+      "title": "Инфографика-слайды для знакомства с чат-ботом",
+      "url": "https://www.fl.ru/projects/5527391/razrabotat-infografiku-v-vide-slaydov-po-ispolzovaniyu-bota.html",
+      "published_msk": "2026-10-30 13:32",
+      "budget_rub": 3000,
+      "scope": "few onboarding slides for bot, image generation",
+      "buyer": "Roman, new account <1 month",
+      "bids_at_check": 17,
+      "fit": "strong topic but small budget"
+    }
+  ],
+  "rejected_or_blocked": [
+    {
+      "title": "Стикербук 18 страниц + поиск 500 изображений",
+      "url": "https://www.fl.ru/projects/5527408/nakleyki-dlya-ejednevnika.html",
+      "reason": "7200 RUB for 500 images, 18 pages, print prep, CorelDRAW; underpriced"
+    },
+    {
+      "title": "Flexbe лендинг из PowerPoint",
+      "url": "https://www.fl.ru/projects/5527379/sozdanie-prodayuschego-lendinga-na-flexbe-po-gotovoy-prezentatsii.html",
+      "reason": "5000 RUB for full redesign, mobile, lead forms, Metrika and SEO; underpriced"
+    },
+    {
+      "title": "Три сайта для строительных ангаров",
+      "url": "https://www.fl.ru/projects/5527420/sozdat-sayt-na-3-goroda-ili-tri-sayta-po-stroitelstvu-angarovizgotovlenie-i-montaj-metallokonst.html",
+      "reason": "50000 RUB for potentially 3 sites plus SEO, domain, content and support; risky scope"
+    },
+    {
+      "title": "WordPress/WooCommerce 3 languages 150-200 products and calculators",
+      "url": "https://www.fl.ru/projects/5527381/sozdanie-sayta-elektromontajnoy-kompanii-na-word-press.html",
+      "reason": "complex development, payment not specified; only with full-stack partner"
+    },
+    {
+      "title": "5 websites paid per conversion",
+      "url": "https://www.fl.ru/projects/5527384/-5-saytov-polnostyu-pod-klyuch-oplata-za-konversiyu-.html",
+      "reason": "No guaranteed project fee; long-term performance compensation, violates one-off paid delivery priority"
+    },
+    {
+      "title": "Technical 3D product animation",
+      "url": "https://www.fl.ru/projects/5527362/ischu-frilansera-po-sozdaniyu-3d-rolikov.html",
+      "reason": "Requires precise 3D modeling, particles and engineering animation outside proven capabilities"
+    },
+    {
+      "title": "Модернизировать сайт+SEO",
+      "url": "https://freelance.ru/task/view/14166",
+      "reason": "30 pages plus SEO rankings and Maps; broad marketing scope; no defined budget"
+    },
+    {
+      "title": "Мобильный Figma дизайн для спецтехники",
+      "url": "https://freelance.ru/task/view/14129",
+      "reason": "Premium only 1500 RUB/30 days, task full detail inaccessible; high thematic relevance but no verified scope"
+    },
+    {
+      "title": "Адаптировать сайт к планшетам",
+      "url": "https://freelance.ru/task/view/14164",
+      "reason": "Premium only; attachment unavailable"
+    }
+  ],
+  "known_duplicates": "All eight FL.ru projects in morning log data/search_run_2026-10-30_0900_msk_platform_first.json excluded; earlier projects on Workspace and Freelance.ru not represented as new.",
+  "access_notes": {
+    "fl": "Public apply button visible; login and verification required; individual response may consume paid credits; no account status known",
+    "freelance": "Some briefs free and others Premium-only; Premium 1500 RUB/30 days as displayed; do not purchase without user approval",
+    "workspace": "PRO required; no new suitable one-off design tender published today visible",
+    "dprofile": "three recurring projects still lack original dates",
+    "kwork": "project briefs not rendered in public view",
+    "behance": "403 Forbidden",
+    "inbound": "Tilda Experts available for portfolio registration, not a current paid brief; Strichpunkt pool previously reported"
+  },
+  "outreach": "No proposals sent, no subscriptions purchased. No recontact of 17 already-contacted recipients (including 5 Gmail sends).",
+  "pricing": "Do not quote before user approves. Evaluate scope, revisions, adaptivity, animation, delivery source, technical development."
+}
