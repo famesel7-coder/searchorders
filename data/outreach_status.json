@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-28",
+  "updated_at": "2026-10-30",
   "basis": "User-supplied Telegram screenshot confirms sent message and positive response by Karina (shortlisted with decision within 3 days); other records reflect user-reported outreach.",
   "status_legend": {
     "sent_user_reported": "Пользователь сообщил, что написал; подтверждения со стороны адресата ещё нет",
@@ -8,7 +8,8 @@
     "negotiating": "Обсуждается конкретный заказ",
     "won": "Получен оплачиваемый заказ",
     "declined": "Отказ или закрытие запроса",
-    "shortlisted": "Адресат ответил положительно, включил в предварительный список кандидатов; заказа или договора пока нет"
+    "shortlisted": "Адресат ответил положительно, включил в предварительный список кандидатов; заказа или договора пока нет",
+    "sent_connector_confirmed": "Отправка Gmail подтверждена ID сообщения; получение/прочтение адресатом не подтверждено"
   },
   "contacted": [
     {
@@ -141,6 +142,66 @@
       "recommended_follow_up_on": "2026-11-02",
       "proof": "user-provided Telegram screenshot",
       "note": "Contact Telegram handle not visible in screenshot; do not invent. 3-day estimate supplied by contact, not a promise of contract."
+    },
+    {
+      "company": "Future London Academy",
+      "channel": "email",
+      "contact": "partnerships@futurelondonacademy.co.uk",
+      "status": "sent_connector_confirmed",
+      "sent_date": "2026-10-30",
+      "subject": "Freelance Designer",
+      "gmail_message_id": "1a18d82eb6f7ddf6",
+      "source_url": "https://agency.thepending.com/jobs/job/23b3fdc9-e300-4855-9626-07074e5e921b/",
+      "last_reply": null,
+      "note": "Project-based freelance enquiry. No individual assignment awarded or priced; sender famesel7@gmail.com."
+    },
+    {
+      "company": "Make Athlete Action",
+      "channel": "email",
+      "contact": "administrator@makeathleteaction.com",
+      "status": "sent_connector_confirmed",
+      "sent_date": "2026-10-30",
+      "subject": "Freelance Graphic Designer — Project-Based Collaboration",
+      "gmail_message_id": "1a18d83b9380fb05",
+      "source_url": "https://makeathleteaction.com/career-opportunities/",
+      "last_reply": null,
+      "note": "Project-based freelance enquiry. No individual assignment awarded or priced; sender famesel7@gmail.com."
+    },
+    {
+      "company": "IPLIX Media",
+      "channel": "email",
+      "contact": "careers@iplix.in",
+      "status": "sent_connector_confirmed",
+      "sent_date": "2026-10-30",
+      "subject": "Freelance Graphic Designer | Project Collaboration",
+      "gmail_message_id": "1a18d85bbf6e2b03",
+      "source_url": "https://www.linkedin.com/posts/luckymehndiratta_iplix-media-is-hiring-a-freelance-graphic-activity-7500879877143769088-pxjQ",
+      "last_reply": null,
+      "note": "Project-based freelance enquiry. No individual assignment awarded or priced; sender famesel7@gmail.com."
+    },
+    {
+      "company": "Kins",
+      "channel": "email",
+      "contact": "hi@bykins.com",
+      "status": "sent_connector_confirmed",
+      "sent_date": "2026-10-30",
+      "subject": "Freelance Designer | Brand & Web Projects",
+      "gmail_message_id": "1a18d86c88d33d7c",
+      "source_url": "https://in.linkedin.com/company/bykins",
+      "last_reply": null,
+      "note": "Project-based freelance enquiry. No individual assignment awarded or priced; sender famesel7@gmail.com."
+    },
+    {
+      "company": "SO Design Online",
+      "channel": "email",
+      "contact": "support@sodesign.online",
+      "status": "sent_connector_confirmed",
+      "sent_date": "2026-10-30",
+      "subject": "UI/UX Web Designer | Freelance Project Collaboration",
+      "gmail_message_id": "1a18d86ed5fed03e",
+      "source_url": "https://sodesign.online/careers/",
+      "last_reply": null,
+      "note": "Project-based freelance enquiry. No individual assignment awarded or priced; sender famesel7@gmail.com."
     }
   ],
   "not_confirmed_as_sent": [
