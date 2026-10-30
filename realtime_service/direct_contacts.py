@@ -13,14 +13,17 @@ EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
 # Explicit first-party collectors; extend only with collectors that check
 # the actual order page and the contact in that order, not a generic footer.
 DIRECT_CHANNELS = frozenset({
-    "pending-agency", "impactpool-design", "design-jobs-board", "manual-email"
+    "pending-agency", "impactpool-design", "design-jobs-board", "manual-email", "hh-direct"
 })
+PHONE = re.compile(r"\+\d{10,15}")
 
 def is_direct_lead(row, today=None):
     channel = str(row.get("channel") or "")
     email = str(row.get("contact") or "").strip()
     url = str(row.get("url") or "").strip()
-    if channel not in DIRECT_CHANNELS or not EMAIL.fullmatch(email):
+    if channel not in DIRECT_CHANNELS:
+        return False
+    if not EMAIL.fullmatch(email) and not (channel=="hh-direct" and PHONE.fullmatch(email)):
         return False
     text = str(row.get("body") or "").lower()
     reason = str(row.get("reason") or "").lower()
@@ -31,6 +34,10 @@ def is_direct_lead(row, today=None):
         return False
     parsed = urlparse(url)
     if parsed.scheme not in ("https", "http") or not parsed.hostname:
+        return False
+    if channel=="hh-direct" and not re.fullmatch(r"/vacancy/\d{5,15}/?", parsed.path):
+        return False
+    if channel=="hh-direct" and parsed.hostname.lower() not in ("hh.ru", "www.hh.ru"):
         return False
     # Never treat a free exchange bid or a public Telegram repost as a
     # confirmed client contact, even when its name happens to look like email.

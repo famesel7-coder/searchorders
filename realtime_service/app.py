@@ -7,6 +7,7 @@ from .engine import ROOT,RUNTIME,conn,Monitor,sources,INTERVAL
 from .email_sources import SOURCES as EMAIL_SOURCES
 from .direct_contacts import is_direct_lead
 from .direct_email_sources import SOURCES as DIRECT_SOURCES
+from .hh_sources import SOURCES as HH_SOURCES
 from .outreach import create_draft, subject_for_brief
 from .translation import looks_english,body_digest,translate_to_russian
 PORT=int(os.environ.get("SEARCHORDERS_PORT","8787"))
@@ -44,11 +45,11 @@ def send_notifications(rows):
   if not is_direct_lead(row):continue
   dt=datetime.fromisoformat(row["published_at"])
   if ((recent-dt).total_seconds()<=25*60 and row["score"]>=int(s.get("min_alert_score",80))
-      and re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",str(row.get("contact", "")))):
+      and is_direct_lead(row)):
    eligible.append(row)
  if eligible and sys.platform=="darwin":
-  title="SearchOrders: email-заявки"
-  message=f"Новых заявок с опубликованным email: {len(eligible)}. Откройте панель."
+  title="SearchOrders: прямые контакты"
+  message=f"Новых заявок с прямыми контактами: {len(eligible)}. Откройте панель."
   try:subprocess.run(["/usr/bin/osascript","-e",f'display notification "{message}" with title "{title}"'],timeout=5,capture_output=True)
   except Exception as e:print("Local notification:",str(e)[:100],file=sys.stderr)
  if not token or not chat:return
@@ -120,7 +121,8 @@ class Handler(BaseHTTPRequestHandler):
    is_new=lambda r: not r["contacted"] and r["stage"]!="dismissed" and r["contact"].lower() not in blocked
    counts={
      "new":sum(bool(is_new(r)) for r in rows),
-     "email_new":sum(bool(is_new(r)) for r in rows),
+     "direct_new":sum(bool(is_new(r)) for r in rows),
+     "email_new":sum(bool(is_new(r) and "@" in r["contact"]) for r in rows),
      "contacted":sum(bool(r["contacted"] and r["stage"]!="dismissed") for r in rows),
      "saved":sum(bool(r["saved"] and r["stage"]!="dismissed") for r in rows),
      "dismissed":sum(bool(r["stage"]=="dismissed") for r in rows),
@@ -133,14 +135,14 @@ class Handler(BaseHTTPRequestHandler):
    scan=db.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
    checks=[dict(x) for x in db.execute("SELECT * FROM email_source_checks ORDER BY source_id").fetchall()]
    db.close()
-   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES)
+   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES,*HH_SOURCES)
    return self.json({"running":monitor.active,"interval_seconds":INTERVAL,
      "sources":len(allowed),
      "email_sources":[x for x in checks if x["source_id"] in {a["id"] for a in allowed}],
      "counts":counts,"total_leads":len(rows),"by_category":bycat,
      "last_scan":dict(scan) if scan else None})
   if path=="/api/sources":
-   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES)
+   allowed=(*EMAIL_SOURCES,*DIRECT_SOURCES,*HH_SOURCES)
    return self.json({"items":[r["url"] for r in allowed],
      "email_sources":[{"id":r["id"],"name":r["title"],"url":r["url"]} for r in allowed]})
   if path=="/api/settings":
@@ -148,7 +150,8 @@ class Handler(BaseHTTPRequestHandler):
    return self.json({"telegram_configured":bool(conf.get("telegram_token")),"telegram_chat_id":conf.get("telegram_chat_id",""),
       "min_alert_score":int(conf.get("min_alert_score",80)),
       "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or conf.get("openai_api_key")),
-      "ai_model":os.environ.get("SEARCHORDERS_AI_MODEL",conf.get("ai_model","gpt-4.1-mini"))})
+      "ai_model":os.environ.get("SEARCHORDERS_AI_MODEL",conf.get("ai_model","gpt-4.1-mini")),
+      "hh_token_configured":bool(os.environ.get("SEARCHORDERS_HH_TOKEN") or conf.get("hh_api_token"))})
   self.json({"error":"Not found"},404)
  def do_POST(self):
   # The dashboard is intentionally localhost-only by default.
@@ -206,8 +209,8 @@ class Handler(BaseHTTPRequestHandler):
     try:
      lead=db.execute("SELECT body, buyer, category, contact, channel, url, expires_at FROM leads WHERE id=?",(ident,)).fetchone()
      if lead is None:return self.json({"error":"Проект не найден"},404)
-     if not is_direct_lead(dict(lead)):
-      return self.json({"error":"Нет подтверждённого прямого контакта в первоисточнике."},409)
+     if not is_direct_lead(dict(lead)) or not re.fullmatch(r"[^\s@]+@[^\s@]+\.[A-Za-z]{2,}",lead["contact"]):
+      return self.json({"error":"Для письма нужен прямой email. По телефону можно связаться отдельно."},409)
      is_tender=False
      past=db.execute("""SELECT content FROM draft_history
        ORDER BY CASE WHEN lead_id=? THEN 0 ELSE 1 END, id DESC LIMIT 30""",(ident,)).fetchall()
@@ -297,7 +300,7 @@ class Handler(BaseHTTPRequestHandler):
    existing=json.loads(p.read_text()) if p.exists() else []
    if url not in existing:existing.append(url)
    p.write_text(json.dumps(existing,ensure_ascii=False,indent=2))
-   return self.json({"ok":True,"sources":len(EMAIL_SOURCES)+len(DIRECT_SOURCES)})
+   return self.json({"ok":True,"sources":len(EMAIL_SOURCES)+len(DIRECT_SOURCES)+len(HH_SOURCES)})
   if path=="/api/settings":
    c=settings()
    token=data.get("telegram_token")
@@ -316,6 +319,18 @@ class Handler(BaseHTTPRequestHandler):
      return self.json({"error":"Проверьте формат ключа OpenAI API"},400)
     if key:c["openai_api_key"]=key
    if data.get("remove_ai_key") is True:c.pop("openai_api_key",None)
+   if "hh_api_token" in data:
+    value=str(data.get("hh_api_token") or "").strip()
+    if value and not re.fullmatch(r"[A-Za-z0-9_.-]{20,1200}",value):
+     return self.json({"error":"Неверный формат OAuth-токена HeadHunter"},400)
+    if value:
+     c["hh_api_token"]=value
+     db=conn()
+     try:
+      db.execute("DELETE FROM email_source_checks WHERE source_id='hh-direct'")
+      db.commit()
+     finally:db.close()
+   if data.get("remove_hh_token") is True:c.pop("hh_api_token",None)
    if "ai_model" in data:
     model=str(data["ai_model"]).strip()
     if not re.fullmatch(r"[a-zA-Z0-9._-]{3,64}",model):return self.json({"error":"Недопустимое имя модели"},400)
@@ -323,7 +338,8 @@ class Handler(BaseHTTPRequestHandler):
    save_settings(c)
    return self.json({"ok":True,"telegram_configured":bool(c.get("telegram_token")),
         "telegram_chat_id":c.get("telegram_chat_id",""),
-        "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or c.get("openai_api_key"))})
+        "ai_configured":bool(os.environ.get("OPENAI_API_KEY") or c.get("openai_api_key")),
+        "hh_token_configured":bool(os.environ.get("SEARCHORDERS_HH_TOKEN") or c.get("hh_api_token"))})
   if path=="/api/telegram/discover":
    conf=settings();token=conf.get("telegram_token")
    if not token:return self.json({"error":"Сначала сохраните токен бота"},400)
@@ -347,7 +363,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
  server=ThreadingHTTPServer((HOST,PORT),Handler)
  monitor.start(send_notifications)
- print(f"SearchOrders dashboard: http://{HOST}:{PORT}, direct-contact sources: {len(EMAIL_SOURCES)+len(DIRECT_SOURCES)}, interval: {INTERVAL}s",flush=True)
+ print(f"SearchOrders dashboard: http://{HOST}:{PORT}, direct-contact sources: {len(EMAIL_SOURCES)+len(DIRECT_SOURCES)+len(HH_SOURCES)}, interval: {INTERVAL}s",flush=True)
  try:server.serve_forever(poll_interval=.4)
  except KeyboardInterrupt:pass
  finally:monitor.stop.set();server.server_close()
