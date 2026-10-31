@@ -162,15 +162,37 @@
       "portfolio": "https://samsel.site/projects/rocket.html",
       "do_not_reapply": true,
       "cover_letter_submitted_before_application": true
+    },
+    {
+      "company": "ИП Бутюгов Михаил Александрович",
+      "role": "Веб-дизайнер в маркетинговое агентство (удалённые проектные заказы)",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138605016",
+      "status": "applied_with_cover",
+      "evidence": "2026-10-31 Chrome HH page confirmed 'Вы откликнулись' and toast 'Отклик отправлен'; distinct cover letter present in application before submission",
+      "resume_used": "Веб-дизайнер",
+      "portfolio": "https://samsel.site/projects/orla.html",
+      "do_not_reapply": true,
+      "cover_letter_submitted_before_application": true
+    },
+    {
+      "company": "First Hand Media production",
+      "role": "Веб-дизайнер (поддержка сайта), удалённо, почасовая оплата",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138623840",
+      "status": "applied_with_cover",
+      "evidence": "2026-10-31 Chrome HH page confirmed 'Вы откликнулись' and toast 'Отклик отправлен'; distinct cover letter present in application before submission",
+      "resume_used": "Веб-дизайнер",
+      "portfolio": "https://samsel.site/projects/rocket.html",
+      "do_not_reapply": true,
+      "cover_letter_submitted_before_application": true
     }
   ],
   "unknown_remaining_applications": "Other applications from the reported 28 are not individually reconstructed. Exact full registry requires an HH list export or authenticated review.",
   "next_audit_after": "2026-11-04",
   "contact_policy": "Never send, alter, or duplicate employer-facing messages without a direct request. Maintain source-specific evidence.",
-  "new_applications_confirmed_this_run": 3,
+  "new_applications_confirmed_this_run": 5,
   "hh_profile_reported_applications_before_run": 33,
   "additional_applications_requested_this_run": 5,
-  "new_applications_not_sent_this_run": 2,
-  "new_applications_note": "After 3 confirmed sends, Mac foreground switched to Telegram while automating Chrome; stopped to prevent wrong-recipient actions. Two additional application drafts may be prepared but NOT submitted.",
+  "new_applications_not_sent_this_run": 0,
+  "new_applications_note": "Five of five requested applications completed and confirmed 2026-10-31: 138978384, 138895732, 138887342, 138605016, 138623840. Last two sent using isolated Chrome window and URL/front-app checks to avoid accidental messages in Telegram.",
   "last_audit_at": "2026-10-31"
 }
