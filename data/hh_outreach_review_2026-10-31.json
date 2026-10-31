@@ -1,0 +1,137 @@
+{
+  "as_of": "2026-10-31",
+  "scope": "HeadHunter applications and hiring communications, 30 October 2026, Europe/Moscow",
+  "notes": "PARTIAL register: not an export of all HH applications. No inferred interviews, read receipts, or replies. Contacting employers requires user's direct instruction.",
+  "reported_applications_total": 28,
+  "confirmed_rejections": 3,
+  "human_interviews_confirmed": 0,
+  "ai_recruiter_messages_confirmed": 2,
+  "resume_views_previous_day": 5,
+  "resume_views_note": "HH email about five employer views is not evidence that five submitted applications were read.",
+  "source_evidence": {
+    "gmail": "hh.ru notices on 2026-10-30/31",
+    "chat": "user-provided HH screenshots and earlier chats"
+  },
+  "resume_routing": {
+    "presentation": "Дизайнер презентаций",
+    "digital_brand_smm": "Digital-дизайнер / графический дизайнер",
+    "web_tilda": "Веб-дизайнер",
+    "uiux_product": "Проверить наличие профильного UI/UX-резюме; не подменять резюме веб-дизайнера без проверки"
+  },
+  "portfolio_verified_2026_10_31": {
+    "home": "https://samsel.site/",
+    "presentations": "https://samsel.site/presentations.html",
+    "brand_prp": "https://samsel.site/projects/prp.html",
+    "brand_br_group": "https://samsel.site/projects/br-group-branding.html",
+    "web_orla": "https://samsel.site/projects/orla.html",
+    "web_rocket": "https://samsel.site/projects/rocket.html",
+    "event_presentations_haval": "https://samsel.site/projects/haval.html",
+    "web_vrt": "https://samsel.site/projects/vrtworld.html"
+  },
+  "records": [
+    {
+      "company": "Playerok",
+      "role": "Графический дизайнер",
+      "vacancy_url": "https://hh.ru/vacancy/138434678",
+      "status": "rejected",
+      "evidence": "HH Gmail, 2026-10-30 15:53 MSK",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "do_not_reapply": true
+    },
+    {
+      "company": "Grata advertising",
+      "role": "Графический дизайнер (музейное направление)",
+      "vacancy_url": "https://hh.ru/vacancy/138803948",
+      "status": "rejected",
+      "evidence": "HH Gmail, 2026-10-30 18:10 MSK",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "do_not_reapply": true,
+      "risk": "специализированная музейная полиграфия / препресс"
+    },
+    {
+      "company": "Getbrand",
+      "role": "Графический дизайнер / FMCG / дизайн упаковки",
+      "vacancy_url": "https://hh.ru/vacancy/138847343",
+      "status": "rejected",
+      "evidence": "HH Gmail, 2026-10-31 01:13 MSK",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "do_not_reapply": true,
+      "risk": "узкий FMCG-упаковка, производственная подготовка"
+    },
+    {
+      "company": "Онпоинт (Onpoint)",
+      "role": "Дизайнер CLM-презентаций",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138746412",
+      "chat_url": "https://spb.hh.ru/chat/5754207548",
+      "status": "ai_screening_questions",
+      "evidence": "2 HH Gmail notifications of AI assistant questions, 2026-10-30; answer completion not independently confirmed",
+      "resume_to_use_if_new_role": "Дизайнер презентаций",
+      "portfolio": "https://samsel.site/presentations.html",
+      "do_not_reapply": true,
+      "next_step": "проверить вручную состояние диалога и ответов, не считать приглашением на интервью"
+    },
+    {
+      "company": "Goulash.Tech",
+      "role": "Бренд-дизайнер / Digital-дизайнер",
+      "chat_url": "https://spb.hh.ru/chat/5755473223",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH chat screenshots 2026-10-30, earlier misdirected quick reply; subsequent message preview was visible but full current status not verified",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "portfolio": "https://samsel.site/projects/prp.html",
+      "do_not_reapply": true,
+      "next_step": "сверить отправленное письмо и не дублировать обращение"
+    },
+    {
+      "company": "Юридическая компания АРГОС",
+      "role": "Ведущий digital-дизайнер / бренд-дизайнер",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138882296",
+      "chat_url": "https://spb.hh.ru/chat/5755361778",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH screenshot shows application without cover letter; later cover entry opened, actual send not confirmed",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "portfolio": "https://samsel.site/projects/br-group-branding.html",
+      "do_not_reapply": true
+    },
+    {
+      "company": "Реклама и Человек",
+      "role": "Коммуникационный дизайнер SMM, Digital",
+      "vacancy_url": "https://hh.ru/vacancy/138067700",
+      "chat_url": "https://spb.hh.ru/chat/5755356236",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH screenshot showed application without cover; draft provided separately, send not verified",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "portfolio": "https://samsel.site/projects/prp.html",
+      "do_not_reapply": true
+    },
+    {
+      "company": "СберЗдоровье",
+      "role": "Senior Графический дизайнер",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH screenshot 2026-10-30 with application without cover; tailored letter drafted but no delivery confirmation",
+      "resume_to_use_if_new_role": "Digital-дизайнер / графический дизайнер",
+      "portfolio": "https://samsel.site/projects/haval.html",
+      "do_not_reapply": true
+    },
+    {
+      "company": "S+Консалтинг",
+      "role": "Дизайнер презентаций",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH list screenshot, specific application without cover visible; status of cover not verified",
+      "resume_to_use_if_new_role": "Дизайнер презентаций",
+      "portfolio": "https://samsel.site/presentations.html",
+      "do_not_reapply": true
+    },
+    {
+      "company": "Salini SRL",
+      "role": "UI/UX-дизайнер",
+      "status": "applied_cover_status_unverified",
+      "evidence": "HH list screenshot showing application; follow-up unknown",
+      "resume_to_use_if_new_role": "Проверить профильное UI/UX-резюме",
+      "portfolio": "https://samsel.site/projects/orla.html",
+      "do_not_reapply": true
+    }
+  ],
+  "unknown_remaining_applications": "Other applications from the reported 28 are not individually reconstructed. Exact full registry requires an HH list export or authenticated review.",
+  "next_audit_after": "2026-11-04",
+  "contact_policy": "Never send, alter, or duplicate employer-facing messages without a direct request. Maintain source-specific evidence."
+}
