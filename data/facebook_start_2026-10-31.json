@@ -1,0 +1,111 @@
+{
+  "updated_at": "2026-10-31",
+  "purpose": "Launch Facebook as a source of organic, explicit buyer requests for web, UI/UX, branding and presentation projects, not cold direct messages or paid ads.",
+  "access": {
+    "mac": "Facebook login page opened in existing Google Chrome; not authenticated as of inspection",
+    "authentication": "User must sign in or register personally; no passwords or OTP codes shared to assistant",
+    "joined_groups": 0,
+    "profile_setup_completed": false,
+    "posting_or_replying_authorized": false
+  },
+  "account_positioning": {
+    "name": "Vyacheslav Samsel",
+    "intro_en": "Independent Designer | Websites, UI/UX, Brand Identity & Presentations",
+    "about_en": "Independent designer creating websites, digital interfaces, brand identities and presentations. Selected work includes Avito and Haval. Open to paid project work and agency collaborations worldwide. Portfolio: https://samsel.site",
+    "about_ru": "Независимый дизайнер. Разрабатываю сайты, интерфейсы, фирменный стиль и презентации. В портфолио есть работы для Avito и Haval. Открыт к проектному сотрудничеству. Портфолио: https://samsel.site",
+    "website": "https://samsel.site",
+    "precaution": "Use authentic identity; don't create duplicate personal profile solely for commercial solicitation."
+  },
+  "sources": [
+    {
+      "name": "Russian Speaking Business Club UAE",
+      "url": "https://www.facebook.com/groups/BizBreakfast",
+      "category": "Business founder group",
+      "locale": "ОАЭ, русскоязычные",
+      "found_via": "https://rb.ru/list/russkie-za-granicej-podborka-biznes-soobshestv/",
+      "priority": 1,
+      "status": "historical_mention; latest group activity and rules need login",
+      "action": "Check current membership rules, founder requests and whether external collaborators are permitted"
+    },
+    {
+      "name": "Бизнес-беседка",
+      "url": "https://www.facebook.com/groups/BesedkaSuomi",
+      "category": "Russian-speaking business networking",
+      "locale": "Финляндия",
+      "found_via": "https://rb.ru/list/russkie-za-granicej-podborka-biznes-soobshestv/",
+      "priority": 2,
+      "status": "historical_mention; check visibility and activity",
+      "action": "Check owners' requests; avoid promotions before reviewing rules"
+    },
+    {
+      "name": "Бизнес в Германии",
+      "url": "https://www.facebook.com/groups/biznesvgermanii",
+      "category": "Small business networking",
+      "locale": "Германия",
+      "found_via": "https://rb.ru/list/russkie-za-granicej-podborka-biznes-soobshestv/",
+      "priority": 3,
+      "status": "historical_mention; check rules/activity",
+      "action": "Check permissible comments on buyer requests, no self-promotion spam"
+    },
+    {
+      "name": "Русский бизнес в Испании",
+      "url": "https://www.facebook.com/groups/russianbusinessinspain",
+      "category": "Small business",
+      "locale": "Испания",
+      "found_via": "https://rb.ru/list/russkie-za-granicej-podborka-biznes-soobshestv/",
+      "priority": 4,
+      "status": "historical_mention; check age-of-profile and posting limitations",
+      "action": "Check genuine client posts"
+    },
+    {
+      "name": "Remote Tech Jobs",
+      "url": "https://www.facebook.com/groups/remotestartupjobs/",
+      "category": "Remote technical jobs",
+      "locale": "International",
+      "found_via": "https://legiit.com/blog/best-facebook-groups-for-freelancers/",
+      "priority": 5,
+      "status": "source historically listed; current activity unknown",
+      "action": "Filter freelance UI/UX and website design rather than full-time dev jobs"
+    },
+    {
+      "name": "Web Remote",
+      "url": "https://www.facebook.com/groups/webremote/",
+      "category": "Web design and jobs",
+      "locale": "International",
+      "found_via": "https://cases.media/article/pristosuvatis-do-novikh-realii-yak-dizaineru-znaiti-robotu-v-umovakh-viini",
+      "priority": 6,
+      "status": "source historical; current activity unverified",
+      "action": "Seek explicit paid freelance projects"
+    }
+  ],
+  "search_phrases_en": [
+    "looking for a web designer",
+    "need a landing page designer",
+    "need help with website redesign",
+    "looking for freelance UI/UX designer",
+    "need pitch deck design",
+    "looking for branding designer",
+    "need Tilda designer",
+    "need a presentation designer",
+    "recommend a good web designer"
+  ],
+  "search_phrases_ru": [
+    "ищу веб-дизайнера",
+    "нужен дизайнер на проект",
+    "нужен сайт",
+    "нужен лендинг",
+    "сделать презентацию",
+    "нужна айдентика",
+    "дизайнер интерфейсов",
+    "кто сделает сайт",
+    "нужен дизайнер Figma"
+  ],
+  "filtering": "Original author explicitly needs paid external help; first check last 24h, then 72h; direct post with current timestamp, task, geographical/payment compatibility; no old crosspost or full-time jobs presented as urgent projects.",
+  "constraints": [
+    "No unsolicited DM; replies/comments only in direct response to user's permission, group rules and legitimate client request.",
+    "No purchased ads or self-promotional advertising on Facebook targeting/in Russia due to Russian restrictions; organic individualized replies must be vetted.",
+    "Private posts/group member content cannot be inspected before authorization; never report private-group scans as completed.",
+    "Never request or transmit Facebook passwords or MFA codes.",
+    "No groups joined, profiles changed or public posts submitted as of record."
+  ]
+}
