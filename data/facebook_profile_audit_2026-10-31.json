@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-31",
+  "url": "https://www.facebook.com/fame.samsel",
+  "inspected_with": "Browser signed-in tab read-only",
+  "access": "Authenticated Facebook page visible through Browser connector; available tab reader cannot submit form changes. Mac's Chrome AppleScript window did not expose the signed-in tab. No edits made.",
+  "user_goal": "Prepare personal Facebook profile for freelance client acquisition before joining groups or responding to client posts.",
+  "visible": {
+    "display_name": "Vyacheslav Samsel",
+    "displayed_location": "Санкт-Петербург",
+    "work": "SOQ digital — Account/Project Manager (2017 - present, as displayed)",
+    "education": "Pacific National University",
+    "portfolio_website": "Not displayed in available main profile text",
+    "client_relevant_bio": "Not visible in available main profile text",
+    "friends_count": 188,
+    "old_visible_posts": "Portfolio posts referencing Behance, including Monoreto Presentation and Far Horizon in 2018",
+    "cover_and_avatar": "Images present; quality and visual fit not yet audited",
+    "privacy": "Profile is personally oriented. Privacy review needed before public-facing promotion."
+  },
+  "proposals": {
+    "bio_short": "Independent Designer | Websites · UI/UX · Branding · Presentations",
+    "bio_extended_en": "Independent designer specializing in websites, UI/UX, brand identity and presentations. Selected projects include Avito and Haval. Available for freelance projects and agency collaborations. Portfolio: https://samsel.site",
+    "link": "https://samsel.site",
+    "services": [
+      "Website and landing page design",
+      "UI/UX and interface design",
+      "Brand identity and digital visuals",
+      "Presentation and pitch deck design"
+    ],
+    "job_entry": "Independent Designer · Freelance · current; add without changing historical employer unless user confirms it is out of date",
+    "profile_picture": "Professional portrait, verify quality first; do not use personal images from Iamfighter-only project",
+    "cover": "SAMSEL brand cover, needs user-approved design; avoid claiming generated image or uploading image without authorization",
+    "featured_case_links": [
+      "https://samsel.site/projects/haval.html",
+      "https://samsel.site/presentations.html",
+      "https://samsel.site/projects/prp.html"
+    ],
+    "contact": "Use confirmed work email, not guess.",
+    "privacy": "Review phone number, birth date, friend list and visibility before inviting clients."
+  },
+  "status": {
+    "logged_in_browser": true,
+    "actual_edits_made": false,
+    "posts_published": 0,
+    "messages_sent": 0,
+    "groups_joined": 0
+  }
+}
