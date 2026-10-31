@@ -184,6 +184,61 @@
       "portfolio": "https://samsel.site/projects/rocket.html",
       "do_not_reapply": true,
       "cover_letter_submitted_before_application": true
+    },
+    {
+      "company": "Municorn",
+      "role": "Senior Communication Designer",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138997255",
+      "status": "applied_preexisting_verified",
+      "evidence": "HH original vacancy page displayed \"Вы откликнулись\" on 2026-10-31; prior submission timestamp and resume unknown",
+      "do_not_reapply": true,
+      "resume_used": null,
+      "cover_letter_submitted_before_application": null,
+      "portfolio": null
+    },
+    {
+      "company": "Kept, Операционные риски и ESG",
+      "role": "Дизайнер-верстальщик",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138938586",
+      "status": "applied_preexisting_verified",
+      "evidence": "HH original vacancy page displayed \"Вы откликнулись\" on 2026-10-31; prior submission timestamp and resume unknown",
+      "do_not_reapply": true,
+      "resume_used": null,
+      "cover_letter_submitted_before_application": null,
+      "portfolio": null
+    },
+    {
+      "company": "ВсеИнструменты.ру",
+      "role": "Коммуникационный дизайнер",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138874579",
+      "status": "applied_preexisting_verified",
+      "evidence": "HH original vacancy page displayed \"Вы откликнулись\" on 2026-10-31; prior submission timestamp and resume unknown",
+      "do_not_reapply": true,
+      "resume_used": null,
+      "cover_letter_submitted_before_application": null,
+      "portfolio": null
+    },
+    {
+      "company": "Dau Relationship Marketing",
+      "role": "Middle+/Senior Digital Designer (Web & Communications)",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138764860",
+      "status": "applied_preexisting_verified",
+      "evidence": "HH original vacancy page displayed \"Вы откликнулись\" on 2026-10-31; prior submission timestamp and resume unknown",
+      "do_not_reapply": true,
+      "resume_used": null,
+      "cover_letter_submitted_before_application": null,
+      "portfolio": null
+    },
+    {
+      "company": "Convergent",
+      "role": "Коммуникационный дизайнер",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138840158",
+      "status": "applied_with_cover_and_questions",
+      "evidence": "HH original vacancy page displayed \"Вы откликнулись\" after submitting tailored cover and employer questionnaire on 2026-10-31",
+      "do_not_reapply": true,
+      "resume_used": "Digital-дизайнер / графический дизайнер",
+      "cover_letter_submitted_before_application": true,
+      "portfolio": "https://samsel.site"
     }
   ],
   "unknown_remaining_applications": "Other applications from the reported 28 are not individually reconstructed. Exact full registry requires an HH list export or authenticated review.",
@@ -194,5 +249,17 @@
   "additional_applications_requested_this_run": 5,
   "new_applications_not_sent_this_run": 0,
   "new_applications_note": "Five of five requested applications completed and confirmed 2026-10-31: 138978384, 138895732, 138887342, 138605016, 138623840. Last two sent using isolated Chrome window and URL/front-app checks to avoid accidental messages in Telegram.",
-  "last_audit_at": "2026-10-31"
+  "last_audit_at": "2026-10-31",
+  "audit_2026_10_31_batch_of_5": {
+    "preexisting_verified": [
+      "138997255",
+      "138938586",
+      "138874579",
+      "138764860"
+    ],
+    "sent_now_and_verified": [
+      "138840158"
+    ],
+    "notes": "Four were already applied before current attempt; no duplicate sends or resume re-applications. One (Convergent) submitted successfully with a company questionnaire and tailored letter. No claims of response or interview."
+  }
 }
