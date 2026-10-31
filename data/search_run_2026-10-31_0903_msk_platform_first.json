@@ -1,0 +1,159 @@
+{
+  "checked_at_msk": "2026-10-31T09:03:47+03:00",
+  "source_registries": [
+    "data/nontelegram_sources_2026-10-29.json",
+    "decisions/2026-10-29-platform-first-client-acquisition.md",
+    "data/outreach_status.json",
+    "data/search_run_2026-10-30_1904_msk_platform_first.json",
+    "data/search_run_2026-10-30_0900_msk_platform_first.json"
+  ],
+  "policy": "New one-off paid design deliverables, original posting 28-31 Oct, official on-platform applications, no Telegram cold DMs, no repeat outreach, no automatic sends or paid subscriptions",
+  "checked_sources": [
+    "FL.ru (design, sites, presentations, UI/UX, category pages)",
+    "Freelance.ru/task",
+    "Dprofile jobs/projects and detail pages",
+    "Workspace web-development/identity/apps",
+    "Kwork/projects",
+    "Behance freelance jobs",
+    "Tilda Experts"
+  ],
+  "stats": {
+    "individual_primary_cards_read": "12 distinct detail pages: 8 FL.ru, 3 Dprofile, 1 Freelance.ru; 1 additional Dprofile project via search snippet not opened",
+    "new_fully_dated_project_suitable_or_conditionally_suitable": 4,
+    "new_with_relative_or_unconfirmed_date": 2,
+    "already_reported_previous_day": "excluded all previous 30 Oct morning/evening shortlist projects",
+    "other_exclusions": "Bitrix store requires full dev, training-center site 15000 includes technical fixes, WordPress jewelry asks beginner/portfolio, UI/UX gamer vacancy permanent hourly, 500 RUB logo low price, multiple Telegram-first Premium-only task listings",
+    "applications_sent": 0
+  },
+  "new_projects": [
+    {
+      "title": "B2B-презентация продукта омниканального маркетинга для фармацевтических компаний",
+      "url": "https://www.fl.ru/projects/5527447/oformit-prezentatsiyu-b2b-produkta-15-slaydov.html",
+      "date": "2026-10-30 23:38",
+      "budget_rub": 20000,
+      "scope": "15 slides Google Slides, client supplies original deck and references, needs examples and timeframe",
+      "buyer": "Oleg, FL 9y10m, 19 reviews, rating 5.0, agency not legally verified",
+      "application": "FL.ru public response button; verification needed, credits possible",
+      "fit": "Very high Avito and Pyaterochka presentation experience; budget may be low for complex custom graphics",
+      "priority": 1,
+      "competition": "9 responses visible at initial scan"
+    },
+    {
+      "title": "Дизайн линейки безлактозной молочной продукции",
+      "url": "https://www.fl.ru/projects/5527220/bezlaktoznaya-molochnaya-produktsiya.html",
+      "date": "2026-10-29 09:37",
+      "budget": "договорной",
+      "scope": "Milk, sour cream, cottage cheese packaging",
+      "buyer": "Ольга FL 7y3m, 1 review, 5.0; brand not disclosed",
+      "application": "FL.ru official button; verify account",
+      "fit": "Brand/KV experience with dairy, packaging production requirements need clarifying",
+      "priority": 2,
+      "competition": "30 responses visible"
+    },
+    {
+      "title": "Дизайн упаковки масла",
+      "url": "https://www.fl.ru/projects/5527222/dizayn-upakovki-masla.html",
+      "date": "2026-10-29 09:37",
+      "budget": "договорной",
+      "scope": "Butter packaging, same buyer as lactose-free dairy line; one client contact, do not count as separate lead",
+      "buyer": "Ольга FL 7y3m, 1 review",
+      "application": "FL.ru",
+      "fit": "same packaging engagement, potentially bundle scope",
+      "priority": 2,
+      "competition": "31 responses visible"
+    },
+    {
+      "title": "Типография: первые 6-8 макетов с возможностью дальнейшего сотрудничества",
+      "url": "https://www.fl.ru/projects/5527216/dizayner-poligrafist-ofsetnaya-pechat-tsifrovaya-shirokoformatnaya-plotternaya-rezka-fleksopechat.html",
+      "date": "2026-10-29 09:05",
+      "budget": "договорной",
+      "scope": "6-8 print-ready assets; strict workflow for approvals, filenames, cloud upload, many production methods",
+      "buyer": "FL anonymous account 1y1m, company unverified",
+      "application": "FL.ru",
+      "fit": "conditional, only if experienced with all print production formats; initial batch is finite one-off scope, future jobs optional",
+      "priority": 4
+    },
+    {
+      "title": "Интерактивный сайт артели Петербургская",
+      "url": "https://dprofile.ru/job/1695/razrabotka-oficialnogo-interaktivnogo-saita-dlia-arteli-peterburgskaia",
+      "date": "2026-10-30 relative 'Вчера' crawled 31 Oct; exact time not shown",
+      "budget_rub_min": 450000,
+      "budget_rub_max": 750000,
+      "scope": "Fullstack Next.js/Three.js interactive configurator, Bitrix24 integrations, 5-8 weeks, staged design and dev payments",
+      "buyer": "Владимир Скиба, 1 job, SPB; company not independently verified",
+      "application": "Dprofile official button, login likely",
+      "fit": "not for solo designer, only with proven fullstack/3D partner; possible art-direction phase with explicit client agreement",
+      "priority": 3
+    },
+    {
+      "title": "Новогодний мерч и упаковка IT-компании КАУЧ",
+      "url": "https://dprofile.ru/job/1689/dizain-merca-i-upakovki-dlia-novogodnix-podarkov-it-kompanii",
+      "date": "relative '3 дня назад' in search index; exact source timestamp unconfirmed",
+      "budget_rub_min": 100000,
+      "budget_rub_max": 150000,
+      "scope": "Concept + multiple merch items and production print layouts, 10 days; product cybersecurity company",
+      "buyer": "КАУЧ, Moscow, one platform job; not independently verified",
+      "application": "Dprofile on-platform, full page inaccessible to browser but indexed source details available",
+      "fit": "strong event and brand graphics; high workload and deadline, evaluate carefully",
+      "priority": 1,
+      "status": "needs exact date verification"
+    },
+    {
+      "title": "VARNA WB/Ozon Figma card design system",
+      "url": "https://dprofile.ru/job/1686/dizain-sistema-kartocek-varna-dlia-wbozon-i-prompty-dlia-izobrazenii",
+      "date": "relative date inconsistent across crawls; exact source date unconfirmed",
+      "budget": "not specified",
+      "scope": "Add brandbook marketplace rules, Figma templates/components, AI prompts and repeatability on 2-3 products",
+      "buyer": "ADAPTER, Moscow, 1 job, brand VARNA; legal identity not verified",
+      "application": "Dprofile on-platform",
+      "fit": "strong Figma/brand systems, but marketplace examples requested",
+      "priority": 3,
+      "status": "needs exact date verification"
+    }
+  ],
+  "conditional_other": [
+    {
+      "title": "1C Bitrix online store",
+      "url": "https://www.fl.ru/projects/5527451/sozdat-sayt-na-1s-bitriks.html",
+      "date": "2026-10-30 23:38",
+      "budget_rub": 120000,
+      "reason": "Full design, coding and CMS integration; not solo design deliverable"
+    },
+    {
+      "title": "Учебный центр: доработка сайта",
+      "url": "https://www.fl.ru/projects/5527245/dorabotat-sayt-uchebnogo-tsentra.html",
+      "date": "2026-10-29 12:05",
+      "budget_rub": 15000,
+      "reason": "Includes mobile redesign and technical forms; likely scope-budget mismatch"
+    },
+    {
+      "title": "Freelance.ru vector diploma",
+      "url": "https://freelance.ru/task/view/14247",
+      "reason": "Premium-only, no public task detail"
+    },
+    {
+      "title": "Kwork",
+      "url": "https://kwork.ru/projects",
+      "reason": "public project cards not rendered"
+    },
+    {
+      "title": "Behance",
+      "url": "https://www.behance.net/joblist?jobType=freelance",
+      "reason": "403 Forbidden"
+    },
+    {
+      "title": "Workspace furniture factory",
+      "url": "https://workspace.ru/tenders/redizayn-sayta-mebelnoy-fabriki-19087/",
+      "reason": "already reported; active till 5 Nov, requires PRO"
+    }
+  ],
+  "inbound": [
+    {
+      "name": "Tilda Experts",
+      "url": "https://experts.tilda.cc/ru/",
+      "note": "Portfolio/inbound briefs, not a current paid one-off, no account created"
+    }
+  ],
+  "outreach_status": "No send, no payments, no repeat to already contacted; Karina shortlist decision expected Oct31 and followup recommended Nov2; do not automatically contact.",
+  "pricing": "No fixed offer until user approves; 20k for 15 Google slides could be underpriced if custom diagrams and complex visual concept; 100-150k IT merch includes substantial prepress, evaluate."
+}
