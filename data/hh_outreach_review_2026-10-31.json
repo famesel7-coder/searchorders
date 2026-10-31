@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-31",
   "scope": "HeadHunter applications and hiring communications, 30 October 2026, Europe/Moscow",
-  "notes": "PARTIAL register: not an export of all HH applications. No inferred interviews, read receipts, or replies. Contacting employers requires user's direct instruction.",
+  "notes": "PARTIAL register: not an export of all HH applications. No inferred interviews, read receipts, or replies. Contacting employers requires user's direct instruction. New count excludes 3 confirmed applications in this run; recorded separately, NOT as part of the previously reported 28.",
   "reported_applications_total": 28,
   "confirmed_rejections": 3,
   "human_interviews_confirmed": 0,
@@ -129,9 +129,48 @@
       "resume_to_use_if_new_role": "Проверить профильное UI/UX-резюме",
       "portfolio": "https://samsel.site/projects/orla.html",
       "do_not_reapply": true
+    },
+    {
+      "company": "ОДО Аверсэв",
+      "role": "Веб-дизайнер (Figma)",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138978384",
+      "status": "applied_with_cover",
+      "evidence": "2026-10-31 screenshot of HH confirmation after submitting cover and selecting correct resume",
+      "resume_used": "Веб-дизайнер",
+      "portfolio": "https://samsel.site/projects/orla.html",
+      "do_not_reapply": true,
+      "cover_letter_submitted_before_application": true
+    },
+    {
+      "company": "Dramatichno",
+      "role": "Дизайнер (Middle / Senior), 3-месячная проектная работа",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138895732",
+      "status": "applied_with_cover",
+      "evidence": "2026-10-31 screenshot of HH confirmation after submitting cover and selecting correct resume",
+      "resume_used": "Digital-дизайнер / графический дизайнер",
+      "portfolio": "https://samsel.site/projects/haval.html",
+      "do_not_reapply": true,
+      "cover_letter_submitted_before_application": true
+    },
+    {
+      "company": "TutorOnline",
+      "role": "Веб-дизайнер / UX/UI-дизайнер",
+      "vacancy_url": "https://spb.hh.ru/vacancy/138887342",
+      "status": "applied_with_cover",
+      "evidence": "2026-10-31 screenshot of HH confirmation after submitting cover and selecting correct resume",
+      "resume_used": "Веб-дизайнер",
+      "portfolio": "https://samsel.site/projects/rocket.html",
+      "do_not_reapply": true,
+      "cover_letter_submitted_before_application": true
     }
   ],
   "unknown_remaining_applications": "Other applications from the reported 28 are not individually reconstructed. Exact full registry requires an HH list export or authenticated review.",
   "next_audit_after": "2026-11-04",
-  "contact_policy": "Never send, alter, or duplicate employer-facing messages without a direct request. Maintain source-specific evidence."
+  "contact_policy": "Never send, alter, or duplicate employer-facing messages without a direct request. Maintain source-specific evidence.",
+  "new_applications_confirmed_this_run": 3,
+  "hh_profile_reported_applications_before_run": 33,
+  "additional_applications_requested_this_run": 5,
+  "new_applications_not_sent_this_run": 2,
+  "new_applications_note": "After 3 confirmed sends, Mac foreground switched to Telegram while automating Chrome; stopped to prevent wrong-recipient actions. Two additional application drafts may be prepared but NOT submitted.",
+  "last_audit_at": "2026-10-31"
 }
