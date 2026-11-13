@@ -29,6 +29,22 @@ class ClassifierTests(unittest.TestCase):
   x=classify("Я дизайнер ищу проекты и заказы. Разработаю сайт, UI/UX и презентации. Мой контакт @portfolio_sales",
    "https://t.me/test/5",self.node,"test",self.now)
   self.assertIsNone(x)
+ def test_self_promotion_looking_for_clients(self):
+  x=classify("Сейчас активно ищу заказчиков на ноябрь-декабрь. Делаю сайты, UI/UX и key visual. Пишите @designer_sales",
+   "https://t.me/test/self1",self.node,"test",self.now)
+  self.assertIsNone(x)
+ def test_self_promotion_open_for_work(self):
+  x=classify("Графический дизайнер, открыт к проектам и беру заказы. Делаю брендинг, презентации и сайты. @open_designer",
+   "https://t.me/test/self2",self.node,"test",self.now)
+  self.assertIsNone(x)
+ def test_generic_ishu_is_not_buyer_intent(self):
+  x=classify("Ищу работу и проекты. UI UX дизайнер, Figma, лендинги. Контакт @job_seeker",
+   "https://t.me/test/self3",self.node,"test",self.now)
+  self.assertIsNone(x)
+ def test_buyer_ishu_specialista_still_allowed(self):
+  x=classify("Ищу специалиста по UI/UX для редизайна приложения. Разовая оплачиваемая задача. Пишите @real_buyer",
+   "https://t.me/test/buyer1",self.node,"test",self.now)
+  self.assertIsNotNone(x)
  def test_multiple_ads_in_one_post(self):
   x=classify("1. #Вебдизайнер Ищем сайт, @oneclient 2. #Презентации Ищем презентацию @secondclient",
    "https://t.me/test/6",self.node,"rueventjob",self.now)
