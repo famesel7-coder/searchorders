@@ -16,10 +16,11 @@ CATEGORIES={
  "presentations":("Презентации",r"презентац|pitch.?deck|питч.?дек|слайд|powerpoint|инфографик|keynote|google.?slides"),
  "branding":("Брендинг / графика",r"брендинг|брендбук|айдентик|фирменн.{0,12}стил|визуальн.{0,12}стил|key.?visual|графическ.{0,12}дизайн|smm.?дизайн|дизайн.?баннер|event.?дизайн")
 }
-INTENT=r"ищем|ищу|ищет|ищет|ищут|требуется|нуж(?:ен|на|но|ны)|подрядчик|необходимо (?:создать|разработать|оформить)|looking for|seeking|need a"
+BUYER_ROLE=r"дизайнер[а-яё]*|специалист[а-яё]*|подрядчик[а-яё]*|исполнител[а-яё]*|верстальщик[а-яё]*|разработчик[а-яё]*|команд[ауые]|человек[а-яё]*"
+INTENT=rf"(?:ищем|ищу|ищет|ищут)\s+(?:(?:срочно|опытного|сильного|хорошего|крутого)\s+)?(?:{BUYER_ROLE})|требуется\s+(?:{BUYER_ROLE})|нуж(?:ен|на|но|ны)\s+(?:{BUYER_ROLE})|необходимо (?:создать|разработать|оформить)|looking for\s+(?:an?\s+)?(?:designer|specialist|contractor|freelancer|developer)|seeking\s+(?:an?\s+)?(?:designer|specialist|contractor|freelancer|developer)|need\s+(?:an?\s+)?(?:designer|specialist|contractor|freelancer|developer)"
 PROJECT=r"проект|разов|фриланс|подряд|удал[её]н|бюджет|оплат|сдельн|договор|freelance|contract|тип работы:\s*проектн"
 FULLTIME=r"в штат|на постоянн|полн[а-я]+ занятост|пятиднев|график 5/2|оклад|full.time|тип работы:\s*постоянн"
-SELF_PROMO=r"предлага[юем] (?:свои )?услуг|мы (?:разрабатываем|созда[её]м) сайты|помогаем бизнес|наша студия|ищу проекты и сотрудничество|дизайнер.{0,65}открыт к проектам|ищу клиентов на свои услуги"
+SELF_PROMO=r"предлага[юем] (?:свои )?услуг|мы (?:разрабатываем|созда[её]м) сайты|помогаем бизнес|ищу проекты и сотрудничество|дизайнер.{0,65}открыт к проектам|ищу (?:клиентов|заказчиков)(?: на свои услуги)?|сейчас активно ищу заказчиков|ищу заказы|беру заказы|беру проекты|открыт[аы]? к (?:заказам|проектам|работе)|свободен для проектов|available for work|looking for clients|open for commissions|могу (?:сделать|нарисовать|разработать)|готов[аы]? взять (?:заказ|проект)"
 CONTACT=re.compile(r"(?<![\w.])@[a-zA-Z][\w]{4,31}\b|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|https?://t\.me/[a-zA-Z][\w]{4,31}",re.I)
 BLOCKED={"zakaz_design","digitaltender","freelancetaverna","frilans","designizer","jobaem","telegram","pro_zayavki"}
 SQL="""CREATE TABLE IF NOT EXISTS leads(id TEXT PRIMARY KEY,url TEXT UNIQUE,channel TEXT,published_at TEXT,discovered_at TEXT,
@@ -100,7 +101,6 @@ def classify(text,url,node,channel,published):
   if found>hits:category=key;hits=found
  if not category or not re.search(INTENT,text[:650],re.I):return None
  if not any(re.search(p,text[:520],re.I) for _,p in CATEGORIES.values()):return None
- if re.search(SELF_PROMO,text,re.I) and not re.search(r"ищ[уе]м|нуж(?:ен|на|но|ны)|требуется",text,re.I):return None
  project=bool(re.search(PROJECT,text,re.I))
  fulltime=bool(re.search(FULLTIME,text,re.I))
  if fulltime and not re.search(r"проектная работа|проектный формат|под конкретный проект|разовая задача|сдельно|фриланс|freelance",text,re.I):return None
