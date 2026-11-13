@@ -45,6 +45,14 @@ class ClassifierTests(unittest.TestCase):
   x=classify("Ищу специалиста по UI/UX для редизайна приложения. Разовая оплачиваемая задача. Пишите @real_buyer",
    "https://t.me/test/buyer1",self.node,"test",self.now)
   self.assertIsNotNone(x)
+ def test_motion_designer_behance_pitch_is_self_promo(self):
+  x=classify("Привет! Я Вадим, моушен-дизайнер с опытом 2,5 года. Кейсы на Behance. Занимаюсь 2D-анимацией, инфографикой и графикой. Сейчас ищу студии и команды для регулярного проектного сотрудничества. Разовые задачи тоже рассматриваю. Пишите vadimabasev@gmail.com",
+   "https://t.me/test/self4",self.node,"test",self.now)
+  self.assertIsNone(x)
+ def test_buyer_team_of_designers_still_allowed(self):
+  x=classify("Ищу команду дизайнеров для редизайна веб-сервиса. Проектная работа, оплачиваемая. Пишите @buyer_team",
+   "https://t.me/test/buyer2",self.node,"test",self.now)
+  self.assertIsNotNone(x)
  def test_multiple_ads_in_one_post(self):
   x=classify("1. #Вебдизайнер Ищем сайт, @oneclient 2. #Презентации Ищем презентацию @secondclient",
    "https://t.me/test/6",self.node,"rueventjob",self.now)
