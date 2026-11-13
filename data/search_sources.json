@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-28",
+  "updated_at": "2026-11-13",
   "policy": "Only use source registries for discovery, not automatically qualified leads. Date, client identity, paid project & task-specific direct contact must be verified from original post. Sources are public pages observed during research, not approved contacts.",
   "targets_per_day": {
     "unique_sources_scanned_min": 20,
@@ -127,6 +127,131 @@
       "tier": "aggregator_discovery_only",
       "url": "https://tgden.com/ru/chat/uiux_jobs",
       "specialty": "UI/UX чат и статистика, не первоисточник"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/zakazi_designers",
+      "specialty": "Разовые заказы для графических, web и UX/UI дизайнеров; часто прямой контакт"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/design_careers",
+      "specialty": "Product/UI/UX/graphic вакансии и проектные роли"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/dsgnjob",
+      "specialty": "Дизайн-вакансии и фриланс"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/designhunters",
+      "specialty": "Design Hunters: product/UI/UX/graphic/art direction"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/designwork_vacansii",
+      "specialty": "Высокочастотная лента вакансий и проектов, часто прямой Telegram/email"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/jun_hi_vacancies",
+      "specialty": "UX/UI, product, graphic из множества источников"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/fordesigner",
+      "specialty": "Job for Designers: product/UI/UX/graphic/art direction"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/hcareers_jobs",
+      "specialty": "Digital и дизайн-вакансии"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/motionhunter",
+      "specialty": "Motion/3D/VFX/AI, проектные заказы"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/bbe_jobs",
+      "specialty": "Креативная индустрия, дизайн и digital"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/junior_designers",
+      "specialty": "Junior design и стажировки"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/Inwork",
+      "specialty": "Work in: вакансии от друзей, часто прямые контакты"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/designer_vacancies",
+      "specialty": "Графика/UI/UX/3D и заказы"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/dsgn_vacancies",
+      "specialty": "Заказы и вакансии для дизайнеров"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/design_jobs_uxui",
+      "specialty": "UX/UI/Graphic вакансии"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/vacancies_dsgn",
+      "specialty": "Вакансии для дизайнеров, прямые контакты"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/vakansii_design",
+      "specialty": "Дизайн-вакансии и проекты"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/workindesign",
+      "specialty": "Work for Designers: web/graphic/3D/motion"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/rost_design",
+      "specialty": "UX/UI, product, graphic и web вакансии"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/jobs_designer",
+      "specialty": "Фриланс для дизайнеров: удалённые вакансии и заказы"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/uxui_designer_vacancies",
+      "specialty": "UX/UI и product вакансии"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/job4designer",
+      "specialty": "Работа для дизайнеров: UI/UX, web и graphic"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/dizayner_vakansiii",
+      "specialty": "Работа для дизайнера: UI/UX и удалённые роли"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/DesJobUa",
+      "specialty": "Украинские UX/UI/Web/Graphic вакансии, часть удалённая"
+    },
+    {
+      "tier": "telegram_primary",
+      "url": "https://t.me/s/design_freevacancies",
+      "specialty": "Ищу дизайнера: разовые заказы и вакансии с прямыми контактами"
     }
   ],
   "search_queries": [
