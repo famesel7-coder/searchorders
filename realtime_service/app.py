@@ -129,7 +129,9 @@ class Handler(BaseHTTPRequestHandler):
      "email_sources":checks,
      "counts":counts,"total_leads":total_count,"by_category":bycat,"last_scan":dict(scan) if scan else None})
   if path=="/api/sources":
-   return self.json({"items":sources()+[row["url"] for row in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES)],
+   telegram_sources=sources()
+   return self.json({"items":telegram_sources+[row["url"] for row in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES)],
+      "telegram_sources":telegram_sources,
       "email_sources":[{"id":row["id"],"name":row["title"],"url":row["url"]} for row in (*EMAIL_SOURCES,*FREE_SOURCES,*DIRECT_SOURCES)]})
   if path=="/api/settings":
    conf=settings()
@@ -151,6 +153,33 @@ class Handler(BaseHTTPRequestHandler):
     return self.json({"error":"Ожидался JSON-запрос из SearchOrders"},415)
   try:data=self.readjson()
   except (ValueError,json.JSONDecodeError) as e:return self.json({"error":str(e)},400)
+  if path in ("/api/source", "/api/source/remove"):
+   origin=self.headers.get("Origin")
+   expected="http://"+self.headers.get("Host","127.0.0.1:"+str(PORT))
+   if origin and origin!=expected:
+    return self.json({"error":"Отклонён запрос с другого сайта"},403)
+   if self.headers.get("Content-Type","").split(";")[0].strip().lower()!="application/json":
+    return self.json({"error":"Ожидался JSON-запрос"},415)
+   if not isinstance(data,dict) or set(data)!={"url"}:
+    return self.json({"error":"Нужна только ссылка на публичный канал"},400)
+   from .source_store import add_source, remove_source, canonical_url
+   try:
+    channel=canonical_url(data["url"])
+    if path=="/api/source/remove":
+     return self.json(remove_source(channel,ROOT/"data/search_sources.json",RUNTIME))
+    # Require a visible public feed, not merely an existing Telegram account.
+    import requests
+    response=requests.get(channel,timeout=10,allow_redirects=True)
+    if response.status_code!=200 or "data-post=" not in response.text:
+     return self.json({"error":"У канала нет доступной публичной ленты"},422)
+    result=add_source(channel,ROOT/"data/search_sources.json",RUNTIME)
+    if result.get("added") and not monitor.active:
+     threading.Thread(target=monitor.scan,args=(send_notifications,),daemon=True).start()
+    return self.json(result)
+   except (ValueError,OSError) as exc:
+    return self.json({"error":str(exc)},400)
+   except requests.RequestException:
+    return self.json({"error":"Не удалось проверить Telegram-ленту"},502)
   if path=="/api/translate":
    ident=str(data.get("id",""))
    lang=str(data.get("target","ru"))
