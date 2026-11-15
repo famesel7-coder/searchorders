@@ -69,13 +69,9 @@ def conn():
  return db
 
 def sources():
- registry=json.loads((ROOT/"data/search_sources.json").read_text(encoding="utf8"))["source_registry"]
- urls=[x["url"] for x in registry if x.get("tier")=="telegram_primary"]
- extra=RUNTIME/"extra_sources.json"
- if extra.exists():
-  try: urls.extend(x for x in json.loads(extra.read_text()) if re.fullmatch(r"https://t\.me/s/[A-Za-z0-9_]+",x))
-  except (ValueError,OSError):pass
- return list(dict.fromkeys(urls))
+ from .source_store import list_sources
+ return list_sources(ROOT/"data/search_sources.json",RUNTIME)
+
 
 def contacted():
  try:
